@@ -13,7 +13,8 @@ const REVIEW_FRACTION = 0.4
  * Assemble a bite-sized, personalised lesson:
  *  - up to ~40 % review of due weak spots (spaced repetition), then
  *  - fresh, unseen questions weighted to the real exam composition
- *    (legal-heavy), falling back to seen-but-unmastered if a group runs out.
+ *    (even across the three categories), falling back to seen-but-unmastered
+ *    if a group runs out.
  * Always returns exactly LESSON_SIZE distinct questions (shuffled).
  */
 export function buildLesson(

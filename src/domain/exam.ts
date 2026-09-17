@@ -6,8 +6,9 @@ import { score as sessionScore, type SessionState } from './session'
 export const EXAM: ExamConfig = META.exam
 
 /**
- * Assemble a mock exam matching the official 2026 composition
- * (52 legal + 5 nauka + 3 health = 60), then shuffle the order.
+ * Assemble a mock exam matching the EPSO/AD/430/26 field-related MCQ
+ * composition (10 engineering + 10 governance + 10 policy = 30), then
+ * shuffle the order.
  */
 export function buildExam(rng: Rng): Question[] {
   const picked: Question[] = []
