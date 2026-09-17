@@ -37,6 +37,14 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: E2E (Playwright)
         run: npm run e2e
+      # e2e rebuilds dist at '/', so the Pages build comes last. PAGES_BASE is a repo
+      # variable: '/epso-kviz/' while on github.io, unset once the custom domain is live.
+      - name: Build for Pages
+        run: npm run build
+        env:
+          VITE_BASE: ${{ vars.PAGES_BASE }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

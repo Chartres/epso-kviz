@@ -5,8 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath } from 'node:url'
 
-// Served at the custom domain root https://epsokviz.dravec.org/ (and locally at /).
-const base = '/'
+// Custom domain root by default; VITE_BASE=/epso-kviz/ serves from chartres.github.io/epso-kviz/.
+const base = process.env.VITE_BASE || '/'
 
 export default defineConfig({
   base,
@@ -23,8 +23,8 @@ export default defineConfig({
           'Practice trainer for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) MCQ — 30 questions, 40 minutes. Free, offline, no ads.',
         lang: 'en',
         dir: 'ltr',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#0d0f13',
