@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+
+/*
+  "Metal, not aggression" design tokens.
+  Refined gunmetal & brushed steel, a single restrained brass/amber accent.
+  Calm, precise, machined — never tactical or alarming.
+*/
+@theme {
+  /* Gunmetal neutrals (cool, slightly blue-grey) — tuned for strong contrast */
+  --color-steel-50: #f7f8f9;
+  --color-steel-100: #eef0f2;
+  --color-steel-200: #d8dde2;
+  --color-steel-300: #bcc4cd;
+  --color-steel-400: #9aa5b2;
+  --color-steel-500: #7e8997;
+  --color-steel-600: #5e6877;
+  --color-steel-700: #3c434e;
+  --color-steel-800: #232830;
+  --color-steel-900: #161a20;
+  --color-steel-950: #0d0f13;
+
+  /* Brass / amber accent — focus, selection, "correct" highlight */
+  --color-brass-300: #f0d49c;
+  --color-brass-400: #ddb874;
+  --color-brass-500: #c89a4e;
+  --color-brass-600: #a87b35;
+
+  /* Calm semantic feedback (never harsh) */
+  --color-verdigris-400: #82c4af;
+  --color-verdigris-500: #4f8d7b;
+  --color-rust-400: #d99877;
+  --color-rust-500: #b06f4f;
+
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Squared, machined corners — not the default rounded "card" look. */
+  --radius-card: 2px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-steel-950);
+  color: var(--color-steel-100);
+  font-family: var(--font-sans);
+  font-feature-settings: 'tnum' 1; /* tabular numerals for scores */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* clean gunmetal: a soft top light over a vertical gradient (no tiling) */
+  background-color: var(--color-steel-950);
+  background-image:
+    radial-gradient(1100px 620px at 50% -12%, rgba(125, 134, 148, 0.18), transparent 60%),
+    linear-gradient(180deg, #13161c 0%, var(--color-steel-950) 45%);
+  background-repeat: no-repeat;
+}
+
+/* Prevent horizontal overflow (e.g. edge tooltips) without breaking sticky/fixed. */
+#root {
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brass-500) 35%, transparent);
+  color: var(--color-steel-50);
+}
+
+/* Subtle brushed-metal texture for panels */
+.metal-grain {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.014) 0px,
+    rgba(255, 255, 255, 0.014) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Backlit-gunmetal glow — used sparingly on the active/correct/primary surface */
+.glow-brass {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-brass-500) 35%, transparent),
+    0 0 26px -10px color-mix(in srgb, var(--color-brass-400) 80%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.glow-verdigris {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-verdigris-500) 45%, transparent),
+    0 0 26px -10px color-mix(in srgb, var(--color-verdigris-400) 75%, transparent);
+}
+
+/* Sharp, backlit focus ring across all interactive elements */
+*:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 1px var(--color-brass-400),
+    0 0 18px -6px color-mix(in srgb, var(--color-brass-400) 90%, transparent);
+}
+
+/* Registration-mark corner ticks for the "instrument panel" signature */
+.instrument {
+  position: relative;
+}
+.instrument::before,
+.instrument::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-color: color-mix(in srgb, var(--color-brass-400) 70%, transparent);
+  pointer-events: none;
+}
+.instrument::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.instrument::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Prose styling for the study guide (no typography plugin) */
+.study-prose h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-brass-300);
+  border-bottom: 1px solid var(--color-steel-700);
+  padding-bottom: 0.4rem;
+}
+.study-prose h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-steel-100);
+}
+.study-prose h4 {
+  margin: 1rem 0 0.4rem;
+  font-weight: 600;
+  color: var(--color-steel-200);
+}
+.study-prose p {
+  margin: 0.6rem 0;
+  line-height: 1.7;
+  color: var(--color-steel-300);
+}
+.study-prose ul,
+.study-prose ol {
+  margin: 0.6rem 0 0.6rem 1.25rem;
+  list-style: disc;
+  color: var(--color-steel-300);
+  line-height: 1.7;
+}
+.study-prose li {
+  margin: 0.25rem 0;
+}
+.study-prose strong {
+  color: var(--color-steel-100);
+  font-weight: 600;
+}
+.study-prose table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.study-prose th,
+.study-prose td {
+  border: 1px solid var(--color-steel-700);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  color: var(--color-steel-300);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

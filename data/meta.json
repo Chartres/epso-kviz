@@ -1,0 +1,66 @@
+{
+  "source": "EPSO/AD/430/26 Notice of Competition, Annex II (Field 1 — Artificial Intelligence), OJ C/2026/4668; Reg. (EU) 2024/1689 (AI Act) as amended by Reg. (EU) 2026/1744 (Digital Omnibus on AI); EU digital acquis primary sources",
+  "sourceUrl": "https://eur-lex.europa.eu/eli/C/2026/4668/oj",
+  "totalQuestions": 180,
+  "categories": [
+    {
+      "id": "engineering",
+      "name": "AI Engineering & Operations",
+      "group": "engineering",
+      "range": [
+        1,
+        60
+      ],
+      "count": 60
+    },
+    {
+      "id": "governance",
+      "name": "AI Act & Governance",
+      "group": "governance",
+      "range": [
+        1001,
+        1060
+      ],
+      "count": 60
+    },
+    {
+      "id": "policy",
+      "name": "EU Digital Policy & Strategy",
+      "group": "policy",
+      "range": [
+        2001,
+        2060
+      ],
+      "count": 60
+    }
+  ],
+  "exam": {
+    "totalQuestions": 30,
+    "composition": [
+      {
+        "group": "engineering",
+        "categories": [
+          "AI Engineering & Operations"
+        ],
+        "count": 10
+      },
+      {
+        "group": "governance",
+        "categories": [
+          "AI Act & Governance"
+        ],
+        "count": 10
+      },
+      {
+        "group": "policy",
+        "categories": [
+          "EU Digital Policy & Strategy"
+        ],
+        "count": 10
+      }
+    ],
+    "passThreshold": 15,
+    "timeLimitMinutes": 40
+  },
+  "duplicatePairs": []
+}
