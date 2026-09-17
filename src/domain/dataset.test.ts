@@ -6,7 +6,7 @@ describe('dataset invariants', () => {
   it('has unique ids spanning the three category ranges', () => {
     const ids = ALL_QUESTIONS.map((q) => q.id).sort((a, b) => a - b)
     expect(new Set(ids).size).toBe(ids.length)
-    expect(ids.length).toBe(180)
+    expect(ids.length).toBe(META.totalQuestions)
   })
 
   it('has no duplicate pairs (none declared for this dataset)', () => {

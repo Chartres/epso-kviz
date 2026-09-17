@@ -3,6 +3,7 @@ import { reducer, initialState, type AppState } from './store'
 import { makeRng } from '@/domain/rng'
 import { emptyProgress, recordAnswer, statFor } from '@/domain/progress'
 import { currentQuestion, score } from '@/domain/session'
+import { byCategory } from '@/domain/questions'
 
 function start(overrides: Partial<AppState> = {}): AppState {
   return { ...initialState(), ...overrides }
@@ -15,7 +16,7 @@ describe('app store', () => {
     s = reducer(s, { type: 'startPractice', rng: makeRng(1) })
     expect(s.view).toBe('quiz')
     expect(s.mode).toBe('practice')
-    expect(s.session?.questions.length).toBe(60)
+    expect(s.session?.questions.length).toBe(byCategory('EU Digital Policy & Strategy').length)
     expect(s.session?.questions.every((q) => q.cat === 'EU Digital Policy & Strategy')).toBe(true)
   })
 

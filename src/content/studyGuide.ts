@@ -78,7 +78,7 @@ export const LESSONS: Lesson[] = [
     title: '3 · Prohibited practices — the list of eight (plus one)',
     source: AI_ACT,
     html: `
-<p>Art 5, applicable since <strong>2 Feb 2025</strong> (with Art 4 AI literacy). Memorise as a list:</p>
+<p>Art 5, applicable since <strong>2 Feb 2025</strong> (with Art 4 AI literacy — rewritten by the Omnibus as an obligation of effort: take measures supporting AI literacy, no guaranteed level). Memorise as a list:</p>
 <ol>
 <li><strong>(a) Subliminal / manipulative techniques</strong> materially distorting behaviour, causing significant harm.</li>
 <li><strong>(b) Exploiting vulnerabilities</strong> (age, disability, social/economic situation).</li>
@@ -99,7 +99,7 @@ export const LESSONS: Lesson[] = [
     html: `
 <p><strong>Two routes in (Art 6):</strong> (1) safety component of an Annex I regulated product (machinery, toys, medical devices, vehicles); (2) stand-alone system in an <strong>Annex III</strong> area. The <strong>Art 6(3) filter</strong> exempts narrow procedural/preparatory tasks — but <strong>profiling of natural persons is always high-risk</strong>, and the filter claim must be documented and registered.</p>
 <p><strong>Annex III — eight areas:</strong> biometrics · critical infrastructure · education · employment · essential services (benefits, <strong>credit scoring</strong>, life/health insurance pricing, emergency dispatch) · law enforcement · migration/asylum/border · justice & democratic processes.</p>
-<p><strong>System requirements (Arts 8–15):</strong> risk management (9) · <strong>data governance</strong> (10; 10(5) allows sensitive data strictly for bias correction) · technical documentation (11) · logging (12) · transparency to deployers (13) · <strong>human oversight</strong> (14; biometric ID needs two-person verification) · accuracy, robustness, <strong>cybersecurity</strong> incl. resistance to data poisoning and adversarial examples (15).</p>
+<p><strong>System requirements (Arts 8–15):</strong> risk management (9) · <strong>data governance</strong> (10). Sensitive data for bias detection and correction now sits in <strong>Art 4a</strong> — the Omnibus deleted Art 10(5) and widened the gateway to providers and deployers, under strict-necessity safeguards · technical documentation (11) · logging (12) · transparency to deployers (13) · <strong>human oversight</strong> (14; biometric ID needs two-person verification) · accuracy, robustness, <strong>cybersecurity</strong> incl. resistance to data poisoning and adversarial examples (15).</p>
 <p><strong>Provider path to market:</strong> conformity assessment (Art 43, default <strong>internal control</strong>; notified body only for biometrics without harmonised standards) → EU declaration of conformity (47) → <strong>CE marking</strong> (48) → registration in the EU database (49/71). Harmonised standards give <strong>presumption of conformity</strong> (40). Keep documentation <strong>10 years</strong>; report serious incidents within <strong>15 days</strong> (2 days for critical infrastructure).</p>
 <p><strong>Deployers (Art 26):</strong> follow instructions, competent human oversight, monitor and suspend on risk, keep logs <strong>≥6 months</strong>, inform workers, verify registration (public bodies). <strong>Art 27 FRIA</strong> before first use — public bodies, private providers of public services, credit/insurance-pricing deployers; may build on a GDPR DPIA. <strong>Art 86:</strong> affected persons get an explanation of the AI's role in decisions. <strong>Art 25:</strong> rebrand, substantially modify, or repurpose a system → you <em>become</em> the provider.</p>`,
   },
@@ -125,7 +125,7 @@ export const LESSONS: Lesson[] = [
     html: `
 <p><strong>Who does what:</strong></p>
 <ul>
-<li><strong>AI Office</strong> (in DG CNECT; five units: Excellence in AI & Robotics · Regulation & Compliance · AI Safety · Innovation & Policy Coordination · AI for Societal Good) — GPAI enforcement, codes of practice, Union expertise.</li>
+<li><strong>AI Office</strong> (in DG CNECT; six units since the 2025/26 reorganisation, spanning regulation and compliance, AI safety, excellence in AI and robotics, innovation and policy coordination, AI for societal good, and AI in health and life sciences) — GPAI enforcement, codes of practice, Union expertise.</li>
 <li><strong>European AI Board</strong> (Art 65) — one representative per Member State; coordinates national implementation.</li>
 <li><strong>Advisory Forum</strong> (Art 67) — stakeholders. <strong>Scientific Panel</strong> (Art 68; established 1 Jun 2026, up to 60 experts) — supports the AI Office, issues <strong>qualified alerts</strong> on GPAI systemic risk.</li>
 <li><strong>National authorities</strong> (Art 70): ≥1 notifying authority + ≥1 market surveillance authority per Member State (deadline 2 Aug 2025 — widely missed). Market surveillance runs under Reg. 2019/1020. <strong>EDPS</strong> supervises (and fines) EU institutions themselves.</li>
@@ -135,9 +135,11 @@ export const LESSONS: Lesson[] = [
 <ul>
 <li>2 Feb 2025 — prohibitions + AI literacy ✓</li>
 <li>2 Aug 2025 — GPAI, governance, penalties ✓</li>
-<li>2 Aug 2026 — Art 50 transparency, sandboxes obligation ✓ (legacy generative systems: grace to 2 Dec 2026)</li>
+<li>2 Aug 2026 — Art 50 transparency ✓ (pre-existing generative systems: marking grace to 2 Dec 2026); Commission enforcement powers over GPAI ✓</li>
+<li>2 Dec 2026 — new Art 5 prohibitions on NCII/CSAM generation</li>
+<li><strong>2 Aug 2027 — national sandboxes</strong> (moved from Aug 2026) plus a Union-level sandbox at the AI Office; legacy GPAI models</li>
 <li><strong>2 Dec 2027 — Annex III stand-alone high-risk</strong> (deferred from Aug 2026)</li>
-<li><strong>2 Aug 2028 — Annex I embedded high-risk</strong>; legacy GPAI by 2 Aug 2027; public-authority legacy high-risk by 2030.</li>
+<li><strong>2 Aug 2028 — Annex I embedded high-risk</strong>; public-authority legacy high-risk by 2030.</li>
 </ul>
 <p><strong>Top trap:</strong> pre-Omnibus material says high-risk applies from Aug 2026 — outdated. Transparency stayed on schedule; high-risk moved.</p>`,
   },
@@ -148,12 +150,12 @@ export const LESSONS: Lesson[] = [
     html: `
 <p>One-liners that decide close MCQ options:</p>
 <ul>
-<li><strong>GDPR:</strong> applies in parallel wherever personal data flows; AI Act = product safety, GDPR = lawfulness of processing. Art 22 GDPR restricts solely-automated significant decisions; FRIA may build on a DPIA; Art 10(5) AI Act opens a narrow gate for sensitive data in bias correction.</li>
+<li><strong>GDPR:</strong> applies in parallel wherever personal data flows; AI Act = product safety, GDPR = lawfulness of processing. Art 22 GDPR restricts solely-automated significant decisions; FRIA may build on a DPIA; Art 4a AI Act (ex Art 10(5)) opens a narrow gate for sensitive data in bias detection and correction. <strong>EU institutions are not under the GDPR</strong> but under Reg. (EU) 2018/1725, supervised by the EDPS. EDPB Opinion 28/2024: a model is anonymous only on a case-by-case showing that extraction is not reasonably likely; legitimate interest for training turns on reasonable expectations and mitigations. Calling a US-hosted model API with personal data is a Chapter V transfer.</li>
 <li><strong>DSA:</strong> platforms and intermediaries (VLOPs >45 m EU users: systemic-risk duties, audits; ChatGPT designated a VLOSE). AI Act regulates the system itself regardless of platform.</li>
 <li><strong>DMA:</strong> ex-ante conduct rules for seven designated <strong>gatekeepers</strong> (Alphabet, Amazon, Apple, Booking.com, ByteDance, Meta, Microsoft); reaches AI features embedded in core platform services.</li>
 <li><strong>NIS2</strong> (directive; transposition due 17 Oct 2024 — CJEU referrals of several Member States in Jul 2026): <em>organisation-level</em> cybersecurity for essential/important entities. AI Act Art 15 is <em>product-level</em>. <strong>CRA</strong> (fully applicable 11 Dec 2027): products with digital elements; supports Art 15 conformity.</li>
 <li><strong>Copyright:</strong> no AI-copyright regulation exists — the DSM Directive's TDM exception + opt-out (Arts 3–4) carries training legality; Art 53 adds policy + training-content summary.</li>
-<li><strong>Liability:</strong> new <strong>Product Liability Directive (2024)</strong> treats software/AI as a product (strict liability); the AI Liability Directive proposal was <strong>withdrawn (Feb 2025)</strong>.</li>
+<li><strong>Liability:</strong> new <strong>Product Liability Directive (2024)</strong> treats software/AI as a product (strict liability); the AI Liability Directive proposal was <strong>withdrawn</strong> (announced Feb 2025, formally completed in the OJ 6 Oct 2025).</li>
 <li><strong>Data Act</strong> (applicable 12 Sep 2025): connected-product data access, cloud switching. <strong>DGA:</strong> public-sector data re-use, data intermediaries, data altruism. <strong>EHDS</strong> (Reg. 2025/327): first sectoral data space, phased to ~2029/2031.</li>
 <li><strong>Council of Europe Framework Convention on AI:</strong> international human-rights treaty (EU, US, UK signatures) — principles, not product rules.</li>
 </ul>`,
@@ -234,10 +236,10 @@ export const LESSONS: Lesson[] = [
 <p>The 2025–26 strategy stack, newest first — freshness here separates you from stale prep books:</p>
 <ul>
 <li><strong>AI Continent Action Plan</strong> (9 Apr 2025): compute (AI Factories → Gigafactories), data, skills, adoption, simplification.</li>
-<li><strong>AI Factories:</strong> 19+ AI-optimised EuroHPC supercomputing hubs with services for startups/SMEs/science. <strong>AI Gigafactories:</strong> ~100k+ advanced-chip sites for frontier-scale training; EuroHPC JU mandate extended, official call <strong>30 Jul 2026</strong>.</li>
+<li><strong>AI Factories:</strong> 19 AI-optimised EuroHPC supercomputing hubs across 16 Member States, plus 13 AI Factory Antennas, with services for startups/SMEs/science. <strong>AI Gigafactories:</strong> sites several times larger than today's best AI Factory, for frontier-scale training (InvestAI spoke of ~100,000 advanced chips); EuroHPC JU mandate extended by Council Reg. (EU) 2026/150, official call <strong>30 Jul 2026</strong>.</li>
 <li><strong>InvestAI:</strong> mobilise <strong>€200 bn</strong> total, incl. a <strong>€20 bn</strong> public-private gigafactory fund (announced at the Feb 2025 Paris AI Action Summit).</li>
-<li><strong>Apply AI Strategy</strong> (8 Oct 2025): sectoral + public-sector adoption, "AI first" push, ~<strong>€1 bn</strong> mobilised. Sister <strong>AI in Science strategy</strong>: <strong>RAISE</strong> pilot — virtual European institute pooling compute/data/talent for AI in research.</li>
-<li><strong>Funding instruments:</strong> Digital Europe Programme (deployment: testing facilities, EDIHs, skills, data spaces) · Horizon Europe (research) · <strong>EDIHs</strong> = 200+ one-stop shops for SME/public-sector adoption. <strong>Chips Act:</strong> 20 % global semiconductor share ambition by 2030.</li>
+<li><strong>Apply AI Strategy</strong> (COM(2025) 723, 8 Oct 2025): sectoral + public-sector adoption, "AI first" push, ~<strong>€1 bn</strong> mobilised. Sister <strong>AI in Science strategy</strong>: <strong>RAISE</strong> pilot — virtual European institute pooling compute/data/talent for AI in research.</li>
+<li><strong>Funding instruments:</strong> Digital Europe Programme (deployment: testing facilities, EDIHs, skills, data spaces) · Horizon Europe (research) · <strong>EDIHs</strong> = ~150 one-stop shops for SME/public-sector adoption. <strong>Chips Act:</strong> 20 % global semiconductor share ambition by 2030.</li>
 <li><strong>Coordinated Plan on AI</strong> (2018, rev. 2021): Commission–Member State alignment, €20 bn/yr investment ambition; most Member States have national AI strategies.</li>
 <li><strong>International:</strong> AI Office represents the EU in the safety-institute network; G7 Hiroshima Process code of conduct; OECD hosts the shared definitions. The EU's distinctiveness: <strong>binding</strong> GPAI rules where others rely on voluntary commitments ("Brussels effect").</li>
 <li><strong>The 2026 policy narrative:</strong> simplification (Omnibus deferrals, SME/small-mid-cap relief) as the answer to competitiveness critique (Draghi report) — prohibitions and transparency untouched. Frame essay answers with the twin transition (digital + green) and digital sovereignty (reduce chip/cloud/model dependencies while staying open).</li>
