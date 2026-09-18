@@ -13,7 +13,7 @@ export const supabaseStore: RemoteProgressStore = {
   async fetch(userId: string): Promise<ProgressData | null> {
     if (!supabase) return null
     const { data, error } = await supabase
-      .from('progress')
+      .from('epso_progress')
       .select('data')
       .eq('user_id', userId)
       .maybeSingle()
@@ -26,7 +26,7 @@ export const supabaseStore: RemoteProgressStore = {
   async save(userId: string, data: ProgressData): Promise<void> {
     if (!supabase) return
     const { error } = await supabase
-      .from('progress')
+      .from('epso_progress')
       .upsert(
         { user_id: userId, data, updated_at: new Date().toISOString() },
         { onConflict: 'user_id' },
