@@ -1,7 +1,6 @@
 import { AppProvider, useApp } from '@/app/AppContext'
 import { isTabView } from '@/app/store'
 import { AuthProvider } from '@/auth/AuthContext'
-import { AuthPanel } from '@/components/AuthPanel'
 import { BottomNav } from '@/components/BottomNav'
 import { HomeScreen } from '@/components/screens/HomeScreen'
 import { PracticeScreen } from '@/components/screens/PracticeScreen'
@@ -42,11 +41,6 @@ function Shell() {
         paddingRight: 'env(safe-area-inset-right)',
       }}
     >
-      {tabbed && (
-        <header className="flex items-center justify-end px-4 py-2">
-          <AuthPanel />
-        </header>
-      )}
       <main
         className="flex-1"
         style={tabbed ? { paddingBottom: 'calc(6rem + env(safe-area-inset-bottom))' } : undefined}

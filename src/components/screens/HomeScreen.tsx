@@ -1,3 +1,4 @@
+import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
@@ -23,16 +24,22 @@ export function HomeScreen() {
         <h1 className="font-display text-xl font-bold uppercase tracking-tight text-steel-50">
           EPSO AI Field Trainer
         </h1>
-        <div className="flex items-center gap-2 rounded-card border border-steel-700 px-3 py-1.5">
-          <span aria-hidden className="text-brass-400">
-            ▲
-          </span>
-          <span className="font-mono text-lg font-semibold tabular-nums text-brass-300">
-            {streak}
-          </span>
-          <span className="font-mono text-[0.65rem] uppercase tracking-wide text-steel-500">
-            {streak === 1 ? 'day' : 'days'} streak
-          </span>
+        <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 rounded-card border border-steel-700 px-3 py-1.5"
+            aria-label={`${streak} ${streak === 1 ? 'day' : 'days'} streak`}
+          >
+            <span aria-hidden className="text-brass-400">
+              ▲
+            </span>
+            <span className="font-mono text-lg font-semibold tabular-nums text-brass-300">
+              {streak}
+            </span>
+            <span aria-hidden className="hidden font-mono text-[0.65rem] uppercase tracking-wide text-steel-500 sm:inline">
+              {streak === 1 ? 'day' : 'days'} streak
+            </span>
+          </div>
+          <AuthPanel />
         </div>
       </header>
 
