@@ -2197,7 +2197,7 @@
   "c": "accredited bodies carrying out conformity assessment of AI systems for SMEs at reduced fees",
   "d": "regional offices of the AI Office supervising high-risk AI systems used on their territory and advising national authorities",
   "correct": "a",
-  "explain": "The EDIH network is the test-before-invest retail layer of EU digital policy, co-funded by the Digital Europe Programme and national sources, with hubs in every Member State. Compute access is the AI Factories' role — EDIHs advise, train and broker finance rather than operate infrastructure."
+  "explain": "The EDIH network is the test-before-invest retail layer of EU digital policy, co-funded by the Digital Europe Programme and national sources (151 hubs selected in the 2021-22 calls; 83 renewed in October 2025). Compute access is the AI Factories' role — EDIHs advise, train and broker finance rather than operate infrastructure."
  },
  {
   "id": 2060,
@@ -2417,7 +2417,7 @@
   "c": "the target should be revised downward, because the projection shows it was set unrealistically high",
   "d": "the measurement excludes self-employed specialists, so the true figure is in reality already close to the target",
   "correct": "b",
-  "explain": "The projected trajectory leaves a multi-million gap that reflects the supply of trained people rather than weak demand. The target is fixed in Decision (EU) 2022/2481 and can be changed only by amending it, so treating a missed projection as a reason to restate the ambition confuses measurement with policy."
+  "explain": "The State of the Digital Decade 2026 report (17 June 2026) counts around 10.5 million ICT specialists employed in 2025 and projects about 12.2 million by 2030 — a gap of roughly 7.8 million that reflects the supply of trained people rather than weak demand. The target is fixed in Decision (EU) 2022/2481 and can be changed only by amending it, so treating a missed projection as a reason to restate the ambition confuses measurement with policy."
  },
  {
   "id": 2080,
