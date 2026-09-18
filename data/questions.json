@@ -57,7 +57,7 @@
  {
   "id": 7,
   "cat": "AI Engineering & Operations",
-  "q": "A team scores answer quality with an LLM judge. Which safeguard most directly addresses the judge's documented biases?",
+  "q": "A team ranks answer quality by having an LLM judge compare pairs of candidate answers. Which safeguard most directly addresses the judge's documented biases?",
   "a": "a judge from a different vendor than the model under test, run at temperature zero",
   "b": "asking the judge to state its reasoning before it emits the final numeric score",
   "c": "an explicit rubric with randomised option order, calibrated against human ratings",
@@ -90,7 +90,7 @@
  {
   "id": 10,
   "cat": "AI Engineering & Operations",
-  "q": "Users report an assistant answering 'not found in the documents' for questions whose answer is in the corpus; pasting the passage in manually produces a correct answer. The fault lies in:",
+  "q": "Users report an assistant answering 'not found in the documents' for questions whose answer has sat in the indexed corpus for months; pasting the passage in manually produces a correct answer. The fault lies in:",
   "a": "prompting — the instructions never tell the model to use the retrieved context",
   "b": "retrieval — chunking or embedding mismatch keeps the passage out of the context",
   "c": "freshness — the newest documents have not yet been added to the search index",
@@ -151,7 +151,7 @@
   "c": "post-process the generated answer with a template that reorders the sections",
   "d": "move the rules into a longer system prompt with several fully worked examples",
   "correct": "a",
-  "explain": "Form and behaviour are what fine-tuning is for, and the knowledge path stays with retrieval. Retrieving the style guide is the tempting move, but instructions pulled into context are exactly what prompt iteration already failed to make the model follow."
+  "explain": "Form and behaviour are what fine-tuning is for, and the knowledge path stays with retrieval. Post-processing with a template is the tempting deterministic fix, but it can only reorder sections the model has already emitted and labelled, and it cannot install house style inside the prose itself."
  },
  {
   "id": 16,
@@ -195,7 +195,7 @@
   "c": "the tokenizer emitting more tokens per word as the conversation continues",
   "d": "KV-cache memory growing with sequence length, cutting the batch size per GPU",
   "correct": "d",
-  "explain": "The per-token attention state scales with context length, so fewer concurrent sequences fit on a device and the fixed GPU cost is spread over less work. Reprocessing the prompt is the tempting explanation but is what prefix caching removes; the memory pressure is what remains."
+  "explain": "The per-token attention state scales with context length, so fewer concurrent sequences fit on a device and the fixed GPU cost is spread over less work. Reloading model weights is the tempting explanation, but weights are resident for the life of the process; it is the per-sequence attention state that grows."
  },
  {
   "id": 20,
@@ -302,10 +302,10 @@
   "q": "A triage model flags documents for manual review. The unit can review 200 of the 10 000 documents arriving each day, and that capacity is fixed. Which quantity should drive the threshold?",
   "a": "the F1 score at the default cut-off, balancing the two error types symmetrically",
   "b": "precision among the top 200 ranked documents, since capacity fixes the volume",
-  "c": "recall across the whole day's documents, since missed cases carry the real cost",
+  "c": "recall at the model's default 0.5 cut-off, since missed cases carry the real cost",
   "d": "overall accuracy, which summarises both error types in a single comparable number",
   "correct": "b",
-  "explain": "With a hard review budget the operating point is fixed at the top 200, so the question is how many of those 200 are worth a reviewer's time. Recall is the tempting choice because misses are what hurts, but it is the consequence of the fixed capacity here, not something the threshold can be tuned against."
+  "explain": "With a hard review budget the operating point is fixed at the top 200, so the question is how many of those 200 are worth a reviewer's time. Recall at 0.5 is the tempting choice because misses are what hurts, but the operating point here is set by capacity, not by the default cut-off."
  },
  {
   "id": 30,
@@ -322,12 +322,12 @@
   "id": 31,
   "cat": "AI Engineering & Operations",
   "q": "A team proposes running a challenger recommendation model on mirrored production traffic for a month before any switch-over. Which caveat should be raised?",
-  "a": "it yields no quality signal at all, since the challenger's outputs are never served",
+  "a": "it yields no quality signal at all, since mirrored requests are synthetic replays",
   "b": "it roughly doubles inference spend and is unsafe where the challenger writes state",
   "c": "it cannot measure latency, because mirrored traffic bypasses the load balancer",
   "d": "it requires the challenger to reuse the incumbent's feature pipeline unchanged",
   "correct": "b",
-  "explain": "Mirroring means every request is served twice, and any tool call or write on the challenger path happens for real unless it is isolated. The claim that it yields no quality signal is the tempting overstatement: mirrored runs give agreement and technical signals, just not user-response signals."
+  "explain": "Mirroring means every request is served twice, and any tool call or write on the challenger path happens for real unless it is isolated. The no-signal claim is the tempting overstatement: mirrored traffic is real traffic and gives agreement and technical signals, just not user-response signals."
  },
  {
   "id": 32,
@@ -497,13 +497,13 @@
  {
   "id": 47,
   "cat": "AI Engineering & Operations",
-  "q": "Statistics derived from a case database will be published, and removing names and case numbers is proposed as sufficient protection. The stronger guarantee is:",
+  "q": "Statistics derived from a case database will be published, and removing names and case numbers is proposed as sufficient protection. The stronger, formally provable guarantee is:",
   "a": "k-anonymity — generalising quasi-identifiers so each row matches several others",
   "b": "differential privacy — calibrated noise bounding any single record's influence",
   "c": "aggregation — publishing only cells above a minimum count threshold",
   "d": "pseudonymisation — replacing identifiers with keys held separately from the data",
   "correct": "b",
-  "explain": "Differential privacy is the only option here that makes a formal, composable statement about what any one individual's presence can reveal. Suppressing small cells is the tempting practical answer, but successive releases can be differenced against each other to recover the suppressed values."
+  "explain": "Differential privacy is the only option here that makes a formal, composable statement about what any one individual's presence can reveal. Suppressing small cells is the tempting practical answer, but successive releases can be differenced against each other to recover the suppressed values. k-anonymity is the other rival, but it is a syntactic property of one release and composes badly across several."
  },
  {
   "id": 48,
@@ -635,7 +635,7 @@
   "c": "rank the six by expected benefit and take only the top two forward this year",
   "d": "consolidate the pilots onto one platform so that fewer stacks need maintaining",
   "correct": "a",
-  "explain": "Pilots stall at operations, not at modelling or funding: nothing can be accepted into service with no one accountable for it at 03:00. Ranking and cutting is the tempting management move, but with no run model the top two will stall in exactly the same place."
+  "explain": "Pilots stall at operations, not at modelling or funding: nothing can be accepted into service with no one accountable for it at 03:00. Platform consolidation is the tempting structural move, but a shared stack with no named owner still has nobody to accept the system into service."
  },
  {
   "id": 60,
@@ -675,7 +675,7 @@
   "cat": "AI Engineering & Operations",
   "q": "A classifier shows excellent AUC but predicted probabilities that are systematically too high, and the score feeds a cost-based decision threshold. The right remedy is:",
   "a": "retrain with greater capacity until the ranking metric improves still further",
-  "b": "shift the decision threshold downward until the positive rate matches the base rate",
+  "b": "shift the decision threshold upward until the positive rate matches the base rate",
   "c": "replace AUC with accuracy as the selection metric and re-tune the whole model",
   "d": "apply post-hoc calibration on a held-out set and verify with a reliability diagram",
   "correct": "d",
@@ -1020,7 +1020,7 @@
   "c": "outside the high-risk tiers, machinery being governed solely by the Machinery Regulation",
   "d": "under Annex III point 2, as a safety component of critical industrial infrastructure",
   "correct": "b",
-  "explain": "The Omnibus narrowed the Art 6(1) safety-component test and moved machinery AI into Annex I Section B, whose high-risk duties bite on 2 August 2028; the 2 December 2027 date belongs to stand-alone Annex III systems. The Machinery Regulation continues to apply in parallel rather than displacing the AI Act."
+  "explain": "The Omnibus narrowed the Art 6(1) safety-component test and moved machinery AI into Annex I Section B, whose high-risk duties bite on 2 August 2028; the 2 December 2027 date belongs to stand-alone Annex III systems. The Machinery Regulation continues to apply in parallel rather than displacing the AI Act. Art 2(2) limits the AI Act for Section B products to Art 6(1), Art 60a and Arts 102 to 112; the Chapter III requirements reach AI-enabled machinery through delegated acts amending Annex III to Reg. (EU) 2023/1230."
  },
  {
   "id": 1014,
@@ -1306,7 +1306,7 @@
   "c": "one notifying authority and one market surveillance authority, plus a contact point",
   "d": "one notified body per Annex III area, accredited by the national accreditation body",
   "correct": "c",
-  "explain": "Art 70(1) requires at least one notifying authority and at least one market surveillance authority, one of them acting as single point of contact; the deadline was 2 August 2025 and several Member States missed it. Data protection authorities act as market surveillance authorities only for the biometric, law-enforcement, migration and justice uses identified in Art 74."
+  "explain": "Art 70(1) requires at least one notifying authority and at least one market surveillance authority, one of them acting as single point of contact; the deadline was 2 August 2025 and several Member States missed it. Under Art 74(8) Member States designate either the data protection supervisory authority or another authority meeting the conditions of Arts 41 to 44 of Directive (EU) 2016/680, and only for the Annex III point 1 law-enforcement, border-management and justice uses and Annex III points 6, 7 and 8."
  },
  {
   "id": 1040,
@@ -1314,7 +1314,7 @@
   "q": "Under the Act as amended by the Digital Omnibus, AI regulatory sandboxes:",
   "a": "must be operational in every Member State by 2 August 2026, run jointly where preferred",
   "b": "are optional for Member States, the Commission operating a single Union sandbox instead",
-  "c": "must be operational in every Member State by 2 August 2027, with an EU-level sandbox too",
+  "c": "must be operational in every Member State by 2 August 2027, with an optional EU-level one",
   "d": "are reserved for providers of general-purpose models with systemic risk and their partners",
   "correct": "c",
   "explain": "The Omnibus moved the Art 57 national sandbox deadline from 2 August 2026 to 2 August 2027 and added a Union-level sandbox that the AI Office may establish, with priority access for SMEs, start-ups and small mid-caps. The 2026 date is the pre-Omnibus rule that outdated materials still repeat."
@@ -1355,13 +1355,13 @@
  {
   "id": 1045,
   "cat": "AI Act & Governance",
-  "q": "A company has run a public-facing generative chatbot since 2024. Under the Act as amended, its Art 50 marking and disclosure duties bite on:",
+  "q": "A company has run a public-facing generative chatbot since 2024. Under the Act as amended, its duty to mark the chatbot's synthetic outputs in machine-readable form bites on:",
   "a": "2 August 2026, the general Art 50 date, with no transitional arrangement",
   "b": "27 July 2026, the date the Digital Omnibus itself entered into force in the Union",
   "c": "2 December 2027, aligned with the deferred Annex III high-risk obligations",
   "d": "2 December 2026, a grace period applying to systems already on the market",
   "correct": "d",
-  "explain": "Art 50 kept its 2 August 2026 application date through the Omnibus, and Art 50(2) gives generative systems already placed on the market a grace period running to 2 December 2026. Systems launched after that date get no transition."
+  "explain": "Art 50 kept its 2 August 2026 date through the Omnibus, so the Art 50(1) duty to tell users they are interacting with AI applies from then with no transition. Art 111(4), inserted by Reg. (EU) 2026/1744, gives systems generating synthetic content that were placed on the market before 2 August 2026 until 2 December 2026 to comply with Art 50(2). Systems placed on the market on or after 2 August 2026 get no transition."
  },
  {
   "id": 1047,
@@ -1405,7 +1405,7 @@
   "c": "the Machinery Regulation, wherever the AI is embedded in a physical product",
   "d": "the 2024 Product Liability Directive, which counts software and AI as products",
   "correct": "d",
-  "explain": "Directive (EU) 2024/2853 brings software and AI systems within the product definition, imposing strict liability for defect with disclosure duties and rebuttable presumptions of defectiveness and causation. The fault-based AI Liability Directive was announced for withdrawal in the Commission's work programme of February 2025 and the withdrawal was formally published in the Official Journal on 6 October 2025."
+  "explain": "Directive (EU) 2024/2853 brings software and AI systems within the product definition, imposing strict liability for defect with disclosure duties and rebuttable presumptions of defectiveness and causation. The fault-based AI Liability Directive was announced for withdrawal in the Commission's work programme of February 2025 and the withdrawal was formally published in the Official Journal on 6 October 2025 (C/2025/5423)."
  },
  {
   "id": 1051,
@@ -1504,7 +1504,7 @@
   "c": "fines are replaced by corrective measures unless the infringement is a repeat one",
   "d": "the same brackets apply, but reduced by half for a first infringement of the Act",
   "correct": "b",
-  "explain": "Art 99(6) caps SME fines at the lower of the two figures rather than the higher. The Digital Omnibus extended the SME simplifications to small mid-caps, defined as under 750 staff and up to EUR 150 million turnover by Commission Recommendation (EU) 2025/1099."
+  "explain": "Art 99(6) caps SME and start-up fines at the lower of the two figures rather than the higher. The Omnibus added Art 99(6a) giving small mid-caps — fewer than 750 staff and turnover up to EUR 150 million or balance sheet up to EUR 129 million under Commission Recommendation (EU) 2025/1099 — the same lower cap, but only for the paragraph 4 and 5 brackets; a small mid-cap breaching Art 5 still faces the full EUR 35 million or 7%."
  },
  {
   "id": 1060,
@@ -1526,7 +1526,7 @@
   "c": "adopt the EU model contractual clauses for AI procurement, mapping duties into terms",
   "d": "rely on the supplier's general warranty that it complies with all applicable Union law",
   "correct": "c",
-  "explain": "The model contractual clauses for AI procurement, updated in March 2025 by the Community of Practice on Public Procurement of AI with Commission support, exist in a high-risk and a light version and turn documentation, logging, oversight and change-notification duties into contract terms with remedies. A bare compliance warranty leaves the buyer with no evidence trail and no enforcement hook."
+  "explain": "The EU model contractual AI clauses, maintained by the Public Buyers Community with Commission support, exist in a high-risk and a light version and turn documentation, logging, oversight and change-notification duties into contract terms with remedies. A bare compliance warranty leaves the buyer with no evidence trail and no enforcement hook."
  },
  {
   "id": 1062,
