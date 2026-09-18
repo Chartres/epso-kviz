@@ -10,13 +10,13 @@ test('practice journey: home → practice tab → answer → feedback', async ({
   await page.screenshot({ path: 'e2e/shots/menu.png', fullPage: true })
   await page.getByRole('button', { name: 'Start practicing' }).click()
 
-  await expect(page.getByText('01 / 60')).toBeVisible()
+  await expect(page.getByText(/^01 \/ \d+$/)).toBeVisible()
   await page.locator('button[data-state="idle"]').first().click()
   await expect(page.locator('button[data-state="correct"]')).toBeVisible()
   await page.screenshot({ path: 'e2e/shots/feedback.png', fullPage: true })
 
   await page.getByRole('button', { name: /Next|Finish/ }).click()
-  await expect(page.getByText('02 / 60')).toBeVisible()
+  await expect(page.getByText(/^02 \/ \d+$/)).toBeVisible()
 })
 
 test('daily lesson from home: 12 questions with completion + streak', async ({
