@@ -1850,18 +1850,18 @@
  {
   "id": 2015,
   "cat": "EU Digital Policy & Strategy",
-  "q": "ChatGPT was designated a very large online search engine under the DSA on 31 August 2026. The immediate consequence is that the provider must:",
+  "q": "ChatGPT was designated a very large online search engine under the DSA on 31 August 2026. The consequence of that designation is that the provider must:",
   "a": "obtain a conformity assessment from a notified body before it may continue offering the service",
   "b": "appoint an authorised representative established in a Member State of the European Union within four months",
   "c": "assess and mitigate systemic risks, submit to independent audits and grant vetted researchers data access",
   "d": "register the service in the EU database of high-risk AI systems maintained by the Commission",
   "correct": "c",
-  "explain": "Designation follows from exceeding 45 million average monthly recipients in the Union and triggers Articles 34-37 DSA: systemic-risk assessment, mitigation, independent audit and researcher access, under Commission supervision. Registration in the AI Act database flows from high-risk classification under that separate regime, not from a DSA designation."
+  "explain": "Designation follows from exceeding 45 million average monthly recipients in the Union and triggers Articles 34-37 DSA — systemic-risk assessment, mitigation, independent audit and researcher access — under Commission supervision, applying four months after notification (Art 33(6)). Registration in the AI Act database flows from high-risk classification under that separate regime, not from a DSA designation."
  },
  {
   "id": 2017,
   "cat": "EU Digital Policy & Strategy",
-  "q": "In July 2026 the Commission referred four Member States to the Court of Justice over NIS2. That kind of referral is possible for NIS2 but not for the AI Act because:",
+  "q": "In 2026 the Commission referred several Member States to the Court of Justice over NIS2. That kind of referral is possible for NIS2 but not for the AI Act because:",
   "a": "NIS2 carries administrative fines, whereas the AI Act leaves the setting of penalties to national legislators",
   "b": "NIS2 is a directive requiring national transposition, whereas the AI Act is a regulation applying directly",
   "c": "enforcement of the AI Act is reserved to the Commission's AI Office rather than to the Court of Justice",
@@ -1933,7 +1933,7 @@
   "c": "national testing and experimentation facilities certified to carry out conformity assessment of high-risk AI systems for SMEs",
   "d": "Commission-operated data centres hosting the Union's official registers and public sector language models",
   "correct": "b",
-  "explain": "Nineteen AI Factories across sixteen Member States, together with thirteen AI Factory Antennas, provide access to EuroHPC machines with wraparound services. Testing and experimentation facilities are a separate Digital Europe instrument aimed at sectoral testing, not at compute provision."
+  "explain": "AI Factories hosted at EuroHPC sites across most Member States, together with AI Factory Antennas, provide access to EuroHPC machines with wraparound services. Testing and experimentation facilities are a separate Digital Europe instrument aimed at sectoral testing, not at compute provision."
  },
  {
   "id": 2024,
@@ -2016,7 +2016,7 @@
   "id": 2035,
   "cat": "EU Digital Policy & Strategy",
   "q": "Compared with other jurisdictions, the AI Act's treatment of general-purpose AI models is distinctive because it:",
-  "a": "imposes binding statutory duties on model providers where comparable regimes rely on voluntary commitments",
+  "a": "imposes binding statutory duties on model providers where most comparable regimes still rely mainly on voluntary commitments",
   "b": "prohibits release of model weights above a defined training-compute threshold to any third party",
   "c": "requires model providers to obtain prior authorisation from a supervisory authority before any training run begins",
   "d": "applies only to models developed inside the Union, leaving imported models to national rules",
@@ -2114,13 +2114,13 @@
  {
   "id": 2046,
   "cat": "EU Digital Policy & Strategy",
-  "q": "An EU agency plans to deploy an AI system to triage visa applications. Before putting it into use it must:",
+  "q": "A national immigration authority plans to deploy an AI system to triage visa applications. Before putting it into use it must:",
   "a": "have the system certified by a notified body established in the Member State of deployment",
   "b": "publish the system's technical documentation and the datasets used to train and validate it",
   "c": "obtain an opinion from the European AI Board and register the system in a national database of public deployments",
-  "d": "carry out a fundamental rights impact assessment and operate under the EDPS as surveillance authority",
+  "d": "carry out a fundamental rights impact assessment and operate under its market surveillance authority",
   "correct": "d",
-  "explain": "Migration, asylum and border control is an Annex III area, and public bodies deploying such systems owe the Article 27 fundamental rights impact assessment before first use; for Union agencies the EDPS supervises. A notified body is not generally required — most Annex III systems use internal control for conformity assessment."
+  "explain": "Migration, asylum and border control is an Annex III area, and public bodies deploying such systems owe the Article 27 fundamental rights impact assessment before first use, under the national market surveillance authority (for Union bodies it would be the EDPS, Art 74(9)). A notified body is not generally required — most Annex III systems use internal control for conformity assessment."
  },
  {
   "id": 2048,
@@ -2153,7 +2153,7 @@
   "c": "supercomputer procurement had to be moved from national authorities to the Joint Undertaking itself",
   "d": "the Union's own resources ceiling had to be raised to accommodate the additional capital expenditure",
   "correct": "a",
-  "explain": "Council Regulation (EU) 2026/150 amended Regulation (EU) 2021/1173 so that EuroHPC could host and procure gigafactory-scale AI infrastructure, and the call followed on 30 July 2026. The Joint Undertaking already procured supercomputers jointly with participating states, so no transfer of procurement competence was needed."
+  "explain": "Council Regulation (EU) 2026/150 of 16 January 2026 amended Regulation (EU) 2021/1173 so that EuroHPC could host and procure gigafactory-scale AI infrastructure. The Joint Undertaking already procured supercomputers jointly with participating states, so no transfer of procurement competence was needed."
  },
  {
   "id": 2055,
@@ -2197,7 +2197,7 @@
   "c": "accredited bodies carrying out conformity assessment of AI systems for SMEs at reduced fees",
   "d": "regional offices of the AI Office supervising high-risk AI systems used on their territory and advising national authorities",
   "correct": "a",
-  "explain": "The EDIH network is the test-before-invest retail layer of EU digital policy, co-funded by the Digital Europe Programme and national sources; 151 hubs were selected in the 2021-22 rounds and 83 had their funding renewed in October 2025. Compute access is the AI Factories' role — EDIHs advise, train and broker finance rather than operate infrastructure."
+  "explain": "The EDIH network is the test-before-invest retail layer of EU digital policy, co-funded by the Digital Europe Programme and national sources, with hubs in every Member State. Compute access is the AI Factories' role — EDIHs advise, train and broker finance rather than operate infrastructure."
  },
  {
   "id": 2060,
@@ -2268,7 +2268,7 @@
  {
   "id": 2066,
   "cat": "EU Digital Policy & Strategy",
-  "q": "A signatory's safety and security framework must define systemic risk acceptance criteria. Those criteria are required to be:",
+  "q": "A signatory's safety and security framework must define systemic risk acceptance criteria. For a specified systemic risk, those criteria are required to be:",
   "a": "reviewed each year by an independent auditor accredited by a national notifying authority",
   "b": "expressed as measurable tiers of model capability, including at least one tier the model has not reached",
   "c": "agreed in advance with the AI Office and published in full before training of the model is allowed to begin",
@@ -2411,13 +2411,13 @@
  {
   "id": 2079,
   "cat": "EU Digital Policy & Strategy",
-  "q": "The 2026 State of the Digital Decade report projects roughly 12 million ICT specialists by 2030 against a target of 20 million. The most defensible inference is:",
+  "q": "The latest State of the Digital Decade report projects that the Union will fall several million short of its 20 million ICT specialists target by 2030. The most defensible inference is:",
   "a": "the gap will close by itself as AI tools reduce the skills needed for information technology work",
   "b": "the shortfall lies in graduate flows and reskilling capacity, so it will not close through employer demand alone",
   "c": "the target should be revised downward, because the projection shows it was set unrealistically high",
   "d": "the measurement excludes self-employed specialists, so the true figure is in reality already close to the target",
   "correct": "b",
-  "explain": "Around 10.5 million specialists were employed in 2025, and the projected trajectory leaves a gap of roughly eight million that reflects supply of trained people rather than weak demand. The target is fixed in Decision (EU) 2022/2481 and can be changed only by amending it, so treating a missed projection as a reason to restate the ambition confuses measurement with policy."
+  "explain": "The projected trajectory leaves a multi-million gap that reflects the supply of trained people rather than weak demand. The target is fixed in Decision (EU) 2022/2481 and can be changed only by amending it, so treating a missed projection as a reason to restate the ambition confuses measurement with policy."
  },
  {
   "id": 2080,
@@ -2450,7 +2450,7 @@
   "c": "the United States has no cross-cutting federal AI statute and acts mainly through executive orders",
   "d": "the Council of Europe Framework Convention has entered into force and now binds all of its signatories",
   "correct": "c",
-  "explain": "US federal policy has run through executive orders and an AI action plan since January 2025, with Congress passing no cross-cutting legislation. The Council of Europe Convention is the closest trap: widely signed and ratified by the EU in May 2026, it had still not reached the ratifications needed to enter into force."
+  "explain": "US federal policy has run through executive orders and an AI action plan since January 2025, with Congress passing no cross-cutting legislation. The Council of Europe Convention is the closest trap, but it binds only Parties that have ratified it — signature alone creates no obligation to apply its terms."
  },
  {
   "id": 2083,
@@ -2514,7 +2514,7 @@
   "a": "the European Digital Innovation Hub network, which advises SMEs on adopting digital technologies",
   "b": "the Scientific Panel of Independent Experts, which advises on general-purpose AI model risks",
   "c": "the European AI Board, which issues opinions on consistent application of the Regulation",
-  "d": "the AI Act Service Desk and single information platform, run by the Commission since October 2025",
+  "d": "the AI Act Service Desk and single information platform, the Commission's single entry point for AI Act questions",
   "correct": "d",
   "explain": "The Service Desk is the single entry point for AI Act questions, with an explorer, a compliance checker and a helpdesk aimed at SMEs and start-ups. EDIHs advise on adoption and the AI Board coordinates national authorities — neither answers an individual firm's classification question."
  },
@@ -2532,7 +2532,7 @@
  {
   "id": 2090,
   "cat": "EU Digital Policy & Strategy",
-  "q": "The Cloud and AI Development Act, as proposed by the Commission in June 2026, would:",
+  "q": "The Cloud and AI Development Act, as proposed by the Commission in 2026, would:",
   "a": "set binding energy efficiency limits for data centres above a defined installed power threshold",
   "b": "require providers of general-purpose AI models to host their model weights on infrastructure located in the Union",
   "c": "oblige Member States to procure compute capacity exclusively through the EuroHPC Joint Undertaking",
