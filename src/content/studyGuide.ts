@@ -157,7 +157,7 @@ export const LESSONS: Lesson[] = [
 <li><strong>Copyright:</strong> no AI-copyright regulation exists — the DSM Directive's TDM exception + opt-out (Arts 3–4) carries training legality; Art 53 adds policy + training-content summary.</li>
 <li><strong>Liability:</strong> new <strong>Product Liability Directive (2024)</strong> treats software/AI as a product (strict liability); the AI Liability Directive proposal was <strong>withdrawn</strong> (announced Feb 2025, formally completed in the OJ 6 Oct 2025).</li>
 <li><strong>Data Act</strong> (applicable 12 Sep 2025): connected-product data access, cloud switching. <strong>DGA:</strong> public-sector data re-use, data intermediaries, data altruism. <strong>EHDS</strong> (Reg. 2025/327): first sectoral data space, phased to ~2029/2031.</li>
-<li><strong>Council of Europe Framework Convention on AI:</strong> international human-rights treaty (EU, US, UK signatures) — principles, not product rules.</li>
+<li><strong>Council of Europe Framework Convention on AI:</strong> international human-rights treaty (signed by the EU, US and UK; approved by the EU in 2026; not yet in force — five ratifications incl. three CoE states needed) — principles, not product rules; binds only Parties that ratified.</li>
 </ul>`,
   },
   {
@@ -241,7 +241,7 @@ export const LESSONS: Lesson[] = [
 <li><strong>Apply AI Strategy</strong> (COM(2025) 723, 8 Oct 2025): sectoral + public-sector adoption, "AI first" push, ~<strong>€1 bn</strong> mobilised. Sister <strong>AI in Science strategy</strong>: <strong>RAISE</strong> pilot — virtual European institute pooling compute/data/talent for AI in research.</li>
 <li><strong>Funding instruments:</strong> Digital Europe Programme (deployment: testing facilities, EDIHs, skills, data spaces) · Horizon Europe (research) · <strong>EDIHs</strong> = ~150 one-stop shops for SME/public-sector adoption. <strong>Chips Act:</strong> 20 % global semiconductor share ambition by 2030.</li>
 <li><strong>Coordinated Plan on AI</strong> (2018, rev. 2021): Commission–Member State alignment, €20 bn/yr investment ambition; most Member States have national AI strategies.</li>
-<li><strong>International:</strong> AI Office represents the EU in the safety-institute network; G7 Hiroshima Process code of conduct; OECD hosts the shared definitions. The EU's distinctiveness: <strong>binding</strong> GPAI rules where others rely on voluntary commitments ("Brussels effect").</li>
+<li><strong>International:</strong> AI Office represents the EU in the safety-institute network; G7 Hiroshima Process code of conduct; OECD hosts the shared definitions. The EU's distinctiveness: <strong>binding</strong> GPAI-model rules where most other regimes still rely mainly on voluntary commitments — the US has no cross-cutting federal statute (executive orders; state laws such as California SB 53), the UK no AI Act, while China binds generative-AI <em>services</em> through departmental measures ("Brussels effect").</li>
 <li><strong>The 2026 policy narrative:</strong> simplification (Omnibus deferrals, SME/small-mid-cap relief) as the answer to competitiveness critique (Draghi report) — prohibitions and transparency untouched. Frame essay answers with the twin transition (digital + green) and digital sovereignty (reduce chip/cloud/model dependencies while staying open).</li>
 </ul>`,
   },
