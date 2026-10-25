@@ -26,9 +26,16 @@ const GROUP_CATEGORIES: Record<ExamGroup, CategoryName[]> = {
   policy: ['EU Digital Policy & Strategy'],
 }
 
-export function questionsForGroup(group: ExamGroup): Question[] {
+/** A set of allowed question ids (the paid tier's free slice); null = the whole bank. */
+export type Pool = Set<number> | null
+
+export function inPool(pool: Pool | undefined, id: number): boolean {
+  return !pool || pool.has(id)
+}
+
+export function questionsForGroup(group: ExamGroup, pool?: Pool): Question[] {
   const cats = new Set<CategoryName>(GROUP_CATEGORIES[group])
-  return ALL_QUESTIONS.filter((q) => cats.has(q.cat))
+  return ALL_QUESTIONS.filter((q) => cats.has(q.cat) && inPool(pool, q.id))
 }
 
 export const CATEGORY_NAMES: CategoryName[] = META.categories.map((c) => c.name)

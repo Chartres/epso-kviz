@@ -26,7 +26,7 @@ import { shuffle } from '@/domain/rng'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
 export type TabView = 'home' | 'practice' | 'stats' | 'guide'
-export type View = TabView | 'quiz' | 'exam' | 'results'
+export type View = TabView | 'quiz' | 'exam' | 'results' | 'upgrade'
 export type Mode = 'practice' | 'review' | 'bookmarks' | 'exam' | 'lesson'
 
 export const TAB_VIEWS: TabView[] = ['home', 'practice', 'stats', 'guide']
@@ -43,6 +43,8 @@ export interface AppState {
   progress: ProgressData
   selectedCategories: Set<CategoryName>
   search: string
+  /** Paid tier: the question ids this user may draw from; null = all. */
+  allowedIds: Set<number> | null
 }
 
 export function initialState(): AppState {
@@ -55,6 +57,7 @@ export function initialState(): AppState {
     progress: emptyProgress(),
     selectedCategories: new Set(),
     search: '',
+    allowedIds: null,
   }
 }
 
@@ -62,6 +65,8 @@ export type Action =
   | { type: 'hydrate'; progress: ProgressData }
   | { type: 'setCategories'; categories: Set<CategoryName> }
   | { type: 'setSearch'; search: string }
+  | { type: 'setAllowed'; ids: Set<number> | null }
+  | { type: 'openUpgrade' }
   | { type: 'startLesson'; rng: Rng }
   | { type: 'startPractice'; rng: Rng }
   | { type: 'startReview'; rng: Rng }
@@ -95,16 +100,28 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'setSearch':
       return { ...state, search: action.search }
 
+    case 'setAllowed':
+      return { ...state, allowedIds: action.ids }
+
+    case 'openUpgrade':
+      return { ...state, view: 'upgrade' }
+
     case 'startLesson':
       return begin(
         state,
         'lesson',
-        createSession(buildLesson(state.progress, action.rng)),
+        createSession(
+          buildLesson(state.progress, action.rng, undefined, state.allowedIds),
+        ),
       )
 
     case 'startPractice': {
       const qs = buildPractice(
-        { categories: state.selectedCategories, search: state.search },
+        {
+          categories: state.selectedCategories,
+          search: state.search,
+          pool: state.allowedIds,
+        },
         action.rng,
       )
       return begin(state, 'practice', createSession(qs))
@@ -114,19 +131,21 @@ export function reducer(state: AppState, action: Action): AppState {
       return begin(
         state,
         'review',
-        createSession(reviewQuestions(state.progress)),
+        createSession(reviewQuestions(state.progress, 0, state.allowedIds)),
       )
 
     case 'startBookmarks':
       return begin(
         state,
         'bookmarks',
-        createSession(shuffle(bookmarkedQuestions(state.progress), action.rng)),
+        createSession(
+          shuffle(bookmarkedQuestions(state.progress, state.allowedIds), action.rng),
+        ),
       )
 
     case 'startExam':
       return {
-        ...begin(state, 'exam', createSession(buildExam(action.rng))),
+        ...begin(state, 'exam', createSession(buildExam(action.rng, state.allowedIds))),
         examEndsAt: action.now + EXAM.timeLimitMinutes * 60 * 1000,
       }
 

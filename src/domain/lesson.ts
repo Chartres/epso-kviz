@@ -1,5 +1,5 @@
 import type { ExamGroup, Question } from './types'
-import { questionsForGroup, getQuestion } from './questions'
+import { questionsForGroup, getQuestion, inPool, type Pool } from './questions'
 import { EXAM } from './exam'
 import { sample, shuffle, type Rng } from './rng'
 import { dueForReview, isMastered, statFor, type ProgressData } from './progress'
@@ -21,6 +21,7 @@ export function buildLesson(
   progress: ProgressData,
   rng: Rng,
   size = LESSON_SIZE,
+  pool?: Pool,
 ): Question[] {
   const used = new Set<number>()
   const take = (q: Question | undefined) => {
@@ -37,7 +38,7 @@ export function buildLesson(
   for (const id of dueForReview(progress, 0)) {
     if (review.length >= reviewCap) break
     const q = getQuestion(id)
-    if (q && take(q)) review.push(q)
+    if (q && inPool(pool, id) && take(q)) review.push(q)
   }
 
   // 2) New material, distributed by exam composition.
@@ -50,10 +51,10 @@ export function buildLesson(
 
   for (const part of EXAM.composition) {
     const want = Math.round((newCount * part.count) / EXAM.totalQuestions)
-    const pool = questionsForGroup(part.group as ExamGroup).filter(
+    const candidates = questionsForGroup(part.group as ExamGroup, pool).filter(
       (q) => !used.has(q.id) && unmasteredFresh(q),
     )
-    for (const q of sample(pool, want, rng)) {
+    for (const q of sample(candidates, want, rng)) {
       if (fresh.length >= newCount) break
       if (take(q)) fresh.push(q)
     }
@@ -62,7 +63,7 @@ export function buildLesson(
   // 3) Top up to size: any remaining unseen, then seen-but-unmastered.
   if (review.length + fresh.length < size) {
     const all = EXAM.composition.flatMap((p) =>
-      questionsForGroup(p.group as ExamGroup),
+      questionsForGroup(p.group as ExamGroup, pool),
     )
     const unseen = all.filter((q) => !used.has(q.id) && statFor(progress, q.id).seen === 0)
     const unmastered = all.filter(

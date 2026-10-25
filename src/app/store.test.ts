@@ -99,6 +99,56 @@ describe('app store', () => {
     expect(s.progress.streak.current).toBe(1)
   })
 
+  describe('restricted question pool (paid tier on, free user)', () => {
+    const allowed = new Set(
+      ['AI Engineering & Operations', 'AI Act & Governance', 'EU Digital Policy & Strategy'].flatMap(
+        (c) => byCategory(c as never).slice(0, 12).map((q) => q.id),
+      ),
+    )
+    const within = (s: AppState) => s.session!.questions.every((q) => allowed.has(q.id))
+
+    it('defaults to no restriction', () => {
+      expect(initialState().allowedIds).toBeNull()
+    })
+
+    it('lesson, practice and exam draw only from the allowed ids', () => {
+      let s = reducer(start(), { type: 'setAllowed', ids: allowed })
+      s = reducer(s, { type: 'startLesson', rng: makeRng(3) })
+      expect(s.session!.questions.length).toBe(12)
+      expect(within(s)).toBe(true)
+
+      s = reducer(s, { type: 'startPractice', rng: makeRng(3) })
+      expect(s.session!.questions.length).toBe(allowed.size)
+      expect(within(s)).toBe(true)
+
+      s = reducer(s, { type: 'startExam', rng: makeRng(3), now: 0 })
+      expect(s.session!.questions.length).toBe(30)
+      expect(within(s)).toBe(true)
+    })
+
+    it('review and bookmarks skip questions outside the pool', () => {
+      const outside = [...byCategory('AI Act & Governance')].pop()!.id
+      const inside = [...allowed][0]
+      let p = emptyProgress()
+      p = recordAnswer(p, outside, false, 10)
+      p = recordAnswer(p, inside, false, 20)
+      let s = reducer(start({ progress: p }), { type: 'setAllowed', ids: allowed })
+      s = reducer(s, { type: 'startReview', rng: makeRng(1) })
+      expect(s.session!.questions.map((q) => q.id)).toEqual([inside])
+
+      s = reducer(s, { type: 'toggleBookmark', id: outside })
+      s = reducer(s, { type: 'startBookmarks', rng: makeRng(1) })
+      expect(s.session!.questions).toHaveLength(0)
+    })
+  })
+
+  it('opens the upgrade screen and returns home from it', () => {
+    let s = reducer(start(), { type: 'openUpgrade' })
+    expect(s.view).toBe('upgrade')
+    s = reducer(s, { type: 'goMenu' })
+    expect(s.view).toBe('home')
+  })
+
   it('returns to the menu and clears the active session', () => {
     let s = start()
     s = reducer(s, { type: 'startExam', rng: makeRng(1), now: 0 })

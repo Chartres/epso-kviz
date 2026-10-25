@@ -1,5 +1,5 @@
 import type { CategoryName, ExamConfig, Question } from './types'
-import { META, questionsForGroup } from './questions'
+import { META, questionsForGroup, type Pool } from './questions'
 import { sample, shuffle, type Rng } from './rng'
 import { score as sessionScore, type SessionState } from './session'
 
@@ -8,12 +8,12 @@ export const EXAM: ExamConfig = META.exam
 /**
  * Assemble a mock exam matching the EPSO/AD/430/26 field-related MCQ
  * composition (10 engineering + 10 governance + 10 policy = 30), then
- * shuffle the order.
+ * shuffle the order. `pool` restricts the draw (paid tier's free slice).
  */
-export function buildExam(rng: Rng): Question[] {
+export function buildExam(rng: Rng, pool?: Pool): Question[] {
   const picked: Question[] = []
   for (const part of EXAM.composition) {
-    picked.push(...sample(questionsForGroup(part.group), part.count, rng))
+    picked.push(...sample(questionsForGroup(part.group, pool), part.count, rng))
   }
   return shuffle(picked, rng)
 }
