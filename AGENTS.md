@@ -5,7 +5,7 @@ able to read only this file and ship correctly. Keep every command copy-pasteabl
 Taste rules that apply to every flywheel product live in the hub: `flywheel/docs/standards/taste.md`.
 
 > One-liner: Free practice trainer for the EPSO/AD/430/26 competition's Field 1 (Artificial
-> Intelligence) field-related MCQ — 180 questions across 3 Annex II categories, 30q/40min exam sim.
+> Intelligence) field-related MCQ — 231 questions across 3 Annex II categories, 30q/40min exam sim.
 > Stack/template: Vite + React 19 + TS + Tailwind 4 (PWA), Supabase auth/sync  ·  Track: community
 > Portfolio record: `flywheel/data/products/epso-kviz.json`
 
@@ -35,7 +35,7 @@ mode (30 q, 40-min timer) → results with per-category breakdown and mistake re
 - **Web** → GitHub Pages at `https://epsokviz.dravec.org` (`public/CNAME`). Deploy is automatic
   on push to `main` via `.github/workflows/deploy.yml`. Platform env for the build:
   `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (repo secrets; no-op locally/in tests).
-- Data source: `data/bank/*.json` (180 Q, Annex II Field 1 — AI); regenerate the merged
+- Data source: `data/bank/*.json` (231 Q, Annex II Field 1 — AI; citations checked against `data/sources/` by `src/domain/citations.test.ts`); regenerate the merged
   `data/questions.json`/`meta.json` via `node scripts/merge.mjs`.
 
 ## Analytics (Common Platform)

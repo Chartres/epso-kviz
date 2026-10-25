@@ -5,7 +5,7 @@
 A free, self-paced trainer for the **EPSO/AD/430/26** competition's Field 1 (Artificial
 Intelligence) multiple-choice test — the field-related MCQ, 30 questions in 40 minutes. It is
 the sole test that ranks candidates in Field 1; the reasoning tests and EU essay are pass/fail
-gates. 180 practice questions across the three Annex II duty categories, drilled the way the
+gates. 231 practice questions across the three Annex II duty categories, drilled the way the
 exam is actually won: fast elimination on the real wording, learning from mistakes.
 
 ## Categories
@@ -17,7 +17,10 @@ exam is actually won: fast elimination on the real wording, learning from mistak
 - **EU Digital Policy & Strategy** — the European AI Office, the wider EU digital acquis, and
   the EU's AI strategy (compute, adoption, funding).
 
-60 questions per category (180 total); the exam simulation draws 10 from each (30 total).
+80 engineering, 78 governance and 73 policy questions (231 total); the exam simulation draws 10
+from each category (30 total). 111 governance and policy questions cite the official text: each
+carries a verbatim passage from the AI Act, the Digital Omnibus on AI or another EU act, checked
+in CI against pinned copies in `data/sources/`.
 
 ## Highlights
 
