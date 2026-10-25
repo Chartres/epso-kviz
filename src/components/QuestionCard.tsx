@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import type { Choice, Question } from '@/domain/types'
+import { SourceNote } from './SourceNote'
 
 export interface QuestionCardProps {
   question: Question
@@ -145,9 +146,10 @@ export function QuestionCard({
       )}
 
       {reveal && answered && (
-        <p className="mt-4 rounded-card border border-steel-700 bg-steel-800/40 p-3 text-sm leading-relaxed text-steel-300">
-          {question.explain}
-        </p>
+        <div className="mt-4 rounded-card border border-steel-700 bg-steel-800/40 p-3 text-sm leading-relaxed text-steel-300">
+          <p>{question.explain}</p>
+          <SourceNote question={question} />
+        </div>
       )}
 
       {answered && (

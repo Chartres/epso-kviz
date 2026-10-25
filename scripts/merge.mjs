@@ -17,6 +17,10 @@ for (const q of questions) {
   for (const k of ['cat', 'q', 'a', 'b', 'c', 'd', 'correct', 'explain'])
     if (!q[k]) throw new Error(`question ${q.id} missing ${k}`)
   if (!'abcd'.includes(q.correct)) throw new Error(`question ${q.id} bad correct`)
+  // Citations: structure here; the verbatim quote check runs in src/domain/citations.test.ts.
+  for (const c of q.sources ?? [])
+    if (!c.doc || !c.ref || !c.quote) throw new Error(`question ${q.id} has an incomplete citation`)
+  if (q.verified && !q.sources?.length) throw new Error(`question ${q.id} is verified without citations`)
 }
 
 // Option order in the bank is authoring order; the served order is a deterministic

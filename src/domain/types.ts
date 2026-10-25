@@ -17,6 +17,19 @@ export interface Question {
   d: string
   correct: Choice
   explain: string
+  /** Primary-source citations; each quote is checked verbatim against data/sources/ in CI. */
+  sources?: Citation[]
+  /** YYYY-MM-DD when the answer and its citations were last checked against the sources. */
+  verified?: string
+}
+
+export interface Citation {
+  /** Key into data/sources/registry.json. */
+  doc: string
+  /** Human reference: "Art 99(3)", "Recital 12", "Annex III", "Section 2". */
+  ref: string
+  /** Verbatim passage from the source that supports the correct answer. */
+  quote: string
 }
 
 export interface Category {

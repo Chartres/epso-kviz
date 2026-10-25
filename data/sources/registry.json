@@ -1,0 +1,25 @@
+{
+  "retrieved": "2026-10-25",
+  "note": "Plain-text snapshots of the official English texts, fetched from the Publications Office (publications.europa.eu/resource/celex/<CELEX>). Reuse permitted under Commission Decision 2011/833/EU. Citation quotes in data/bank/*.json are checked verbatim against these files in CI (src/domain/citations.test.ts).",
+  "docs": {
+    "ai-act": { "short": "AI Act", "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)", "celex": "32024R1689", "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj" },
+    "ai-omnibus": { "short": "Digital Omnibus on AI", "title": "Regulation (EU) 2026/1744 amending the AI Act (Digital Omnibus on AI)", "celex": "32026R1744", "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj" },
+    "data-act": { "short": "Data Act", "title": "Regulation (EU) 2023/2854 (Data Act)", "celex": "32023R2854", "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj" },
+    "dsa": { "short": "DSA", "title": "Regulation (EU) 2022/2065 (Digital Services Act)", "celex": "32022R2065", "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj" },
+    "dma": { "short": "DMA", "title": "Regulation (EU) 2022/1925 (Digital Markets Act)", "celex": "32022R1925", "url": "https://eur-lex.europa.eu/eli/reg/2022/1925/oj" },
+    "cra": { "short": "Cyber Resilience Act", "title": "Regulation (EU) 2024/2847 (Cyber Resilience Act)", "celex": "32024R2847", "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj" },
+    "digital-decade": { "short": "Digital Decade Decision", "title": "Decision (EU) 2022/2481 (Digital Decade Policy Programme 2030)", "celex": "32022D2481", "url": "https://eur-lex.europa.eu/eli/dec/2022/2481/oj" },
+    "eurohpc": { "short": "EuroHPC Regulation", "title": "Council Regulation (EU) 2021/1173 (EuroHPC Joint Undertaking)", "celex": "32021R1173", "url": "https://eur-lex.europa.eu/eli/reg/2021/1173/oj" },
+    "eurohpc-ai-factories": { "short": "EuroHPC AI Factories amendment", "title": "Council Regulation (EU) 2024/1732 amending Regulation (EU) 2021/1173 (AI Factories)", "celex": "32024R1732", "url": "https://eur-lex.europa.eu/eli/reg/2024/1732/oj" },
+    "gdpr": { "short": "GDPR", "title": "Regulation (EU) 2016/679 (General Data Protection Regulation)", "celex": "32016R0679", "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj" },
+    "nis2": { "short": "NIS2", "title": "Directive (EU) 2022/2555 (NIS2)", "celex": "32022L2555", "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj" },
+    "interoperable-europe": { "short": "Interoperable Europe Act", "title": "Regulation (EU) 2024/903 (Interoperable Europe Act)", "celex": "32024R0903", "url": "https://eur-lex.europa.eu/eli/reg/2024/903/oj" },
+    "dga": { "short": "Data Governance Act", "title": "Regulation (EU) 2022/868 (Data Governance Act)", "celex": "32022R0868", "url": "https://eur-lex.europa.eu/eli/reg/2022/868/oj" },
+    "pld": { "short": "Product Liability Directive", "title": "Directive (EU) 2024/2853 (Product Liability Directive)", "celex": "32024L2853", "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj" },
+    "chips-act": { "short": "Chips Act", "title": "Regulation (EU) 2023/1781 (European Chips Act)", "celex": "32023R1781", "url": "https://eur-lex.europa.eu/eli/reg/2023/1781/oj" },
+    "cybersecurity-act": { "short": "Cybersecurity Act", "title": "Regulation (EU) 2019/881 (Cybersecurity Act)", "celex": "32019R0881", "url": "https://eur-lex.europa.eu/eli/reg/2019/881/oj" },
+    "ai-continent": { "short": "AI Continent Action Plan", "title": "COM(2025) 165 — AI Continent Action Plan", "celex": "52025DC0165", "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025DC0165" },
+    "apply-ai": { "short": "Apply AI Strategy", "title": "COM(2025) 723 — Apply AI Strategy", "celex": "52025DC0723", "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025DC0723" },
+    "ai-innovation-package": { "short": "AI innovation package", "title": "COM(2024) 28 — Boosting startups and innovation in trustworthy AI", "celex": "52024DC0028", "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52024DC0028" }
+  }
+}

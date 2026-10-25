@@ -6,6 +6,7 @@ import { getQuestion } from '@/domain/questions'
 import { makeRng, timeSeed } from '@/domain/rng'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { FeedbackCard } from '@/components/FeedbackCard'
+import { SourceNote } from '@/components/SourceNote'
 
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
@@ -99,6 +100,7 @@ export function ResultsScreen() {
                     {q[q.correct]}
                   </p>
                   <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
+                  <SourceNote question={q} />
                 </li>
               )
             })}

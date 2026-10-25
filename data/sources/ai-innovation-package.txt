@@ -1,0 +1,540 @@
+EUROPEAN COMMISSION
+Brussels, 24.1.2024
+COM(2024) 28 final
+COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS
+on boosting startups and innovation in trustworthy artificial intelligence
+ Communication on boosting startups and innovation in trustworthy artificial intelligence
+ 1.Introduction 
+ Artificial intelligence (AI) has permeated our lives, transforming how we live and work. Over the past few years, a rapid and disruptive acceleration of progress in AI has occurred, driven by significant advances in widespread data availability, computing power and machine learning. Remarkable strides were made in the development of foundation models - AI models trained on extensive volumes of unlabelled data
+ 1
+ . This innovation has given rise to what is known as ‘General purpose AI’, capable of performing a wide array of tasks, including the generation of various forms of new content
+ 2
+ , commonly referred to as ‘generative AI’. The quality of the output produced by these models is such that it is difficult to distinguish it from human-generated content. 
+ Generative AI is a general technology that is accessible, powerful and adaptable to a vast range of uses, from health to smart cities, and from meteorology to space and military uses. It has the potential to revolutionise human-machine interaction and enhance productivity across value chains and organisational functions, laying the foundation for novel economic activities. The use of generative AI is estimated to create business value equivalent to EUR 2.4-4.0 trillion per year
+ 3
+ . Within the first quarter of 2023 alone, global private investment in AI was estimated to reach EUR 16.5 billion, up from EUR 8.9 billion in Q4 2022
+ 4
+ . 
+ Mastery of the latest developments in generative AI will become a key lever of Europe’s competitiveness and technological sovereignty. The European Economic Security Strategy and the ensuing Commission Recommendation on critical technology areas
+ 5
+ acknowledged AI as a critical European asset and ranked it in the priority four technologies that are currently undergoing collective risk assessment
+ 6
+ .
+ This Communication sets out a strategic investment framework in trustworthy AI for the Union to capitalise on its assets, in particular its world-leading supercomputing infrastructure, and to foster an innovative European AI ecosystem where startups and innovators can work closely with industrial users, attract investments in the Union and have access to the key ingredients of AI - data, computing, algorithms and talent. In addition, it aims to boost innovative applications for generative AI in Europe’s industrial ecosystems, while upholding European values, tackling risks and promoting the responsible use of AI. 
+ This Communication lays out the actions and investments in 2024 that will help startups and industries in Europe fulfil their potential of becoming global frontrunners in trustworthy advanced AI models, systems and applications. 
+ 2. The Union’s strategic framework for a thriving AI startup and innovation ecosystem
+ 2.1. The position of the European Union 
+ The Union boasts strong assets to create a thriving startup and innovation ecosystem for AI. It has an increasing number of fast-growing AI startups
+ 7
+ , as well as universities and research centres with high-quality education, a talented pool of researchers and a strong science base. The Union also has a large Single Market with many AI users across industrial ecosystems, as well as strong human capital, in particular the presence of highly skilled engineers. In each of the ingredients of AI – data, computing power, algorithms and talent – Europe has key assets, which should be leveraged and reinforced.
+ On data, the Union is on the cusp of realising a true Single Market for data through the legislative framework recently put in place as part of its European Data Strategy
+ 8
+ . The Open Data Directive
+ 9
+ improves the availability of high-value datasets, including geospatial, environmental, statistical, and meteorological data. The Data Governance Act
+ 10
+ stimulates data sharing by creating a common framework for data intermediation services. The Data Act
+ 11
+ will unlock large volumes of IoT-generated data, empowering AI startups to utilise this untapped resource. The roll-out of European Common Data Spaces will improve interoperability and access to large volumes of high-quality data
+ 12
+ . For example, the Commission proposed the European Health Data Space (EHDS) Regulation to provide a consistent, trustworthy and efficient framework for the use of health data for research, innovation, policy-making and regulatory activities.
+ On computing capacity, large cloud computing platforms have become the main vehicle for the training of AI models, offering to other AI business developers, including startups, access on a commercial basis. However, access to such large cloud computing resources on a commercial basis is expensive, especially for the emerging AI startups. The Union’s world-leading network of supercomputers offers an alternative to startups, providing the massive amounts of computing power and storage required for the development of AI models. In addition, the Union has put in place a major research initiative for designing and developing advanced microprocessors as it is currently still dependent on processor technologies developed in other parts of the world. 
+ On talent, while the Union can already rely on skilled AI expertise, more talent is needed to specialise in this rapidly evolving field. Educational systems are starting to catch up but do not yet provide enough specialised programmes to meet the growing needs. Moreover, global demand for AI professionals is increasing, making it challenging for the Union to attract and retain experts. Despite the Union’s scientific and industrial excellence in several strategic sectors, lack of an ecosystem approach pooling the necessary AI and sectoral skills risks hampering the Union’s ability to master the latest developments in AI.
+ On investment, the Union has a fast growing and vibrant startup ecosystem, with over 600 startups focused on generative AI, of which a third engaged in model development
+ 13
+ . However, they do not yet have sufficient access to the investment they need to be able to train their models and scale up their activities to become globally competitive. 
+ Finally, a major asset is the European approach to AI: this means a focus on AI that is trustworthy, reliable and accessible and works for people, respecting fundamental rights, democracy and security, reflecting EU values and trusted by business and consumers. The Union is close to adopting a regulation laying down harmonised rules on AI (the “AI Act”), the world’s first comprehensive regulatory framework for trustworthy AI. This is coupled with the first publicly mandated standardisation work on AI
+ 14
+ , which the Commission is undertaking with all relevant stakeholders. 
+ The AI Act provides legal certainty and enhances the uptake of trustworthy AI solutions by focusing its regulatory requirements on high-risk applications. Moreover, it sets proportionate rules for general-purpose AI models, with a focus on models with a systemic impact, giving downstream providers the confidence to adopt and integrate these models in their AI applications
+ 15
+ . For the time until the rules become applicable, the Commission has initiated the AI Pact
+ 16
+ , seeking the voluntary commitment of industry to start implementing the requirements of the AI Act ahead of its entry into application. 
+ 2.2. The strategic framework 
+ To overcome the challenges and exploit its assets, it is vital to strengthen the Union’s tech landscape and ensure its global competitiveness. 
+ First, in order to support the further development and scalability of AI models in the Union, access to world-class supercomputers that accelerate AI training, reducing training time from months to a matter of weeks, is crucial. The Union will further upgrade the EuroHPC
+ 17
+ supercomputers to AI capabilities and facilitate access for startups and the science and innovation community in need of training AI models.
+ Second, the Union will increase the availability of and facilitate access to high-quality data for AI startups and the science and innovation community, by accelerating the development and deployment of its Common European Data Spaces. 
+ Third, the Union will support algorithmic developments that are trustworthy, in line with the AI Act, including by making available R&I supporting funds. 
+ Fourth, the Union will strengthen the EU’s generative AI talent pool, by developing and federating both AI-specific and sector-specific skills, and by attracting and retaining talent.
+ Fifth, the Union will promote the widespread uptake and use of generative AI in application areas, including by public administrations that could act as lead user of such applications. 
+ Sixth, the Union will encourage public and private investments in AI startups and scale-ups, including through venture capital or equity support.
+ This strategic framework, aligned with Union law, including internal market and competition rules, will foster an innovative, fair, open and contestable AI market, while not only bolstering European companies at home but also empowering them to compete confidently on the global stage. It will build upon the existing European approach to excellence in AI, in particular the Coordinated Plan on AI.
+ 18
+ The following sections describe how the above strategic framework will be put in motion.
+ 3.“AI Factories” and supporting activities for the AI startup, science and innovation ecosystem 
+ 3.1.AI Factories
+ To bolster the leadership of European startups and stimulate the emergence of competitive AI ecosystems in the Union, the Commission will establish “AI Factories”. These are open ecosystems formed around European public supercomputers and bringing together key material and human resources needed for the development of generative AI models and applications. These include AI-dedicated supercomputers, associated data centres in proximity or connected via high-speed networks and equally importantly the human capital to use these resources effectively – from supercomputing and AI experts, through data specialists, researchers, startups and end users. “AI Factories” will therefore include computing power, data and supercomputing services as well as large-scale talent attraction activities.
+ Computing power
+ In line with the 2023 State of the Union Address of President von der Leyen, the Commission is announcing actions to facilitate access to the Union’s public network of interconnected supercomputers for startups and the scientific community. 
+ The “AI Factories” will be deployed around the Union’s EuroHPC supercomputing facilities. In the period 2018-2027 the Union will invest EUR 8 billion in state-of-the-art supercomputing capacities, through the European High Performance Computing Joint Undertaking (EuroHPC JU).
+ 19
+ The Union has created a world-class public network of eight interconnected supercomputers located throughout Europe
+ 20
+ and is at the forefront of supercomputing globally. Three of these supercomputers are currently among the top ten supercomputers in the world
+ 21
+ . With the forthcoming two new supercomputers to be installed respectively in 2024 and 2025, the capabilities of the EuroHPC infrastructure will soon reach well beyond exascale performance. Many of the EuroHPC supercomputers, in particular the most powerful ones have or will have accelerated partitions that are very suitable for running AI training and AI application tasks. 
+ The Commission proposes a targeted amendment to the Regulation establishing the EuroHPC Joint Undertaking
+ 22
+ , introducing an “AI Factories” pillar. This pillar will focus on providing an AI-oriented supercomputing service infrastructure, fostering scientific and innovation capabilities and skills within the AI ecosystem.
+ The first element of the “AI Factories” pillar will therefore be the acquisition of AI-dedicated supercomputers, i.e. supercomputers equipped with very powerful processors adapted to train large-scale AI models. These could be either new EuroHPC supercomputers or upgrades of existing EuroHPC supercomputers. 
+ AI startups and the wider scientific community will have access to these EuroHPC supercomputers in line with Union rules and values. Access will only be provided for the development of ethical and responsible AI models and systems
+ 23
+ , a commitment that may be demonstrated, for example, by subscribing to the AI Pact. Such access can become a substantial competitive advantage for the startups for two main reasons. Firstly, the use of supercomputers can significantly accelerate the training of large AI models (from typically six to nine months on average to just a few weeks). Secondly, each AI startup or research organisation accessing a supercomputer for model training can achieve cost benefits reaching tens of millions of euros as compared to using commercial cloud platforms. The opportunities offered by the “AI Factories” will be widely communicated to the startups, SMEs and researchers active in European programmes such as Horizon Europe and the Digital Europe Programme. 
+ Data storage facilities 
+ The second pillar of the “AI Factories” concerns support for using AI-dedicated supercomputers to train AI models. “AI Factories” will have to be located in proximity to or connected via high-speed networks to an established data centre to benefit from large-scale data storage capacities. In addition, such data centres will be interconnected with the Common European Data Spaces in order to facilitate the model training in key sectorial domains.
+ Supercomputing services
+ The third pillar of the “AI Factories” concerns dedicated supercomputing support services centres for AI startups and the research and innovation ecosystem. These services include: facilitating access to supercomputers; dedicated supercomputer-friendly programming facilities and algorithmic support for the further development, testing, evaluation and validation of AI training models and systems; and support for the development of a variety of novel use cases and emerging applications based on AI in key areas such as robotics and manufacturing, new materials (e.g., for batteries), connected and automated driving, personalised health and care, biotech, climate change and adaptation. 
+ The EuroHPC JU will act as a single contact point at the EU level directing startups and interested users to a specific service centre. Every service centre will also create a one-stop shop for the startups to facilitate access to its support services. Moreover, Union-level cooperation of “AI Factories” will make computing power available as-a-service throughout the Union, as part of the support services.
+ Talent and the science ecosystem 
+ A key aspect for the success and further deployment of “AI Factories” is their ability to engage and attract a diverse pool of talent, including students, AI startups, researchers and scientists, and the user community. The objective is to provide training that effectively equips them with the necessary skills needed to use EuroHPC supercomputers for model training and application development. For this, “AI Factories” should work in close partnership with startups, universities and research centres as well as key industrial sectors. The AI Factories will also bring the scientific community closer to AI, offering specialised user support and training to AI scientists and experts. 
+ Synergies at Union level
+ All “AI Factories” will closely interact with each other to make their services accessible across Europe. They will also cooperate with the EuroHPC Competence Centres and the EuroHPC Centres of Excellence, as well as with relevant AI initiatives of the Union, such as existing hubs of AI startups, the AI Testing and Experimentation Facilities
+ 24
+ , the European central AI platform
+ 25
+ , the European Digital Innovation Hubs
+ 26
+ , the Regional Innovation Valleys in the area of AI
+ 27
+ , the AI-related EIT Knowledge and Innovation Communities, relevant European research infrastructures and other related initiatives. 
+ Finally, while “AI Factories” are financially supported mainly by public funds, they are also open to pledges and investments by the private sector. 
+ 3.2.Other supporting initiatives 
+ Improving the availability of and access to quality data
+ The performance and capabilities of generative AI models today rely heavily on the quality and diversity of the data they are trained on. Although emerging methods, improved algorithms and the increasing availability of synthetic data may in the future reduce reliance on massive datasets, high-quality data will remain of paramount importance in the development of increasingly sophisticated models. 
+ The Common European Data Spaces are therefore key to provide a varied data ecosystem for AI startups, integrating data within and across sectors like health
+ 28
+ , media
+ 29
+ , mobility
+ 30
+ , tourism
+ 31
+ , agriculture, construction, environment and manufacturing, as well as the data space for research and innovation (EOSC
+ 32
+ ). 
+ The Commission will strengthen its financial support for the Common European Data Spaces with new calls covering major sectorial application areas such as mobility and energy, being launched in 2024 under the Digital Europe Programme. 
+ ‎Federating language resources: ALT-EDIC
+ ‘Large Language Models’ are advanced AI models that excel in understanding and generating human-like language. These capabilities, cutting across several applications, are key to the AI transformation. It is therefore important for the Union to ensure that these models embrace its linguistic diversity, and that initiatives to create and share available datasets for languages contribute to improving the capabilities of AI models in addressing the linguistic needs of the smaller Member States and language communities. 
+ To achieve these twin objectives, several Member States will join forces through the Alliance for Language Technologies European Digital Infrastructure Consortium (ALT-EDIC)
+ 33
+ initiative. This will provide centralised access to language resources for the development of European ‘Large Language Models’, offering valuable tools in particular for Member States with limited language data and empowering users to engage with digital content in their native languages. The supply of high-quality language data will be key for Union’s model developers. 
+ As part of its efforts to support the European Data Strategy, the Commission will make available high-quality language data from European institutions covering all European languages.
+ Finally, as advanced models can effectively handle multiple types of data simultaneously (text, audio, video, images, code, etc), ALT-EDIC will also open up possibilities for more holistic and comprehensive AI applications across various domains. 
+ Supporting the development of algorithms
+ Advanced AI algorithms can guide AI systems to not only process vast amounts of data but also to comprehend, generate, and take or underpin contextually appropriate decisions. 
+ To support the continuous refinement and innovation of algorithms, the Commission has already put in place a number of initiatives. Most recently, in 2023 the Commission launched the Large AI Grand Challenge
+ 34
+ rewarding the AI startups developing the best models with financial and computing power support. 
+ Moreover, the Commission under the 2024 Digital Europe Programme
+ 35
+ will support the scale-up of a large language model capable of addressing all European languages and facilitate its fine tuning by a large number of SMEs. This model is based on open source that holds the promise of wider access and greater transparency in terms of how it works, and its architecture and training methodologies. Open-source models exploit European strengths in the field and encourage trust, while fostering innovation. 
+ Rigorous testing procedures are crucial for evaluating the performance of algorithms across various scenarios, datasets, and edge cases. They help identify and address biases in training data, prevent the generation of inappropriate content, etc. The Commission has set up several initiatives to facilitate the testing of AI algorithms in real world conditions through Testing and Experimentation Facilities
+ 36
+ , offering AI developers virtual and physical facilities in the areas of agrifood, manufacturing, healthcare and smart cities. In addition, under the AI Act, Member States will put in place AI regulatory sandboxes
+ 37
+ providing a controlled environment for startups to develop, test and validate innovative AI systems, under the supervision of competent authorities. In 2024, the Digital Europe Programme will also support the development of tools for testing and validation of AI models and systems, to be used in testing facilities and sandboxes.
+ Finally, to advance research and unlock the potential of future generations of AI models, in the period 2024-2027, the Commission will support through Horizon Europe, projects that could enhance the capabilities of generative AI, enabling it to effectively exploit and combine multimodal inputs and foster innovative learning approaches. 
+ Investing in AI startups and scale-ups
+ Today more than 90% of the worldwide venture capital investment in AI, which shot up from EUR 2.7 billion in 2022 to EUR 24 billion in 2023
+ 38
+ , is done in the United States. 
+ Attracting investment in European AI startups is crucial for accelerating the deployment of advanced AI solutions. The collaboration between investors and these startups holds the key to unlocking new possibilities and driving the next wave of technological breakthroughs. 
+ This is why the Commission is putting in place financial instruments to support these startups’ efforts: first, Horizon Europe’s European Innovation Council will continue to provide, through its accelerator scheme, dedicated investment possibilities
+ 39
+ in the forms of grants and equity to support startups and attract investors; second, InvestEU will provide a dedicated instrument for venture capital funds to support scale-ups and SMEs. Both instruments are designed to de-risk and crowd in private investors. In addition, the Commission continues to work on the development of the Capital Markets Union
+ 40
+ , in order to improve financing for European startups and strengthen European economic security. 
+ Skills: leveraging on European capacities
+ The Union needs to attract, train and retain generative AI specialists. The Commission is already supporting an Erasmus+ Alliance for Innovation, ARISA (Artificial Intelligence Skills Alliance
+ 41
+ ), developing a sectoral skills strategy on AI in the context of the Pact of Skills. The Commission will support training, skilling and reskilling activities in generative AI, for example by supporting dedicated masters and doctoral programmes through the Digital Europe Programme, including by targeting female participation
+ 42
+ . In addition, it will involve education and training providers, including in its Large-Scale Partnership for digital skills under the Pact for Skills, as well as the Networks of Excellence
+ 43
+ and their doctoral programme. Horizon Europe, including through the European Research Council (ERC)
+ 44
+ and the Marie Skłodowska-Curie Actions, will play a significant role in attracting and retaining AI talent. By acting as a prestigious “quality label” for research labs and financing ambitious AI-related projects, the ERC will attract both EU and non-European research talents. The programme is open to startups and SMEs active in AI to team up in consortia with resourceful institutions worldwide to attract, train and retain AI talents.
+ The European Institute of Innovation and Technology (EIT) and its Knowledge and Innovation Communities (KICs) already partner up with leading education institutions, research organisations and businesses. The EIT Campus
+ 45
+ will continue to support the development of a workforce equipped with future-proof competences. As part of the New European Innovation Agenda
+ 46
+ , the Deep Tech Talent Initiative
+ 47
+ will train one million Europeans by the end of 2025 in deep tech fields, including AI.
+ The application of generative AI also holds huge promise across several scientific and industrial sectors, where Europe is leading and has a breadth of talent spanning from researchers and scientists to practitioners and engineers. Combining their sector-specific skills with those of generative AI specialists around several ambitious use cases can be catalytic for the further development of these sectors. The Commission will therefore propose activities under the Digital Europe Programme to enhance talent and cultivate the required skills in a few strategic application areas. Examples of such areas include robotics, healthcare and biotechnologies, mobility and manufacturing. The Commission will encourage stakeholders implementing the above initiatives to closely engage with “AI Factories”.
+ The Commission will also work with the European Digital Innovation Hubs specialised in AI to engage SMEs and the public administrations and deliver training that corresponds to their needs, as the integration of AI models is expected to have a multi-fold impact on work, changing the skills requirements in all public and private sectors.
+ Enabling AI processor chips 
+ The training of AI models relies on specialised AI chips but these are mostly designed and developed outside the Union. This is why the EU launched the European Processor Initiative in 2019, aiming to develop high-end processors, including for AI. A follow-up major initiative will be launched in 2024 under the EuroHPC JU, to address the design and development of a new generation of microprocessors and AI accelerators. The first objective is to use this technology to fully power the first European post-exascale supercomputer. The second objective is to support, through the Chips JU, the embedding of such processors in automated and connected vehicles, future advanced communication systems such as 6G, and the development of trustworthy low-power edge AI chips which are crucial for numerous applications. Finally, the Commission is also supporting the development of quantum chips for quantum computers that have the potential to boost the training performance of AI models. 
+ 4.“GenAI4EU” for developing key AI applications 
+ The Union can leverage its strategic leadership across diverse industrial and scientific fields, including AI, to develop high-impact AI-based applications. To harness the benefits of the AI transformation, the Commission will launch “GenAI4EU”, a landmark initiative to stimulate the uptake of generative AI across the Union’s fourteen strategic industrial ecosystems, supporting the transition pathways outlined in the EU Industrial Strategy
+ 48
+ . The initiative will encourage the development of large open innovation ecosystems fostering collaboration between AI startups and deployers of AI in industry and the public sector.
+ 49
+ This will include industrial applications such as manufacturing, while also reflecting the Union’s commitment to greening its economy and addressing climate change. “GenAI4EU” will include key application areas, such as the ones listed below, each benefitting from the “AI Factories” and the relevant high-quality data in the Common European Data Spaces. 
+ The initiative will support the development of key applications leveraging generative AI to improve their performance or their capabilities. The newly established AI Office (Section 5) will monitor the progress in developing these strategic applications through concrete implementation targets. Such monitoring activity will be linked to the assessment that will be conducted through the European Transition Pathways Platform
+ 50
+ . 
+ Robotics 
+ Today the Union is a world leader
+ 51
+ in industrial and service robotics. In particular the Union excels in areas such as safe physical human-robot interactions, advanced robotics manipulation and aerial robotics, thanks to its world-class expertise in mechatronics
+ 52
+ . 
+ Generative AI enhances the capabilities of robots in terms of learning, interaction and operation, making them more adaptable, efficient, and effective across diverse applications. More specifically, generative AI can help robots learn from their experiences.
+ Generative AI can also simulate realistic environments for robot training, especially in challenging environments such as nuclear or space environments. It can also optimise robot designs for specific tasks, environments, or efficiency purposes; or it can enhance robot planning capabilities to predict the outcomes of different actions. In Human-Robot Interaction, generative AI can enhance the robot’s ability to understand and respond to human actions.
+ The combination of advanced mechatronics with the impressive cognitive capabilities of generative AI will underpin a new wave of breakthroughs that promises to propel the Union to new levels of leadership in robotics.
+ The Commission will support AI-enabled advanced robotics applications through Horizon Europe and its Public Private Partnership on AI, Data and Robotics.
+ 53
+ Healthcare 
+ Generative AI holds the potential to revolutionise healthcare. In personalised medical care, it will help provide tailormade healthcare solutions to patients based on their unique genetic composition, and environmental and lifestyle factors. It can also greatly benefit epidemiological surveillance, pandemic prevention, and the response to health threats.
+ The potential impact of generative AI in healthcare has so far been most prominently prototyped, particularly in applications like radiology, screening and early disease detection, accurate diagnoses, and personalised treatments as well as in streamlining of healthcare delivery processes. 
+ Several EU startups are developing generative AI solutions for a vast number of healthcare applications
+ 54
+ such as improved accuracy and robustness in radiology thanks to the generation of synthetic data
+ 55
+ , or improved efficiency in emergency call processing
+ 56
+ .
+ The Commission will support relevant data spaces, namely the European Genomic Data Infrastructure and Cancer Image Europe, given their importance for the development of future generative models for healthcare. The Virtual Human Twins initiative
+ 57
+ will use these data spaces, among others, to train generative AI models that take into account biological processes at different levels within the human body – from molecules and tissues to organs and the entire body. This will help speed up clinical trials of new medicines and optimise patient treatments. In addition, the Commission has launched an AI Testing and Experimentation Facility
+ 58
+ in healthcare.
+ As trust is essential for the successful take-up of innovative solutions in healthcare, the AI Act complements the existing sectoral legislation, such as the medical device and in vitro diagnostic medical device regulations
+ 59
+ , by providing additional safeguards for safety and the respect of human rights by AI systems used. 
+ Biotechnologies and chemicals
+ By combining excellence in biotechnology and AI, the Union has a unique opportunity to reap the huge benefits that generative AI is expected to bring in various sectors such as materials research, chemicals or agrifood.
+ The advent of generative AI is expected to lead to significant innovation in the biotech and pharmaceutical industries. It holds the potential to generate synthetic genetic data in the absence of real data, generate new or analyse existing gene sequences to help understand complex genetic diseases or facilitate drug discovery, as seen in recent breakthroughs on AI supported antibiotic development to fight antimicrobial resistance.
+ Similarly, rapid developments can be expected in the wider field of synthetic biology, for example to design new genetic sequences with desired proprieties that can produce a specific drug. Other examples include production of sustainable fabrics, cheese, cell-cultured meats, plant-based meat alternatives, etc. 
+ A Dutch startup is using generative AI to help biologists design improved proteins, cutting by 50% the R&D time needed to design such proteins.
+ 60
+ This innovative approach has attracted the attention of leading drug, chemical, food and materials development companies and mobilised an investment of EUR 30 million.
+ In 2024, the Commission will launch an initiative on biotechnology and biomanufacturing which will also involve the use of AI. 
+ Similarly to the healthcare sector, in biotech the AI Act will guarantee the use of trustworthy AI and ensure the transparency, safety and required human oversight. In addition, complementary regulations ensuring cybersecurity and privacy are key for biotechnology developments, mitigating the risk of potential misuse of such technology, particularly in contexts like biowarfare. 
+ Materials and batteries 
+ Generative AI can be used for synthesising new material structures, predicting new material proprieties or designing new composite materials achieving specific mechanical, thermal or electric proprieties. In textiles, generative AI can be used to predict fabric and material properties based on fibre and yarn data. For batteries, generative AI can be instrumental in radically improving performance and safety (e.g., by exploring and designing different materials, chemistries and cell structures). Such breakthroughs will be key for the green transition.
+ A Swedish startup is using generative AI to pioneer a transformative approach in the battery industry, focusing on accelerating the development of innovative battery materials, optimising cell production for clients, and enhancing sensing and analysis methods in manufacturing.
+ 61
+ Generative AI can also be a valuable tool to boost hydrogen production as a clean energy source, across its entire production process. From designing more efficient catalysts to discovering new materials for enhanced hydrogen production and distribution, it contributes to optimising energy consumption.
+ 62
+ The EU-funded Battery 2030+ flagship initiative
+ 63
+ is aiming at inventing the battery of the future. It uses AI to speed up the discovery of new battery materials and chemistries. The flagship initiative is supported through Horizon Europe, as part of the Batt4EU Partnership initiative.
+ Manufacturing and engineering
+ Generative AI will support the Union’s global competitiveness in manufacturing. Using the huge amount of industrial data produced by IoT, it will improve manufacturing processes, significantly reducing waste and costs and ensuring higher quality products for example it will improve additive manufacturing and 3-D printing. It can also be used to adapt supply chains to changing market conditions or develop greener manufacturing processes.
+ A number of European manufacturing companies are already using generative AI to enhance their operations and services.
+ 64
+ For example, one company employs generative AI for controlling manufacturing machinery, while another uses it for inspection tasks in the manufacturing process. The Commission will support European Data Spaces for Manufacturing that can be used to train generative AI models. It will also support the use of AI in manufacturing and engineering applications through Horizon Europe and the Made in Europe Public Private Partnership. In addition, the Commission has launched a Testing and Experimentation Facility
+ 65
+ in manufacturing, offering services to AI innovators, in particular startups and SMEs, to assess and validate AI solutions, including those based on generative AI, under real-world conditions
+ 66
+ .
+ Mobility
+ Generative AI is important for the automotive industry, serving as a valuable tool for advancing autonomous driving and manufacturing. It provides advanced capabilities for training, simulation, and enhancing the decision-making processes of self-driving vehicles. It can, for example, help create large synthetic datasets and realistic driving scenarios for training AI algorithms, making autonomous vehicles more robust, safer and increasingly adaptable to traffic conditions, etc. Its combination with advanced automotive sensory and safety control systems will reinforce the Union’s leadership in this area. 
+ Furthermore, generative AI can support coding and help the automotive industry address the challenges of increasing software complexity and shortage of skills. However, leveraging the forthcoming innovations will require a significant shift in the electronic and software architecture of vehicles. 
+ Generative AI can, in more general terms, optimise transportation systems, identify inefficiencies e.g. in supply of goods and predict maintenance needs, for instance for an improved traffic management in our cities. A number of European automotive companies and their suppliers are already using generative AI models and systems to test and validate performance and safety and to personalise vehicle experience. 
+ 67
+ The Commission will support, through the Chips JU, the Vehicle of the Future initiative
+ 68
+ to enhance industry collaboration on the next-generation vehicle software and electronics platforms. 
+ Climate change and environmental sustainability 
+ Generative AI is revolutionising the development of extreme weather and climate prediction systems, an area where the Union has been a frontrunner in employing traditional climate modelling and simulation algorithms. Generative AI has also improved our capacity to model the state of the environment (water, air, soil biodiversity) and assess the impact of the economy on natural resources. It can also make weather forecasting more accurate, detailed, and adaptable, contributing significantly to disaster preparedness, agriculture, transportation, and other sectors reliant on weather predictions. 
+ The Union needs to seize these opportunities to maintain its leadership in this field at a time when environmental monitoring, predicting extreme weather events and supporting climate mitigation and adaptation is more vital than ever.
+ A German-based startup is using AI to automate assessment of environmental, social, and governance criteria to support EU companies in their sustainability reporting requirements.
+ 69
+ The Commission will support the Green Deal data space that will make public and privately held data accessible for AI-driven solutions and contribute to climate mitigation / adaptation and environmental sustainability. 
+ The Union’s Destination Earth initiative
+ 70
+ will carry out activities towards the creation of an open-source generative model for climate modelling. This work will also support the development of the Union’s AI industry by enabling industrial partners, particularly AI SMEs and startups, to train and apply their models in applications of societal relevance.
+ Once the system becomes fully operational, the Commission will seek to make it widely available to the global community and international organisations. 
+ Virtual Worlds and Digital Twins 
+ Generative AI is an essential technology for the development of realistic, creative, immersive and interactive virtual worlds. For example, in the cultural and creative industries, in particular in gaming and entertainment, this can enable personalised experiences, remove language barriers and empower AI-driven creativity. 
+ Generative AI will also play a role in virtual reality applications applied in smart cities, from supporting tourism, retail and culture to optimising transportation systems or addressing sustainability challenges in cities.
+ Innovative startups, for example in Sweden, are already offering AI-run digital twins to train and test autonomous solutions faster compared to conventional methods, e.g. in mobility.
+ 71
+ In its recent Communication on Web 4.0 and virtual worlds
+ 72
+ , the Commission presented the Union’s plan for a ground-breaking technological transition towards a seamlessly interconnected world
+ 73
+ . The forthcoming European Public Private Partnership on Virtual Worlds will support AI-enabled advancements in virtual reality applications. In 2024, the European Innovation Council Accelerator Challenge will also provide support for enabling virtual worlds in industry. Furthermore, the Commission has launched a Testing and Experimentation Facility
+ 74
+ in the area of smart cities and communities, offering services to AI innovators to assess and validate AI solutions under real-world conditions.
+ The CitiVERSE EDIC
+ 75
+ on Local Digital Twins, involving several Member States and supported by the Commission, will foster the use of generative AI in smart cities applications. These include simulation of possible scenarios such as the impact of changing traffic conditions on air quality, decarbonisation and congestion and more broadly on greening cities. It will also work on generative AI-based virtual reality applications to improve interaction with citizens, e.g. to actively consult them on planned urban changes. This EDIC will use the Data Space for Smart and Sustainable Cities and Communities as well as other relevant Common European Data Spaces, for instance the energy, mobility and green deal data spaces. 
+ Cybersecurity 
+ Generative AI can exponentially increase the capacity to learn and replicate patterns found in cyber threats or in vulnerabilities to improve the detection and the prediction of future threats, thereby assisting cybersecurity professionals. At the same time, generative AI can also be used by cybercriminals
+ 76
+ to organise sophisticated cyber-attacks and other malevolent activities. The prevalence of generative AI will therefore further increase the need to ensure systems’ robustness, their resilience as well as to prepare preventive and mitigation measures for critical asset protection. In addition, internal security actors will also need to be well equipped to address the use of generative AI by cybercriminals.
+ A French cybersecurity startup
+ 77
+ recently launched 
+ a generative AI Assistant that already demonstrated a significant impact by enabling faster and easier implementation of security policies, more accurate security alerts and faster decision-making, thus allowing to speed up remediation. 
+ Horizon Europe and the Digital Europe Programme will support the whole spectrum of AI-centred research, innovation and deployment activities needed to effectively respond to cybersecurity and organised crime challenges in the generative AI era. This includes the development of AI capabilities in cross-border and national Security Operations Centres
+ 78
+ . Other collaborative initiatives will continue to be championed under the umbrella of Europol’s Innovation Lab. The forthcoming AI Act will provide guardrails for the responsible use of AI systems in this area whilst safeguarding fundamental rights and safety.
+ Aerospace
+ In the aerospace sector, generative AI can be used for increasing resilience of aerospace systems and services, enhancing their sustainability and safety. 
+ For example, in aeronautics, generative AI can play a key role in operations and training, autonomous flying and for designing new lightweight and robust materials for aircrafts and drones, including for their engines and other components. In space, generative AI could be used for in-orbit servicing applications, Earth observation data analysis, collision avoidance, debris removal, space situational awareness and space traffic management. 
+ More broadly, generative AI has the potential to significantly enhance various aspects of space applications, from improving accuracy, to optimizing spacecraft design and enabling more autonomous and adaptive systems for space exploration.
+ On Earth, autonomous navigation for terrestrial transport will be based on AI-enabled data fusion including GNSS positioning, navigation, and timing services, etc. 
+ The Commission will support, through Horizon Europe, the whole spectrum of AI-based space research and development of technologies (including computational space-qualified components) needed to effectively respond to space needs and future EU space missions. Finally, Copernicus provides daily high-quality Earth observation data, serving as an important source of training for generative AI with applications in a variety of fields, including environmental information services. 
+ Aerospace is an important element of the defence infrastructure. The European Defence Fund also supports generative AI applications and will explore possible synergies with infrastructures, services and evaluation activities supported by this AI package.
+ AgriFood
+ Generative AI holds significant potential for advancing agricultural practices. In livestock farming, it can enhance real-time monitoring and disease diagnosis by generating more accurate models from extensive data on animal health and behaviour, leading to earlier and more precise interventions. For crop cultivation, generative AI can revolutionise smart irrigation systems, synthesising data from various sources to optimise water usage and predict future needs. By creating and simulating complex scenarios, this technology can not only ensure efficient resource management but also improve productivity and sustainability in agriculture.
+ The Commission supports the agricultural data space and a Testing and Experimentation Facility
+ 79
+ . 
+ Sciences
+ Generative AI will have a profound impact on scientific discovery, ushering in a new wave of innovation at the intersection of AI and all scientific domains
+ 80
+ ,
+ 81
+ . Areas such as new materials design, fusion research, seismological research or astronomy are already integrating generative AI models in their research activities.
+ Horizon Europe is already funding many projects
+ 82
+ that are using AI and supercomputing facilities to solve scientific problems. Generative AI will bring such projects to new levels of productivity and capability to innovate. The Commission will propose several new funding opportunities promoting AI in science in its future work programmes of Horizon Europe that would help to reinforce the Union’s position as a leader in AI for science. Moreover, the Commission, with stakeholders in the ERA Forum, will develop guidelines on the responsible use of generative AI in research. 
+ The Commission requested an opinion from the Scientific Advice Mechanism (SAM)
+ 83
+ on how to accelerate its uptake by the scientific community. 
+ Public sector
+ Generative AI has a strong transformative potential for the public sector in a wide range of areas, such as health, social affairs, education, culture, justice, mobility, waste or water management and urban planning. For example, it can enhance the efficiency of public administration, facilitate access to information for citizens or help carry out market surveillance tasks. The Commission as a public institution itself is actively pursuing the development and use of trustworthy AI in its internal operations, fully committed to early application of the principles of the AI Act, in line with the AI Pact. 
+ Generative AI can also allow citizens to enjoy improved access to general and personalised information on one’s entitlements, or simplified application processes. Digitalisation and AI can therefore contribute to transparency and simplification in the area of social protection, a commitment existing at EU level through the Council recommendation on access to social protection
+ 84
+ . Government institutions need to deploy trustworthy AI solutions to ensure public confidence in their use. 
+ The city of Heidelberg, in Germany, has launched an AI-based chatbot
+ 85
+ developed by a German startup
+ 86
+ , the country’s first digital citizen assistant, enabling citizens to easily navigate government services such as applying for a new identity card, getting a driving license, and registering a place of residence.
+ Public procurement is an important lever to stimulate investments in AI, as stated in the New European Innovation Agenda. By embracing innovation procurement, the public sector can accelerate the development, testing and deployment of innovative AI-based solutions. To encourage the uptake of AI-based solutions by public authorities, the Commission has contributed to the development of AI-specific contractual clauses tailored for public buyers, which are designed to streamline the procurement process of AI technologies by public authorities. Additionally, the Commission facilitates the Community of Practice on AI and Public Procurement and supports experimentation and piloting through the GovTech4all Incubator, providing public administrations the opportunity to test generative AI solutions. 
+ The Commission has also developed the Public Sector Tech Watch observatory dedicated to monitoring, analysing and disseminating the use of emerging technologies including generative AI within the public sector in Europe.
+ 5.Summary of key action points and conclusions
+ The development of generative AI is of great significance due to its potential for transformative social and economic impact. To leverage its benefits and mitigate risks, Europe needs a thriving startup and innovation ecosystem capable of developing trustworthy AI models and ground-breaking applications that are consistent with the European way of life. This Communication outlines a number of actions to achieve this goal. 
+ In 2024, the Commission will: 
+ ·Support the setup of “AI Factories”, through the amendment of the EuroHPC Regulation;
+ ·Accelerate the development and deployment of the Common European Data Spaces and make them available to the AI community;
+ ·Support the development of large AI models and systems; 
+ ·Support “GenAI4EU” for developing novel use cases and emerging applications in several industrial and societal sectors;
+ ·Support initiatives to strengthen the Union’s generative AI talent pool;
+ ·Provide innovative financial instruments through the EIC Accelerator Programme and the InvestEU guarantee and encourage Member States and private investors to undertake similar investments for AI startups and scale-ups.
+ In 2024, the Member States will:
+ ·Establish the ALT-EDIC and the CITIVERSE EDIC with the support of the Commission.
+ The above activities will be financed in the following way: 
+ ·Funding for “AI Factories”: through the EuroHPC JU, the Commission and Member States will invest a total amount of EUR 2.1 billion in acquiring new or upgrading existing EuroHPC supercomputers with AI capabilities, the creation of supercomputing services in AI and developing AI-oriented microprocessors and skills support. 
+ In addition, the Commission will provide financial support for startup incubation and scale-up activities of EUR 100 million via InvestEU that would leverage an additional investment of EUR 1 billion. 
+ ·Funding for GenAI4EU: the Commission will support under Horizon Europe and the Digital Europe Programmes the development of novel use cases and emerging applications in several industrial and societal sectors for an estimated amount of EUR 500 million by 2027. 
+ In addition, Member States with the support of the Commission will invest around EUR 100 million in ALT-EDIC and CitiVERSE EDIC.
+ This package will generate an additional public investment of close to EUR 
+3 billion in generative AI until the end of this multiannual financial programme (2027), as well as significant private investments, including EUR 1 billion through InvestEU. This comes on top of existing Union, Member State and private investments in the broader AI domain. 
+ To underpin this strategy, a strong coordination approach across the Union is necessary, bringing together Member States, the Commission and all relevant stakeholders. In particular, as foreseen in the AI Act, the Commission will set up an AI Office which will supervise policy and regulatory activities in the area of AI. The AI Office will collaborate closely with Member States, the EuroHPC Joint Undertaking (JU), and key stakeholders, including players in industry, academia and civil society. This collaborative effort will coordinate actions and combine resources, encouraging investment in the development, refinement, and integration of advanced models into key applications. 
+ Today, the rapid developments in AI are the source of intense international debates. In line with the European Economic Security Strategy, the Commission will continue to build partnerships with key digital economies and maintain access to these markets that will continue to be important sources of innovation. The AI Office will contribute to international cooperation on AI, including on the promotion of adequate regulatory guardrails and the democratic governance of AI. This includes supporting bilateral cooperation with international partners, including in the AI for Public Good initiatives
+ 87
+ , where the EU has concluded an agreement with the United States to address global challenges in the fields of climate change, natural disasters, healthcare, energy and agriculture
+ 88
+ .
+ The Union continues also its long-standing international engagement in different rules-based, multilateral fora and international organisations, notably the UN, OECD, the Council of Europe, G7, G20 and the Global Partnership on AI. 
+ A sense of urgency in implementing the actions presented in this Communication is necessary, because the battle may not be to the strong, but this race will definitely be to the swift.
+ (1)
+ For example, models learn from a vast amount of text to understand the structure and context of language without explicit instructions about what each piece of text is about. Models can therefore learn and generalise their understanding of the world and are capable to handle new and diverse situations.
+ (2)
+ This content generation spans text, images, sounds, and even code, such as for programming or gene sequencing. 
+ (3)
+ The economic potential of generative AI: The next productivity frontier, June 14, 2023, 
+ https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-AI-the-next-productivity-frontier#introduction
+ (4)
+ https://www.tortoisemedia.com/2023/06/28/the-global-artificial-intelligence-index/
+ (5)
+ JOIN(2023) 20 final and C(2023)2113
+ (6)
+ The proposal for a Council Recommendation on enhancing research security (COM(2024)26 final) will be particularly relevant in this context
+ (7)
+ When referring to AI startups, this Communication covers startups developing AI models, as well as those that finetune them and integrate them in systems and applications. 
+ (8)
+ COM(2020) 66 final
+ (9)
+ Directive (EU) 2019/1024
+ (10)
+ Regulation(EU) 2022/868
+ (11)
+ Regulation(EU) 2023/2854 
+ (12)
+ Commission Staff Working Document on Common European data spaces, SWD(2024)XXX
+ (13)
+ ‘Generative AI in the European Startup Landscape 2024’, appliedAI Institute for Europe, 
+ https://www.appliedai- institute.de/en/hub/2024-generative-ai-study
+ (14)
+ C(2023)3215.
+ (15)
+ The regulatory framework also includes the Machinery Regulation ensuring the safety of AI-powered machines, including robots. (Regulation (EU) 2023/1230))
+ (16)
+ https://digital-strategy.ec.europa.eu/en/policies/ai-pact
+ (17)
+ https://eurohpc-ju.europa.eu/supercomputers/our-supercomputers_en
+ (18)
+ COM(2021) 205 final
+ (19)
+ The EuroHPC Joint Undertaking is bringing together 33 participating states, including all Member States, the Commission and three private associations. 
+ (20)
+ https://eurohpc-ju.europa.eu/index_en
+ (21)
+ LEONARDO in Bologna, Italy, LUMI in Kajaani, Finland, and MareNostrum 5 in Barcelona, Spain.
+ (22)
+ Regulation (EU) 2021/1173
+ (23)
+ Access to the EuroHPC supercomputers is also available to the public sector including for testing and evaluation purposes of generative AI models.
+ (24)
+ https://digital-strategy.ec.europa.eu/en/activities/testing-and-experimentation-facilities
+ (25)
+ https://aiod.eu/
+ (26)
+ https://european-digital-innovation-hubs.ec.europa.eu/
+ (27)
+ https://research-and-innovation.ec.europa.eu/news/all-research-and-innovation-news/results-regional-innovation-valleys-calls-are-strong-interest-member-states-and-associated-countries-2023-10-19_en
+ (28)
+ For example, the proposed European Health Data Space (EHDS) will facilitate access to quality data to be used in the training, testing, and validation of generative AI in health. 
+ https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en
+ (29)
+ As outlined in the Media and Audiovisual Action Plan, COM(2020) 784 final 
+ (30)
+ COM(2023)751 final
+ (31)
+ Communication from the Commission, Towards a Common European Tourism Data Space: boosting data sharing and innovation across the tourism ecosystem, 2023/C 263/01
+ (32)
+ https://research-and-innovation.ec.europa.eu/strategy/strategy-2020-2024/our-digital-future/open-science/european-open-science-cloud-eosc_en
+ (33)
+ The European Digital Infrastructure Consortium (EDIC) is an instrument established under the Digital Decade Policy Programme to offer Member States a stable framework to implement multi-country projects. Its main advantages are: legal personality, flexibility of design and relative speed in setting it up. This allows Member States participating in the EDIC to pool funds for large-scale, long-term digital infrastructures. 
+ https://digital-strategy.ec.europa.eu/en/policies/edic
+ (34)
+ https://aiboost-project.eu/large-ai-grand-challenge/
+ (35)
+ https://digital-strategy.ec.europa.eu/en/activities/work-programmes-digital
+ (36)
+ Testing and Experimentation Facilities (TEFs) 
+ https://digital-strategy.ec.europa.eu/en/activities/testing-and-experimentation-facilities
+ (37)
+ With the adoption of the AI Act, one regulatory sandbox will be set up in all Member States. These sandboxes will provide a controlled environment for the development, testing and validation of innovative AI systems, under the supervision of competent authorities. In the sandboxes, companies will receive guidance on regulatory expectations and best practices to assist the future implementation of their systems.
+ (38)
+ https://oecd.ai/en/data?selectedArea=investments-in-ai-and-data&selectedVisualization=vc-investments-in-generative-ai-by-country
+ (39)
+ EIC Accelerator - https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
+ ; 
+ (40)
+ https://finance.ec.europa.eu/capital-markets-union-and-financial-markets/capital-markets-union_en
+ (41)
+ https://aiskills.eu/
+ (42)
+ In Europe, 16% of AI-skilled individuals are women.
+ (43)
+ The Networks of Excellence in AI bring together the best research teams in Europe from academia and industry to join forces in addressing the major challenges hampering the deployment of AI-based solutions. 
+ https://www.ai4europe.eu/Network-of-Excellence
+ (44)
+ AI accounts today for around 15% of all ERC projects
+ (45)
+ The EIT Campus currently includes over 200 courses in 28 languages and involves 164 education, research, and business partners, https://eit-campus.eu/
+ (46)
+ A New European Innovation Agenda, COM (2022)332, 
+ https://research-and-innovation.ec.europa.eu/strategy/support-policy-making/shaping-eu-research-and-innovation-policy/new-european-innovation-agenda_en
+ (47)
+ EIT Deep tech talent initiative, 
+ https://www.eitdeeptechtalent.eu
+ (48)
+ COM(2021)350 final
+ (49)
+ This will build on the work of the European Clusters Collaboration platform and the Enterprise Europe Network.
+ (50)
+ European Transition Pathways Platform will monitor the green and digital transformations across various industrial ecosystems, and foster collaboration to accelerate the transition. 
+ (51)
+ The EU robotics industry, with 82,000 industrial robots installed in 2021, is the second-largest global region after China. The European Service Robots Market is set for significant expansion, projecting a 14% CAGR by 2026, with the EU playing a prominent role across diverse sectors. European service robot manufacturers hold a significant position in the global market, constituting approximately 290 out of the 700 registered companies supplying service robots. 
+ https://ifr.org/
+ (52)
+ Boosted by the world largest civilian robotics programme in the world initiated by the Commission.
+ (53)
+ The ADRA PPP is benefiting from EUR 2.6 billion Horizon Europe and private funding through 2021-2027, 
+ https://adr-association.eu/
+ (54)
+ https://sifted.eu/articles/europe-generative-ai-startups 
+ (55)
+ https://ryver.ai/ 
+ (56)
+ https://www.corti.ai/ 
+ (57)
+ European Virtual Human Twins Initiative
+ - https://digital-strategy.ec.europa.eu/en/policies/virtual-human-twins
+ (58)
+ Regulation (EU) 2017/745 on medical devices and Regulation (EU) 2017/746 on in vitro diagnostic medical devices
+ (59)
+ Cradle — Design Better Proteins
+ , 
+ Cradle – Cradle raises $24M Series A and signs partnerships with industry leaders
+ https://www.cradle.bio/blog/cradle-raises-24m-series-a-and-signs-partnerships-with-industry-leaders
+ (60)
+ https://northvolt.com/articles/northvolt-machine-learning/
+ , https://www.ft.com/content/577920d3-1c60-4105-9503-80e655280d3a 
+ (61)
+ Clean Hydrogen Joint Undertaking - 
+ https://european-union.europa.eu/institutions-law-budget/institutions-and-bodies/search-all-eu-institutions-and-bodies/clean-hydrogen-joint-undertaking_en
+ (62)
+ https://digital-strategy.ec.europa.eu/en/news/battery-2030-inventing-batteries-future
+ The flagship is supported through Horizon Europe, in the context of the Batt4EU Partnership initiative.
+ (63)
+ https://www.bosch-presse.de/pressportal/de/en/bosch-to-use-generative-ai-in-manufacturing-260806.html
+ (64)
+ https://ai-matters.eu/
+ (65)
+ The EIT is running a series of end-to-end digitalised production testbeds in several EU Member States where startups, scale-ups, research and technology organisations, universities and industry partners can collaborate and test their ground-breaking products and digital services.
+ (66)
+ https://prod.ucwe.capgemini.com/wp-content/uploads/2023/07/Final-Web-Version-Report-Harnessing-the-Value-of-Gen-AI.1.pdf
+ (67)
+ This initiative represents a total investment of around €250 million in 2023-2024 by the EU, Member States and industry, across the Chips JU, CCAM and 2ZERO partnerships.
+ (68)
+ https://unreasonablegroup.com/ventures/briink
+ (69)
+ https://destination-earth.eu/
+ (70)
+ https://repli5.com/
+ (71)
+ COM(2023) 442 final 
+ (72)
+ The European Citizens’ Panel on Virtual Worlds provided valuable input; 
+ European Citizens’ Panel on Virtual Worlds : Final Report
+ : https://citizens.ec.europa.eu/system/files/2023-11/ECP%20on%20Virtual%20Worlds_Final%20Report.pdf
+ (73)
+ https://citcom.ai/
+ (74)
+ https://eurocities.eu/latest/launch-of-european-funding-instrument-to-upscale-digital-twins-towards-the-citiverse-through-living-in-eu/
+ (75)
+ Europol’s Innovation Lab’s Observatory has produced reports on both deepfake generation and exploitation of large language models for criminal purposes, 
+ www.europol.europa.eu
+ (76)
+ https://www.gatewatcher.com/en/
+ (77)
+ https://www.agrifoodtef.eu/
+ (78)
+ Detailed bibliometric analysis
+ is showing that the EU is among the leaders in AI for science. 
+ https://research-and-innovation.ec.europa.eu/knowledge-publications-tools-and-data/publications/all-publications/trends-use-ai-science_en
+ (79)
+ The policy brief
+ “Artificial Intelligence in Science” 
+ shows that the EU is the global leader in terms of laboratory robots facilitating scientific discoveries, 
+ https://research-and-innovation.ec.europa.eu/research-area/industrial-research-and-innovation/key-enabling-technologies/artificial-intelligence-ai-science_en
+ (80)
+ https://cordis.europa.eu/article/id/446030-artificial-intelligence-expanding-scientific-boundaries-and-enhancing-innovation
+ (81)
+ https://scientificadvice.eu/advice/artificial-intelligence-in-science/
+ (82)
+ 2019/C 387/01
+ (83)
+ https://www.heidelberg.de/Digitale-Stadt/startseite.html
+ (84)
+ https://aleph-alpha.com/
+ (85)
+ The European Union and the United States of America strengthen cooperation on research in Artificial Intelligence and computing for the Public Good | Shaping Europe’s digital future (europa.eu)
+ .
+ (86)
+ https://digital-strategy.ec.europa.eu/en/news/european-union-and-united-states-america-strengthen-cooperation-research-artificial-intelligence
