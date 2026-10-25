@@ -26,9 +26,9 @@ Its sample tests cover reasoning only.
 **The app.** React PWA, offline, no account needed; optional magic-link sync via Supabase;
 cookieless first-party analytics. Daily 12-question lesson with spaced repetition and mastery,
 practice by category, 30q/40min exam simulation with per-category breakdown, a 12-lesson study
-guide. Tests: 96 unit/component tests plus 4 Playwright journeys, all green.
+guide. Tests after this PR: 106 unit/component tests and 8 Playwright e2e tests, all green.
 
-**The bank.** 231 questions (README and data/README still say 180 — stale):
+**The bank.** 231 questions (README and data/README said 180; corrected in this PR):
 engineering 80, governance 78, policy 73. Every question has four options and a 1–3 sentence
 rationale (average 295 characters). Distractors are written as plausible near-misses, and the
 merge script enforces anti-test-wiseness gates (the correct option is the unique longest in
@@ -58,7 +58,29 @@ dates and confident errors.
 
 ## 2. Market (who pays, for what, where it is weak)
 
-<!-- filled from the competitor research, see section 6 -->
+Desk research on 2026-10-25; prices are as indexed by search, not checked at checkout.
+
+| Product | What | Price | Source |
+|---|---|---|---|
+| EU Training | Generalist AD5 packages (reasoning, EU knowledge, written); field MCQ sets sold per field and question block | €135 basic → €475 premium (3-month EU course included); custom items e.g. verbal reasoning €0.17/question | [exam questions](https://eutraining.eu/products/exam-questions), [field MCQ](https://eutraining.eu/content/how-can-i-practice-field-related-mcq) |
+| EU Training, AD/430/26 | Webcast on the ICT AD8 competition (free with account); no AI-field MCQ set or price listed on the competition article | free / not listed | [article](https://eutraining.eu/content/epso-ict-ad8-competition-2026-ai-cybersecurity) |
+| EPSOready | 1,500+ questions in a TAO-like interface: reasoning, EU knowledge, digital skills, essay | from €19.99 one-off, 30-day refund | [Trustpilot listing](https://www.trustpilot.com/review/epsoready.eu) |
+| Euphorum | Reasoning tests in EN/FR/DE, EPSO-length | credit system | [offers](https://www.euphorum.org/en/offers) |
+| Ya Semos Europeos | Self-study reasoning course, 200 verbal questions, 1 year | not shown | [course](https://ya-semos-europeos-s-school.teachable.com/courses/2795029) |
+
+Where they are weak:
+- **No AI-field MCQ product found at any price.** Generalists and reasoning dominate; field
+  MCQs are sold per field where a vendor has written them, and for AD/430/26 Field 1 we found
+  a webinar, not a question bank.
+- **Quality complaints are about the questions.** EU Training's Trustpilot (3.5/5, 26 reviews):
+  "So many of the questions are sloppily written", "many questions that I bought did not even
+  have explanations", "Very poor value for money"
+  ([reviews](https://www.trustpilot.com/review/eutraining.eu)).
+- **Languages.** One reviewer notes numerical tests in only three languages. No vendor we
+  found offers Czech or Slovak reasoning practice, which CZ/SK candidates sit in L1.
+
+Implication: a cited, current AI-field bank has no direct competitor today. EPSOready sets
+the floor for one-off pricing (~€20); EU Training sets the ceiling for bundles (€135+).
 
 ## 3. Moat hypotheses
 
@@ -94,7 +116,7 @@ forbid disclosure of test content, and candidates agree to that).
 
 1. **This PR — H1, first slice.** Citation schema, 19 pinned source texts, a CI test that every
    quote appears verbatim in its source, citations shown under each rationale with a EUR-Lex
-   link, and the governance and policy categories verified (results in section 7).
+   link, and the governance and policy categories verified (results in section 6).
 2. **H3 instrumentation** — record per-item correctness and time (already in local progress;
    add an anonymous aggregate event), then show "harder than 80% of questions" and a rough
    rank band on the exam result. 1–2 evenings.
@@ -106,11 +128,7 @@ forbid disclosure of test content, and candidates agree to that).
 6. Engineering category: cite canonical references (papers, NIST/ISO/ENISA documents we can
    pin) so all three categories carry evidence.
 
-## 6. Competitors
-
-<!-- see section 2 -->
-
-## 7. Verification results (this PR)
+## 6. Verification results (this PR)
 
 151 questions (all governance and policy) were read against the pinned texts. Log:
 `data/verification/2026-10-25.json`.
