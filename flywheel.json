@@ -1,0 +1,48 @@
+{
+  "name": "EPSO AI Field Trainer",
+  "slug": "epso-kviz",
+  "one_liner": "Free trainer for the EPSO/AD/430/26 Field 1 (AI) field MCQ, with answers checked against the official EU texts and the passage shown",
+  "platform": "web-static",
+  "evidence_tier": "T1",
+  "proof": "111 of 231 questions verified against pinned official texts in CI",
+  "track": "community",
+  "template": "web-static",
+  "stack": "Vite+React19+TS+Tailwind4 PWA, Supabase auth/sync",
+  "deploy_target": "GH Pages + epsokviz.dravec.org",
+  "stage": "soft-launch",
+  "stage_entered": "2026-09-17",
+  "stage_confidence": "inferred",
+  "time_box_ends": "2026-11-24",
+  "kill_criteria": {
+    "statement": "Playbook soft-launch trigger: <20 users after 2 honest channel attempts, or activation <10% after one iteration",
+    "deadline": "2026-11-24",
+    "locked": true
+  },
+  "activation_event": "lesson_complete",
+  "kpi_source": "supabase",
+  "kpi_event_map": {
+    "page_view": [
+      "app_open"
+    ],
+    "key_action": [
+      "start_lesson",
+      "start_practice",
+      "start_exam",
+      "start_review",
+      "start_bookmarks"
+    ]
+  },
+  "natural_frequency": "daily",
+  "north_star": null,
+  "links": {
+    "repo": "https://github.com/Chartres/epso-kviz",
+    "live": "https://epsokviz.dravec.org"
+  },
+  "decisions": [],
+  "tags": [
+    "eu",
+    "exam",
+    "kviz-family"
+  ],
+  "notes": "Record created 2026-10-27 (deep round): the app's events were arriving (7 unique visitors / 28 d in the rollup) but with no record here pull-kpis produced no daily series. Live since 2026-09-17 (first commit), no channel attempt yet: the 4-week box runs from this round, and the two channel attempts need Pavol's sign-off. Activations count lesson_complete events, not people, until pull-kpis counts distinct visitors. Moat plan: epso-kviz docs/MOAT.md; signature: docs/SIGNATURE.md."
+}
