@@ -1,4 +1,4 @@
-import { shuffle, type Rng } from '../rng'
+import { sample, shuffle, type Rng } from '../rng'
 
 /**
  * Numerical reasoning practice in the candidate's language 1. The format follows the Notice
@@ -21,6 +21,8 @@ export interface NumTable {
   columns: string[]
   rows: { label: string; values: number[] }[]
   note: string
+  /** Decimal places per column; default: integers plain, others one decimal. */
+  digits?: number[]
 }
 
 export interface NumItem {
@@ -42,13 +44,15 @@ type L<T = string> = Record<Lang, T>
 const LOCALE: L = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB' }
 const MINUS = '−'
 
+const formatters = new Map<string, Intl.NumberFormat>()
 function num(n: number, lang: Lang, digits: number): string {
-  return new Intl.NumberFormat(LOCALE[lang], {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })
-    .format(n)
-    .replace('-', MINUS)
+  const k = `${lang}:${digits}`
+  let f = formatters.get(k)
+  if (!f) {
+    f = new Intl.NumberFormat(LOCALE[lang], { minimumFractionDigits: digits, maximumFractionDigits: digits })
+    formatters.set(k, f)
+  }
+  return f.format(n).replace('-', MINUS)
 }
 const pct = (n: number, lang: Lang, signed = false) =>
   `${signed && n > 0 ? '+' : ''}${num(n, lang, 1)}${lang === 'en' ? '%' : ' %'}`
@@ -77,7 +81,6 @@ const COUNTRIES: { name: L; pop: number }[] = [
 ]
 
 const int = (rng: Rng, lo: number, hi: number) => lo + Math.floor(rng() * (hi - lo + 1))
-const pick = <T,>(rng: Rng, xs: readonly T[], n: number): T[] => shuffle(xs, rng).slice(0, n)
 
 /** Format the correct value and distractors, nudge any that collide, shuffle. */
 function finish(
@@ -101,7 +104,7 @@ function finish(
 
 function pctChange(rng: Rng, lang: Lang): NumItem {
   const years = [2023, 2024, 2025]
-  const countries = pick(rng, COUNTRIES, 4)
+  const countries = sample(COUNTRIES, 4, rng)
   const rows = countries.map((c) => {
     const a = int(rng, 20, 400)
     const b = Math.max(5, Math.round(a * (0.7 + rng() * 0.7)))
@@ -177,7 +180,7 @@ function share(rng: Rng, lang: Lang): NumItem {
     en: `What share of total investment went to “${labels[row]}”?`,
   }
   const sol: L = {
-    cs: `Celkem ${total}; ${part} / ${total} × 100 = ${pct(v, lang)}. Dělit zbytkem (${total - part}) místo celkem je častá chyba.`,
+    cs: `Celkem ${total}; ${part} / ${total} × 100 = ${pct(v, lang)}. Dělit zbytkem (${total - part}) místo celku je častá chyba.`,
     sk: `Spolu ${total}; ${part} / ${total} × 100 = ${pct(v, lang)}. Deliť zvyškom (${total - part}) namiesto celku je častá chyba.`,
     en: `Total ${total}; ${part} / ${total} × 100 = ${pct(v, lang)}. Dividing by the rest (${total - part}) instead of the total is a common slip.`,
   }
@@ -203,7 +206,7 @@ function share(rng: Rng, lang: Lang): NumItem {
 }
 
 function perCapita(rng: Rng, lang: Lang): NumItem {
-  const countries = pick(rng, COUNTRIES, 4)
+  const countries = sample(COUNTRIES, 4, rng)
   const rows = countries.map((c) => ({
     label: c.name[lang],
     values: [c.pop, int(rng, 20, Math.max(40, Math.round(c.pop * 12)))],
@@ -239,6 +242,7 @@ function perCapita(rng: Rng, lang: Lang): NumItem {
       }[lang],
       rows,
       note: FICTIONAL[lang],
+      digits: [1, 0],
     },
     question: q[lang],
     options,
@@ -250,7 +254,9 @@ function perCapita(rng: Rng, lang: Lang): NumItem {
 }
 
 function currency(rng: Rng, lang: Lang): NumItem {
-  const rate = Math.round((24.1 + rng() * 1.8) * 100) / 100
+  let rate = Math.round((24.1 + rng() * 1.8) * 100) / 100
+  // A whole-number rate would make the rounded-rate slip equal the answer.
+  if (rate === Math.round(rate)) rate += 0.17
   const letters = ['A', 'B', 'C', 'D']
   const word: L = { cs: 'Smlouva', sk: 'Zmluva', en: 'Contract' }
   const rows = letters.map((x) => ({ label: `${word[lang]} ${x}`, values: [int(rng, 40, 900) * 10_000] }))
@@ -291,12 +297,13 @@ function currency(rng: Rng, lang: Lang): NumItem {
 }
 
 function largestRise(rng: Rng, lang: Lang): NumItem {
-  const countries = pick(rng, COUNTRIES, 4)
+  const countries = sample(COUNTRIES, 4, rng)
   // One row has the largest absolute rise; another, from a small base, the largest % rise.
   for (;;) {
     const rows = countries.map((c) => {
       const a = int(rng, 100, 2000)
-      return { label: c.name[lang], values: [a, a + int(rng, 10, 600)] }
+      // Capped below +150 %, so the small-base row (+200 %) is the fastest in percentage terms.
+      return { label: c.name[lang], values: [a, a + int(rng, 10, Math.min(600, Math.floor(a * 1.5)))] }
     })
     const smallBase = int(rng, 0, 3)
     rows[smallBase].values = [int(rng, 40, 90), 0]
@@ -337,7 +344,7 @@ function largestRise(rng: Rng, lang: Lang): NumItem {
 }
 
 function project(rng: Rng, lang: Lang): NumItem {
-  const countries = pick(rng, COUNTRIES, 4)
+  const countries = sample(COUNTRIES, 4, rng)
   const rows = countries.map((c) => {
     const a = int(rng, 80, 900)
     return { label: c.name[lang], values: [a, Math.round(a * (1.08 + rng() * 0.4))] }
@@ -407,6 +414,6 @@ export function scoreNumerical(items: NumItem[], answers: (number | undefined)[]
 }
 
 /** A table cell in the item's language: integers grouped, decimals to one place. */
-export function formatCell(n: number, lang: Lang): string {
-  return num(n, lang, Number.isInteger(n) ? 0 : 1)
+export function formatCell(n: number, lang: Lang, digits?: number): string {
+  return num(n, lang, digits ?? (Number.isInteger(n) ? 0 : 1))
 }

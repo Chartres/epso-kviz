@@ -14,36 +14,48 @@ import { ProgressBar } from '@/components/ui/ProgressBar'
 const UI: Record<Lang, Record<string, string>> = {
   cs: {
     name: 'Čeština',
+    title: 'Numerické uvažování',
+    intro: '10 otázek, 20 minut, ve vašem jazyce 1, jako v oznámení (tabulka 3). Údaje jsou fiktivní, každá odpověď je vypočtená. Výsledky uvidíte až na konci.',
+    langLegend: 'Jazyk 1',
+    timer: 'Zbývající čas',
     start: 'Začít',
     question: 'Otázka',
     of: 'z',
     next: 'Další',
     finish: 'Dokončit',
     score: 'z 10',
-    pass: 'Hranice úspěchu: 10/20 společně s testem abstraktního uvažování (oznámení, tabulka 3).',
+    pass: 'Minimální požadovaný počet bodů: 10 z 20, společně s testem abstraktního uvažování (oznámení, tabulka 3).',
     yours: 'Vaše odpověď',
     none: 'bez odpovědi',
-    right: 'Správně',
+    right: 'Správná odpověď',
     again: 'Nový test',
     back: '← Zpět',
   },
   sk: {
     name: 'Slovenčina',
+    title: 'Numerické uvažovanie',
+    intro: '10 otázok, 20 minút, vo vašom jazyku 1, ako v oznámení (tabuľka 3). Údaje sú fiktívne, každá odpoveď je vypočítaná. Výsledky uvidíte až na konci.',
+    langLegend: 'Jazyk 1',
+    timer: 'Zostávajúci čas',
     start: 'Začať',
     question: 'Otázka',
     of: 'z',
     next: 'Ďalej',
     finish: 'Dokončiť',
     score: 'z 10',
-    pass: 'Hranica úspešnosti: 10/20 spolu s testom abstraktného uvažovania (oznámenie, tabuľka 3).',
+    pass: 'Minimálny požadovaný počet bodov: 10 z 20, spolu s testom abstraktného uvažovania (oznámenie, tabuľka 3).',
     yours: 'Vaša odpoveď',
     none: 'bez odpovede',
-    right: 'Správne',
+    right: 'Správna odpoveď',
     again: 'Nový test',
     back: '← Späť',
   },
   en: {
     name: 'English',
+    title: 'Numerical reasoning',
+    intro: '10 questions, 20 minutes, in your language 1, as in the notice (Table 3). The data are fictional; every answer is computed. No feedback until you finish.',
+    langLegend: 'Language 1',
+    timer: 'Time remaining',
     start: 'Start',
     question: 'Question',
     of: 'of',
@@ -53,7 +65,7 @@ const UI: Record<Lang, Record<string, string>> = {
     pass: 'Pass mark: 10/20 combined with the abstract test (notice, Table 3).',
     yours: 'Your answer',
     none: 'no answer',
-    right: 'Correct',
+    right: 'Correct answer',
     again: 'New test',
     back: '← Back',
   },
@@ -95,7 +107,7 @@ function Table({ item, lang }: { item: NumItem; lang: Lang }) {
               </th>
               {r.values.map((v, i) => (
                 <td key={i} className="border-b border-steel-800 py-2 pl-3 text-right font-mono tabular-nums text-steel-100">
-                  {formatCell(v, lang)}
+                  {formatCell(v, lang, item.table.digits?.[i])}
                 </td>
               ))}
             </tr>
@@ -146,15 +158,16 @@ export function NumericalScreen({
         <button type="button" onClick={onExit} className="min-h-11 text-sm text-steel-400 hover:text-brass-400">
           {t.back}
         </button>
-        <h1 className="mt-2 font-display text-2xl font-bold uppercase tracking-tight text-steel-50">
-          Numerical reasoning
+        <h1 lang={lang} className="mt-2 font-display text-2xl font-bold uppercase tracking-tight text-steel-50">
+          {t.title}
         </h1>
-        <p className="mt-2 text-sm leading-relaxed text-steel-300">
-          {NUMERICAL.questions} questions, {NUMERICAL.minutes} minutes, in your language 1, as in the
-          notice (Table 3). The data are fictional; every answer is computed. No feedback until you finish.
+        <p lang={lang} className="mt-2 text-sm leading-relaxed text-steel-300">
+          {t.intro}
         </p>
         <fieldset className="mt-5">
-          <legend className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">Language 1</legend>
+          <legend lang={lang} className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
+            {t.langLegend}
+          </legend>
           <div className="mt-2 flex flex-wrap gap-2">
             {LANG_ORDER.map((l) => (
               <label
@@ -194,7 +207,7 @@ export function NumericalScreen({
           <span className="font-mono text-sm tabular-nums text-steel-400">
             {t.question} {index + 1} {t.of} {items.length}
           </span>
-          <ExamTimer endsAt={endsAt} onExpire={finish} />
+          <ExamTimer endsAt={endsAt} onExpire={finish} label={t.timer} />
         </header>
         <div className="mb-5">
           <ProgressBar value={index} max={items.length} />
@@ -238,7 +251,7 @@ export function NumericalScreen({
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-8" lang={lang}>
       <div className="rounded-card border border-steel-700 bg-steel-800/40 p-6 text-center">
-        <div className="font-mono text-6xl font-semibold tabular-nums text-brass-300">
+        <div data-testid="numerical-score" className="font-mono text-6xl font-semibold tabular-nums text-brass-300">
           {score}
           <span className="text-2xl text-steel-500"> {t.score}</span>
         </div>

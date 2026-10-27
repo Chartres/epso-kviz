@@ -80,7 +80,23 @@ describe('generated items', () => {
       const best = rises.indexOf(Math.max(...rises))
       expect(item.options[item.correct]).toBe(item.table.rows[best].label)
       expect(rises.filter((r) => r === rises[best])).toHaveLength(1) // no ties
+      // The solution names the small-base row as fastest in %: that must be true.
+      const pcts = item.table.rows.map((r) => (r.values[1] - r.values[0]) / r.values[0])
+      expect(pcts.indexOf(Math.max(...pcts))).toBe(item.check.smallBase)
+      expect(pcts.filter((p) => p === pcts[item.check.smallBase])).toHaveLength(1)
     }
+  })
+
+  it('currency: the rounded-rate slip is always a different option (the rate is never whole)', () => {
+    for (let seed = 1; seed <= 400; seed++) {
+      const item = generateItem('currency', makeRng(seed), 'en')
+      expect(item.check.rate).not.toBe(Math.round(item.check.rate))
+    }
+  })
+
+  it('per head: the population column always shows one decimal, as the solution does', () => {
+    const item = generateItem('per-capita', makeRng(9), 'cs')
+    expect(item.table.digits).toEqual([1, 0])
   })
 
   it('same growth again: the keyed option applies the same % change once more', () => {
@@ -96,7 +112,7 @@ describe('generated items', () => {
     const cs = generateItem('pct-change', makeRng(3), 'cs')
     const sk = generateItem('pct-change', makeRng(3), 'sk')
     expect(cs.question).toMatch(/[ěščřžýáíéůú]/)
-    expect(sk.question).toMatch(/[äčďľňôšťžýáíéú]/)
+    expect(sk.question).toMatch(/[äľôŕĺ]/) // letters Czech doesn't have
     expect(cs.question).not.toBe(sk.question)
   })
 })

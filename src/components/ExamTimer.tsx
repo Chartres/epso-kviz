@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 interface ExamTimerProps {
   endsAt: number
   onExpire: () => void
+  /** Accessible name; defaults to English. */
+  label?: string
 }
 
 function format(ms: number): string {
@@ -12,7 +14,7 @@ function format(ms: number): string {
   return `${m}:${String(s).padStart(2, '0')}`
 }
 
-export function ExamTimer({ endsAt, onExpire }: ExamTimerProps) {
+export function ExamTimer({ endsAt, onExpire, label = 'Time remaining' }: ExamTimerProps) {
   const [now, setNow] = useState(() => Date.now())
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export function ExamTimer({ endsAt, onExpire }: ExamTimerProps) {
           ? 'border-rust-500 text-rust-400'
           : 'border-steel-700 text-steel-300'
       }`}
-      aria-label="Time remaining"
+      aria-label={label}
       role="timer"
     >
       ⏱ {format(remaining)}

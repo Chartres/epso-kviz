@@ -22,7 +22,7 @@ test('numerical reasoning in Slovak: a timed sitting, then worked solutions', as
     await page.getByRole('button', { name: i < 9 ? 'Ďalej' : 'Dokončiť' }).click()
   }
   await expect(page.getByText('z 10', { exact: false }).first()).toBeVisible()
-  await expect(page.getByText(/Hranica úspešnosti: 10\/20/)).toBeVisible()
+  await expect(page.getByText(/Minimálny požadovaný počet bodov: 10 z 20/)).toBeVisible()
   await expect(page.getByTestId('solution')).toHaveCount(10)
   await page.screenshot({ path: 'e2e/shots/numerical-sk-results.png', fullPage: true })
 })
