@@ -2,7 +2,7 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds } from '@/domain/progress'
+import { summary } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
@@ -11,8 +11,11 @@ import { ProgressBar } from '@/components/ui/ProgressBar'
 export function HomeScreen() {
   const { state, dispatch } = useApp()
   const sum = useMemo(() => summary(state.progress, ALL_QUESTIONS), [state.progress])
+  // Count only questions where the last answer was wrong — the "Review mistakes"
+  // label is misleading if it includes questions answered correctly-once-but-unmastered.
   const reviewCount = useMemo(
-    () => needsReviewIds(state.progress).length,
+    () =>
+      Object.values(state.progress.stats).filter((s) => s.seen > 0 && !s.lastCorrect).length,
     [state.progress],
   )
   const streak = state.progress.streak.current
