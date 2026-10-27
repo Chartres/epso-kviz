@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-27",
-  "note": "Plain-text snapshots of public texts: EU acts and Commission/EDPB/Council documents (reuse under Commission Decision 2011/833/EU and the institutions' equivalent policies), the Council of Europe AI Convention (as annexed to a Council document), NIST publications (US public domain) and the International AI Safety Report (UK Crown copyright, Open Government Licence v3.0). Citation quotes in data/bank/*.json are checked verbatim against these files in CI (src/domain/citations.test.ts).",
+  "note": "Plain-text snapshots of public texts, each under its own reuse terms (see data/sources/LICENSES.md). Citation quotes in data/bank/*.json are checked verbatim against these files in CI (src/domain/citations.test.ts).",
   "docs": {
     "ai-act": {
       "short": "AI Act",
@@ -223,12 +223,6 @@
       "title": "NIST AI 600-1 Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile, July 2024",
       "celex": "NIST AI 600-1",
       "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
-    },
-    "ec-staff-genai-guidelines": {
-      "short": "Commission staff GenAI guidelines",
-      "title": "European Commission: Guidelines for staff on the use of online available generative Artificial Intelligence tools, Ares(2023)3615578 (released under Reg 1049/2001; copy hosted by FragDenStaat)",
-      "celex": "Ares(2023)3615578",
-      "url": "https://media.frag-den-staat.de/files/foi/810911/guidelines-on-the-use-of-online-generative-artificial-intelligence-tools.pdf"
     },
     "cada-proposal": {
       "short": "Cloud and AI Development Act proposal",

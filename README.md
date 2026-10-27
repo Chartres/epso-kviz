@@ -18,10 +18,10 @@ exam is actually won: fast elimination on the real wording, learning from mistak
   the EU's AI strategy (compute, adoption, funding).
 
 80 engineering, 78 governance and 73 policy questions (231 total); the exam simulation draws 10
-from each category (30 total). 136 of the 151 governance and policy questions are verified: the answer was
+from each category (30 total). 131 of the 151 governance and policy questions are verified: the answer was
 checked against the official text, and the question shows the verbatim passage from the AI Act,
 the Digital Omnibus on AI or another EU act that settles it. CI checks every quote against pinned
-copies in `data/sources/` (39 official texts). The other 15 are logged in `data/verification/`
+copies in `data/sources/` (38 public texts). The other 20 are logged in `data/verification/`
 with the reason they are not verified: a judgment no text decides, or a source we can't pin.
 
 ## Highlights
@@ -89,8 +89,8 @@ docs/            Supabase setup
 ## Licence
 
 Code: MIT ([`LICENSE`](LICENSE)). Question bank, explanations and study guide (`data/bank/`,
-`data/questions.json`, `src/content/`): CC BY-NC-SA 4.0 ([`data/LICENSE`](data/LICENSE)). The EU
-source texts in `data/sources/` are © European Union, reused under Commission Decision
-2011/833/EU.
+`data/questions.json`, `src/content/`): CC BY-NC-SA 4.0 ([`data/LICENSE`](data/LICENSE)). The source
+texts in `data/sources/` keep their own terms, listed in
+[`data/sources/LICENSES.md`](data/sources/LICENSES.md).
 
 Unofficial study aid — not affiliated with EPSO or the European Commission.

@@ -1,6 +1,6 @@
 {
  "date": "2026-10-27",
- "method": "Second pass over the 40 questions left unsourced on 2026-10-25. 20 more official texts pinned in data/sources/; each key and rationale read against them; passages quoted verbatim into the bank. Not pinned for licence reasons: the IIA Three Lines paper (copyrighted) and the OECD HAIP page (reuse terms unclear), so 1073 and 2043 stay unverified. Paywalled ISO/IEC standards could not be pinned.",
+ "method": "Second pass over the 40 questions left unsourced on 2026-10-25. 20 more official texts pinned in data/sources/; each key and rationale read against them; passages quoted verbatim into the bank. Not pinned for licence reasons: the IIA Three Lines paper (copyrighted) and the OECD HAIP page (reuse terms unclear), so 1073 and 2043 stay unverified. Paywalled ISO/IEC standards could not be pinned. An independent review of this pass then unverified five questions whose quotes did not fully settle the key, and corrected three more.",
  "questions": {
   "1002": {
    "status": "fixed-unverified",
@@ -30,13 +30,15 @@
    "status": "ok",
    "initial": "ok",
    "verified": true,
-   "note": "Key (a) matches the Opinion's two-limb anonymity test. The Opinion says 'insignificant' where the explain says 'negligible', which is an acceptable paraphrase."
+   "note": "Key (a) matches the Opinion's two-limb anonymity test. The Opinion says 'insignificant' where the explain says 'negligible', which is an acceptable paraphrase.",
+   "review": "Option (a) reworded to the EDPB's \"insignificant likelihood\" test (was \"not possible\")."
   },
   "1066": {
-   "status": "ok",
+   "status": "unverified-after-review",
    "initial": "ok",
-   "verified": true,
-   "note": "The Code's 'high scientific and technical rigour' standard (internal validity, external validity, reproducibility) supports (a): validity, no test-data contamination, and statistical significance. The Code says 'internal/external validity' rather than 'construct validity'. It also lists 'large enough sample sizes' as one element, so (b) is partly true but is not the distinguishing feature. The claim that publishing items invites Goodharting is not in the Code."
+   "verified": false,
+   "note": "The Code's 'high scientific and technical rigour' standard (internal validity, external validity, reproducibility) supports (a): validity, no test-data contamination, and statistical significance. The Code says 'internal/external validity' rather than 'construct validity'. It also lists 'large enough sample sizes' as one element, so (b) is partly true but is not the distinguishing feature. The claim that publishing items invites Goodharting is not in the Code.",
+   "review": "Unverified after review: the Code supports part of distractor (b) and does not state the key's construct-validity point."
   },
   "1067": {
    "status": "unsourced",
@@ -63,10 +65,11 @@
    "note": "NIST AI RMF GOVERN 1.6 confirms that an AI inventory is a recognised governance control. No pinned text says it comes first; that sequencing is a judgment."
   },
   "1077": {
-   "status": "ok",
+   "status": "unverified-after-review",
    "initial": "ok",
-   "verified": true,
-   "note": "Key (a) matches Rule 1, and the explain matches Rules 1 and 4. The guidelines encourage exploring the tools, which rules out (d). Source: Ares(2023)3615578 of 24.5.2023, released under access-to-documents. Any later revision is not pinned."
+   "verified": false,
+   "note": "Key (a) matches Rule 1, and the explain matches Rules 1 and 4. The guidelines encourage exploring the tools, which rules out (d). Source: Ares(2023)3615578 of 24.5.2023, released under access-to-documents. Any later revision is not pinned.",
+   "review": "Unverified: the Commission staff note is available only as an FOI release (Reg 1049/2001 grants access, not reuse), so it is not pinned."
   },
   "1079": {
    "status": "unsourced",
@@ -123,10 +126,11 @@
    "note": "Key (d) confirmed: acceptance criteria and tiers, the mitigations per tier, and a proceed/not-proceed decision."
   },
   "2062": {
-   "status": "ok",
+   "status": "unverified-after-review",
    "initial": "ok",
-   "verified": true,
-   "note": "The International AI Safety Report supports (d): exposure lies in cognitive tasks and net effects are uncertain and vary. It rules out (a) and (b). (c) is ruled out by Apply AI, as noted earlier. The Report says 'complex cognitive tasks' and does not mention 'clerical'."
+   "verified": false,
+   "note": "The International AI Safety Report supports (d): exposure lies in cognitive tasks and net effects are uncertain and vary. It rules out (a) and (b). (c) is ruled out by Apply AI, as noted earlier. The Report says 'complex cognitive tasks' and does not mention 'clerical'.",
+   "review": "Unverified after review: the key's \"clerical\" is not in the IASR."
   },
   "2063": {
    "status": "ok",
@@ -162,7 +166,8 @@
    "status": "fixed-unverified",
    "initial": "issue",
    "verified": false,
-   "note": "Distractor (b) has real footing. Under Reg (EU) 2018/1807, a localisation requirement, including one set through public procurement, is prohibited unless justified on public-security grounds and proportionate. A candidate could defend (b). The key (d) is a reasoning point that no pinned text states. Fix (b) so it is clearly wrong: 'Union law bars a Member State from requiring any data processing on its own territory, whatever the justification'. Optionally add to the explain: 'Under Regulation (EU) 2018/1807, such a requirement must in any case be justified on public-security grounds and be proportionate.'"
+   "note": "Distractor (b) has real footing. Under Reg (EU) 2018/1807, a localisation requirement, including one set through public procurement, is prohibited unless justified on public-security grounds and proportionate. A candidate could defend (b). The key (d) is a reasoning point that no pinned text states. Fix (b) so it is clearly wrong: 'Union law bars a Member State from requiring any data processing on its own territory, whatever the justification'. Optionally add to the explain: 'Under Regulation (EU) 2018/1807, such a requirement must in any case be justified on public-security grounds and be proportionate.'",
+   "review": "Overbroad sentence on Reg 2018/1807 removed (it covers non-personal data only)."
   },
   "2071": {
    "status": "ok",
@@ -177,10 +182,11 @@
    "note": "Key (d) and the explain are confirmed. The pinned version is the January 2025 Report."
   },
   "2073": {
-   "status": "ok",
+   "status": "unverified-after-review",
    "initial": "ok",
-   "verified": true,
-   "note": "Concentration driven by compute cost and a narrow chip supply chain is supported, and (c) is ruled out by the hundreds-of-millions cost figure. The claim in (a) that model releases have risen is not checked against a pinned source."
+   "verified": false,
+   "note": "Concentration driven by compute cost and a narrow chip supply chain is supported, and (c) is ruled out by the hundreds-of-millions cost figure. The claim in (a) that model releases have risen is not checked against a pinned source.",
+   "review": "Unverified after review: nothing quoted mentions hyperscale cloud operators."
   },
   "2075": {
    "status": "ok",
@@ -198,13 +204,15 @@
    "status": "ok",
    "initial": "ok",
    "verified": true,
-   "note": "The guidelines (C/2025/5519) confirm the accompanying EU age verification solution and its link to the EUDI Wallet. They are a benchmark, not binding standards, which rules out (a) and (c). Two details are not stated in the OJ text: 'open-source' in (d), and 'piloted by several Member States' in the explain. They could be softened to 'an EU age-verification solution designed to work with the European Digital Identity Wallets'."
+   "note": "The guidelines (C/2025/5519) confirm the accompanying EU age verification solution and its link to the EUDI Wallet. They are a benchmark, not binding standards, which rules out (a) and (c). Two details are not stated in the OJ text: 'open-source' in (d), and 'piloted by several Member States' in the explain. They could be softened to 'an EU age-verification solution designed to work with the European Digital Identity Wallets'.",
+   "review": "Ref corrected to Section 2."
   },
   "2078": {
-   "status": "ok",
+   "status": "unverified-after-review",
    "initial": "ok",
-   "verified": true,
-   "note": "EAA services include consumer banking (Art 2(2)(d)) and e-commerce (Art 2(2)(f)) from 28 June 2025. The WAD reaches only public sector bodies."
+   "verified": false,
+   "note": "EAA services include consumer banking (Art 2(2)(d)) and e-commerce (Art 2(2)(f)) from 28 June 2025. The WAD reaches only public sector bodies.",
+   "review": "Unverified after review: the quotes do not show the e-commerce and consumer-banking scope that decides the key."
   },
   "2079": {
    "status": "ok",

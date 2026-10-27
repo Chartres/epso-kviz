@@ -912,7 +912,7 @@
   "c": "The NIST AI Risk Management Framework's description of an AI system and its lifecycle",
   "d": "The OECD definition of an AI system, as updated by the OECD Council in November 2023",
   "correct": "d",
-  "explain": "Recital 12 requires the definition to be closely aligned with the work of international organisations working on AI. In practice Art 3(1) follows the OECD definition as revised in November 2023, and the Commission's guidelines on the definition draw on the OECD's explanatory memorandum. The Council of Europe Convention (Art 2) uses nearly the same OECD-derived wording but was negotiated in parallel and does not drive Art 3(1).",
+  "explain": "Recital 12 requires the definition to be closely aligned with the work of international organisations working on AI. In practice Art 3(1) follows the OECD definition as revised in November 2023. The Council of Europe Convention (Art 2) uses nearly the same OECD-derived wording but was negotiated in parallel and does not drive Art 3(1).",
   "sources": [
    {
     "doc": "ai-act",
@@ -2424,7 +2424,7 @@
   "cat": "AI Act & Governance",
   "q": "When may a trained model itself be treated as falling outside data protection law?",
   "a": "never, any model derived from personal data inheriting the character of that data",
-  "b": "where extraction or regurgitation is not possible by means reasonably likely to be used",
+  "b": "where the likelihood of extracting or obtaining personal data from it is insignificant, by all means reasonably likely to be used",
   "c": "only where it was trained exclusively on synthetic or fully aggregated source data",
   "d": "always, since a model stores statistical parameters rather than records of individuals",
   "correct": "b",
@@ -2493,8 +2493,7 @@
     "ref": "Glossary, 'external validity'",
     "quote": "ensures model evaluations are suitably calibrated for results to be used as a proxy for model behaviour outside the evaluation environment."
    }
-  ],
-  "verified": "2026-10-27"
+  ]
  },
  {
   "id": 1067,
@@ -2710,20 +2709,7 @@
   "c": "not allowed, staff being barred from using such tools for any work purpose at all",
   "d": "allowed, provided the note carries no personal data of identifiable individuals",
   "correct": "b",
-  "explain": "The guidelines bar staff from entering any non-public information or personal data into publicly available generative AI tools, and separately forbid reproducing outputs verbatim in public documents. Stripping out personal data is not enough, because the confidentiality restriction is wider than data protection, and the tools are not banned outright.",
-  "sources": [
-   {
-    "doc": "ec-staff-genai-guidelines",
-    "ref": "Section 3, Rule 1",
-    "quote": "Staff must never share any information that is not already in the public domain, nor personal data, with an online available generative AI model"
-   },
-   {
-    "doc": "ec-staff-genai-guidelines",
-    "ref": "Section 3, Rule 4",
-    "quote": "Staff shall never directly replicate the output of a generative AI model in public documents, such as the creation of Commission texts, notably legally binding ones."
-   }
-  ],
-  "verified": "2026-10-27"
+  "explain": "The guidelines bar staff from entering any non-public information or personal data into publicly available generative AI tools, and separately forbid reproducing outputs verbatim in public documents. Stripping out personal data is not enough, because the confidentiality restriction is wider than data protection, and the tools are not banned outright."
  },
  {
   "id": 1078,
@@ -3688,7 +3674,14 @@
   "c": "partnerships between large platforms and model developers can be reviewed even short of a notifiable merger",
   "d": "designation under the Digital Markets Act extends automatically to every AI service a gatekeeper offers",
   "correct": "c",
-  "explain": "The Commission has examined big-tech and model-lab arrangements under merger and antitrust tools, precisely because compute-for-equity structures often fall outside notification thresholds. DMA designation is service by service: an AI assistant is covered only if it is designated as, or integrated into, a designated core platform service."
+  "explain": "The Commission has examined big-tech and model-lab arrangements under merger and antitrust tools, precisely because compute-for-equity structures often fall outside notification thresholds. DMA designation is service by service: an AI assistant is covered only if it is designated as, or integrated into, a designated core platform service.",
+  "sources": [
+   {
+    "doc": "dma",
+    "ref": "Recital 29",
+    "quote": "Gatekeepers should comply with the obligations laid down in this Regulation in respect of each of the core platform services listed in the relevant designation decision."
+   }
+  ]
  },
  {
   "id": 2058,
@@ -3812,8 +3805,7 @@
     "ref": "Section 2.3.1 Labour market risks",
     "quote": "Labour market risks arise from the potential of general-purpose AI to automate a wide range of complex cognitive tasks across sectors."
    }
-  ],
-  "verified": "2026-10-27"
+  ]
  },
  {
   "id": 2063,
@@ -4007,7 +3999,7 @@
   "c": "national servers cannot reach the throughput large models need without dedicated accelerators",
   "d": "Union law bars a Member State from requiring any data processing on its own territory, whatever the justification",
   "correct": "a",
-  "explain": "Hosting determines where computation happens; it confers no rights over the model itself, so a provider can still deprecate a version, change behaviour through an update or end the licence. Control is secured contractually — version pinning, exit rights, escrow — and by access to weights, not by geography. Under Regulation (EU) 2018/1807 such a localisation requirement would in any case have to be justified on public-security grounds and be proportionate.",
+  "explain": "Hosting determines where computation happens; it confers no rights over the model itself, so a provider can still deprecate a version, change behaviour through an update or end the licence. Control is secured contractually — version pinning, exit rights, escrow — and by access to weights, not by geography.",
   "sources": [
    {
     "doc": "free-flow-data",
@@ -4095,8 +4087,7 @@
     "ref": "Section 2.3.4",
     "quote": "Taiwan Semiconductor Manufacturing Company (TSMC), the world’s largest semiconductor manufacturer and the main supplier of chips to AI hardware firms such as Nvidia"
    }
-  ],
-  "verified": "2026-10-27"
+  ]
  },
  {
   "id": 2074,
@@ -4203,7 +4194,7 @@
    },
    {
     "doc": "dsa-minors-guidelines",
-    "ref": "Section 1",
+    "ref": "Section 2",
     "quote": "Nevertheless, adopting and implementing the measures set out in these guidelines, either partially or in full, shall not automatically entail compliance with that provision."
    }
   ],
@@ -4235,8 +4226,7 @@
     "ref": "Art 1(2)",
     "quote": "This Directive lays down the rules requiring Member States to ensure that websites, independently of the device used for access thereto, and mobile applications of public sector bodies meet the accessibility requirements set out in Article 4."
    }
-  ],
-  "verified": "2026-10-27"
+  ]
  },
  {
   "id": 2079,
@@ -4287,7 +4277,14 @@
   "c": "oversight of every decision is not credible at scale and invites rubber-stamping rather than genuine control",
   "d": "the policy should commit to publishing model weights so that independent researchers can verify its claims",
   "correct": "c",
-  "explain": "A blanket oversight promise fails the way automation bias does: volume forces nominal review, so the credible commitment is oversight targeted at consequential decisions with measured override rates. Internal red-teaming is a recognised practice — its weaknesses are scope and independence, not the absence of accreditation."
+  "explain": "A blanket oversight promise fails the way automation bias does: volume forces nominal review, so the credible commitment is oversight targeted at consequential decisions with measured override rates. Internal red-teaming is a recognised practice — its weaknesses are scope and independence, not the absence of accreditation.",
+  "sources": [
+   {
+    "doc": "ai-act",
+    "ref": "Art 14(4)(b)",
+    "quote": "remain aware of the possible tendency of automatically relying or over-relying on the output produced by a high-risk AI system (automation bias)"
+   }
+  ]
  },
  {
   "id": 2082,
