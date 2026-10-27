@@ -22,6 +22,7 @@ import {
   type ProgressData,
 } from '@/domain/progress'
 import { buildLesson } from '@/domain/lesson'
+import { toggleCommonplace } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
@@ -71,6 +72,7 @@ export type Action =
   | { type: 'next'; today?: string }
   | { type: 'finishExam' }
   | { type: 'toggleBookmark'; id: number }
+  | { type: 'toggleCommonplace'; id: number; index: number; now: number }
   | { type: 'goMenu' }
   | { type: 'navigate'; view: TabView }
 
@@ -173,6 +175,12 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'toggleBookmark':
       return { ...state, progress: toggleBookmark(state.progress, action.id) }
+
+    case 'toggleCommonplace':
+      return {
+        ...state,
+        progress: toggleCommonplace(state.progress, action.id, action.index, action.now),
+      }
 
     case 'goMenu':
       return {

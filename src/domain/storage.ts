@@ -27,6 +27,7 @@ export function loadProgress(): ProgressData {
       version: PROGRESS_VERSION,
       stats: parsed.stats ?? {},
       bookmarks: parsed.bookmarks ?? [],
+      ...(parsed.commonplace?.length ? { commonplace: parsed.commonplace } : {}),
       streak: parsed.streak ?? emptyStreak(),
       updatedAt: parsed.updatedAt ?? 0,
     }

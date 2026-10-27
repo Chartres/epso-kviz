@@ -14,6 +14,9 @@ export interface QuestionCardProps {
   onAnswer: (choice: Choice) => void
   onNext: () => void
   onToggleBookmark: () => void
+  /** Citation indexes of this question already in the commonplace book. */
+  collected?: number[]
+  onCollect?: (index: number) => void
 }
 
 const OPTIONS: Choice[] = ['a', 'b', 'c', 'd']
@@ -63,6 +66,8 @@ export function QuestionCard({
   onAnswer,
   onNext,
   onToggleBookmark,
+  collected,
+  onCollect,
 }: QuestionCardProps) {
   const answered = chosen !== undefined
   const isCorrect = answered && chosen === question.correct
@@ -148,7 +153,7 @@ export function QuestionCard({
       {reveal && answered && (
         <div className="mt-4 rounded-card border border-steel-700 bg-steel-800/40 p-3 text-sm leading-relaxed text-steel-300">
           <p>{question.explain}</p>
-          <SourceNote question={question} />
+          <SourceNote question={question} collected={collected} onCollect={onCollect} />
         </div>
       )}
 

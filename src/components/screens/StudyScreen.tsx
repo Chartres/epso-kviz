@@ -1,8 +1,11 @@
 import { META } from '@/domain/questions'
 import { LESSONS } from '@/content/studyGuide'
 import { imageUrl } from '@/lib/assets'
+import { useApp } from '@/app/AppContext'
+import { Commonplace } from '@/components/Commonplace'
 
 export function StudyScreen() {
+  const { state, dispatch } = useApp()
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pt-2">
       <h1 className="font-display text-2xl font-bold uppercase tracking-tight text-steel-50">
@@ -21,6 +24,11 @@ export function StudyScreen() {
         </a>
         .
       </p>
+
+      <Commonplace
+        progress={state.progress}
+        onRemove={(id, index) => dispatch({ type: 'toggleCommonplace', id, index, now: Date.now() })}
+      />
 
       {/* Table of contents */}
       <nav aria-label="Contents" className="mt-5 rounded-card border border-steel-700 bg-steel-800/40 p-4">

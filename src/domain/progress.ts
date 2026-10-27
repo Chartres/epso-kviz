@@ -43,8 +43,19 @@ export interface ProgressData {
   version: number
   stats: Record<number, QuestionStat>
   bookmarks: number[]
+  /** Passages collected into the learner's commonplace book (see commonplace.ts). */
+  commonplace?: CommonplaceEntry[]
   streak: Streak
   updatedAt: number
+}
+
+export interface CommonplaceEntry {
+  /** Question id. */
+  q: number
+  /** Index into that question's `sources`. */
+  i: number
+  /** When it was collected (ms). */
+  at: number
 }
 
 export const PROGRESS_VERSION = 1
@@ -232,6 +243,20 @@ function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionS
   return out
 }
 
+/** Union of both commonplace books, keeping the earliest time each passage was collected. */
+function mergeCommonplace(
+  a: CommonplaceEntry[] = [],
+  b: CommonplaceEntry[] = [],
+): { commonplace?: CommonplaceEntry[] } {
+  const byKey = new Map<string, CommonplaceEntry>()
+  for (const e of [...a, ...b]) {
+    const k = `${e.q}:${e.i}`
+    const prev = byKey.get(k)
+    if (!prev || e.at < prev.at) byKey.set(k, e)
+  }
+  return byKey.size ? { commonplace: [...byKey.values()].sort((x, y) => x.at - y.at) } : {}
+}
+
 /** Merge two progress snapshots: last-write-wins per question, union bookmarks. */
 export function mergeProgress(
   a: ProgressData,
@@ -251,6 +276,7 @@ export function mergeProgress(
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
+    ...mergeCommonplace(a.commonplace, b.commonplace),
     streak: { ...latest, best: Math.max(sa.best, sb.best) },
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
