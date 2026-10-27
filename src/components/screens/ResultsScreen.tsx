@@ -7,6 +7,7 @@ import { makeRng, timeSeed } from '@/domain/rng'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { FeedbackCard } from '@/components/FeedbackCard'
 import { SourceNote } from '@/components/SourceNote'
+import { ReadinessCard } from '@/components/ReadinessCard'
 
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
@@ -52,7 +53,7 @@ export function ResultsScreen() {
                 : 'border-rust-500 text-rust-400'
             }`}
           >
-            {examResult.passed ? 'Passed' : 'Failed'}
+            {examResult.passed ? 'Above the pass mark' : 'Below the pass mark'}
           </div>
         )}
         <div className="font-mono text-6xl font-semibold text-brass-300 tabular-nums">
@@ -61,7 +62,7 @@ export function ResultsScreen() {
         </div>
         {isExam && examResult && (
           <p className="mt-2 text-sm text-steel-400">
-            Pass at {examResult.passThreshold} of {total}.
+            Pass mark {examResult.passThreshold} of {total}; the ranking decides.
           </p>
         )}
       </div>
@@ -78,6 +79,12 @@ export function ResultsScreen() {
             />
           ))}
         </section>
+      )}
+
+      {isExam && (
+        <div className="mt-6">
+          <ReadinessCard progress={state.progress} />
+        </div>
       )}
 
       {wrong.length > 0 && (

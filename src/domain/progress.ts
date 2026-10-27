@@ -9,6 +9,8 @@ export interface QuestionStat {
   streak: number
   lastSeen: number
   lastCorrect: boolean
+  /** Correctness of the very first answer: the honest predictor for unseen exam questions. */
+  first?: boolean
 }
 
 export interface Streak {
@@ -91,7 +93,9 @@ export function recordAnswer(
     streak: correct ? prev.streak + 1 : 0,
     lastSeen: now,
     lastCorrect: correct,
+    first: prev.seen === 0 ? correct : prev.first,
   }
+  if (next.first === undefined) delete next.first
   return {
     ...p,
     stats: { ...p.stats, [id]: next },
