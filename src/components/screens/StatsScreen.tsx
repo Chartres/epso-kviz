@@ -4,6 +4,7 @@ import { ALL_QUESTIONS, META } from '@/domain/questions'
 import { summary } from '@/domain/progress'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { InfoDot } from '@/components/ui/InfoDot'
+import { ReadinessCard } from '@/components/ReadinessCard'
 
 export function StatsScreen() {
   const { state } = useApp()
@@ -51,6 +52,10 @@ export function StatsScreen() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mb-8">
+        <ReadinessCard progress={state.progress} />
       </div>
 
       <h2 className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.2em] text-steel-400">

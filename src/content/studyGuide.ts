@@ -44,7 +44,7 @@ export const LESSONS: Lesson[] = [
     title: '1 · The exam itself — what you are training for',
     source: NOTICE,
     html: `
-<p>The field-related MCQ is <strong>30 questions in 40 minutes, in English, scored 0–30</strong>. Pass mark 15/30 — but passing is not the point: it is the <strong>only test that ranks you</strong>. Reasoning tests (in Slovak) and the EU essay are pass/fail gates. Eligibility files are checked only for roughly the top <strong>1.5 × 240 ≈ 360</strong> candidates in Field 1, in descending MCQ order.</p>
+<p>The field-related MCQ is <strong>30 questions in 40 minutes, in your language 2, scored 0–30</strong>. Pass mark 15/30 — but passing is not the point: it is the <strong>only test that ranks you</strong>. Reasoning tests (in your language 1) and the EU essay are pass/fail gates, but the essay is marked and eligibility checked only for roughly the top <strong>1.5 × 240 ≈ 360</strong> MCQ scorers in Field 1, in descending order.</p>
 <ul>
 <li><strong>~80 seconds per question.</strong> Train elimination speed, not just knowledge: two options are usually clearly wrong; the last two differ on one precise fact.</li>
 <li><strong>The syllabus is Annex II</strong> of the notice — three duty categories: (1) engineering end-to-end AI solutions, (2) compliant and defensible AI use (the AI Act by name), (3) AI policy. This trainer's three categories mirror them.</li>

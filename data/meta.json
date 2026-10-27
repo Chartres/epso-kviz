@@ -60,7 +60,10 @@
       }
     ],
     "passThreshold": 15,
-    "timeLimitMinutes": 40
+    "timeLimitMinutes": 40,
+    "places": 240,
+    "essayMultiple": 1.5,
+    "notice": "Notice of Competition EPSO/AD/430/26, OJ C/2026/4668: Table 1 (places, Field 1), point 4.3.3(c) (EUFTE marked for up to 1.5 × places)"
   },
   "duplicatePairs": []
 }
