@@ -13,20 +13,25 @@ import { ReadinessCard } from '@/components/ReadinessCard'
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
   const { session, examResult, mode } = state
-  if (!session) return null
-
-  const total = session.questions.length
-  const correct = score(session)
-  const wrong = wrongAnswers(session)
   const isExam = mode === 'exam'
   const isLesson = mode === 'lesson'
 
+  // Must be before the conditional return (rules of hooks).
   useEffect(() => {
+    if (!session) return
+    const total = session.questions.length
+    const correct = score(session)
     const name = isExam ? 'exam_finish' : isLesson ? 'lesson_complete' : 'session_finish'
     track(name, { mode, score: correct, total, passed: examResult?.passed })
     // fire once per results view
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (!session) return null
+
+  const total = session.questions.length
+  const correct = score(session)
+  const wrong = wrongAnswers(session)
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10">

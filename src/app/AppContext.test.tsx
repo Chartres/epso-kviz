@@ -6,7 +6,7 @@
  */
 import { StrictMode } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { AuthProvider } from '@/auth/AuthContext'
 import { AppProvider, useApp } from '@/app/AppContext'
 import { saveProgress, loadProgress } from '@/domain/storage'
