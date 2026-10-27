@@ -32,8 +32,8 @@ export function buildPractice(opts: FilterOptions, rng: Rng): Question[] {
   return shuffle(filterQuestions(opts), rng)
 }
 
-export function reviewQuestions(p: ProgressData, now = 0): Question[] {
-  return dueForReview(p, now)
+export function reviewQuestions(p: ProgressData): Question[] {
+  return dueForReview(p)
     .map((id) => getQuestion(id))
     .filter((q): q is Question => q !== undefined)
 }
