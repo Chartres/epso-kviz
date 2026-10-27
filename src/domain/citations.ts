@@ -1,12 +1,8 @@
 import registry from '@data/sources/registry.json'
 import type { Citation } from './types'
+import { labelFor, urlFor, type SourceDoc } from './citationRefs'
 
-export interface SourceDoc {
-  short: string
-  title: string
-  celex: string
-  url: string
-}
+export type { SourceDoc }
 
 export const SOURCES: Record<string, SourceDoc> = registry.docs
 
@@ -24,18 +20,9 @@ export function normalizeQuote(text: string): string {
 }
 
 export function citationLabel(c: Citation): string {
-  return `${SOURCES[c.doc]?.short ?? c.doc}, ${c.ref}`
+  return labelFor(c, SOURCES)
 }
 
-/** EUR-Lex ELI pages carry art_N / rct_N / anx_N anchors; other documents link to the top. */
 export function citationUrl(c: Citation): string {
-  const base = SOURCES[c.doc]?.url ?? ''
-  if (!base.includes('/eli/')) return base
-  const m = /^Art(?:icle)?\s+(\d+[a-z]?)/i.exec(c.ref)
-  if (m) return `${base}#art_${m[1]}`
-  const r = /^Recital\s+(\d+)/i.exec(c.ref)
-  if (r) return `${base}#rct_${r[1]}`
-  const a = /^Annex\s+([IVXLC]+)/i.exec(c.ref)
-  if (a) return `${base}#anx_${a[1]}`
-  return base
+  return urlFor(c, SOURCES)
 }
