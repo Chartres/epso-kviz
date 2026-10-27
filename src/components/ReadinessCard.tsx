@@ -3,9 +3,15 @@ import type { ProgressData } from '@/domain/progress'
 import { CATEGORY_NAMES, META } from '@/domain/questions'
 import { readiness, MIN_FIRST_ATTEMPTS } from '@/domain/readiness'
 
-/** Places and essay-marking multiple from the Notice of Competition, §1 and §4.3.3(c). */
-const PLACES = 240
-const ESSAYS_MARKED = Math.round(PLACES * 1.5)
+const { places, essayMultiple } = META.exam
+const ESSAYS_MARKED = Math.round(places * essayMultiple)
+
+/** A probability as a percentage that never claims certainty the model does not have. */
+export function chance(p: number): string {
+  if (p > 0.99) return '>99%'
+  if (p < 0.01) return '<1%'
+  return `${Math.round(p * 100)}%`
+}
 
 /**
  * The honest replacement for "pass at 15/30": a likely-score range on a fresh paper,
@@ -37,7 +43,7 @@ export function ReadinessCard({ progress }: { progress: ProgressData }) {
           <p className="mt-2 text-sm text-steel-300">
             Chance of reaching {pass}/{r.total}:{' '}
             <span className="font-mono tabular-nums text-steel-100">
-              {Math.round(r.atLeast(pass) * 100)}%
+              {chance(r.atLeast(pass))}
             </span>
             . The range covers 8 in 10 likely outcomes.
           </p>
@@ -68,7 +74,7 @@ export function ReadinessCard({ progress }: { progress: ProgressData }) {
       <p className="mt-4 text-sm leading-relaxed text-steel-400">
         Only first tries count: a question you have met before shows what you remember, not
         what you would score on the day. {pass}/{r.total} only keeps you in the ranking. In
-        AD/430/26 the essays of about {ESSAYS_MARKED} top scorers are marked for {PLACES}{' '}
+        AD/430/26 the essays of about {ESSAYS_MARKED} top scorers are marked for {places}{' '}
         places, and EPSO does not publish the cut-off score.
       </p>
     </section>

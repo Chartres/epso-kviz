@@ -163,6 +163,21 @@ describe('daily streak', () => {
 })
 
 describe('mergeProgress (offline ↔ cloud sync)', () => {
+  it('keeps the first try from whichever device answered first, even when the other wrote last', () => {
+    const a = recordAnswer(emptyProgress(), 1, false, 10) // device A, first ever answer: wrong
+    const b = recordAnswer(emptyProgress(), 1, true, 50) // device B, not yet synced: right
+    const merged = mergeProgress(a, b)
+    expect(statFor(merged, 1).lastSeen).toBe(50)
+    expect(statFor(merged, 1).first).toBe(false)
+    expect(statFor(merged, 1).firstSeen).toBe(10)
+  })
+
+  it('keeps a known first try when the newer record comes from a client that never wrote one', () => {
+    const a = recordAnswer(emptyProgress(), 1, false, 10)
+    const legacy = { ...emptyProgress(), stats: { 1: { seen: 2, correct: 2, streak: 2, lastSeen: 60, lastCorrect: true } } }
+    expect(statFor(mergeProgress(a, legacy), 1).first).toBe(false)
+  })
+
   it('keeps the most-recently-touched stat per question and unions bookmarks', () => {
     let local = emptyProgress()
     local = recordAnswer(local, 1, true, 100)

@@ -1,6 +1,8 @@
 import type { CategoryName, Question } from './types'
 import { ALL_QUESTIONS, CATEGORY_NAMES, META } from './questions'
-import type { ProgressData, QuestionStat } from './progress'
+import { firstAttempt, type ProgressData } from './progress'
+
+export { firstAttempt }
 
 /**
  * Readiness: what you would likely score on a fresh 30-question paper.
@@ -18,18 +20,6 @@ export const MIN_FIRST_ATTEMPTS = 8
 /** The range shown is the central 80%: 10th to 90th percentile. */
 const LOW_Q = 0.1
 const HIGH_Q = 0.9
-
-/**
- * Was the first answer right? Recorded since Oct 2026 (`first`); for older progress it is
- * inferred when unambiguous (all answers right, or all wrong) and unknown otherwise.
- */
-export function firstAttempt(s: QuestionStat): boolean | null {
-  if (s.first !== undefined) return s.first
-  if (s.seen === 0) return null
-  if (s.correct === s.seen) return true
-  if (s.correct === 0) return false
-  return null
-}
 
 function logGamma(x: number): number {
   // Lanczos approximation (g = 7, n = 9), accurate to ~1e-15 for x > 0.
@@ -107,13 +97,13 @@ export function readiness(
     CATEGORY_NAMES.map((c) => [c, Math.max(0, MIN_FIRST_ATTEMPTS - byCategory[c].n)]),
   ) as Record<CategoryName, number>
 
-  // Paper composition from the notice via meta.json: 10 questions per category.
+  // Paper composition from meta.json (10 per group). A group's questions are drawn from all
+  // its categories together, so its evidence is pooled across them.
   let pmf = [1]
   for (const part of META.exam.composition) {
-    for (const cat of part.categories) {
-      const e = byCategory[cat]
-      pmf = convolve(pmf, betaBinomialPmf(part.count, 1 + e.correct, 1 + e.n - e.correct))
-    }
+    const n = part.categories.reduce((t, c) => t + byCategory[c].n, 0)
+    const correct = part.categories.reduce((t, c) => t + byCategory[c].correct, 0)
+    pmf = convolve(pmf, betaBinomialPmf(part.count, 1 + correct, 1 + n - correct))
   }
 
   const quantile = (q: number) => {

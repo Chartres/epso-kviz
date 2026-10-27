@@ -51,6 +51,11 @@ export interface ExamConfig {
   composition: ExamCompositionPart[]
   passThreshold: number
   timeLimitMinutes: number
+  /** Successful candidates sought in this field (notice, Table 1). */
+  places: number
+  /** Essays marked for at most this multiple of `places`, in ranking order (notice 4.3.3(c)). */
+  essayMultiple: number
+  notice: string
 }
 
 export interface Meta {

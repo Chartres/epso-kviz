@@ -11,6 +11,25 @@ export interface QuestionStat {
   lastCorrect: boolean
   /** Correctness of the very first answer: the honest predictor for unseen exam questions. */
   first?: boolean
+  /** When that first answer was given (lets sync keep the earliest one). */
+  firstSeen?: number
+}
+
+/**
+ * Was the first answer right? Recorded since Oct 2026 (`first`). For older progress it is
+ * inferred where the counts settle it, and null where they don't:
+ *  - all right / all wrong;
+ *  - every right answer sits in the closing streak (W…W R…R) → the first was wrong;
+ *  - the only wrong answer is the last one (R…R W) → the first was right.
+ */
+export function firstAttempt(s: QuestionStat): boolean | null {
+  if (s.first !== undefined) return s.first
+  if (s.seen === 0) return null
+  if (s.correct === s.seen) return true
+  if (s.correct === 0) return false
+  if (s.streak === s.correct) return false
+  if (!s.lastCorrect && s.correct === s.seen - 1) return true
+  return null
 }
 
 export interface Streak {
@@ -93,9 +112,11 @@ export function recordAnswer(
     streak: correct ? prev.streak + 1 : 0,
     lastSeen: now,
     lastCorrect: correct,
-    first: prev.seen === 0 ? correct : prev.first,
   }
-  if (next.first === undefined) delete next.first
+  const first = prev.seen === 0 ? correct : firstAttempt(prev)
+  const firstSeen = prev.seen === 0 ? now : prev.firstSeen
+  if (first !== null) next.first = first
+  if (firstSeen !== undefined) next.firstSeen = firstSeen
   return {
     ...p,
     stats: { ...p.stats, [id]: next },
@@ -196,6 +217,21 @@ export function summary(
   }
 }
 
+/**
+ * The first try never changes once made, so a merge keeps it from whichever record answered
+ * first, or from the only record that knows it, whichever device wrote last.
+ */
+function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionStat {
+  const known = [winner, other].filter((s) => firstAttempt(s) !== null)
+  if (known.length === 0) return winner
+  const earliest = known.reduce((x, y) =>
+    (y.firstSeen ?? Infinity) < (x.firstSeen ?? Infinity) ? y : x,
+  )
+  const out: QuestionStat = { ...winner, first: firstAttempt(earliest)! }
+  if (earliest.firstSeen !== undefined) out.firstSeen = earliest.firstSeen
+  return out
+}
+
 /** Merge two progress snapshots: last-write-wins per question, union bookmarks. */
 export function mergeProgress(
   a: ProgressData,
@@ -206,6 +242,7 @@ export function mergeProgress(
     const id = Number(idStr)
     const existing = stats[id]
     if (!existing || s.lastSeen >= existing.lastSeen) stats[id] = s
+    if (existing) stats[id] = withEarliestFirst(stats[id], existing === stats[id] ? s : existing)
   }
   const sa = a.streak ?? emptyStreak()
   const sb = b.streak ?? emptyStreak()

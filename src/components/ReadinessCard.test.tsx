@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { ReadinessCard } from './ReadinessCard'
+import { ReadinessCard, chance } from './ReadinessCard'
 import { emptyProgress, recordAnswer, type ProgressData } from '@/domain/progress'
 import { byCategory, CATEGORY_NAMES } from '@/domain/questions'
 import { MIN_FIRST_ATTEMPTS } from '@/domain/readiness'
@@ -13,6 +13,14 @@ function practise(n: number, right: (i: number) => boolean): ProgressData {
       .forEach((q, i) => (p = recordAnswer(p, q.id, right(i), i + 1)))
   return p
 }
+
+describe('chance', () => {
+  it('never shows certainty: >99% and <1% at the ends', () => {
+    expect(chance(0.996)).toBe('>99%')
+    expect(chance(0.004)).toBe('<1%')
+    expect(chance(0.5)).toBe('50%')
+  })
+})
 
 describe('ReadinessCard', () => {
   it('without enough first tries, says how many new questions each category still needs', () => {

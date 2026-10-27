@@ -36,8 +36,24 @@ describe('firstAttempt', () => {
     expect(firstAttempt({ ...base, seen: 1, correct: 1 })).toBe(true)
     expect(firstAttempt({ ...base, seen: 3, correct: 3 })).toBe(true)
     expect(firstAttempt({ ...base, seen: 3, correct: 0, lastCorrect: false })).toBe(false)
-    expect(firstAttempt({ ...base, seen: 3, correct: 2 })).toBeNull()
     expect(firstAttempt({ ...base, seen: 0, correct: 0 })).toBeNull()
+  })
+
+  it('uses the streak to settle mixed legacy histories', () => {
+    const base = { lastSeen: 1 }
+    // W,R,R: every right answer is in the closing streak, so everything before was wrong.
+    expect(firstAttempt({ ...base, seen: 3, correct: 2, streak: 2, lastCorrect: true })).toBe(false)
+    // R,R,W: the only wrong answer is the last one, so the first was right.
+    expect(firstAttempt({ ...base, seen: 3, correct: 2, streak: 0, lastCorrect: false })).toBe(true)
+    // R,W,R or W,R,R? correct 2 of 3 with streak 1 is genuinely ambiguous.
+    expect(firstAttempt({ ...base, seen: 3, correct: 2, streak: 1, lastCorrect: true })).toBeNull()
+  })
+
+  it('persists an inferred first try when a legacy record gets a new answer', () => {
+    let p = emptyProgress()
+    p = { ...p, stats: { 5: { seen: 1, correct: 0, streak: 0, lastSeen: 1, lastCorrect: false } } }
+    p = recordAnswer(p, 5, true, 2)
+    expect(statFor(p, 5).first).toBe(false)
   })
 })
 
@@ -73,6 +89,7 @@ describe('readiness', () => {
     expect(r.expected).toBeGreaterThan(27)
     expect(r.high).toBe(30)
     expect(r.atLeast(15)).toBeGreaterThan(0.99)
+    expect(r.atLeast(31)).toBe(0)
   })
 
   it('a coin-flip record centres on 15 with a range on both sides of it', () => {
