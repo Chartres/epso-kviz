@@ -20,12 +20,16 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, undefined, initialState)
+  // Initialise directly from localStorage so the save effect never runs with
+  // emptyProgress() before hydration — avoids wiping the store under StrictMode.
+  const [state, dispatch] = useReducer(reducer, undefined, () => ({
+    ...initialState(),
+    progress: loadProgress(),
+  }))
   const { user } = useAuth()
 
-  // Hydrate persisted progress once on mount.
+  // Track app open once on mount (progress is already in state from the initializer).
   useEffect(() => {
-    dispatch({ type: 'hydrate', progress: loadProgress() })
     track('app_open')
   }, [])
 
