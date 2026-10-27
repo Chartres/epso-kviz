@@ -146,7 +146,10 @@ export function ResultsScreen() {
         {isLesson && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_lesson')
+              dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })
+            }}
             className="glow-brass rounded-card bg-brass-500 px-5 py-2.5 font-display font-semibold uppercase tracking-wide text-steel-950 hover:bg-brass-400"
           >
             Next lesson
@@ -155,7 +158,10 @@ export function ResultsScreen() {
         {wrong.length > 0 && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startReview', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_review')
+              dispatch({ type: 'startReview', rng: makeRng(timeSeed()) })
+            }}
             className="rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200 hover:border-steel-400"
           >
             Review mistakes
