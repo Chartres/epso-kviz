@@ -27,7 +27,9 @@ export function StudyScreen() {
 
       <Commonplace
         progress={state.progress}
-        onRemove={(id, index) => dispatch({ type: 'toggleCommonplace', id, index, now: Date.now() })}
+        onRemove={(citation) =>
+          dispatch({ type: 'setCommonplace', citation, id: 0, on: false, now: Date.now() })
+        }
       />
 
       {/* Table of contents */}

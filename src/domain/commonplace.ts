@@ -1,4 +1,4 @@
-import type { Citation, Question } from './types'
+import type { Citation } from './types'
 import { getQuestion } from './questions'
 import { SOURCES, citationLabel } from './citations'
 import type { CommonplaceEntry, ProgressData } from './progress'
@@ -6,27 +6,75 @@ import type { CommonplaceEntry, ProgressData } from './progress'
 /**
  * The commonplace book (Erasmus, De Copia, 1512; Locke, 1706): the learner's own collection
  * of verbatim passages from the law, met while working a case and filed by act and article.
- * Entries point at (question, citation index), so the passage is always the verified text.
+ *
+ * An entry is the passage itself (act, reference, quote), keyed by act + quote, so the same
+ * passage met in two cases is one entry and later bank edits can't change what was
+ * collected. Each entry carries an on/off state and the time of its last change; sync keeps
+ * the latest change, so a removal on one device carries over to the others.
  */
 
-export function isCollected(p: ProgressData, q: number, i: number): boolean {
-  return (p.commonplace ?? []).some((e) => e.q === q && e.i === i)
+const keyOf = (c: { doc: string; quote: string }) => `${c.doc}\u0000${c.quote}`
+
+export function sanitizeCommonplace(value: unknown): CommonplaceEntry[] {
+  if (!Array.isArray(value)) return []
+  return value.filter(
+    (e): e is CommonplaceEntry =>
+      !!e &&
+      typeof e === 'object' &&
+      typeof e.doc === 'string' &&
+      typeof e.ref === 'string' &&
+      typeof e.quote === 'string' &&
+      typeof e.q === 'number' &&
+      typeof e.at === 'number' &&
+      typeof e.on === 'boolean',
+  )
 }
 
-export function toggleCommonplace(p: ProgressData, q: number, i: number, now: number): ProgressData {
-  const list = p.commonplace ?? []
-  const next = isCollected(p, q, i)
-    ? list.filter((e) => !(e.q === q && e.i === i))
-    : [...list, { q, i, at: now }]
-  return { ...p, commonplace: next }
+function find(p: ProgressData, c: Citation): CommonplaceEntry | undefined {
+  const k = keyOf(c)
+  return sanitizeCommonplace(p.commonplace).find((e) => keyOf(e) === k)
+}
+
+export function isCollected(p: ProgressData, c: Citation): boolean {
+  return find(p, c)?.on ?? false
+}
+
+/** Put a passage in (on) or take it out (off). Idempotent: setting the current state is a no-op. */
+export function setCollected(
+  p: ProgressData,
+  c: Citation,
+  questionId: number,
+  on: boolean,
+  now: number,
+): ProgressData {
+  const prev = find(p, c)
+  if ((prev?.on ?? false) === on) return p
+  const k = keyOf(c)
+  const rest = sanitizeCommonplace(p.commonplace).filter((e) => keyOf(e) !== k)
+  const entry: CommonplaceEntry = {
+    doc: c.doc,
+    ref: c.ref,
+    quote: c.quote,
+    q: on ? questionId : (prev?.q ?? questionId),
+    at: now,
+    on,
+  }
+  return { ...p, commonplace: [...rest, entry] }
+}
+
+/** Sync merge: per passage, the latest change wins (so removals propagate). */
+export function mergeCommonplace(a: unknown, b: unknown): CommonplaceEntry[] {
+  const byKey = new Map<string, CommonplaceEntry>()
+  for (const e of [...sanitizeCommonplace(a), ...sanitizeCommonplace(b)]) {
+    const prev = byKey.get(keyOf(e))
+    if (!prev || e.at > prev.at) byKey.set(keyOf(e), e)
+  }
+  return [...byKey.values()].sort((x, y) => x.at - y.at)
 }
 
 export interface CollectedPassage extends Citation {
-  questionId: number
-  /** Index into the question's `sources`. */
-  index: number
-  /** The case the passage came from. */
-  question: string
+  /** The case it was collected from, or null if that question is no longer in the bank. */
+  question: string | null
   at: number
 }
 
@@ -36,43 +84,46 @@ export interface CommonplaceGroup {
   entries: CollectedPassage[]
 }
 
-function resolve(e: CommonplaceEntry): CollectedPassage | null {
-  const q: Question | undefined = getQuestion(e.q)
-  const c = q?.verified ? q.sources?.[e.i] : undefined
-  if (!q || !c) return null
-  return { ...c, questionId: q.id, index: e.i, question: q.q, at: e.at }
+/** Articles first, then recitals, then annexes, then anything else; natural order inside each. */
+function refRank(ref: string): number {
+  if (/^Art(icle)?\s/i.test(ref)) return 0
+  if (/^Recital\s/i.test(ref)) return 1
+  if (/^Annex\s/i.test(ref)) return 2
+  return 3
 }
 
-/** Article numbers sort as numbers ("Art 5" before "Art 26"), everything else after, by text. */
-function refKey(ref: string): [number, string] {
-  const m = /^(?:Art|Recital|Annex)\s+(\d+)/i.exec(ref)
-  return [m ? Number(m[1]) : Number.MAX_SAFE_INTEGER, ref]
-}
+const natural = (a: string, b: string) => a.localeCompare(b, 'en', { numeric: true })
 
 export function commonplaceEntries(p: ProgressData): CommonplaceGroup[] {
   const groups = new Map<string, CollectedPassage[]>()
-  for (const e of p.commonplace ?? []) {
-    const r = resolve(e)
-    if (!r) continue
-    groups.set(r.doc, [...(groups.get(r.doc) ?? []), r])
+  for (const e of sanitizeCommonplace(p.commonplace)) {
+    if (!e.on) continue
+    const entry: CollectedPassage = {
+      doc: e.doc,
+      ref: e.ref,
+      quote: e.quote,
+      question: getQuestion(e.q)?.q ?? null,
+      at: e.at,
+    }
+    groups.set(e.doc, [...(groups.get(e.doc) ?? []), entry])
   }
   const docOrder = Object.keys(SOURCES)
+  const rank = (doc: string) => {
+    const i = docOrder.indexOf(doc)
+    return i === -1 ? docOrder.length : i
+  }
   return [...groups.entries()]
-    .sort(([a], [b]) => docOrder.indexOf(a) - docOrder.indexOf(b))
+    .sort(([a], [b]) => rank(a) - rank(b) || natural(a, b))
     .map(([doc, entries]) => ({
       doc,
       title: SOURCES[doc]?.title ?? doc,
-      entries: entries.sort((x, y) => {
-        const [nx, sx] = refKey(x.ref)
-        const [ny, sy] = refKey(y.ref)
-        return nx - ny || sx.localeCompare(sy)
-      }),
+      entries: entries.sort((x, y) => refRank(x.ref) - refRank(y.ref) || natural(x.ref, y.ref)),
     }))
 }
 
-/** Plain-text export: one passage per paragraph, reference underneath. */
-export function commonplaceText(p: ProgressData): string {
-  return commonplaceEntries(p)
+/** Plain-text export of exactly what the book shows: one passage per paragraph, reference under it. */
+export function commonplaceText(groups: CommonplaceGroup[]): string {
+  return groups
     .map((g) =>
       [g.title.toUpperCase(), ...g.entries.map((e) => `“${e.quote}”\n— ${citationLabel(e)}`)].join('\n\n'),
     )

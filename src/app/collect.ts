@@ -7,14 +7,14 @@ import { track } from '@/analytics'
 
 /** Commonplace-book props for one question: which passages are collected, and a toggle. */
 export function collectProps(question: Question, progress: ProgressData, dispatch: Dispatch<Action>) {
+  const sources = question.sources ?? []
   return {
-    collected: (question.sources ?? [])
-      .map((_, i) => i)
-      .filter((i) => isCollected(progress, question.id, i)),
+    collected: sources.map((_, i) => i).filter((i) => isCollected(progress, sources[i])),
     onCollect: (index: number) => {
-      if (!isCollected(progress, question.id, index))
-        track('key_action', { action: 'commonplace_add', q: question.id })
-      dispatch({ type: 'toggleCommonplace', id: question.id, index, now: Date.now() })
+      const citation = sources[index]
+      const on = !isCollected(progress, citation)
+      if (on) track('key_action', { action: 'commonplace_add', q: question.id })
+      dispatch({ type: 'setCommonplace', citation, id: question.id, on, now: Date.now() })
     },
   }
 }

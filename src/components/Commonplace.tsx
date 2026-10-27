@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ProgressData } from '@/domain/progress'
+import type { Citation } from '@/domain/types'
 import { commonplaceEntries, commonplaceText } from '@/domain/commonplace'
 import { citationUrl } from '@/domain/citations'
 
@@ -12,18 +13,19 @@ export function Commonplace({
   onRemove,
 }: {
   progress: ProgressData
-  onRemove: (questionId: number, index: number) => void
+  onRemove: (citation: Citation) => void
 }) {
   const groups = useMemo(() => commonplaceEntries(progress), [progress])
   const count = groups.reduce((n, g) => n + g.entries.length, 0)
-  const [copied, setCopied] = useState(false)
+  const [copy, setCopy] = useState<'idle' | 'done' | 'failed'>('idle')
+  useEffect(() => setCopy('idle'), [groups])
 
   async function copyAll() {
     try {
-      await navigator.clipboard.writeText(commonplaceText(progress))
-      setCopied(true)
+      await navigator.clipboard.writeText(commonplaceText(groups))
+      setCopy('done')
     } catch {
-      setCopied(false)
+      setCopy('failed')
     }
   }
 
@@ -35,7 +37,7 @@ export function Commonplace({
         </h2>
         {count > 0 && (
           <button type="button" onClick={copyAll} className="min-h-11 font-mono text-xs text-brass-400 hover:underline">
-            {copied ? 'Copied' : 'Copy all as text'}
+            {copy === 'done' ? 'Copied' : copy === 'failed' ? 'Copy failed — select and copy by hand' : 'Copy all as text'}
           </button>
         )}
       </div>
@@ -53,7 +55,7 @@ export function Commonplace({
               <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">{g.title}</h3>
               <ul className="mt-2 space-y-4">
                 {g.entries.map((e) => (
-                  <li key={`${e.questionId}-${e.index}`}>
+                  <li key={`${e.ref}-${e.at}`}>
                     <blockquote className="border-l-2 border-steel-600 pl-3 text-sm italic leading-relaxed text-steel-300">
                       {e.quote}
                     </blockquote>
@@ -63,15 +65,17 @@ export function Commonplace({
                       </a>
                       <button
                         type="button"
-                        onClick={() => onRemove(e.questionId, e.index)}
+                        onClick={() => onRemove(e)}
                         className="min-h-11 text-steel-500 hover:text-rust-400"
                       >
                         Remove
                       </button>
                     </div>
-                    <p className="mt-1 pl-3 text-xs text-steel-500">
-                      Case: <span className="text-steel-400">{e.question}</span>
-                    </p>
+                    {e.question && (
+                      <p className="mt-1 pl-3 text-xs text-steel-500">
+                        Case: <span className="text-steel-400">{e.question}</span>
+                      </p>
+                    )}
                   </li>
                 ))}
               </ul>

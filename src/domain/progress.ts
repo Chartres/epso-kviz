@@ -1,3 +1,4 @@
+import { mergeCommonplace } from './commonplace'
 import type { CategoryName, Question } from './types'
 
 /** Consecutive correct answers required to consider a question "mastered". */
@@ -49,16 +50,22 @@ export interface ProgressData {
   updatedAt: number
 }
 
+/** A passage in the commonplace book, keyed by act + quote (see commonplace.ts). */
 export interface CommonplaceEntry {
-  /** Question id. */
+  doc: string
+  ref: string
+  quote: string
+  /** The question (case) it was collected from. */
   q: number
-  /** Index into that question's `sources`. */
-  i: number
-  /** When it was collected (ms). */
+  /** Time of the last change (ms): collected or removed. */
   at: number
+  /** In the book (true) or removed (false, kept so the removal syncs). */
+  on: boolean
 }
 
 export const PROGRESS_VERSION = 1
+
+const withCommonplace = (c: CommonplaceEntry[]) => (c.length ? { commonplace: c } : {})
 
 export function emptyStreak(): Streak {
   return { current: 0, best: 0, lastDate: '' }
@@ -243,20 +250,6 @@ function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionS
   return out
 }
 
-/** Union of both commonplace books, keeping the earliest time each passage was collected. */
-function mergeCommonplace(
-  a: CommonplaceEntry[] = [],
-  b: CommonplaceEntry[] = [],
-): { commonplace?: CommonplaceEntry[] } {
-  const byKey = new Map<string, CommonplaceEntry>()
-  for (const e of [...a, ...b]) {
-    const k = `${e.q}:${e.i}`
-    const prev = byKey.get(k)
-    if (!prev || e.at < prev.at) byKey.set(k, e)
-  }
-  return byKey.size ? { commonplace: [...byKey.values()].sort((x, y) => x.at - y.at) } : {}
-}
-
 /** Merge two progress snapshots: last-write-wins per question, union bookmarks. */
 export function mergeProgress(
   a: ProgressData,
@@ -276,7 +269,7 @@ export function mergeProgress(
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
-    ...mergeCommonplace(a.commonplace, b.commonplace),
+    ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
     streak: { ...latest, best: Math.max(sa.best, sb.best) },
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
