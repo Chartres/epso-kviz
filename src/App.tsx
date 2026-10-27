@@ -8,10 +8,19 @@ import { QuizScreen } from '@/components/screens/QuizScreen'
 import { ResultsScreen } from '@/components/screens/ResultsScreen'
 import { StudyScreen } from '@/components/screens/StudyScreen'
 import { StatsScreen } from '@/components/screens/StatsScreen'
+import { NumericalScreen } from '@/components/screens/NumericalScreen'
+import { track } from '@/analytics'
 
 function CurrentView() {
-  const { state } = useApp()
+  const { state, dispatch } = useApp()
   switch (state.view) {
+    case 'numerical':
+      return (
+        <NumericalScreen
+          onExit={() => dispatch({ type: 'navigate', view: 'practice' })}
+          onFinish={(r) => track('key_action', { action: 'numerical_finish', ...r })}
+        />
+      )
     case 'practice':
       return <PracticeScreen />
     case 'stats':
