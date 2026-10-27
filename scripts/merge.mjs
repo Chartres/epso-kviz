@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
 const dir = new URL('../data/', import.meta.url)
 const bankDir = new URL('bank/', dir)
 const meta = JSON.parse(readFileSync(new URL('meta.json', dir), 'utf8'))
+const registry = JSON.parse(readFileSync(new URL('sources/registry.json', dir), 'utf8'))
 
 const questions = readdirSync(bankDir)
   .filter((f) => f.endsWith('.json'))
@@ -17,6 +18,16 @@ for (const q of questions) {
   for (const k of ['cat', 'q', 'a', 'b', 'c', 'd', 'correct', 'explain'])
     if (!q[k]) throw new Error(`question ${q.id} missing ${k}`)
   if (!'abcd'.includes(q.correct)) throw new Error(`question ${q.id} bad correct`)
+  // Citations: structure here, at authoring time; the verbatim quote check runs in
+  // src/domain/citations.test.ts against the pinned texts.
+  for (const c of q.sources ?? []) {
+    if (!c.doc || !c.ref || !c.quote) throw new Error(`question ${q.id} has an incomplete citation`)
+    if (!registry.docs[c.doc]) throw new Error(`question ${q.id} cites unknown source ${c.doc}`)
+    if (c.quote.length < 30) throw new Error(`question ${q.id} has a quote under 30 characters`)
+  }
+  if (q.verified && !q.sources?.length) throw new Error(`question ${q.id} is verified without citations`)
+  if (q.verified && !/^\d{4}-\d{2}-\d{2}$/.test(q.verified))
+    throw new Error(`question ${q.id} has a verified date that is not YYYY-MM-DD`)
 }
 
 // Option order in the bank is authoring order; the served order is a deterministic

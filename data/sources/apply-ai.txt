@@ -1,0 +1,1123 @@
+EUROPEAN
+COMMISSION
+
+Brussels, 8.10.2025
+COM(2025) 723 final
+
+COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN
+PARLIAMENT AND THE COUNCIL
+Apply AI Strategy
+
+EN
+
+EN
+
+1. Introduction
+Artificial Intelligence (‘AI’) is advancing at an unprecedented pace with capabilities that
+promise to reshape entire industries and the public sector1. The development and adoption of
+AI technologies (such as advanced general-purpose AI models, AI agents, digital twins and
+specialised small AI models) are providing the EU with a unique window of opportunity to
+boost innovation, accelerate productivity growth, and reinforce its competitive strength and
+technological sovereignty. Despite a strong industrial base and a vibrant startup ecosystem, the
+development and adoption of AI within the EU remains limited, with only 13.5% of businesses
+and 12.6% of SMEs2 - the backbone of the EU economy - using these technologies.
+Building on the AI Continent Action Plan and on the EU’s commitment to promoting human
+centric and trustworthy AI, in line with the AI Act3, the Strategy focuses on harnessing the
+transformative potential of AI, serving as a catalyst for increased vertical integration. It aims
+to boost the use of AI, particularly among SMEs and small mid-caps, and to facilitate AI
+integration to enhance the competitiveness of European industries, notably the more strategic
+ones. It seeks to unlock the broader societal benefits of AI, from enabling earlier and more
+accurate healthcare diagnoses to enhancing the efficiency and accessibility of public services
+while upholding the principles of non-discrimination. Moreover, it looks to bolster EU
+capabilities and achieve excellence in frontier AI.
+To achieve these goals, the Strategy promotes a shift in how companies and public sector
+organisations approach problem-solving. By adopting an AI first policy, they are encouraged
+to integrate AI building on European solutions. By uptaking AI - while evaluating its potential
+benefits and risks - European companies can adapt to its transformative impact, including on
+the workplace organisation and training needs. This approach not only drives business success
+but also fosters the development of European strategic presence at the various layers of
+the AI stacks4, involving workers and supporting the creation of a robust and sovereign EU AI
+ecosystem.
+Building on insights gathered through a public consultation5 and sectoral discussions6 over
+recent months, the Apply AI Strategy is articulated around three main sections7:
+•
+
+Introducing sectoral flagships - to boost AI use in key industrial sectors of the EU
+economy and in the public sector.
+
+•
+
+Addressing cross-cutting challenges - to support greater AI adoption by SMEs; enable
+an AI-ready workforce across sectors; leverage advanced AI capabilities; and ensure
+trust into the market.
+
+•
+
+Establishing a single governance mechanism - to pioneer a sectoral approach and
+foster a dynamic process of collaboration among stakeholders. It will also launch an AI
+Observatory to develop KPIs and monitor AI developments, impact and future trends.
+
+See, for instance, Joint Research Centre’s Generative AI Outlook Report: https://op.europa.eu/en/publication-detail/-/publication/9f7e0b86477c-11f0-85ba-01aa75ed71a1/language-en
+2
+https://ec.europa.eu/eurostat/databrowser/view/isoc_eb_ai/default/table?lang=en
+3
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689
+4
+An AI stack is a collection of technologies, frameworks and infrastructure that work together to build, deploy and scale AI systems,
+facilitating their use.
+5
+https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14625-Apply-AI-Strategy_en
+6
+17 sectorial structured dialogues and 2 high-level political dialogues were organised over the past few months: see table in Annex.
+7
+The actions presented in the Strategy are without prejudices to Articles 107 and 108 TFEU and relevant EU antitrust rules.
+1
+
+1
+
+The Apply AI Strategy is accompanied by the AI in Science Strategy, which announces the
+Resource of AI Science in Europe (RAISE) as a flagship initiative and covers the adoption of
+AI across scientific disciplines. It will be complemented by the Data Union Strategy, opening
+new sources of high-quality, large-scale datasets that are necessary to the training of algorithms.
+2. Introducing sectoral flagships
+AI has a potential to transform how industries work, how governments operate, and how value
+is created in the economy. It can enhance simplification efforts, thereby boosting productivity
+and competitiveness. The following subsections outline flagship initiatives to address the main
+sectoral challenges and support the AI first policy approach. These stem from initial
+stakeholders’ feedback gathered through a public consultation8, a call for evidence9 and
+17 technical structured dialogues (Annex 1) with key sectoral actors.
+The adoption of the Apply AI Strategy marks the beginning of a transformative journey that
+will be continuously updated and extended thanks to the inputs received from the governance
+mechanism described in the last chapter of the Strategy. This means that the actions below
+could be complemented in the future by new initiatives in other sectors - such as finance,
+tourism and e-commerce. To operationalise the actions of this Strategy, the Commission is
+mobilising around EUR 1 billion from its funding programmes10 with important leverage
+effects according to the sector.
+2.1. Healthcare, including pharmaceuticals
+AI holds significant promise to transform the healthcare and pharmaceutical sector as well as
+to improve and even save human lives across the EU. It can support earlier and more accurate
+clinical decisions, ease administrative burden on healthcare professionals, support
+administrative processes, and improve patient outcomes throughout the continuum of care. In
+the face of increasing pressure on healthcare systems, AI offers concrete tools to enhance
+efficiency and quality, including in underserved or remote areas where hospitals, specialists, or
+diagnostic services are lacking. Beyond routine healthcare, as underlined in the EU Medical
+Countermeasures Strategy11, the Commission will also promote the use of AI tools for health
+crisis preparedness and response, including faster detection and monitoring of health threats
+for medical countermeasures intelligence.
+The uptake of AI in healthcare across the EU, and its integration into clinical workflows and
+administrative processes, remains however limited and uneven12. Barriers include availability
+of quality data, heterogeneity of infrastructures, as well as limited AI literacy, skills and trust
+among healthcare professionals. Actions are needed to foster investment, incentivize
+
+8
+
+https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14625-Apply-AI-Strategy/public-consultation_en
+https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14625-Apply-AI-Strategy_en
+10
+Including notably Horizon Europe, Digital Europe Programme, EU4Health and Creative Europe.
+11
+COM(2025) 529 final
+12
+https://op.europa.eu/en/publication-detail/-/publication/9ddf7bf8-62bf-11f0-bf4e-01aa75ed71a1/languageen#:~:text=Using%20a%20mixed%20methods%20approach%2C%20entailing%20a%20literature,and%20business%20challenges%2C%20
+and%20social%20and%20cultural%20barriers
+9
+
+2
+
+innovation, and promote cross-border multi-disciplinary collaboration so that AI can deliver its
+full benefits for healthcare systems and citizens13.
+To support the AI first policy in the healthcare sector, the Commission will:
+•
+
+•
+
+establish European AI-powered advanced screening centres to accelerate the
+introduction of innovative tools for prevention and diagnosis making in healthcare
+facilities and bringing healthcare services to underserved areas. The initiative aims to
+improve early detection and ensure timely diagnosis, in particular for cardiovascular
+diseases and cancer. It will pursue an approach to ensure that AI-powered screening and
+diagnosis take into account gender-specific factors.14 By deploying AI solutions, these
+centres will support real-world clinical validation and local performance testing and
+generate evidence for clinical adoption15. The network of these AI-powered centres will
+facilitate access to high-quality datasets building on the European Health Data Space16
+as well as the European digital infrastructures for the cancer imaging17 and genomic18
+data, and support testing and validation of promising AI models including for
+personalised prevention. This will build on the relevant actions under the Europe’s
+Beating Cancer Plan, Life Sciences Strategy and the forthcoming EU Cardiovascular
+Health Plan.
+establish a European Network of Expertise on AI Deployment in Healthcare to
+consolidate guidelines and best practices. It will deliver deployment playbooks,
+guidelines including on local validation (performance in clinical practice) and postdeployment monitoring, design principles and set the foundations for exchanging best
+practices on AI deployment in healthcare.
+
+AI is also revolutionising medicine development, from accelerating drug discovery to
+supporting the monitoring of their adverse effects. AI-based modelling and simulation can
+accelerate the discovery of novel treatment options and identify new therapeutic uses for
+existing medicines, such as for example new antibiotics, and enhance safety and efficacy
+predictions. As a result, the number of healthcare-related AI patents published annually in EU
+Member States grew 20-fold between 2016 and 202419. Realising the full potential of AI in
+medicine development will require continued progress in building robust AI foundation
+models, alongside efforts to ensure their reliability, transparency, and clinical relevance a priority that is particularly important for driving innovation in the biotechnology sector20.
+Medical devices incorporating AI applications can unleash huge progress in delivering
+healthcare in the context of current health system challenges such as workforce shortages. It is
+important that the EU regulatory framework creates a supportive environment for innovation.
+
+13
+
+For example, through Europe's Beating Cancer Plan and its Network of Expertise in Cancer and EU Network linking recognised National
+Comprehensive Cancer Centres.
+14
+For instance, see: Gender medicine: effects of sex and gender on cardiovascular disease manifestation and outcomes | Nature Reviews
+Cardiology.
+15
+Foundations for this work will be laid down by actions funded under DEP 2025-2027 work program and the COMPASS-AI project.
+16
+https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en
+17
+https://digital-strategy.ec.europa.eu/en/policies/cancer-imaging
+18
+https://digital-strategy.ec.europa.eu/en/policies/1-million-genomes
+19
+Study on the deployment of AI in healthcare – European Commission, 2025
+20
+The Commission is committed to work on this also in the upcoming European Biotech Act, which will aim to enable innovation and boost
+EU competitiveness in biotechnology sectors.
+
+3
+
+To support AI adoption in medicine development, the Commission will:
+•
+
+•
+
+launch an AI drug discovery challenge for potential new drugs that could be used
+to address unmet medical needs and treat diseases that have proven difficult to
+cure, such as Alzheimer’s disease or certain cancers. The winner of the challenge
+would receive dedicated access to AI Factories compute capacity and on advice how to
+bring their discoveries to the market.
+propose appropriate actions to streamline and enable quicker market entry of
+medical devices without compromising safety.
+
+2.2. Robotics
+With more than 90.000 industrial robots installed in 2023 and more than 400 service robotics
+producers, Europe stands at the forefront of the robotics revolution, the “physical AI”. Building
+on excellence in mechatronics, sensors and microcontrollers, the integration of AI will enable
+EU developers to bring about a range of innovations, from cognitive robots to autonomous
+drones, with wide ranging impacts in manufacturing, healthcare, agriculture, defence, etc. The
+EU is particularly strong in industrial robotics, where collaborative robots (also called
+“cobots”) enable safe and efficient human-robot interaction, help ease labor shortages and
+reduce workers’ exposure to tedious or hazardous tasks. However, the further development of
+robotics through integration of generative AI and the uptake of European solutions are a must
+if the EU wants to continue leading innovation in this segment.
+To support AI uptake in the robotics sector, the Commission will:
+•
+
+establish a Catalyst for the uptake of European Robotics, bringing together
+developers and user industries to accelerate the development and uptake of European
+solutions replying to market needs. This will be done in collaboration with the AI Data
+and Robotics Association21. In this context, the Commission will fund the development
+of sectoral Acceleration Pipelines for the adoption of AI-powered robotics,
+focussing on high-impact use-cases, prioritised in close collaboration with end-user
+industries, ensuring that innovation aligns with real-world needs.
+
+2.3. Manufacturing, engineering and construction
+The European manufacturing sector comprises 2.2 million enterprises, mostly SMEs, employs
+30 million persons and generates about 14% of EU GDP22. From the development of new
+(cleaner) materials to supply chain and logistics, manufacturing includes a wide array of
+interrelated segments spanning from traditional and high-tech industries to construction or
+logistics. Despite EU strengths in medium- to high-technology manufacturing in sectors like
+mechanical and electrical engineering, chemicals, and machinery, production has been
+relocating to lower-cost regions, decreasing competitiveness and weakening resilience and
+strategic autonomy. However, the transformative potential of AI and automation could reverse
+this trend.
+AI can improve efficiency, precision and adaptability in various production processes. A
+cornerstone of this transformation is the use of AI-powered digital twins, which enable
+21
+22
+
+https://adr-association.eu
+2024, World Bank, Trading Economics.
+
+4
+
+companies to run complex simulations and “what-if” scenarios in virtual environments. They
+are already used across manufacturing sectors today, facilitating predictive maintenance23 and
+helping design and optimise the operation of whole supply chains, shopfloors and their key
+production workflows. By creating smart digital models of buildings, products, machines and
+manufacturing processes, companies can test, improve, and fine-tune their operations before
+making changes in the real world.
+To support the uptake of AI in the manufacturing sector, the Commission will:
+•
+
+support the development of frontier AI model and AI agents adapted to
+manufacturing. Building on the Data Spaces for Manufacturing24 and the forthcoming
+Data Union Strategy, the Commission will facilitate data pooling across industrial
+actors through trusted third parties, to ensure a sufficient volume of training data,
+while preserving intellectual property and data security and making use, as relevant, of
+the data labs in AI Factories.
+
+•
+
+fund the development of Acceleration Pipelines for the adoption of AI in
+manufacturing, bridging the gap between research labs and deployment more
+effectively. These projects will accelerate the development of AI-powered
+manufacturing solutions that address industry needs, by providing continuous support,
+ensuring that these solutions progress from the lab to a high level of maturity suitable
+for real-world applications.
+
+2.4. Defence, security and space
+AI has emerged as a critical disruptive technology with profound impact on geopolitics,
+security and defence. As underlined in the White Paper for European Defence - Readiness
+203025, new technologies including AI26 are fundamentally changing the nature of warfare. The
+role of AI for defence, is set to radically increase in light of growing interest in dual use AI
+applications and, in particular, the expectation that frontier models have potential to deliver
+strategic and military superiority. AI can enable strategic advantage if used for unmanned
+vehicles, situational awareness and pattern recognition on the battlefield, for supporting
+weapons (such as jet fighters) or when used for automating part of defence products, such as
+drones. As announced in the White Paper, the European Defence Transformation Roadmap
+will be tabled by the end of 2025 to foster a faster embedding of critical disruptive technologies,
+including AI, in defence capabilities, in order to achieve European defence readiness by 2030,
+in line with the Union’s economic and security interests and objectives..
+In addition, the Commission co-finances with Member States computational capacities
+including in synergy with defence. Member States, through their national plans, can also benefit
+from Security Action for Europe (SAFE) to invest in key defence areas including AI-powered
+equipment and cybersecurity.
+
+23
+
+Analysing sensor data from machinery to predict equipment failure before it happens.
+https://manufacturingdataspace-csa.eu/
+25
+https://www.eeas.europa.eu/eeas/white-paper-for-european-defence-readiness-2030_en
+26
+The upcoming Implementation Roadmap for AI in Common Foreign and Security Policy and Common Security and Defence Policy will
+set out a framework for coordinated action to advance security and defence AI capabilities.
+24
+
+5
+
+Moreover, the Vision for the European Space Economy27 recognizes the crucial role of AI in
+driving the competitiveness and resilience of the EU space sector. AI revolutionises the way
+space systems are designed, manufactured and operated. Likewise, AI is crucial for the ground
+infrastructure to handle future megaconstellations and for unravelling modelling capabilities of
+big space data. This is why, to unlock the full potential of the EU space systems, the
+Commission will foster, where applicable, an environment that facilitates the integration of AI
+capabilities and technologies, to enhance performance, efficiency and security. In this context,
+the Commission will support the development of sovereign frontier models and agentic AI
+systems, ensuring safety is embedded by design.
+To support the AI first policy in the defence and space sector, the Commission will:
+•
+
+•
+
+•
+
+accelerate the development and deployment European AI-enabled situational
+awareness and C2 (Command & Control) capacities through the European Defence
+Fund (EDF), while also incentivising dual use open architecture solutions for border
+security and critical infrastructure protection, ensuring interoperability in support of
+defence flagships, including Eastern Flank Watch and the Drone Wall, especially for
+the integration of autonomous features in different solutions.
+deploy a strategic and dedicated European infrastructure of highly secured
+computing power capacities (e.g. AI factory/gigafactory) for training of defence and
+space AI models and development of AI defence and space applications.
+support AI compliance of EU space manufacturing and operations, including for
+in-orbit and ground infrastructure, through advanced manufacturing, robotics,
+dedicated edge/on-orbit computing, space-based data networks, signal processing
+equipment, command and control systems.
+
+The Commission and EEAS will correlate the above mentioned priority actions with the
+coordinated commitments, initiatives and actions assumed by Member States through the
+Defence Readiness Roadmap process, as well as with relevant framework and initiatives aimed
+at accelerating the adoption of AI in defence, including by leveraging the EDF and European
+Defence Agency’s Hub for EU Defence Innovation (HEDI).
+As underlined in the ProtectEU – the EU Internal Security Strategy28, AI is also becoming
+an essential tool for ensuring internal security and cybersecurity, as States and citizens face
+increasingly complex and fast-changing digital threats. Terrorist and organised criminal
+organisations are increasingly using AI-based technologies to accelerate, upscale and broaden
+the reach of their illicit activities. Cybercrime, sabotage and terrorism are blended into hybrid
+attacks, where AI is often exploited by malicious actors. We therefore need to ensure the swift
+delivery of AI-based solutions for internal security and cybersecurity. This will support the
+work of authorities in performing complex security tasks, help fighting against malicious use
+of AI, detect anomalies, analyse, and respond to incidents more effectively. It will enable faster
+identification of attacks, better decision-making, and more efficient use of resources.
+
+27
+28
+
+https://defence-industry-space.ec.europa.eu/vision-european-space-economy_en
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52025DC0148
+
+6
+
+To support the AI first policy in internal security, including cybersecurity sector, the
+Commission will:
+•
+
+foster the development and uptake of AI solutions29 for internal security purposes,
+including by supporting applied research and innovation and stimulating the placing on
+the market of AI solutions tailored for use in internal security.
+
+•
+
+fund projects to develop and deploy Cybersecurity tools, technologies and services
+relying on AI addressing threat detection, vulnerability detection, threat mitigation,
+incident recovery through self-healing, data analysis and data sharing.
+
+•
+
+support interoperability and trusted integration of AI into cybersecurity
+architectures, infrastructures and threat surveillance, including Cyber Hubs and the
+upcoming Cable Security Hubs, as well as for dual-use and defence-relevant digital
+environments,
+
+2.5. Mobility, transport and automotive
+The mobility sector is crucial for the European economy and for Europe’s sustainable
+transformation. AI is already widely used and has a strong impact on the sector, from route
+optimisation to advanced driver assistance systems. AI-based automated transport and mobility
+technologies are rapidly expanding across all transport modes. They support safer, more
+sustainable mobility by improving traffic flow, logistics, and transport planning. Automated
+vehicles30 (AVs), for example, enable flexible, cost-effective services and help address driver
+shortages31. However, their deployment is hindered by technological, regulatory and economic
+challenges. The interplay of regulations at national and EU level complicate real-world testing,
+approval and operation of AVs. Trust issues, difficulties in accessing high quality training data,
+and inadequate deployment of transport and digital infrastructures further hinder adoption.
+To support the AI first policy in the mobility sector, the Commission will:
+•
+
+leverage AI factories and gigafactories to fast track the development of innovative
+AI models and common software platforms for automated driving and vehicle
+management systems under the European Connected and Autonomous Alliance 32.
+
+•
+
+launch an “Autonomous Drive Ambition Cities” initiative to accelerate the
+deployment of operational services working with European providers as part of the
+large-scale cross-border testbeds announced in the Automotive Action Plan. Building
+on recommendations issued by the European Connected and Autonomous Vehicle
+Alliance33, it will focus on AI-enabled self-driving vehicles (robot vehicles) and
+autonomous point-to-point commuting in cities, establishing operational joint ventures
+
+29
+
+COM(2025)349final, Roadmap for lawful and effective access to data for law enforcement
+The term “vehicle” covers all transport modes, i.e. road, rail, air, maritime, and inland waterways.
+31
+Joint Research Centre, Requirements for Inclusive Automated Vehicle Services: Insights for Vehicle and Smartphone Application Design,
+2025, https://publications.jrc.ec.europa.eu/repository/handle/JRC142261
+32
+Building on the Action Plan for the European Automotive Industry (https://transport.ec.europa.eu/document/download/89b3143e-09b64ae6-a826-932b90ed0816_en). The Memorandum of Understanding between 2Zero, CCAM, and BATT4EU partnerships will further
+strengthen
+links
+to
+chips,
+AI,
+and
+robotics.
+https://ec.europa.eu/commission/presscorner/api/files/document/print/en/
+ip_25_2090/IP_25_2090_EN.pdf
+33
+Open call to join the Alliance: https://ec.europa.eu/eusurvey/runner/75555fa5-6d3c-253b-cefc-1c9b4f8daadf.
+30
+
+7
+
+and leveraging the ready to use AI Act’s innovation measures on regulatory sandboxes
+and real-world testing.
+2.6. Electronic communications
+The integration of AI in the electronic communications sector has accelerated significantly in
+recent years, driven by the growing demand for automation, network optimisation, and
+enhanced customer experience. 65% of operators worldwide are establishing AI strategies and
+are actively trialling AI-based solutions across network and customer service operations34. AI
+holds strong potential, especially through smarter network management and service
+innovation35. However, its impact in this field is still limited because of the lack of open
+platforms and capacity in edge devices.
+To support the AI first policy in the electronic communications sector, the Commission
+will:
+•
+
+promote EU capacities in edge AI devices by providing dedicated support under the
+Smart Networks and Services Joint Undertaking and the Chips Joint Undertaking.
+
+•
+
+create a European Telco AI platform (AI stack pilot action under the Digital Europe
+Programme) for telecom operators, vendors and user industries to collaboratively36
+build AI stack elements, including mediation layers, data engineering, cloud interfaces,
+and AI services, potentially based on open source.
+
+2.7. Energy
+AI has the potential to improve energy efficiency across the entire economic value chain. From
+improved grid management and integration of renewable energy to a more efficient use of
+existing infrastructure or optimisation of storage capacities. For companies, AI tools help
+saving energy thanks to optimised design and operation of buildings, reduce the cost of energy
+by automating buying/selling energy. Finally, emerging AI-based tools can empower citizens
+and businesses to better manage their energy use and help them navigate through energy retail
+offers. At the same time, energy is a critical sector, providing the electricity needed for Europe’s
+growing digital economy and data centres.
+However, AI adoption in the energy sector is uneven. There is slower progress in grid
+management, demand-side flexibility37, and infrastructure planning38 due to strict safety
+requirements, fragmented governance and limited data-sharing.
+With a view to foster the use of AI to improve grid management and energy efficiency,
+the Commission will:
+
+34
+
+https://www.gsmaintelligence.com/research/telco-ai-state-of-the-market-q4-2024
+Including through mobile devices and edge computing.
+36
+In compliance with EU competition rules were relevant, including the Guidelines on the applicability of Article 101 TFEU to horizontal cooperation agreements.
+37
+Demand-side flexibility refers to the ability to adjust electricity consumption in response to external signals, such as price changes or grid
+demands. It allows consumers to shift, reduce, or increase their energy use during specific periods, particularly during peak times, to help
+balance the grid and reduce the need for additional generation capacity.
+38
+Every two years, the European Network of Transmission System Operators for Electricity (ENTSO-E) develops a Union-wide ten-year
+network development plan (TYNDP). More recently, Directive 2019/944 of the European Parliament and of the Council of 5 June 2019 on
+common rules for the internal market for electricity and amending Directive 2012/27/EU (the Electricity Directive) mandates that DSOs
+regularly prepare and publish distribution network development plans (DNDPs).
+35
+
+8
+
+•
+
+support the development of AI models that advance forecasting, optimisation,
+digital twins, and system balancing within the energy system. These activities shall
+be supported by leveraging cloud-edge-IoT infrastructure, software and AI tools to
+serve as a digital backbone across all assets of the energy system ensuring secure,
+efficient, and reliable data sharing across the energy ecosystem.
+
+AI is improving energy consumption and efficiency across multiple sectors. However,
+advanced AI models and systems also consume significant energy notably in data centres. The
+upcoming Strategic Roadmap on Digitalisation and AI for the Energy Sector will further
+elaborate on the use of AI in the energy system and, together with the Cloud and AI
+Development Act, will address strategies to ensure there is energy resources to develop AI, for
+instance by improving energy efficiency in data centres. In addition, there is a need to improve
+the understanding of the impact of AI algorithm architecture on energy consumption patterns.
+Therefore, as foreseen by the AI Act, the Commission will adopt a standardisation request
+on common reporting and documentation processes on AI systems’ and general-purpose
+models’ impact on energy consumption.
+2.8. Climate and Environment
+Europe is home to many leading organisations in climate and environmental innovation. Since
+2019, AI startups in these sectors have attracted around €700 million in venture capital39. In
+particular, AI has a long track record in environmental monitoring, forecasting, and Earth
+observation. It can enhance early-warning systems for fires, floods, droughts, heatwaves, aid
+disaster response, and support water management40 as well as decision-making for resilience
+and climate preparedness. Ground-breaking initiatives such as Destination Earth41 and the
+European Digital Twin Ocean42 provide high-resolution and interactive simulations with
+unprecedented predictive power.
+Yet, despite these advances, the full potential of AI for climate and environmental action
+remains untapped, due to the scientific and technological complexity of AI-based climate and
+environment modelling, combined with persistent capacity and skills gaps among local
+authorities, SMEs, and civil society. The fragmented ecosystem of climate and environmentAI tools, datasets, and services further exacerbates these challenges, hindering widespread
+adoption and impact.
+To support the AI first policy in the climate and environment sector, the Commission will:
+•
+
+deploy an open-source AI Earth-system frontier model and related AI-powered
+applications and services that allow for better weather forecasts, Earth monitoring, and
+“what-if” scenarios, as next step of Destination Earth. It will be fully trained in EU AI
+Factories and will follow a multidisciplinary approach integrating different expertise.
+Through this model, the Commission will make available to local authorities and
+relevant actors AI-based local digital twins (integrating EU-owned Copernicus43 data)
+that helps predict risks and reduce impacts of climate change through better
+
+39
+
+https://dealroom.co/eu-apply-ai-climate-environment
+The Water Resilience Strategy, adopted in June 2025, aims to reduce the water footprint including for computing installations by increasing
+their circularity through water reuse, efficiency and dry cooling.
+41
+https://destination-earth.eu/
+42
+https://www.edito.eu/
+43
+https://www.copernicus.eu/en
+40
+
+9
+
+preparedness and resilient urban and rural planning44, as well as services for improved
+disaster management and crisis relief.
+2.9. Agri-Food
+AI is already reshaping agricultural production in several key areas and can revolutionise the
+way food is produced, taking care of the environment, climate and people45. It can enhance
+precision farming, and power robots and machines used for field work. It already supports
+farmers through AI-driven advisory tools, providing personalised recommendations for their
+specific needs.
+However, many precision farming apps do not reach the market due to lack of high-quality
+data46 and commonly agreed formats or missing interoperability between platforms that are
+closed or tied to a single vendor. Moreover, farmers are often hesitant to adopt AI-based
+solutions due to lack of time and skills, mistrust of AI and uncertainty over liability and fear to
+lose control over decision-making. In this context, the adoption of AI on European farms
+remains limited, especially when compared to other regions47.
+To support the AI first policy in the agrifood sector, the Commission will:
+•
+
+foster the creation of a Agri-food AI platform that will facilitate the uptake of
+specialised farming AI-enabled tools and applications. The platform will facilitate
+application discovery and integration, increase trust among farmers in AI-enabled
+applications and promote open source development48.
+
+2.10. Cultural and creative sectors, and media
+The potential of AI in the cultural and creative sectors is growing and is opening new avenues
+for creativity. AI can assist filmmakers across all production stages, enhancing processes like
+storyboarding and special effects. It can improve the discoverability of online media, music
+and literary content, leading to more diverse consumption and improved revenue distribution
+for creators. It can foster cultural diversity, providing creators with the knowledge and tools
+they need to develop more inclusive and diverse content, where disability inclusion and
+accessibility is ensured. It can personalise content generation and increase audience
+engagement.
+AI is also supporting cultural heritage and can be used for various purposes such as restoration,
+reconstruction, preservation, reuse for virtual productions and more meaningful userengagement - ultimately supporting also other related sectors such as tourism49. Overall, the
+adoption of AI models creates valuable opportunities for cooperation between cultural and
+44
+
+AI also has a great potential to assist and maximize the potential of rolling out the New European Bauhaus values and principles.
+A Vision for Agriculture and Food - Shaping together an attractive farming and agri-food sector for future generations.
+46
+An important enabler for successful implementation of AI in Agriculture would be the setting up of a system of unique farm IDs, as
+investigated, among others, in the Agrifood EDIC (The European Digital Infrastructure Consortium). Another important enabler for the
+success of AI in the agrifood sector is the improvement of rural connectivity.
+47
+A 2024 McKinsey survey found that just 27 % of European growers use yield-monitoring algorithms and 49% deploy precision-sprayer
+controllers—about half the adoption rate seen in the United States (https://www.mckinsey.com/industries/agriculture/our-insights/globalfarmer-insights-2024?.com).
+48
+The efforts will also be supported by existing instruments such as the Common European Agricultural Data Space (https://agridataspacecsa.eu/) and the Horizon Europe Co-Funded Partnership Agriculture of Data.
+49
+While tourism is not among the focus industries of the Apply AI Strategy, it is an undeniably important driver of the European economy,
+contributing to around 5% of the gross value added and directly supporting over 20 million jobs and more than 3 million enterprises. The rapid
+integration of AI into tourism, from the perspective of both consumers and operators, is reshaping the way the sector functions. Hence, the
+Commission will continue promoting a use of AI in tourism that respects ethical practices and data privacy, fosters transparency and
+inclusivity, while driving sustainable innovation forward.
+45
+
+10
+
+creative sectors, with the videogame industry positioned as a key test bed for innovations
+transferable across multiple industries.
+Despite its potential, AI uptake across the cultural and creative sectors remains uneven50, in
+part due to common challenges, such as access to ethical, transparent, inclusive and highquality models, monetising specialised AI models, securing diverse funding sources, and
+cultivating advanced skills. In addition, the cultural and creative sectors are concerned about
+the unauthorised use of copyright protected content in the training of generative AI models and
+their outputs which may have a negative impact on cultural diversity, creativity and media
+plurality51. Moreover, the prominence of major technology firms in the sectors presents
+complex dynamics that may influence cultural diversity and the innovation capacity of smaller
+organisations.
+To support the uptake of AI in the cultural and creative sectors, the Commission will52:
+•
+
+•
+
+•
+
+foster the development of micro-studios across the EU specialised in AI-enhanced
+virtual production. In addition, the Commission will support investments in the
+development and deployment of European AI models focusing on interactive and
+immersive storytelling, including media, and on the discoverability of online European
+music and literary content53.
+help the development of pan-European platforms using multilingual AI
+technologies to make available real time news and information from professional
+media outlets across the EU to wider audiences. AI will be harnessed to translate
+content for relevant channels - including broadcasting - through classification,
+recognition, linguistic analysis and translation of content.
+launch a targeted study to explore the legal challenges related to AI-generated
+outputs and how cutting-edge technological safeguards and technologies, including
+AI, could be used to prevent and mitigate the risks of copyright infringing AI
+content being generated, including by detecting and removing such content.
+
+2.11. Public sector
+AI has a strong potential to make public government more efficient54. A Commission survey55
+reveals that 52% of public managers interviewed reported that their administration has already
+implemented at least one AI solution, while 63% are planning new AI projects. Similarly, in
+2024, the Public Sector Tech Watch56 recorded over 1200 AI use cases across EU public
+50
+
+51% of video game companies, 39% of audiovisual companies, and 35% of news media companies have adopted AI-based solutions. 35%
+of music creators also report using AI for their work. European Media Outlook, upcoming 2nd edition, Technopolis Group based on the EMI
+Enterprise Survey, 2024.
+51
+Regarding copyright, the Commission has already facilitated the drawing-up of a Code of Practice to detail out General-Purpose AI (GPAI)
+rules in the AI Act. The Code was approved as adequate for providers to demonstrate compliance with their obligation in the context of the
+AI Act. Besides this, and more directly linked to the copyright, the Commission adopted a template on content used for GPAI training and a
+study on the feasibility of a registry of opt-outs under the Text and Data Mining (TDM) exception is ongoing and another study to support the
+assessment of the rules in the Directive on Copyright in the Digital single market, including the TDM exception, is planned. Furthermore, the
+Commission has launched a process for the drawing-up of a new Code of Practice in the context of the Article 50 AI Act for the transparency
+of AI generated content.
+52
+To complement the listed measures, the Commission will propose an AI Strategy for the cultural and creative sectors to further ensure that
+AI enables and reinforces human creativity while safeguarding European cultural and linguistic diversity.
+53
+These will be funded through the use of Digital Europe Programme and Creative Europe.
+54
+See,
+for
+instance,
+JRC’s
+report
+on
+the
+potential
+of
+generative
+AI
+for
+the
+public
+sector:
+https://publications.jrc.ec.europa.eu/repository/handle/JRC139825 See, for instance, Joint Research Centre’s report on the potential of
+generative AI for the public sector: https://publications.jrc.ec.europa.eu/repository/handle/JRC139825
+55
+https://publications.jrc.ec.europa.eu/repository/handle/JRC138684
+56
+https://interoperable-europe.ec.europa.eu/collection/public-sector-tech-watch
+
+11
+
+administrations. However, clear and actionable guidance is crucial for the full-scale and
+responsible deployment of AI solutions, particularly for administrations that are just starting
+their AI journey. Specific barriers, such as the fragmented public sector data sources and limited
+accessibility of trustworthy AI-based tools are still holding AI technologies’ potential.
+Addressing potential biases, investing in infrastructure and skills, and ensuring transparency
+and trust will be therefore key to successful AI integration in the public sector.
+Public administrations can benefit from the AI first policy not just by making their work more
+efficient, reducing administrative burden and cutting red tape for the business but also by
+helping AI startups grow through increased demand for European-made open source AI
+solutions. This, in turn, can strengthen EU AI sovereignty. Rather than treating AI as an isolated
+tool, it needs to be positioned as a strategic asset integrated into institutions and services 57.
+Given the impact that AI can have on public sector and thereby citizens, it is critical to assess
+and maintain security as well as operational autonomy and sovereignty in close coordination
+with Member States. The Commission strives to lead by example, implementing internal AI
+policies in an innovative, responsible and trustworthy manner (Annex 2).
+To promote uptake of AI solutions in the public sector the Commission will:
+•
+
+•
+
+build an AI toolbox dedicated to public administrations (including judiciary58)
+featuring a shared repository of practical, open-source and reusable tools and
+solutions59 to support AI interoperability60. This toolbox will also include the AI
+solutions foreseen in the Roadmap for effective and lawful access to data for law
+enforcement61. On top of that, Public Sector AI & Interoperability Readiness Pathway
+(PAIR Pathway) will be launched to provide practical step-by-step examples within a
+user journey that will help administrations develop services tailored to their specific
+needs.
+accelerate the adoption of European scalable and replicable generative AI
+solutions in public administrations62 with a special focus on education63, taking
+into account the potential risks in this area. This will include the creation of a
+comprehensive technical and policy toolkit to support the development of generative
+and agentic AI solutions64. This action will improve the quality of services provided to
+citizens.
+
+57
+
+Along these lines, the CityVerse EDIC is, for instance, supporting an EU ecosystem of advanced AI solutions for cities. More information
+can be found at https://digital-strategy.ec.europa.eu/en/factpages/citiverse.
+58
+Specific actions will be announced in the forthcoming DigitalJustice@2030 Strategy, which aims to improve efficiency of justice, reduce
+administrative burdens and costs, thereby fostering economic growth.
+59
+Such as architecture models, standards, specifications for data and AI, and registries of LLMs.
+60
+This toolbox will be published on the Public Sector Tech Watch website while the AI-on-Demand Platform will also promote it as part of
+its portfolio of ready-to-use resources, helping public administrations move from pilot projects to full-scale, operational deployment of AI
+solutions. The PAIR Pathway will be provided via the Public Sector Tech Watch and complemented by the support of EDIHs that will be
+trained in this sense and support awareness raising.
+61
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52025DC0349
+62
+To be implemented through the GenAI4EU call in the Digital Europe Programme (2025-2026 DIGITAL-2025- AI- 08 - Apply AI: GenAI
+for the public administrations). The call aims to accelerate the adoption of scalable and replicable GenAI solutions in public administrations
+by supporting up to four pilot projects in key functional areas such as data driven decision making, optimisation of internal processes and
+operations, enhancing interactions with citizens and simplifying legal and administrative procedures.
+63
+The Commission will promote through the Erasmus+ programme the development of public-private partnerships and collaboration with the
+EdTech sector for the ethical design, development and use of Artificial Intelligence tools in education. Moreover, it will foster multistakeholder engagement to drive the effective and responsible adoption of AI in education and training, including through targeted action
+under the Digital Education Hub.
+64
+Using primarily European-made and open-source GPT-based AI and multilingual conversational agents, multi-lingual chatbots.
+
+12
+
+•
+
+revise the European Interoperability Framework to incorporate guidance that
+enables AI first policies within European public administrations.
+
+3. Addressing cross-cutting challenges
+Building on the ambitions of the AI Continent Action Plan, the Apply AI Strategy addresses
+key cross-cutting challenges to scale the development and integration of AI across the EU
+strategic sectors and, ultimately, increase technological sovereignty.
+3.1. Enhancing opportunities for European SMEs
+European SMEs, which represent more than 90% of European enterprises65 are facing
+difficulties in adopting AI. Many of them fear that AI is too complicated or too expensive. The
+offers available on the market are aimed at larger companies while SMEs need tailored AI
+solutions that take into account their size. They need impartial advice on the use of appropriate
+AI solutions. To address this, in partnership with the Member States, the Commission created
+the European Digital Innovation Hubs. More than 250 Hubs are locally based and support
+companies with their digitalisation covering more than 85% of EU regions66.
+These Hubs have been refocused and are now Experience Centres for AI. These centres will be
+crucial in bridging supply and demand and in promoting a European AI Stack. They will
+support EU’s AI first policy, taking into account the necessary upskilling of the SMEs’
+workforce, and will act as privileged access point to the European AI innovation ecosystem 67.
+They will promote European solutions that foster the growth of the EU domestic multilanguage
+AI ecosystem, based notably on open source.
+With a view to supporting the deployment of European AI solutions, the Commission will:
+•
+
+launch a call for expression of interest inviting European companies to share their
+AI models and systems with the network of EDIHs, which can subsequently promote
+their wide-scale deployment across European strategic sectors.
+
+3.2. Enabling an AI-ready workforce across sectors
+Building on the AI Continent Action Plan’s pillar on skills and talent, the Apply AI Strategy
+aims at addressing the opportunities and risks brought about by the AI transformation. The
+growing integration of AI in EU’s strategic sectors can further automate routine tasks and
+promote efficiency, as well as enhance innovative practices, creativity and cognitive reasoning
+across professions, including among doctors, teachers68, and engineers. Current data also
+suggests that AI is already supporting jobs, with a significant majority of European workers
+(67%) reporting that AI has helped them to perform their tasks faster69. At the same time,
+however, concerns about the impact of AI on job quality and job displacement remain70.
+65
+
+https://ec.europa.eu/eurostat/databrowser/view/sbs_sc_ovw/default/table?lang=en&category=bsd.sbs.sbs_ovw
+Characteristics and regional coverage of the EDIH Network: discover the comprehensive report | European Digital Innovation Hubs Network
+67
+This will be done by helping organisations to gain access to infrastructure and hardware, facilitating access to and management of data,
+running lightweight AI tools - cost effectively and securely - on local cloud systems possibly open-source, and offering dedicated trainings.
+68
+Teachers are more exposed to Generative AI than 90% of other workers (JRC Publications Repository - Generative AI Outlook Report). To
+help teachers and educators, the Commission will provide practical support through an update of the Ethical Guidelines on the use of AI and
+data in teaching and learning: Ethical guidelines for educators on using artificial intelligence - European Education Area
+69
+Skills empower workers in the AI revolution | CEDEFOP
+70
+Generative AI and Jobs: A global analysis of potential effects on job quantity and quality | International Labour Organization
+66
+
+13
+
+To ensure a responsible and beneficial use of AI among all workers, adequate skills are a
+prerequisite. Solid AI literacy should start at an early educational level71 and continue to the
+labour market through reskilling and upskilling.
+For each sector of the Strategy, the Commission will:
+•
+
+•
+
+provide access to practical AI literacy trainings tailored to sectors and job profiles
+through the AI Skills Academy72, which, in addition to its own offering, will aggregate
+trainings provided by other EU instruments. The trainings should preferably lead to
+micro-credentials73.
+encourage the involvement of industry in AI upskilling and reskilling, including via the
+Pact for Skills74, and provide access to additional training opportunities to workers in
+sectors undergoing restructuring or at risk of displacement, including due to AI, via the
+Skills Guarantee, announced in the Union of Skills75.
+
+Finally, the Commission will promote a practical use and wide uptake of relevant competences
+frameworks, such as the Digital Competence Framework for Citizens, which will be updated
+by the end of 2025, the AI Literacy Framework for Primary and Secondary Education and
+further profile- and sector-specific frameworks.
+For digital-intense sectors in need of AI sectoral talent - such as mobility, energy,
+environment, cultural and creative sectors (including media) - the Commission will:
+•
+
+fund “AI for business” (executive master) programmes developing hybrid profiles,
+such as AI engineers76 with industry-specific expertise via the Digital Europe
+Programme and potential support of Erasmus+77.
+
+•
+
+establish an “AI entrepreneurs lab” that, building on existing initiatives (e.g. from
+EIT and European universities alliances)78, brings together brilliant AI graduates
+with entrepreneurial mentors from existing AI companies looking to expand their
+models or pave the way for future partnerships.
+
+Aware of the implications that AI will have on the workforce and its potential differences
+across demographic groups, sectors, and regions, the Commission will actively monitor the
+impact of AI on the labour market in order to anticipate the needs of the market, spot
+potential disruptions and support the development of appropriate and inclusive policies,
+including to foster skill transition and address structural inequalities (e.g., gender and
+intergenerational disparities). The results will inform the broader European Skills Intelligence
+Observatory, announced in the Union of Skills.
+
+71
+
+With the 2030 Roadmap on the future of digital education and skills, the Commission will help education systems and actors in adapting to
+the AI transformation; boost the provision of AI literacy and skills in formal education and support the European EdTech sector.
+72
+The Union of Skills (COM(2025) 90 final) announced a review of EU academies to ensure they remain relevant to address current needs.
+73
+Micro-credentials could help certify the outcomes of small, tailored learning experiences. Via the Council Recommendation of 16 June
+2022 (2022/C 243/02), the Council is calling Member States to adopt a common EU definition and approach.
+74
+In the context of the Commission’s plea to double their commitments (pledges), part of the Union of Skills.
+75
+In line as well with The EU Roadmap for Women’s Rights: a renewed push for gender equality - European Commission
+76
+A JRC report demonstrates that AI/ML engineers are among the most in-demand AI job profiles. Strengthening these profiles, while also
+expanding the offer of such skills across various disciplines could potentially increase AI penetration across all sectors
+(https://publications.jrc.ec.europa.eu/repository/handle/JRC143488).
+77
+E.g. via the Alliances for Innovation and the Digital Opportunity Traineeships.
+78
+E.g. the EIT AI founders pilot: https://www.eitdigital.eu/eit-ai-founders-club-2025/
+
+14
+
+Engaging with employers, workers, and other social partners in open dialogue will be essential
+to complement this monitoring.
+3.3. Supporting AI as a production factor
+AI is rapidly becoming a fundamental production factor in today’s economy, alongside
+traditional inputs, and may take different forms. General-purpose AI models, for example,
+perform a wide range of tasks in flexible ways, making them foundational to many AI
+applications. The most advanced models, given their cutting-edge capabilities, are driving the
+development of AI agents, i.e. AI systems that can independently make decisions and take
+actions. This enables agents to understand language, reason about tasks, take actions
+autonomously to achieve predefined objectives, and interact with the world around them,
+orchestrating interactions including with humans.
+In addition to general-purpose AI models, there are also specialised, smaller models that are
+trained or adapted to excel in specific domains, such as medical diagnosis, legal research and
+AI contracting, providing expert support quickly and efficiently. Such specialised models and
+applications are commonly produced by distilling/finetuning their knowledge into more
+lightweight architectures suitable for targeted, efficient deployment, or by integrating tools like
+external knowledge bases79.
+Moreover, digital twins, which are virtual replicas of real-world objects or processes, like a
+digital copy of a factory, a building or even of a human body, can be augmented with advanced
+AI to help predict outcomes and optimise performance through modelling and simulations;
+they can also generate synthetic data, which are very useful to the further training of AI.
+Current advances in memory, reasoning, and autonomous behaviour are paving the way
+towards Artificial General Intelligence (AGI), understood as AI capable of performing any
+cognitive task that humans can. AI models at the technology frontier, commonly referred to as
+Frontier AI, are emerging as a strategic asset and a critical component of the AI technology
+stack. For the EU, it is a priority to ensure that European models with cutting-edge capabilities
+reinforce sovereignty and competitiveness in a trustworthy and human centric manner.
+Building on its assets - world-class computing infrastructure, excellent scientific talent,
+a distinctive approach with a clear emphasis on open source and safety, the Commission will:
+•
+
+launch and coordinate a Frontier AI Initiative to accelerate progress in frontier AI
+capabilities in Europe by bringing together Europe’s leading industrial and
+academic actors and supporting strategic efforts80. This initiative will focus on
+unlocking advanced capabilities through cutting-edge AI architectures and high-quality
+data, leveraging the computing capacity offered by the AI Factories and Gigafactories.
+To foster the collaboration, the community will be brought together through a call for
+expressions of interest. The initiative will address ecosystem bottlenecks and
+
+79
+
+Fine-tuning involves taking a large pretrained foundation model and training it further on domain-specific data (e.g., legal, medical,
+finance) to specialize it for a particular task or field. Distillation is a compression technique where a smaller model (the "student") learns to
+mimic the behaviour of a larger model (the "teacher"), capturing most of its capabilities in a more compact, efficient form. This is especially
+useful when deploying AI in resource-constrained environments (e.g., mobile devices, edge computing).
+80
+This initiative will be linked to the Resource for AI Science in Europe.
+
+15
+
+downstream demand by Europe’s industry enhancing both competitiveness and
+sovereignty in frontier AI development.
+As part of this initiative the Commission will launch major EU-wide competitions to
+develop open frontier AI models that are major drivers of innovation. These projects
+will receive free access to EuroHPC supercomputers, and their open models will be
+made widely available to public authorities across Europe as well as to the European
+scientific and business communities.
+This action will complement and further support the European Startup and Scaleup Strategy81
+which includes a Scaleup Europe Fund to mobilise private funds for Europe’s technological
+sovereignty and the Lab to Unicorn initiative. In addition, the Industrial Accelerator Act, will
+put in place the necessary levers to boost industrial capacity and lead markets in the EU.
+Adoption of European-made AI solutions across our industrial base will generate efficiencies
+and modernise manufacturing models and ecosystems.
+A cornerstone for stimulating innovation in advanced AI models and specialised applications
+is the EU’s vibrant research community. The upcoming Framework Programme for Research
+and Innovation82 identifies the research, development, and deployment of next-generation AI
+models and agents as strategic priorities for Europe, to be supported by the ongoing Horizon
+Europe programme as well as the proposed European Competitiveness Fund (under the next
+MFF). In this context, support for the development of sovereign frontier AI capabilities and AI
+agents, with safety and security as integral features, is needed.
+In parallel, it is essential to boost applied AI research to develop technologies with impact
+across a wide range of sectors. To this end, through the current Horizon Europe program, the
+Commission will launch targeted research on next-generation AI agents tailored to key
+Apply AI sectors.
+While the Apply AI Strategy addresses AI research to advance AI technologies and their uptake
+in all sectors, the European Strategy for Artificial Intelligence in Science, presented
+alongside this Communication, focuses on the uptake of AI in research across Europe in all
+scientific disciplines. The strategy outlines specific actions to support and incentivise the use
+and development of AI by the European scientific community. To this end, the Resource for
+AI Science in Europe (RAISE) will pool strategic resources (i.e., funding, computing, data
+and talent) to push the technological frontiers of AI and harness its potential to drive scientific
+breakthroughs.
+RAISE will operate along two main pillars: a) Science for AI, supporting basic research to
+advance core AI capabilities, in particular safe and secure frontier AI; and b) AI in Science,
+promoting the use of AI for progress in different scientific disciplines. In addition, RAISE will
+actively foster interactions between these two pillars, enabling the co-evolution of AI and
+science. In this regard, the Commission will further develop the concept of RAISE, including
+its governance structure, and launch a pilot phase, as further explained in the AI in Science
+
+81
+
+https://research-and-innovation.ec.europa.eu/document/download/2f76a0df-b09b-47c2-949c-800c30e4c530_en?filename=ec_rtd_eustartup-scaleup-strategy-communication.pdf
+82
+Communication COM(2025) 543
+
+16
+
+Strategy. As part of this effort, a selection of leading European AI labs will be brought together
+to form a unique pool of excellence in AI and will contribute to the Frontier AI initiative.
+3.4. Ensuring trust in the European market
+In the AI Continent Action Plan, the Commission committed to a clear, simple and innovationfriendly implementation of the AI Act. The prohibitions of practices with unacceptable risks
+and the obligations related to General-Purpose AI models are already applicable. Initiatives
+such as the General-Purpose AI Code of Practice83, Commission guidelines84 and the AI Pact
+deliver clarity regarding the applicable rules and support for their application. Yet,
+stakeholders’ feedback shows that uncertainty and lack of guidance pose the biggest obstacles
+to the implementation of the AI Act, slowing down AI uptake. As part of the Apply AI Strategy,
+the Commission will step up its efforts to secure compliance with the AI Act.
+First, as announced in the AI Continent Action Plan, the Commission has set up the AI Act
+Service Desk85, a hub to access all relevant information about the AI Act, navigate its content,
+understand how it applies and get tailormade answers to any question related to its
+implementation. It includes a single information platform with interactive tools, in particular a
+compliance checker to help stakeholders determine whether they are subject to legal
+obligations and understand the steps they need to take to comply.
+Second, the Commission will prepare further guidelines on the practical application of the AI
+Act. In particular, the Commission will work with priority on:
+•
+
+guidelines on the classification of AI systems as high-risk.
+
+•
+
+guidelines on the AI Act’s interplay with other Union law, covering relevant
+sectoral legislation (e.g. transport, machinery, radio equipment).
+
+Finally, a significant number of Member States have not yet set up the responsible national
+competent authorities. The Commission will step up action to ensure that these developments
+will not jeopardise the successful implementation of the AI Act.
+4. Establishing a single governance mechanism
+The Apply AI Strategy is not a top-down initiative, it is an inclusive effort. To structure a
+continuous dialogue on AI and provide sectoral stakeholders with a way to actively participate
+in AI policy making, the Commission will:
+•
+
+turn the existing AI Alliance into a coordination forum for Apply AI stakeholders86
+and policy makers. By joining the “Apply AI Alliance”, stakeholders will be able to
+publicly express their interest in participating in sectoral workflows, gaining direct
+access to policy makers to discuss impact, barriers and opportunities of specific sectoral
+AI solutions. Serving as an entry point, the Alliance will work closely and
+complementarily with the other consultative initiatives on AI (including sectoral,
+
+83
+
+https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai
+The Commission has published guidelines on the scope of the obligations for general-purpose AI models, the AI system definition and
+prohibited AI practices under the AI Act.
+85
+https://ai-act-service-desk.ec.europa.eu
+86
+Stakeholders currently include business or consumer association, civil society organisations, companies, consultancies, citizens, financial
+institutions, government or public bodies, research & technology organisations, social partners, university / higher education institutions,
+organisations representing religious or philosophical communities.
+84
+
+17
+
+regulatory and research and innovation ones), connecting stakeholders to relevant
+discussions87. It will enable networking among peers and between providers and users
+of AI solutions - for example, linking a developer of compliance tools with potential
+adopters. Open to all sectors, relevant academics and civil society organisations, the AI
+Office will host annual gatherings to discuss AI innovation policies and establish
+sectoral boards to discuss and monitor the strategy’s implementation. Continuous
+cooperation between Apply AI Alliance, AI Board and RAISE will also facilitate the
+upscale of valuable research into development and reaching the European market.
+•
+
+Set up an AI Observatory88 to provide robust indicators to assess the impact of AI
+in the currently listed and future sectors, monitor developments and trends and the
+changes it may bring to the labour market. Based on the monitoring activities, the
+Commission will make a proposal, in the context of the Digital Decade, of a public and
+private AI investment target89. The Observatory will also support the organisation of
+sectorial discussions. It will be used for political analysis and decision making as well
+as for informing the AI community and the broader public about recent developments
+in the field.
+
+The AI Board, established under the AI Act, will remain the main discussion forum on AI 90
+with Member States, and will be regularly informed of the activities under the Apply AI
+Alliance. Through the AI Board sub-configuration on innovation, efforts will continue to
+monitor national AI Strategies and facilitate exchange of best practices among Member
+States, including for the public sector. In this context, the Commission calls for Member
+States to align their national AI strategies to the sectoral approach presented in this
+Communication.
+
+87
+
+It will, for instance, create links with the governance structure of the Research for AI Science in Europe (RAISE) and with existing European
+Partnership on AI, data and Robotics... In addition, the AI Pact will remain a key channel of communication with stakeholders on regulatory
+issues, and the Commission will ensure the complementarity of inputs.
+88
+The AI observatory will make use of, among others, the official statistics on AI uptake by enterprises in different economic sectors and
+other statistics on the impact on AI on society already published by Eurostat and EU Member States.
+89
+With the Apply AI Strategy, the Commission, in close collaboration with the OECD, has developed a methodology to measure public and
+private investments in AI that aligns with the EU AI policy approach (https://www.oecd.org/en/publications/advancing-the-measurement-ofinvestments-in-artificial-intelligence_13e0da2f-en.html).
+90
+The AI Board AI innovation ecosystem will be the main working group dealing with the implementation of the Apply AI Strategy. Activities
+related to the implementation of the Coordinated Plan on AI will be carried out and aligned with the content of this Strategy. The European
+Data Innovation Board will continue to serve as the main forum for discussing data-related issues in support of AI and the broader digital
+policy framework.
+
+18
+
+The EU considers AI as a strategic global technology and is positioning itself as a proactive,
+cooperative and reliable partner that wants to lead by example and collaborate internationally
+while protecting its interests, security and values. Future international engagement will build
+and expand on the solid basis of bilateral cooperation and active involvement in all the relevant
+international AI fora and initiatives (G7, G20, the Global Partnership of AI, the OECD, the
+Council of Europe, the Network of AI Safety and Security Institutes, AI summits and the UN
+system)91. The EU will also continue to work on securing trusted cross-border data flows - an
+essential element of AI development - with like-minded partners in bilateral and plurilateral
+trade agreements as well as in G7, G20 and OECD. Furthermore, the EU supports AI
+technologies that benefit societies and pursues AI for Public Good policies92.
+Owing to changes in the global environment, the importance of and the need for assertive
+engagement on AI, including in sync with our closest allies, is greater than ever and is only set
+to increase. External dependencies of the AI stack that can be weaponised and thereby
+increasing risks to supply chains by state and non-state actors, make it crucial for the European
+Union to step up its efforts. Accordingly, the EU is working closely with its Member States on
+various economic security work strands, including the upcoming Economic Security Doctrine,
+to address these challenges93.
+Recent EU initiatives, notably AI Factories and AI Gigafactories, represent a step change in the
+EU efforts to strengthen resilience. These initiatives, together with strong and increasing
+investment in the area of frontier AI, are important for EU preparedness. In addition to the
+supervision by the European AI Office in the context of the AI Act to mitigate safety challenges,
+the EU cooperates internationally to join forces and combat dangers posed by malicious users.
+It will capitalise and build on the EU strategic assets and strengths - such as talent, research,
+industrial strength (including industrial data) and its large single market with uniform rules and deploy these internationally as part of the EU technology offer to build partnerships and
+alliances across the globe, as indicated in the recent Joint Communication on an International
+Digital Strategy for the EU94. Particular attention will be paid to the potential for AI integration
+and mutually beneficial collaboration with candidate counties and closest neighbours, which
+will be associated in the implementation of the Strategy.
+5. Conclusion
+The Apply AI Strategy is designed to support industries and the public sector to better
+understand what AI can do, where it is effective and how it can bring competitive advantage.
+It encourages organisations to place AI more prominently in their problem-solving efforts. By
+proposing transversal and sectoral policy actions, the Strategy provides a template to support
+the deployment and scaling of relevant AI solutions. By establishing a single governance
+mechanism, the Strategy encourages dialogue between policy makers and the different sectoral
+communities. By connecting and strengthening AI-related instruments, it serves as blueprint
+for the full adoption and integration of AI in the EU’s strategic sectors, leading to the
+strengthening of the AI Continent.
+
+91
+
+Building on the adoption in September 2024 of the Global Digital Compact, the European Commission supports (i) the Global Dialogue on
+AI Governance, organised within the framework of the United Nations High-Level Week in September 2025, including its objectives to help
+build safe, secure and trustworthy AI systems and (ii) the creation of the International Independent Scientific Panel on AI.
+92
+For example, the Commission is involved in the AI for Sustainable Development Hub (https://www.aihubfordevelopment.org/).
+93
+https://commission.europa.eu/document/download/4047c277-f608-48d1-8800-dcf0405d76e8_en
+94
+https://digital-strategy.ec.europa.eu/en/library/joint-communication-international-digital-strategy-eu
+
+19
+
+

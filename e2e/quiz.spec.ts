@@ -54,3 +54,18 @@ test('guide and stats tabs are reachable', async ({ page }) => {
   await page.getByRole('button', { name: 'Progress', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Statistics' })).toBeVisible()
 })
+
+test('verified question: the rationale cites the official text with a EUR-Lex link', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Practice', exact: true }).click()
+  // One known verified question (id 1041, the top penalty bracket), so the run is deterministic.
+  await page.getByRole('searchbox').fill('top penalty bracket')
+  await page.getByRole('button', { name: 'Start practicing' }).click()
+  await expect(page.getByText(/^01 \/ 1$/)).toBeVisible()
+  await page.locator('button[data-state="idle"]').first().click()
+  const source = page.getByRole('link', { name: /^AI Act, Art 99/ }).first()
+  await expect(source).toBeVisible()
+  await expect(source).toHaveAttribute('href', /^https:\/\/eur-lex\.europa\.eu\//)
+  await expect(page.getByText(/Checked against the official text on \d{4}-\d{2}-\d{2}/)).toBeVisible()
+  await page.screenshot({ path: 'e2e/shots/citation.png', fullPage: true })
+})

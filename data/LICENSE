@@ -1,0 +1,16 @@
+Question bank, explanations and study guide — EPSO AI Field Trainer
+Copyright (c) 2026 Pavol Dravecký
+
+Covers: data/bank/, data/questions.json, data/meta.json, data/verification/, src/content/.
+
+Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International licence (CC BY-NC-SA 4.0):
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+You may copy and adapt this material for non-commercial use if you credit
+"EPSO AI Field Trainer (epsokviz.dravec.org)" and share your adaptations under the
+same licence. Commercial use needs written permission.
+
+Not covered: the EU legal and policy texts in data/sources/. Those are
+© European Union and reused under Commission Decision 2011/833/EU; the quotes in
+the bank are taken from them.
