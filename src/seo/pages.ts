@@ -16,8 +16,8 @@ export interface SiteInput {
   base: string
   /** YYYY-MM-DD, used for sitemap lastmod. */
   date: string
-  /** AI Act article titles ("Penalties"), keyed by number, read from the pinned text. */
-  articleTitles?: Record<number, string>
+  /** AI Act article titles ("Penalties"), keyed by article ("99", "4a"), read from the pinned text. */
+  articleTitles?: Record<string, string>
 }
 
 export interface Page {
@@ -27,6 +27,8 @@ export interface Page {
   /** Inner HTML of <main>. */
   body: string
   jsonLd: Record<string, unknown>[]
+  /** YYYY-MM-DD of the newest verification on the page (sitemap lastmod); falls back to the build date. */
+  lastmod?: string
 }
 
 const NOTICE_URL = 'https://eur-lex.europa.eu/eli/C/2026/4668/oj'
@@ -40,17 +42,27 @@ export function esc(s: string): string {
     .replace(/"/g, '&quot;')
 }
 
-/** The AI Act article a citation is about: its own "Art N", or the article an Omnibus change amends. */
-export function articleOf(c: Citation): number | null {
-  if (c.doc === 'ai-act') {
-    const m = /^Art(?:icle)?\s+(\d+)/i.exec(c.ref)
-    return m ? Number(m[1]) : null
-  }
-  if (c.doc === 'ai-omnibus') {
-    const m = /AI Act Art(?:icle)?\s+(\d+)/i.exec(c.ref)
-    return m ? Number(m[1]) : null
-  }
-  return null
+/**
+ * The AI Act article a citation is about ("99", or "4a" for an inserted article): its own
+ * "Art N", or the article an Omnibus change amends.
+ */
+export function articleOf(c: Citation): string | null {
+  const m =
+    c.doc === 'ai-act'
+      ? /^Art(?:icle)?\s+(\d+[a-z]?)/i.exec(c.ref)
+      : c.doc === 'ai-omnibus'
+        ? /AI Act Art(?:icle)?\s+(\d+[a-z]?)/i.exec(c.ref)
+        : null
+  return m ? m[1].toLowerCase() : null
+}
+
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
+const natural = (a: string, b: string) => a.localeCompare(b, 'en', { numeric: true })
+const newest = (qs: readonly Question[]) =>
+  qs.map((q) => q.verified ?? '').sort().pop() || undefined
+
+function passageHtml(c: Citation, input: SiteInput): string {
+  return `<figure><blockquote>${esc(c.quote)}</blockquote><figcaption><a href="${esc(urlFor(c, input.sources))}" rel="noopener">${esc(labelFor(c, input.sources))}</a></figcaption></figure>`
 }
 
 const LETTERS = ['a', 'b', 'c', 'd'] as const
@@ -59,12 +71,7 @@ function questionHtml(q: Question, n: number, input: SiteInput): string {
   const opts = LETTERS.map((k) => `<li>${esc(q[k])}</li>`).join('')
   const src =
     q.verified && q.sources?.length
-      ? `<div class="src">${q.sources
-          .map(
-            (c) =>
-              `<figure><blockquote>${esc(c.quote)}</blockquote><figcaption><a href="${esc(urlFor(c, input.sources))}" rel="noopener">${esc(labelFor(c, input.sources))}</a></figcaption></figure>`,
-          )
-          .join('')}<p class="chk">Checked against the official text on ${esc(q.verified)}.</p></div>`
+      ? `<div class="src">${q.sources.map((c) => passageHtml(c, input)).join('')}<p class="chk">Checked against the official text on ${esc(q.verified)}.</p></div>`
       : ''
   return `<article class="q" id="q${q.id}"><h3>${n}. ${esc(q.q)}</h3><ol type="A">${opts}</ol><p class="ans"><strong>Answer: ${q.correct.toUpperCase()}</strong> — ${esc(q[q.correct])}</p><p>${esc(q.explain)}</p>${src}</article>`
 }
@@ -92,10 +99,10 @@ function quizLd(name: string, qs: readonly Question[], path: string, input: Site
 const cta = `<p class="cta"><a href="/">Practise with spaced repetition, a 30-question timed mock and your likely-score range →</a></p>`
 
 function articlePages(input: SiteInput): Page[] {
-  const byArticle = new Map<number, { qs: Question[]; passages: Citation[] }>()
+  const byArticle = new Map<string, { qs: Question[]; passages: Citation[] }>()
   for (const q of input.questions) {
     if (!q.verified) continue
-    const seen = new Set<number>()
+    const seen = new Set<string>()
     for (const c of q.sources ?? []) {
       const n = articleOf(c)
       if (n === null) continue
@@ -106,8 +113,8 @@ function articlePages(input: SiteInput): Page[] {
       byArticle.set(n, entry)
     }
   }
-  const nums = [...byArticle.keys()].sort((a, b) => a - b)
-  const name = (n: number) => {
+  const nums = [...byArticle.keys()].sort(natural)
+  const name = (n: string) => {
     const t = input.articleTitles?.[n]
     return t ? `Article ${n} (${t})` : `Article ${n}`
   }
@@ -119,17 +126,13 @@ function articlePages(input: SiteInput): Page[] {
     return {
       path,
       title,
-      description: `${qs.length} verified practice question${qs.length === 1 ? '' : 's'} on Article ${n} of the EU AI Act (Regulation (EU) 2024/1689, as amended by the Digital Omnibus 2026/1744), with the official passage quoted and linked to EUR-Lex.`,
+      lastmod: newest(qs),
+      description: `${plural(qs.length, 'verified practice question')} on Article ${n} of the EU AI Act (Regulation (EU) 2024/1689, as amended by the Digital Omnibus 2026/1744), with the official passage quoted and linked to EUR-Lex.`,
       body:
         `<p class="crumb"><a href="/ai-act/">AI Act articles</a></p><h1>AI Act ${esc(name(n))}</h1>` +
-        `<p>${qs.length} practice question${qs.length === 1 ? '' : 's'} for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) test cite Article ${n} of Regulation (EU) 2024/1689. Every answer below was checked against the official text, and the passage that settles it is quoted under the explanation. Where the Digital Omnibus on AI (Regulation (EU) 2026/1744) changed the article, the amending text is quoted.</p>` +
+        `<p>${plural(qs.length, 'practice question')} for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) test cite Article ${n} of Regulation (EU) 2024/1689. Every answer below was checked against the official text, and the passage that settles it is quoted under the explanation. Where the Digital Omnibus on AI (Regulation (EU) 2026/1744) changed the article, the amending text is quoted.</p>` +
         `<h2>The text</h2>` +
-        passages
-          .map(
-            (c) =>
-              `<figure><blockquote>${esc(c.quote)}</blockquote><figcaption><a href="${esc(urlFor(c, input.sources))}" rel="noopener">${esc(labelFor(c, input.sources))}</a></figcaption></figure>`,
-          )
-          .join('') +
+        passages.map((c) => passageHtml(c, input)).join('') +
         `<h2>Practice questions</h2>` +
         qs.map((q, i) => questionHtml(q, i + 1, input)).join('') +
         cta,
@@ -137,15 +140,17 @@ function articlePages(input: SiteInput): Page[] {
     }
   })
 
-  const total = new Set(nums.flatMap((n) => byArticle.get(n)!.qs.map((q) => q.id))).size
+  const allQs = [...new Map(nums.flatMap((n) => byArticle.get(n)!.qs).map((q) => [q.id, q])).values()]
+  const total = allQs.length
   pages.unshift({
+    lastmod: newest(allQs),
     path: '/ai-act/',
     title: 'EU AI Act article by article: verified practice questions for EPSO AD/430/26',
     description: `Practice questions on ${nums.length} articles of the EU AI Act, each answer checked against the official text of Regulation (EU) 2024/1689 and the Digital Omnibus on AI, for the EPSO AI field test.`,
     body:
       `<h1>The AI Act, article by article</h1><p>${total} verified practice questions on ${nums.length} articles of Regulation (EU) 2024/1689 (the AI Act), as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI). Each page quotes the official text and links it to EUR-Lex.</p><ul class="toc">` +
       nums
-        .map((n) => `<li><a href="/ai-act/article-${n}/">${esc(name(n))}</a> — ${byArticle.get(n)!.qs.length} question${byArticle.get(n)!.qs.length === 1 ? '' : 's'}</li>`)
+        .map((n) => `<li><a href="/ai-act/article-${n}/">${esc(name(n))}</a> — ${plural(byArticle.get(n)!.qs.length, 'question')}</li>`)
         .join('') +
       `</ul>` +
       cta,
@@ -165,11 +170,16 @@ function categoryPages(input: SiteInput): Page[] {
     const intro = verified.length
       ? `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against the official text, and the passage that settles it is quoted. The others are in the trainer, marked as not yet verified.`
       : `A sample of ${shown.length} of the ${all.length} questions in this category. They rest on standard ML engineering practice and are not yet cited to pinned sources.`
+    const comp = input.meta.exam.composition
+    const paper = comp.every((p) => p.count === comp[0].count)
+      ? `the ${input.meta.exam.totalQuestions}-question paper draws ${comp[0].count} from each`
+      : `the ${input.meta.exam.totalQuestions}-question paper draws ${comp.map((p) => p.count).join(' / ')} from the three`
     return {
       path,
       title,
+      lastmod: newest(shown),
       description: `${c.name} practice questions for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) field-related test, with answers and explanations${verified.length ? ' checked against the official EU texts' : ''}.`,
-      body: `<h1>${esc(c.name)}</h1><p>One of the three Annex II categories of the EPSO/AD/430/26 Field 1 test; the 30-question paper draws 10 from each. ${intro}</p>${shown.map((q, i) => questionHtml(q, i + 1, input)).join('')}${cta}`,
+      body: `<h1>${esc(c.name)}</h1><p>One of the three Annex II categories of the EPSO/AD/430/26 Field 1 test; ${paper}. ${intro}</p>${shown.map((q, i) => questionHtml(q, i + 1, input)).join('')}${cta}`,
       jsonLd: [quizLd(title, shown, path, input)],
     }
   })
@@ -211,6 +221,7 @@ function guidePage(input: SiteInput): Page {
   const path = '/guide/ad-430-26-field-1/'
   return {
     path,
+    lastmod: newest(input.questions),
     title: 'EPSO AD/430/26 Field 1 (Artificial Intelligence): how the tests work',
     description: `The EPSO/AD/430/26 AI field test: ${e.totalQuestions} questions in ${e.timeLimitMinutes} minutes, pass ${e.passThreshold}/${e.totalQuestions}, the only ranking test; about ${marked} essays marked for ${e.places} places. Taken from the Notice of Competition.`,
     body:
@@ -268,10 +279,11 @@ export function renderPage(p: Page, input: SiteInput): string {
 }
 
 export function sitemapXml(pages: Page[], input: SiteInput): string {
-  const urls = ['/', ...pages.map((p) => p.path)]
+  const home = newest(input.questions) ?? input.date
+  const rows: [string, string][] = [['/', home], ...pages.map((p): [string, string] => [p.path, p.lastmod ?? input.date])]
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${input.base}${u}</loc><lastmod>${input.date}</lastmod></url>`).join('\n')}
+${rows.map(([u, d]) => `  <url><loc>${input.base}${u}</loc><lastmod>${d}</lastmod></url>`).join('\n')}
 </urlset>
 `
 }

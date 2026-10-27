@@ -15,8 +15,9 @@ const page = (path: string) => site.find((p) => p.path === path)
 
 describe('articleOf', () => {
   it('maps AI Act refs, and Omnibus refs to the AI Act article they amend', () => {
-    expect(articleOf({ doc: 'ai-act', ref: 'Art 99(3)', quote: '' })).toBe(99)
-    expect(articleOf({ doc: 'ai-omnibus', ref: 'Art 1(5) (replacing AI Act Art 4)', quote: '' })).toBe(4)
+    expect(articleOf({ doc: 'ai-act', ref: 'Art 99(3)', quote: '' })).toBe('99')
+    expect(articleOf({ doc: 'ai-omnibus', ref: 'Art 1(5) (replacing AI Act Art 4)', quote: '' })).toBe('4')
+    expect(articleOf({ doc: 'ai-omnibus', ref: 'Art 1(6) (inserting AI Act Art 4a(1)(a))', quote: '' })).toBe('4a')
     expect(articleOf({ doc: 'ai-act', ref: 'Recital 12', quote: '' })).toBeNull()
     expect(articleOf({ doc: 'gdpr', ref: 'Art 35(3)', quote: '' })).toBeNull()
   })
@@ -32,6 +33,27 @@ describe('prerendered site', () => {
     expect(art99.body).toContain(`Answer: ${q1041.correct.toUpperCase()}`)
     expect(art99.body).toContain('https://eur-lex.europa.eu/eli/reg/2024/1689/oj#art_99')
     expect(page('/ai-act/')!.body).toContain('/ai-act/article-99/')
+  })
+
+  it('gives an inserted article (4a) its own page instead of filing it under Article 4', () => {
+    const cites4a = ALL_QUESTIONS.filter((q) => q.verified && q.sources?.some((c) => /AI Act Art 4a/.test(c.ref)))
+    if (cites4a.length) {
+      expect(page('/ai-act/article-4a/')).toBeDefined()
+      for (const q of cites4a.filter((q) => !q.sources!.some((c) => articleOf(c) === '4')))
+        expect(page('/ai-act/article-4/')?.body ?? '').not.toContain(q.q)
+    }
+  })
+
+  it('states the paper composition from meta, not a hard-coded number', () => {
+    const per = META.exam.composition[0].count
+    expect(page('/questions/governance/')!.body).toContain(`${META.exam.totalQuestions}-question paper draws ${per} from each`)
+  })
+
+  it('dates each page by its newest verification, not by the build', () => {
+    const xml = sitemapXml(site, { ...input, date: '2099-01-01' })
+    const newest = ALL_QUESTIONS.map((q) => q.verified ?? '').sort().pop()!
+    expect(xml).toContain(`<lastmod>${newest}</lastmod>`)
+    expect(xml).not.toMatch(/ai-act\/article-99\/<\/loc><lastmod>2099/)
   })
 
   it('puts only verified questions on the AI Act pages', () => {

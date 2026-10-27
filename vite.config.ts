@@ -43,7 +43,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         navigateFallback: '/index.html',
         // The prerendered pages (scripts/prerender.ts) are real documents, not app routes.
-        navigateFallbackDenylist: [/^\/(ai-act|questions|guide)\//, /^\/llms\.txt$/, /^\/sitemap\.xml$/],
+        navigateFallbackDenylist: [/^\/(ai-act|questions|guide)(\/|$)/, /^\/llms\.txt$/, /^\/sitemap\.xml$/],
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {

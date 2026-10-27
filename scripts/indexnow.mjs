@@ -11,8 +11,10 @@ const key = readdirSync(new URL('../public/', import.meta.url))
   ?.slice(0, 32)
 if (!key) throw new Error('no IndexNow key file in public/')
 
-const sitemap = await (await fetch(`https://${host}/sitemap.xml`)).text()
-const urlList = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
+const res0 = await fetch(`https://${host}/sitemap.xml`)
+if (!res0.ok) throw new Error(`sitemap: HTTP ${res0.status}`)
+const urlList = [...(await res0.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
+if (urlList.length === 0) throw new Error('sitemap has no <loc> entries')
 const body = { host, key, keyLocation: `https://${host}/${key}.txt`, urlList }
 
 if (!process.argv.includes('--submit')) {
@@ -24,4 +26,6 @@ if (!process.argv.includes('--submit')) {
     body: JSON.stringify(body),
   })
   console.log(`IndexNow: HTTP ${res.status} for ${urlList.length} urls`)
+  // 200 OK and 202 Accepted are success; anything else (400, 403 key, 422, 429) is not.
+  if (res.status !== 200 && res.status !== 202) process.exit(1)
 }
