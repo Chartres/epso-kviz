@@ -16,14 +16,15 @@ of Competition).
 ## Structure
 
 - `bank/*.json` — one file per category (`engineering.json`, `governance.json`, `policy.json`),
-  60 questions each, hand-authored against the sources above. Each question is
+  80, 78 and 73 questions, hand-authored against the sources above. Each question is
   `{id, cat, q, a, b, c, d, correct, explain}` — four options, a single correct letter, and a
   1–2 sentence rationale (`explain`) shown as control-of-error feedback after answering.
 - Optional per question: `sources` — `[{doc, ref, quote}]`, where `doc` is a key in
   [`sources/registry.json`](./sources/registry.json), `ref` is "Art 99(3)" / "Recital 12" /
   "Annex III", and `quote` is a verbatim passage that supports the correct answer — and
   `verified` (YYYY-MM-DD), set only when the key and rationale were checked against those
-  passages. `src/domain/citations.test.ts` fails CI if any quote is not found verbatim in the
+  passages. An unverified question may keep partial quotes for the next pass; the app shows
+  sources only on verified questions. `src/domain/citations.test.ts` fails CI if any quote is not found verbatim in the
   pinned text, or if verified coverage per category drops below its floor.
 - `sources/*.txt` — plain-text snapshots of the official English texts (Publications Office,
   fetched 2026-10-25). Re-fetch and re-verify when an act is amended.

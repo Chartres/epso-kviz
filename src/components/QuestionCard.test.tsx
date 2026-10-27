@@ -95,6 +95,29 @@ describe('QuestionCard', () => {
     expect(screen.getByText(/Checked against the official text on 2026-10-25/)).toBeInTheDocument()
   })
 
+  it('hides partial sources on a question that is not verified', () => {
+    const partial: Question = {
+      ...Q,
+      sources: [{ doc: 'dma', ref: 'Art 6(5)', quote: 'The gatekeeper shall not treat more favourably in ranking' }],
+    }
+    setup({ question: partial, chosen: 'b' })
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+
+  it('renders two quotes from the same article as two entries', () => {
+    const twice: Question = {
+      ...Q,
+      sources: [
+        { doc: 'ai-act', ref: 'Art 26(10)', quote: 'first passage of the same paragraph, long enough' },
+        { doc: 'ai-act', ref: 'Art 26(10)', quote: 'second passage of the same paragraph, long enough' },
+      ],
+      verified: '2026-10-25',
+    }
+    setup({ question: twice, chosen: 'b' })
+    expect(screen.getAllByRole('link', { name: /AI Act, Art 26\(10\)/ })).toHaveLength(2)
+    expect(screen.getByText(/second passage/)).toBeInTheDocument()
+  })
+
   it('shows no source block for an uncited question', () => {
     setup({ chosen: 'b' })
     expect(screen.queryByRole('link')).not.toBeInTheDocument()

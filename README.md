@@ -18,9 +18,11 @@ exam is actually won: fast elimination on the real wording, learning from mistak
   the EU's AI strategy (compute, adoption, funding).
 
 80 engineering, 78 governance and 73 policy questions (231 total); the exam simulation draws 10
-from each category (30 total). 111 governance and policy questions cite the official text: each
-carries a verbatim passage from the AI Act, the Digital Omnibus on AI or another EU act, checked
-in CI against pinned copies in `data/sources/`.
+from each category (30 total). 111 governance and policy questions are verified: the answer was
+checked against the official text, and the question shows the verbatim passage from the AI Act,
+the Digital Omnibus on AI or another EU act that settles it. CI checks every quote against pinned
+copies in `data/sources/`. The remaining 40 governance and policy questions are logged as
+unsourced in `data/verification/`, with the document that would settle each.
 
 ## Highlights
 
@@ -83,5 +85,12 @@ src/components/  QuestionCard, screens (home/practice/quiz/results/stats/study),
 e2e/             Playwright journeys
 docs/            Supabase setup
 ```
+
+## Licence
+
+Code: MIT ([`LICENSE`](LICENSE)). Question bank, explanations and study guide (`data/bank/`,
+`data/questions.json`, `src/content/`): CC BY-NC-SA 4.0 ([`data/LICENSE`](data/LICENSE)). The EU
+source texts in `data/sources/` are © European Union, reused under Commission Decision
+2011/833/EU.
 
 Unofficial study aid — not affiliated with EPSO or the European Commission.
