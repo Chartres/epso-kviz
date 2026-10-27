@@ -1,0 +1,246 @@
+{
+ "date": "2026-10-27",
+ "method": "Second pass over the 40 questions left unsourced on 2026-10-25. 20 more official texts pinned in data/sources/; each key and rationale read against them; passages quoted verbatim into the bank. Not pinned for licence reasons: the IIA Three Lines paper (copyrighted) and the OECD HAIP page (reuse terms unclear), so 1073 and 2043 stay unverified. Paywalled ISO/IEC standards could not be pinned.",
+ "questions": {
+  "1002": {
+   "status": "fixed-unverified",
+   "initial": "issue",
+   "verified": false,
+   "note": "Explain overstates the guidelines. The pinned Commission guidelines on the AI system definition (formally adopted as C(2025) 5053; the February 2025 text was approved by C(2025) 924) mention the OECD only in a footnote citing the OECD explanatory memorandum for the lifecycle phases. They do not say Art 3(1) tracks the OECD definition. Recital 12 says only 'international organisations'. The CoE Convention Art 2 uses almost the same wording, so (d) is a close distractor. The key (a) is the accepted reading, but no pinned text states it; that would need OECD Recommendation OECD/LEGAL/0449 as amended in Nov 2023. Proposed explain: 'Recital 12 requires the definition to be closely aligned with the work of international organisations working on AI. In practice Art 3(1) follows the OECD definition as revised in November 2023, and the Commission's definition guidelines draw on the OECD's explanatory memorandum on that definition. The Council of Europe Convention (Art 2) uses nearly the same OECD-derived wording but was negotiated in parallel and does not drive Art 3(1).'"
+  },
+  "1052": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "ISO/IEC 42001, 23894, 22989 and 25059 are paywalled ISO standards and are not pinned. Their scope statements on iso.org would be needed."
+  },
+  "1053": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (a) confirmed by NIST AI 100-1. The Generative AI Profile is NIST AI 600-1, dated July 2024. The claim that (b) is the NIST Cybersecurity Framework's function list is not in a pinned text, but (b) is clearly not the AI RMF Core."
+  },
+  "1063": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (a) supported: reasonable expectations and mitigating measures sit in the third-step balancing test, assessed case by case. The Opinion treats DPIAs as a separate accountability element (Art 35 GDPR)."
+  },
+  "1064": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (a) matches the Opinion's two-limb anonymity test. The Opinion says 'insignificant' where the explain says 'negligible', which is an acceptable paraphrase."
+  },
+  "1066": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "The Code's 'high scientific and technical rigour' standard (internal validity, external validity, reproducibility) supports (a): validity, no test-data contamination, and statistical significance. The Code says 'internal/external validity' rather than 'construct validity'. It also lists 'large enough sample sizes' as one element, so (b) is partly true but is not the distinguishing feature. The claim that publishing items invites Goodharting is not in the Code."
+  },
+  "1067": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "MLOps reproducibility practice. No pinned source sets a minimum set of items to version. AI Act Art 12 and NIST AI 600-1 (GV-1.6-003 versioning of underlying models) are related but do not decide this."
+  },
+  "1072": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "ISO/IEC 23894, 42001 and 42005 scopes are not pinned (paywalled ISO standards; iso.org scope pages would be needed)."
+  },
+  "1073": {
+   "status": "fixed-unverified",
+   "initial": "issue",
+   "verified": false,
+   "note": "The second line is the right answer for validation and challenge. However, option (a) calls it 'the independent risk and compliance function', and the stem says 'independently validating'. The IIA model says second line roles are 'never fully independent from management' and reserves independence for the third line, so the wording pushes toward (c). Fix stem: 'In a three-lines model applied to AI governance, validating a deployed model and challenging the owning team's risk assessment belongs to:'. Fix (a): 'the second line, the risk and compliance function providing expertise, monitoring and challenge'. Fix explain: 'In the IIA Three Lines Model, second line roles provide expertise, support, monitoring and challenge to the first line and are part of management, not fully independent of it. Independent, objective assurance is the third line (internal audit), which audits whether the validation process works rather than doing the validation. Notified bodies assess conformity of certain high-risk systems, a different exercise.' Note: the IIA marks the 2020 paper as superseded by a later Statement of Position, which is not pinned."
+  },
+  "1074": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "NIST AI RMF GOVERN 1.6 confirms that an AI inventory is a recognised governance control. No pinned text says it comes first; that sequencing is a judgment."
+  },
+  "1077": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (a) matches Rule 1, and the explain matches Rules 1 and 4. The guidelines encourage exploring the tools, which rules out (d). Source: Ares(2023)3615578 of 24.5.2023, released under access-to-documents. Any later revision is not pinned."
+  },
+  "1079": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Contract-design judgment on lock-in; no pinned text decides it."
+  },
+  "1080": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Fairness impossibility result (Kleinberg et al. 2016; Chouldechova 2017) is academic literature and not pinned."
+  },
+  "2013": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) confirmed. Chapter IV (Secondary use) applies from 26 March 2029, with some provisions in 2027 and 2031. GDPR legal bases still apply, which rules out (b)."
+  },
+  "2027": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) supported: a 2018 joint commitment and coordination framework, revised in the 2021 Review (COM(2021) 205). The Review frames its content as 'suggestions', which is consistent with non-binding status."
+  },
+  "2031": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) and the private-sector declaration mechanism are confirmed by the Convention text (Art 3(1)(b), Art 30, Art 31 accession). The text cannot confirm that the US and UK are signatories; that would need the CoE Treaty Office signature list (rm.coe.int / coe.int is blocked from this network)."
+  },
+  "2043": {
+   "status": "ok-unpinned",
+   "initial": "ok",
+   "verified": false,
+   "note": "Key (d) confirmed by the OECD.AI page that hosts the framework. That page shows Version 2.0 is now running. The question still holds."
+  },
+  "2054": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) and the date in the explain are confirmed. Gigafactory selection is by joint procurement between the Joint Undertaking and Participating States, which is consistent with the explain's rejection of (b)."
+  },
+  "2056": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "No new document pinned. The key rests on EUMR Art 22 referral practice and Commission antitrust reviews (e.g. Microsoft/OpenAI), which are not pinned."
+  },
+  "2061": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) confirmed: acceptance criteria and tiers, the mitigations per tier, and a proceed/not-proceed decision."
+  },
+  "2062": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "The International AI Safety Report supports (d): exposure lies in cognitive tasks and net effects are uncertain and vary. It rules out (a) and (b). (c) is ruled out by Apply AI, as noted earlier. The Report says 'complex cognitive tasks' and does not mention 'clerical'."
+  },
+  "2063": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Both mandatory channels confirmed: EED Art 12 (500 kW, annual, European database) and AI Act Annex XI. The omnibus does not amend Annex XI."
+  },
+  "2065": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Appendix 1.4 lists CBRN, loss of control, cyber offence and harmful manipulation. Measure 2.1 point (2) takes them in directly, separate from the open identification process in point (1), which covers the five risk types of Appendix 1.1 (where the environment appears among the examples)."
+  },
+  "2066": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) confirmed. For specified systemic risks, the alternative criteria in (b) are not available, so tiers are mandatory. They must be capability-based, measurable, and include an unreached tier, with a safety margin."
+  },
+  "2068": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Removability, and therefore that absence proves nothing, is supported by the International AI Safety Report. Audio and video marking rules out (a). The Art 50 points were verified earlier."
+  },
+  "2069": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) supported by the International AI Safety Report. The Art 86 drafting point was verified earlier."
+  },
+  "2070": {
+   "status": "fixed-unverified",
+   "initial": "issue",
+   "verified": false,
+   "note": "Distractor (b) has real footing. Under Reg (EU) 2018/1807, a localisation requirement, including one set through public procurement, is prohibited unless justified on public-security grounds and proportionate. A candidate could defend (b). The key (d) is a reasoning point that no pinned text states. Fix (b) so it is clearly wrong: 'Union law bars a Member State from requiring any data processing on its own territory, whatever the justification'. Optionally add to the explain: 'Under Regulation (EU) 2018/1807, such a requirement must in any case be justified on public-security grounds and be proportionate.'"
+  },
+  "2071": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) supported by the International AI Safety Report. Art 53(2) was verified earlier."
+  },
+  "2072": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) and the explain are confirmed. The pinned version is the January 2025 Report."
+  },
+  "2073": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Concentration driven by compute cost and a narrow chip supply chain is supported, and (c) is ruled out by the hundreds-of-millions cost figure. The claim in (a) that model releases have risen is not checked against a pinned source."
+  },
+  "2075": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Inference outweighing training is supported by the International AI Safety Report. EED Art 12 is a reporting and publication duty, not a cap, so (c) is wrong."
+  },
+  "2076": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "Key (d) confirmed by C/2024/3014, issued under Art 35(3) DSA. Labelling plus watermark and metadata provenance are covered, and so are labels on generative-AI advertising."
+  },
+  "2077": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "The guidelines (C/2025/5519) confirm the accompanying EU age verification solution and its link to the EUDI Wallet. They are a benchmark, not binding standards, which rules out (a) and (c). Two details are not stated in the OJ text: 'open-source' in (d), and 'piloted by several Member States' in the explain. They could be softened to 'an EU age-verification solution designed to work with the European Digital Identity Wallets'."
+  },
+  "2078": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "EAA services include consumer banking (Art 2(2)(d)) and e-commerce (Art 2(2)(f)) from 28 June 2025. The WAD reaches only public sector bodies."
+  },
+  "2079": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "COM(2026) 288 of 17 June 2026 confirms 10.5m (2025) and the 12.2m projection (a gap of about 7.8m). It names supply of new entrants and reskilling as the constraint. The 20m target in Decision 2022/2481 was verified earlier."
+  },
+  "2080": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Policy-design judgment; no pinned text decides it."
+  },
+  "2081": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Art 14(4)(b) corroborates the automation-bias concern (verified earlier); the key itself is a judgment no pinned text states."
+  },
+  "2082": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Art 30 confirms the explain's point that only ratifying Parties are bound, which rules out (c). The key (US federal position), the UK and China options, and the Convention's entry-into-force status need the CoE Treaty Office status page and US, UK and Chinese primary texts, none of which are pinned."
+  },
+  "2086": {
+   "status": "unsourced",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Evaluation-communication judgment; no pinned text decides it."
+  },
+  "2090": {
+   "status": "ok",
+   "initial": "ok",
+   "verified": true,
+   "note": "COM(2026) 502 (3 June 2026, procedure 2026/0138(COD)) confirms (d) and every element of the explain: tripling capacity, Union assurance levels 1-4 gating public procurement, and Union-added-value non-price award criteria. The proposal is still in the ordinary legislative procedure."
+  }
+ }
+}

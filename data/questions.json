@@ -912,12 +912,22 @@
   "c": "The NIST AI Risk Management Framework's description of an AI system and its lifecycle",
   "d": "The OECD definition of an AI system, as updated by the OECD Council in November 2023",
   "correct": "d",
-  "explain": "Recital 12 asks for the definition to be closely aligned with the work of international organisations on AI, and the Commission's February 2025 guidelines on the definition identify that as the OECD wording: a machine-based system with varying autonomy that infers from input how to generate outputs. The Council of Europe Convention uses similar phrasing but does not drive Art 3(1).",
+  "explain": "Recital 12 requires the definition to be closely aligned with the work of international organisations working on AI. In practice Art 3(1) follows the OECD definition as revised in November 2023, and the Commission's guidelines on the definition draw on the OECD's explanatory memorandum. The Council of Europe Convention (Art 2) uses nearly the same OECD-derived wording but was negotiated in parallel and does not drive Art 3(1).",
   "sources": [
    {
     "doc": "ai-act",
     "ref": "Recital 12",
-    "quote": "The notion of 'AI system' in this Regulation should be clearly defined and should be closely aligned with the work of international organisations working on AI to ensure legal certainty, facilitate international convergence and wide acceptance"
+    "quote": "The notion of ‘AI system’ in this Regulation should be clearly defined and should be closely aligned with the work of international organisations working on AI to ensure legal certainty"
+   },
+   {
+    "doc": "ai-system-guidelines",
+    "ref": "Section II, footnote on AI system phases",
+    "quote": "For overview of the AI system phases see the OECD (2024), “Explanatory memorandum on the updated OECD definition of an AI system”"
+   },
+   {
+    "doc": "coe-ai-convention",
+    "ref": "Art 2",
+    "quote": "“artificial intelligence system” means a machine-based system that for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations or decisions that may influence physical"
    }
   ]
  },
@@ -2134,7 +2144,25 @@
   "c": "Plan, Do, Check and Act, aligned with the management-system standards cycle",
   "d": "Govern, Map, Measure and Manage, with Govern cutting across the other three",
   "correct": "d",
-  "explain": "Govern is the cross-cutting function, while Map, Measure and Manage run through context, analysis and response; the Generative AI Profile of July 2024 applies them to general-purpose models. The five-function list is the NIST Cybersecurity Framework, a deliberate near-miss."
+  "explain": "Govern is the cross-cutting function, while Map, Measure and Manage run through context, analysis and response; the Generative AI Profile of July 2024 applies them to general-purpose models. The five-function list is the NIST Cybersecurity Framework, a deliberate near-miss.",
+  "sources": [
+   {
+    "doc": "nist-ai-rmf",
+    "ref": "Section 5 (AI RMF Core)",
+    "quote": "the Core is composed of four functions: GOVERN , MAP, MEASURE , and MANAGE."
+   },
+   {
+    "doc": "nist-ai-rmf",
+    "ref": "Section 5, Fig. 5",
+    "quote": "Governance is designed to be a cross-cutting function to inform and be infused throughout the other three functions."
+   },
+   {
+    "doc": "nist-genai-profile",
+    "ref": "Introduction",
+    "quote": "This document is a cross-sectoral proﬁle of and companion resource for the AI Risk Management Framework (AI RMF 1.0) for Generative AI"
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 1054,
@@ -2371,7 +2399,25 @@
   "c": "data subjects' reasonable expectations and the mitigations the controller applied",
   "d": "whether the resulting model is released open-weight rather than as a hosted API",
   "correct": "c",
-  "explain": "The Opinion applies the three-step test from Guidelines 1/2024 and puts the decisive weight in the third step: reasonable expectations plus mitigating measures, assessed case by case. A completed DPIA is a separate obligation and does not by itself make the interest override."
+  "explain": "The Opinion applies the three-step test from Guidelines 1/2024 and puts the decisive weight in the third step: reasonable expectations plus mitigating measures, assessed case by case. A completed DPIA is a separate obligation and does not by itself make the interest override.",
+  "sources": [
+   {
+    "doc": "edpb-opinion-28-2024",
+    "ref": "Executive summary",
+    "quote": "The Opinion additionally highlights the role of data subjects’ reasonable expectations in the balancing test."
+   },
+   {
+    "doc": "edpb-opinion-28-2024",
+    "ref": "Executive summary",
+    "quote": "when the data subjects’ interests, rights and freedoms seem to override the legitimate interest(s) being pursued by the controller or a third party, the controller may consider introducing mitigating measures to limit the impact of the processing on these data subjects."
+   },
+   {
+    "doc": "edpb-opinion-28-2024",
+    "ref": "Executive summary",
+    "quote": "With respect to the third step, the Opinion recalls that the balancing test should be conducted taking into account the specific circumstances of each case."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 1064,
@@ -2385,11 +2431,17 @@
   "explain": "EDPB Opinion 28/2024 treats anonymity as an evidenced, case-by-case conclusion resting on a negligible likelihood of extracting personal data from the model or obtaining it through outputs, judged by all means reasonably likely to be used. Being made only of weights is not itself an argument.",
   "sources": [
    {
-    "doc": "gdpr",
-    "ref": "Recital 26",
-    "quote": "account should be taken of all the means reasonably likely to be used, such as singling out, either by the controller or by another person to identify the natural person directly or indirectly."
+    "doc": "edpb-opinion-28-2024",
+    "ref": "Executive summary",
+    "quote": "For an AI model to be considered anonymous, both (1) the likelihood of direct (including probabilistic) extraction of personal data regarding individuals whose personal data were used to develop the model and (2) the likelihood of obtaining, intentionally or not, such personal data from queries, should be insignificant, taking into account ‘all the means reasonably likely to be used’ by the controller or another person."
+   },
+   {
+    "doc": "edpb-opinion-28-2024",
+    "ref": "Executive summary",
+    "quote": "the EDPB considers that AI models trained with personal data cannot, in all cases, be considered anonymous"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 1065,
@@ -2424,7 +2476,25 @@
   "c": "scoring by a larger frontier model as judge rather than by trained human raters",
   "d": "full publication of every item, so that providers can optimise against one target",
   "correct": "a",
-  "explain": "A risk benchmark is decision-grade only if it measures the construct it claims to, on data the model has not seen, with per-capability results and error bars. Publishing every item invites contamination and Goodharting, which is precisely how a benchmark decays into a marketing number."
+  "explain": "A risk benchmark is decision-grade only if it measures the construct it claims to, on data the model has not seen, with per-capability results and error bars. Publishing every item invites contamination and Goodharting, which is precisely how a benchmark decays into a marketing number.",
+  "sources": [
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Glossary, 'internal validity'",
+    "quote": "ensures model evaluation results are as accurate as scientifically possible in the evaluation setting and are free from methodological shortcomings that could undermine the results."
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Glossary, 'internal validity'",
+    "quote": "measuring statistical significance and statistical power; disclosure of environmental parameters used; controlling for confounding variables and mitigating spurious correlation; preventing use of test data in training (e.g. using train-test splits and respecting canary strings)"
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Glossary, 'external validity'",
+    "quote": "ensures model evaluations are suitably calibrated for results to be used as a proxy for model behaviour outside the evaluation environment."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 1067,
@@ -2547,13 +2617,13 @@
  {
   "id": 1073,
   "cat": "AI Act & Governance",
-  "q": "In a three-lines model applied to AI governance, independently validating a deployed model and challenging the owning team's risk assessment belongs to:",
+  "q": "In a three-lines model applied to AI governance, validating a deployed model and challenging the owning team's risk assessment belongs to:",
   "a": "the first line, the business unit that owns and runs the model",
   "b": "an external notified body appointed under the AI Act procedures",
-  "c": "the second line, the independent risk and compliance function",
+  "c": "the second line, the risk and compliance function providing expertise, monitoring and challenge",
   "d": "the third line, internal audit reporting to the audit committee",
   "correct": "c",
-  "explain": "The second line sets the framework and independently challenges and validates what the first line builds and operates, while the third line audits whether both are working rather than doing the validation itself. Notified bodies assess conformity of certain high-risk systems, a different exercise entirely."
+  "explain": "In the IIA Three Lines Model, second-line roles provide expertise, support, monitoring and challenge to the first line and are part of management, not fully independent of it. Independent, objective assurance is the third line (internal audit), which audits whether the validation process works rather than doing the validation. Notified bodies assess conformity of certain high-risk systems, a different exercise."
  },
  {
   "id": 1074,
@@ -2564,7 +2634,14 @@
   "c": "an AI inventory recording owner, purpose, risk tier and data for each use",
   "d": "a mandatory approval gate blocking every new AI project until it is reviewed",
   "correct": "c",
-  "explain": "You cannot classify, assign ownership or assess risk against systems you have not enumerated, and both the Art 26 deployer duties and the Art 27 FRIA presuppose knowing which systems you run. Risk appetite and approval gates are sound next steps, but they operate on an inventory."
+  "explain": "You cannot classify, assign ownership or assess risk against systems you have not enumerated, and both the Art 26 deployer duties and the Art 27 FRIA presuppose knowing which systems you run. Risk appetite and approval gates are sound next steps, but they operate on an inventory.",
+  "sources": [
+   {
+    "doc": "nist-ai-rmf",
+    "ref": "GOVERN 1.6",
+    "quote": "GOVERN 1.6: Mechanisms are in place to inventory AI systems and are resourced according to organizational risk priorities."
+   }
+  ]
  },
  {
   "id": 1075,
@@ -2633,7 +2710,20 @@
   "c": "not allowed, staff being barred from using such tools for any work purpose at all",
   "d": "allowed, provided the note carries no personal data of identifiable individuals",
   "correct": "b",
-  "explain": "The guidelines bar staff from entering any non-public information or personal data into publicly available generative AI tools, and separately forbid reproducing outputs verbatim in public documents. Stripping out personal data is not enough, because the confidentiality restriction is wider than data protection, and the tools are not banned outright."
+  "explain": "The guidelines bar staff from entering any non-public information or personal data into publicly available generative AI tools, and separately forbid reproducing outputs verbatim in public documents. Stripping out personal data is not enough, because the confidentiality restriction is wider than data protection, and the tools are not banned outright.",
+  "sources": [
+   {
+    "doc": "ec-staff-genai-guidelines",
+    "ref": "Section 3, Rule 1",
+    "quote": "Staff must never share any information that is not already in the public domain, nor personal data, with an online available generative AI model"
+   },
+   {
+    "doc": "ec-staff-genai-guidelines",
+    "ref": "Section 3, Rule 4",
+    "quote": "Staff shall never directly replicate the output of a generative AI model in public documents, such as the creation of Commission texts, notably legally binding ones."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 1078,
@@ -2882,7 +2972,20 @@
   "c": "creates a permit-based secondary-use regime run by health data access bodies, phased in from around 2029",
   "d": "obliges hospitals to publish anonymised patient records in an openly accessible repository from 2027",
   "correct": "c",
-  "explain": "The EHDS builds a governed route to secondary use: applicants ask a health data access body for a data permit, with the main secondary-use provisions applying from around 2029. It does not displace data-protection law, which continues to apply alongside it."
+  "explain": "The EHDS builds a governed route to secondary use: applicants ask a health data access body for a data permit, with the main secondary-use provisions applying from around 2029. It does not displace data-protection law, which continues to apply alongside it.",
+  "sources": [
+   {
+    "doc": "ehds",
+    "ref": "Recital 52",
+    "quote": "health data holders should make the data they hold available on the basis of a data permit or a health data request. For the purpose of processing electronic health data for secondary use, one of the legal bases referred to in Article 6(1), points (a), (c), (e) or (f), of Regulation (EU) 2016/679 in conjunction with Article 9(2) thereof is required."
+   },
+   {
+    "doc": "ehds",
+    "ref": "Art 105",
+    "quote": "Chapter IV shall apply from 26 March 2029. However, Article 55(6), Article 70, Article 73(5), Article 75(1) and (12), Article 77(4) and Article 78(6) shall apply from 26 March 2027"
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2014,
@@ -3171,7 +3274,25 @@
   "c": "is an intergovernmental agreement outside the Union framework, like the Unified Patent Court system",
   "d": "is an implementing act laying down how national competent authorities coordinate market surveillance across borders",
   "correct": "b",
-  "explain": "The Coordinated Plan is soft coordination: joint priorities, national AI strategies and investment ambitions without legal obligation. Nothing in it binds a Member State — the binding layer arrived only with the AI Act."
+  "explain": "The Coordinated Plan is soft coordination: joint priorities, national AI strategies and investment ambitions without legal obligation. Nothing in it binds a Member State — the binding layer arrived only with the AI Act.",
+  "sources": [
+   {
+    "doc": "coordinated-plan-2021",
+    "ref": "COM(2021) 205, Section 1",
+    "quote": "published in December 2018 represents a joint commitment with Member States to foster the development and use of AI in Europe and to coordinate European and national efforts on AI."
+   },
+   {
+    "doc": "coordinated-plan-2021",
+    "ref": "COM(2021) 205, Section 2",
+    "quote": "That is why in 2018 the European Commission and the Member States committed to work together and adopted the coordinated plan on AI as a first step. The coordinated plan laid the foundation for policy coordination on AI and encouraged Member States to develop national strategies."
+   },
+   {
+    "doc": "coordinated-plan-2018",
+    "ref": "COM(2018) 795, Section 1",
+    "quote": "The coordinated plan provides a strategic framework for national AI strategies."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2031,
@@ -3182,7 +3303,20 @@
   "c": "is enforced by the European Court of Human Rights through individual applications lodged directly against the parties",
   "d": "was concluded by the Union alone and does not bind any Council of Europe member state directly",
   "correct": "b",
-  "explain": "The Convention sets principles for AI activities across their lifecycle and is open beyond Europe, with the United States and United Kingdom among the signatories. Private-sector activity is covered: each Party chooses between applying the Convention's principles to private actors or taking other appropriate measures, and must declare its choice."
+  "explain": "The Convention sets principles for AI activities across their lifecycle and is open to states beyond the Council of Europe (Art 31). Private-sector activity is covered: each Party chooses between applying the Convention's principles to private actors or taking other appropriate measures, and must declare its choice (Art 3(1)(b)).",
+  "sources": [
+   {
+    "doc": "coe-ai-convention",
+    "ref": "Art 30(1)",
+    "quote": "This Convention shall be open for signature by the member States of the Council of Europe, the non-member States which have participated in its elaboration and the European Union."
+   },
+   {
+    "doc": "coe-ai-convention",
+    "ref": "Art 3(1)(b)",
+    "quote": "how it intends to implement this obligation, either by applying the principles and obligations set forth in Chapters II to VI of this Convention to activities of private actors or by taking other appropriate measures to fulfil the obligation set out in this subparagraph."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2032,
@@ -3509,11 +3643,17 @@
   "explain": "Council Regulation (EU) 2026/150 of 16 January 2026 amended Regulation (EU) 2021/1173 so that EuroHPC could host and procure gigafactory-scale AI infrastructure. The Joint Undertaking already procured supercomputers jointly with participating states, so no transfer of procurement competence was needed.",
   "sources": [
    {
-    "doc": "ai-continent",
-    "ref": "Section 1.2",
-    "quote": "the official call for the establishment of AI Gigafactories will be published in Q4 2025 by the EuroHPC Joint Undertaking"
+    "doc": "eurohpc-gigafactories",
+    "ref": "Recital 6",
+    "quote": "The existing mechanisms currently provided for under Regulation (EU) 2021/1173 are not sufficient to support the establishment and operation of the AI gigafactories. A targeted amendment is therefore necessary to provide the European High Performance Computing Joint Undertaking (the ‘Joint Undertaking’) with the legal basis needed to fulfil its commitments relating to the establishment and operation of AI gigafactories in Europe."
+   },
+   {
+    "doc": "eurohpc-gigafactories",
+    "ref": "Title",
+    "quote": "COUNCIL REGULATION (EU) 2026/150 of 16 January 2026 amending Regulation (EU) 2021/1173 on establishing the European High Performance Computing Joint Undertaking"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2055,
@@ -3548,14 +3688,7 @@
   "c": "partnerships between large platforms and model developers can be reviewed even short of a notifiable merger",
   "d": "designation under the Digital Markets Act extends automatically to every AI service a gatekeeper offers",
   "correct": "c",
-  "explain": "The Commission has examined big-tech and model-lab arrangements under merger and antitrust tools, precisely because compute-for-equity structures often fall outside notification thresholds. DMA designation is service by service: an AI assistant is covered only if it is designated as, or integrated into, a designated core platform service.",
-  "sources": [
-   {
-    "doc": "dma",
-    "ref": "Recital 29",
-    "quote": "Gatekeepers should comply with the obligations laid down in this Regulation in respect of each of the core platform services listed in the relevant designation decision."
-   }
-  ]
+  "explain": "The Commission has examined big-tech and model-lab arrangements under merger and antitrust tools, precisely because compute-for-equity structures often fall outside notification thresholds. DMA designation is service by service: an AI assistant is covered only if it is designated as, or integrated into, a designated core platform service."
  },
  {
   "id": 2058,
@@ -3643,7 +3776,20 @@
   "c": "a guarantee that model weights and inference operations remain within Union territory at all times",
   "d": "an insurance arrangement covering damage to third parties arising from downstream deployment of the model by others",
   "correct": "b",
-  "explain": "The framework is a pre-committed decision procedure keyed to measured capability: tiers defined in terms of model capabilities, a safety margin, and an explicit determination whether to proceed with development or with making the model available. It is neither a financial nor a localisation undertaking."
+  "explain": "The framework is a pre-committed decision procedure keyed to measured capability: tiers defined in terms of model capabilities, a safety margin, and an explicit determination whether to proceed with development or with making the model available. It is neither a financial nor a localisation undertaking.",
+  "sources": [
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Commitment 4",
+    "quote": "Signatories commit to specifying systemic risk acceptance criteria and determining whether the systemic risks stemming from the model are acceptable (as specified in Measure 4.1). Signatories commit to deciding whether or not to proceed with the development, the making available on the market, and/or the use of the model based on the systemic risk acceptance determination"
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Measure 1.1, point (2)",
+    "quote": "a high-level description of what safety and security mitigations Signatories would need to implement once each systemic risk tier is reached"
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2062,
@@ -3657,11 +3803,17 @@
   "explain": "That is the honest reading of the current evidence base: occupational exposure measures are reasonably robust, while net employment effects remain contested and vary by sector and Member State. The other options either overclaim a uniform outcome or deny competences the Union plainly has in skills and social policy.",
   "sources": [
    {
-    "doc": "apply-ai",
-    "ref": "Section 3.2",
-    "quote": "the Commission will actively monitor the impact of AI on the labour market in order to anticipate the needs of the market, spot potential disruptions and support the development of appropriate and inclusive policies"
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.1 Labour market risks",
+    "quote": "Current general-purpose AI is likely to transform the nature of many existing jobs, create new jobs, and eliminate others. The net impact on employment and wages will vary significantly across countries, across sectors, and even across different workers within the same job."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.1 Labour market risks",
+    "quote": "Labour market risks arise from the potential of general-purpose AI to automate a wide range of complex cognitive tasks across sectors."
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2063,
@@ -3675,16 +3827,22 @@
   "explain": "Those are the two mandatory channels: data centres with at least 500 kW of installed IT power report annually to the European database under the Energy Efficiency Directive, and Annex XI of the AI Act requires the known or estimated energy consumption of a general-purpose model. Provider sustainability reports are useful but voluntary, unaudited and not comparable across firms.",
   "sources": [
    {
-    "doc": "ai-act",
-    "ref": "Annex XI Section 1 point 2(d)",
-    "quote": "the computational resources used to train the model (e.g. number of floating point operations), training time, and other relevant details related to the training;"
+    "doc": "eed",
+    "ref": "Art 12(1)",
+    "quote": "Member States shall require owners and operators of data centres in their territory with a power demand of the installed information technology (IT) of at least 500kW, to make the information set out in Annex VII publicly available"
+   },
+   {
+    "doc": "eed",
+    "ref": "Art 12(3)",
+    "quote": "The Commission shall establish a European database on data centres that includes information communicated by the obligated data centres in accordance with paragraph 1."
    },
    {
     "doc": "ai-act",
     "ref": "Annex XI Section 1 point 2(e)",
-    "quote": "known or estimated energy consumption of the model."
+    "quote": "known or estimated energy consumption of the model. With regard to point (e), where the energy consumption of the model is unknown"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2064,
@@ -3719,7 +3877,20 @@
   "c": "loss of control over a model that can evade human oversight or resist being modified",
   "d": "energy consumption of large-scale training runs and of high-volume inference serving at scale",
   "correct": "c",
-  "explain": "The Safety and Security chapter names four specified systemic risks — chemical, biological, radiological and nuclear; loss of control; cyber offence; harmful manipulation — which are identified automatically rather than through screening. Concentration of power and environmental effects sit in the open-ended identification process built on the five broader risk types, so they are assessed only where screening selects them."
+  "explain": "The Safety and Security chapter names four specified systemic risks — chemical, biological, radiological and nuclear; loss of control; cyber offence; harmful manipulation — which are identified automatically rather than through screening. Concentration of power and environmental effects sit in the open-ended identification process built on the five broader risk types, so they are assessed only where screening selects them.",
+  "sources": [
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Appendix 1.4",
+    "quote": "the following are treated as specified systemic risks for the purpose of systemic risk identification in Measure 2.1, point (2)"
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Appendix 1.4 point (2)",
+    "quote": "Loss of control: Risks from humans losing the ability to reliably direct, modify, or shut down a model."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2066,
@@ -3733,11 +3904,22 @@
   "explain": "The Code requires tiers defined in terms of capabilities, measurable, with a safety margin and at least one unreached tier, so the provider commits in advance to a decision point rather than judging after the fact. The criteria are the provider's own: the Commission assesses the adequacy of the Code, it does not approve individual frameworks before training.",
   "sources": [
    {
-    "doc": "ai-omnibus",
-    "ref": "Art 1(21) (amending AI Act Art 56(6))",
-    "quote": "The Commission, taking utmost account of the opinion of the Board, shall assess whether the codes of practice cover the obligations provided for in Articles 53 and 55"
+    "doc": "gpai-cop-safety",
+    "ref": "Measure 4.1(1)(a)",
+    "quote": "are defined in terms of model capabilities, and may additionally incorporate model propensities, risk estimates, and/or other suitable metrics;"
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Measure 4.1(1)(a)(iii)",
+    "quote": "comprise at least one systemic risk tier that has not been reached by the model; or"
+   },
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Measure 4.1(1)(b)",
+    "quote": "define other appropriate systemic risk acceptance criteria, if systemic risk tiers are not suitable for the systemic risk and the systemic risk is not a specified systemic risk"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2067,
@@ -3775,16 +3957,22 @@
   "explain": "Detection fails in both directions: adversaries remove or forge marks, and the volume of unmarked legitimate content means absence of a mark proves nothing, so provenance has to be paired with platform-level mitigation and media literacy. Audio and video can in fact be marked, and the Article 50 duty already extends to them.",
   "sources": [
    {
-    "doc": "ai-act",
-    "ref": "Art 50(2)",
-    "quote": "Providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content, shall ensure that the outputs of the AI system are marked in a machine-readable format and detectable as artificially generated or manipulated."
+    "doc": "iasr-2025",
+    "ref": "Section 2.1.1",
+    "quote": "However, watermarking techniques face several limitations, including watermark removal by sophisticated adversaries (298*, 299) and methods for tricking watermark detectors (299)."
    },
    {
-    "doc": "ai-act",
-    "ref": "Recital 133",
-    "quote": "Such techniques and methods should be sufficiently reliable, interoperable, effective and robust as far as this is technically feasible, taking into account available techniques or a combination of such techniques, such as watermarks, metadata identifications"
+    "doc": "iasr-2025",
+    "ref": "Section 3 (detection of AI-generated content)",
+    "quote": "They are an imperfect strategy for detecting AI-generated content (especially text) because they can be removed by simple modifications to data"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.1.1",
+    "quote": "Watermarking techniques have shown promise in helping people identify the origin and authenticity of digital media for videos (290, 291), images (292, 293, 294*), audio (295, 296), and text (297)."
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2069,
@@ -3798,11 +3986,17 @@
   "explain": "Attribution methods approximate a model's behaviour and can disagree with one another, so a completeness requirement would be satisfied in form rather than substance. The workable drafting is the AI Act's: information meaningful for the intended purpose and for the person affected, backed by logging and human oversight.",
   "sources": [
    {
-    "doc": "ai-act",
-    "ref": "Art 86(1)",
-    "quote": "shall have the right to obtain from the deployer clear and meaningful explanations of the role of the AI syst"
+    "doc": "iasr-2025",
+    "ref": "Section 3.1",
+    "quote": "AI scientists and AI developers only have a minimal ability to explain why these models made a given decision over another one, and how their capabilities arise from their known internal mathematical components."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 3.1",
+    "quote": "Current ‘interpretability’ techniques for explaining the internal structures of general-purpose AI models are unreliable and require major simplifying assumptions"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2070,
@@ -3811,9 +4005,21 @@
   "a": "the location of inference says nothing about who controls the weights, the updates or the model's withdrawal",
   "b": "inference cannot be run on national infrastructure unless the provider discloses its source code",
   "c": "national servers cannot reach the throughput large models need without dedicated accelerators",
-  "d": "restricting the location of processing is incompatible with the free movement of data within the internal market",
+  "d": "Union law bars a Member State from requiring any data processing on its own territory, whatever the justification",
   "correct": "a",
-  "explain": "Hosting determines where computation happens; it confers no rights over the model itself, so a provider can still deprecate a version, change behaviour through an update or end the licence. Control is secured contractually — version pinning, exit rights, escrow — and by access to weights, not by geography."
+  "explain": "Hosting determines where computation happens; it confers no rights over the model itself, so a provider can still deprecate a version, change behaviour through an update or end the licence. Control is secured contractually — version pinning, exit rights, escrow — and by access to weights, not by geography. Under Regulation (EU) 2018/1807 such a localisation requirement would in any case have to be justified on public-security grounds and be proportionate.",
+  "sources": [
+   {
+    "doc": "free-flow-data",
+    "ref": "Art 4(1)",
+    "quote": "Data localisation requirements shall be prohibited, unless they are justified on grounds of public security in compliance with the principle of proportionality."
+   },
+   {
+    "doc": "free-flow-data",
+    "ref": "Art 3(5)",
+    "quote": "including in the field of public procurement, without prejudice to Directive 2014/24/EU, which imposes the processing of data in the territory of a specific Member State or hinders the processing of data in any other Member State"
+   }
+  ]
  },
  {
   "id": 2071,
@@ -3827,11 +4033,17 @@
   "explain": "Irreversibility is the defining property: refusal training can be undone cheaply, and no update or shutdown reaches copies already distributed, which is why the Act's open-source relief falls away at systemic-risk scale. Running a model on your own hardware does not by itself make you a provider — that turns on substantial modification or placing it on the market under your own name.",
   "sources": [
    {
-    "doc": "ai-act",
-    "ref": "Art 53(2)",
-    "quote": "whose parameters, including the weights, the information on the model architecture, and the information on model usage, are made publicly available. This exception shall not apply to general-purpose AI models with systemic risks."
+    "doc": "iasr-2025",
+    "ref": "Section 2.4",
+    "quote": "these safeguards are easier to remove for open models. For example, even if an open-weight model has safeguards built in, such as content filters or limited training data sets, access to model weights and inference code allows malicious actors to circumvent those safeguards"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 3.1",
+    "quote": "A risk factor for open-weight models is that there is no practical way to roll back access if it is later discovered that a model has faults or capabilities that enable malicious use"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2072,
@@ -3842,7 +4054,20 @@
   "c": "the technical annex to the Council of Europe Framework Convention on artificial intelligence",
   "d": "an annual compliance assessment of the largest model providers against agreed safety benchmarks",
   "correct": "b",
-  "explain": "The Report is an evidence synthesis backed by around thirty countries plus the EU, OECD and UN, and its authors stress that policy choices are for governments. Presenting it as an agreed government position is the error most likely to mislead a policy audience."
+  "explain": "The Report is an evidence synthesis backed by around thirty countries plus the EU, OECD and UN, and its authors stress that policy choices are for governments. Presenting it as an agreed government position is the error most likely to mislead a policy audience.",
+  "sources": [
+   {
+    "doc": "iasr-2025",
+    "ref": "Foreword / About this report",
+    "quote": "including an international Expert Advisory Panel nominated by 30 countries, the Organisation for Economic Co-operation and Development (OECD), the European Union (EU), and the United Nations (UN). The report aims to provide scientific information that will support informed policymaking. It does not recommend specific policies."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Foreword / About this report",
+    "quote": "The report is the work of independent experts. Led by the Chair, the independent experts writing this report collectively had full discretion over its content."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2073,
@@ -3856,11 +4081,22 @@
   "explain": "Supply of advanced accelerators and of hyperscale training capacity is genuinely narrow, and that structural fact is what EU compute policy responds to. Model releases have risen rather than fallen, and frontier training runs remain well beyond a mid-sized firm's reach even though inference and fine-tuning costs have dropped sharply.",
   "sources": [
    {
-    "doc": "ai-continent",
-    "ref": "Section 1.3",
-    "quote": "relying heavily on infrastructure installed in and controlled by other regions of the world, that EU users access via the cloud"
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.3 Key information",
+    "quote": "Market shares for general-purpose AI tend to be highly concentrated among a few players, which can create vulnerability to systemic failures."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.3 Key information",
+    "quote": "Developing state-of-the-art, general-purpose AI models requires substantial up-front investment. For example, the overall costs for developing a state-of-the-art model can currently reach hundreds of millions of US dollars. Key cost factors are computing power"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.4",
+    "quote": "Taiwan Semiconductor Manufacturing Company (TSMC), the world’s largest semiconductor manufacturer and the main supplier of chips to AI hardware firms such as Nvidia"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2074,
@@ -3895,7 +4131,25 @@
   "c": "energy use is proportional to parameter count, so a published parameter count suffices for an estimate",
   "d": "data-centre electricity consumption is already capped for operators reporting under the Energy Efficiency Directive",
   "correct": "b",
-  "explain": "High-volume serving accumulates demand that can outweigh a single training run, which is why the policy levers include data-centre efficiency and demand-side measures rather than training alone. The Energy Efficiency Directive imposes reporting on data centres above 500 kW of installed IT power, not a cap on their consumption."
+  "explain": "High-volume serving accumulates demand that can outweigh a single training run, which is why the policy levers include data-centre efficiency and demand-side measures rather than training alone. The Energy Efficiency Directive imposes reporting on data centres above 500 kW of installed IT power, not a cap on their consumption.",
+  "sources": [
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.4",
+    "quote": "Although reporting often focuses on the energy cost of model training, there is strong evidence that a higher energy demand arises from their everyday use."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.4",
+    "quote": "In 2022, Google and Meta reported that the use of AI systems accounted for 60–70% of the energy associated with their AI workloads, compared to 0–40% for training"
+   },
+   {
+    "doc": "eed",
+    "ref": "Art 12(1)",
+    "quote": "Member States shall require owners and operators of data centres in their territory with a power demand of the installed information technology (IT) of at least 500kW, to make the information set out in Annex VII publicly available"
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2076,
@@ -3909,34 +4163,51 @@
   "explain": "The April 2024 guidelines under Article 35(3) recommend labelling and provenance signals that survive resharing, including labels on AI-generated political advertising. They stop short of removal duties or identity verification, which would raise fundamental-rights problems of their own.",
   "sources": [
    {
-    "doc": "dsa",
-    "ref": "Art 35(1)(k)",
-    "quote": "ensuring that an item of information, whether it constitutes a generated or manipulated image, audio or video that appreciably resembles existing persons, objects, places or other entities or events and falsely appears to a person to be authentic or truthful is distinguishable through prominent markings"
+    "doc": "dsa-election-guidelines",
+    "ref": "Section 3.3 (generative AI)",
+    "quote": "Clearly label, or otherwise make distinguishable through prominent markings, synthetic or manipulated images, audio or videos that appreciably resemble existing persons"
    },
    {
-    "doc": "dsa",
-    "ref": "Art 35(3)",
-    "quote": "The Commission, in cooperation with the Digital Services Coordinators, may issue guidelines on the application of paragraph 1 in relation to specific risks"
+    "doc": "dsa-election-guidelines",
+    "ref": "Section 3.3 (generative AI)",
+    "quote": "such as watermarks, metadata identifications, cryptographic methods for proving provenance and authenticity of content, logging methods, fingerprints or other techniques"
+   },
+   {
+    "doc": "dsa-election-guidelines",
+    "ref": "Section 3.3 (generative AI)",
+    "quote": "providing advertisers with options to clearly label content created with generative AI in advertisements or promoted posts"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2077,
   "cat": "EU Digital Policy & Strategy",
   "q": "The Commission's July 2025 guidelines on the protection of minors under the DSA were accompanied by:",
   "a": "a prohibition on using recommender systems for accounts belonging to users under eighteen",
-  "b": "an open-source age-verification blueprint built on the European Digital Identity Wallet architecture",
+  "b": "an EU age-verification solution designed to work with the European Digital Identity Wallets",
   "c": "a mandatory minimum age of sixteen for access to social media services across the Union",
   "d": "a delegated act laying down binding design standards for services that are likely to be accessed by minors",
   "correct": "b",
-  "explain": "The guidelines under Article 28(4) came with a white-label age-verification application built on the EUDI Wallet technical architecture and piloted by several Member States. No EU-wide minimum age was set: the guidelines recommend how to apply Article 28(1) and are not binding standards.",
+  "explain": "The guidelines under Article 28(4) came with an EU age-verification solution designed to work with the European Digital Identity Wallets. No EU-wide minimum age was set: the guidelines recommend how to apply Article 28(1) and are not binding standards.",
   "sources": [
    {
-    "doc": "dsa",
-    "ref": "Art 28(4)",
-    "quote": "The Commission, after consulting the Board, may issue guidelines to assist providers of online platforms in the application of paragraph 1."
+    "doc": "dsa-minors-guidelines",
+    "ref": "Section 6.1 (age verification)",
+    "quote": "the Commission is currently testing an EU age verification solution as a standalone age verification measure"
+   },
+   {
+    "doc": "dsa-minors-guidelines",
+    "ref": "Section 6.1 (age verification)",
+    "quote": "Implementation of the reference standard (43) set by the EU age verification solution can be offered through apps published by public or private entities or integrated in the upcoming EU Digital Identity Wallets."
+   },
+   {
+    "doc": "dsa-minors-guidelines",
+    "ref": "Section 1",
+    "quote": "Nevertheless, adopting and implementing the measures set out in these guidelines, either partially or in full, shall not automatically entail compliance with that provision."
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2078,
@@ -3947,7 +4218,25 @@
   "c": "Directive (EU) 2016/2102, on the accessibility of public sector websites and mobile applications",
   "d": "the Digital Services Act, which requires online platforms to design their interfaces free of dark patterns",
   "correct": "b",
-  "explain": "The European Accessibility Act sets accessibility requirements for consumer-facing products and services, including e-commerce and consumer banking, and has applied since 28 June 2025. The public sector website directive is the close alternative but reaches only public sector bodies' sites and apps."
+  "explain": "The European Accessibility Act sets accessibility requirements for consumer-facing products and services, including e-commerce and consumer banking, and has applied since 28 June 2025. The public sector website directive is the close alternative but reaches only public sector bodies' sites and apps.",
+  "sources": [
+   {
+    "doc": "eaa",
+    "ref": "Art 2(2)",
+    "quote": "this Directive applies to the following services provided to consumers after 28 June 2025"
+   },
+   {
+    "doc": "eaa",
+    "ref": "Art 2(1)(a)",
+    "quote": "consumer general purpose computer hardware systems and operating systems for those hardware systems;"
+   },
+   {
+    "doc": "wad",
+    "ref": "Art 1(2)",
+    "quote": "This Directive lays down the rules requiring Member States to ensure that websites, independently of the device used for access thereto, and mobile applications of public sector bodies meet the accessibility requirements set out in Article 4."
+   }
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2079,
@@ -3961,11 +4250,22 @@
   "explain": "The State of the Digital Decade 2026 report (17 June 2026) counts around 10.5 million ICT specialists employed in 2025 and projects about 12.2 million by 2030 — a gap of roughly 7.8 million that reflects the supply of trained people rather than weak demand. The target is fixed in Decision (EU) 2022/2481 and can be changed only by amending it, so treating a missed projection as a reason to restate the ambition confuses measurement with policy.",
   "sources": [
    {
-    "doc": "digital-decade",
-    "ref": "Art 4(1)(1)(b)",
-    "quote": "at least 20 million ICT specialists are employed within the Union, while promoting the access of women to this field and increasing the number of ICT graduates"
+    "doc": "sdd-2026",
+    "ref": "Annex, Section 3.1.2 ICT Specialists",
+    "quote": "According to the baseline trajectory, around 12.2 million ICT specialists are expected to be employed by 2030, meaning that only 61% of the target will be achieved by 2030"
+   },
+   {
+    "doc": "sdd-2026",
+    "ref": "Section on skills",
+    "quote": "The ICT specialist gap is even more pronounced, with 10.5 million employed in 2025, just 52% of the 2030 target of 20 million"
+   },
+   {
+    "doc": "sdd-2026",
+    "ref": "Section on skills",
+    "quote": "First, the supply of new entrants remains insufficient. In 2023, the EU produced only 2.7 tertiary ICT graduates per 1 000 young people"
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  },
  {
   "id": 2080,
@@ -3987,14 +4287,7 @@
   "c": "oversight of every decision is not credible at scale and invites rubber-stamping rather than genuine control",
   "d": "the policy should commit to publishing model weights so that independent researchers can verify its claims",
   "correct": "c",
-  "explain": "A blanket oversight promise fails the way automation bias does: volume forces nominal review, so the credible commitment is oversight targeted at consequential decisions with measured override rates. Internal red-teaming is a recognised practice — its weaknesses are scope and independence, not the absence of accreditation.",
-  "sources": [
-   {
-    "doc": "ai-act",
-    "ref": "Art 14(4)(b)",
-    "quote": "remain aware of the possible tendency of automatically relying or over-relying on the output produced by a high-risk AI system (automation bias)"
-   }
-  ]
+  "explain": "A blanket oversight promise fails the way automation bias does: volume forces nominal review, so the credible commitment is oversight targeted at consequential decisions with measured override rates. Internal red-teaming is a recognised practice — its weaknesses are scope and independence, not the absence of accreditation."
  },
  {
   "id": 2082,
@@ -4005,7 +4298,14 @@
   "c": "the United States has no cross-cutting federal AI statute and acts mainly through executive orders",
   "d": "the Council of Europe Framework Convention has entered into force and now binds all of its signatories",
   "correct": "c",
-  "explain": "US federal policy has run through executive orders and an AI action plan since January 2025, with Congress passing no cross-cutting legislation. The Council of Europe Convention is the closest trap, but it binds only Parties that have ratified it — signature alone creates no obligation to apply its terms."
+  "explain": "US federal policy has run through executive orders and an AI action plan since January 2025, with Congress passing no cross-cutting legislation. The Council of Europe Convention is the closest trap, but it binds only Parties that have ratified it — signature alone creates no obligation to apply its terms.",
+  "sources": [
+   {
+    "doc": "coe-ai-convention",
+    "ref": "Art 30(4)",
+    "quote": "In respect of any signatory which subsequently expresses its consent to be bound by it, this Convention shall enter into force on the first day of the month following the expiration of a period of three months after the date of the deposit of its instrument of ratification, acceptance or approval."
+   }
+  ]
  },
  {
   "id": 2083,
@@ -4184,15 +4484,21 @@
   "explain": "The proposal aims to multiply EU data-centre capacity and to create assurance levels for cloud sovereignty that gate public-sector procurement, with Union added value as a non-price award criterion. It is a proposal in the ordinary legislative procedure, not law, and imposes no localisation duty on model providers.",
   "sources": [
    {
-    "doc": "ai-continent",
-    "ref": "Section 1.3",
-    "quote": "with a view to at least tripling the EU’s data centre capacity within the next five to seven years"
+    "doc": "cada-proposal",
+    "ref": "Explanatory memorandum, Section 1",
+    "quote": "It aims to triple EU capacity in the next five-to-seven years and reach the needed capacity by 2035, while ensuring balanced geographic deployment across Member States."
    },
    {
-    "doc": "ai-continent",
-    "ref": "Section 1.3",
-    "quote": "For highly critical use cases, including AI applications, sovereignty and operational autonomy require highly secure EU-based cloud capacity."
+    "doc": "cada-proposal",
+    "ref": "Explanatory memorandum (Art 30)",
+    "quote": "Where a risk assessment determines that the activities of such contracting authorities have public order relevance, they must only procure and use services that have been recognised as offering Union assurance levels 2, 3, or 4."
+   },
+   {
+    "doc": "cada-proposal",
+    "ref": "Art 32(1)",
+    "quote": "contracting authorities shall include, as part of the quality evaluation of the tender, non-price award criteria that allow them to evaluate the tenderer’s contribution to the development of a European cloud and AI ecosystem."
    }
-  ]
+  ],
+  "verified": "2026-10-27"
  }
 ]

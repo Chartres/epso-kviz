@@ -78,8 +78,8 @@ describe('verified bank', () => {
 
   // Ratchet: coverage may only go up. Raise these when more of the bank is verified.
   const FLOOR: Record<CategoryName, number> = {
-    'AI Act & Governance': 65,
-    'EU Digital Policy & Strategy': 46,
+    'AI Act & Governance': 70,
+    'EU Digital Policy & Strategy': 66,
     'AI Engineering & Operations': 0,
   }
   it('verified coverage stays at or above the floor per category', () => {
