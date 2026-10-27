@@ -1,3 +1,4 @@
+import { sanitizeCommonplace } from './commonplace'
 import {
   emptyProgress,
   emptyStreak,
@@ -27,6 +28,9 @@ export function loadProgress(): ProgressData {
       version: PROGRESS_VERSION,
       stats: parsed.stats ?? {},
       bookmarks: parsed.bookmarks ?? [],
+      ...(sanitizeCommonplace(parsed.commonplace).length
+        ? { commonplace: sanitizeCommonplace(parsed.commonplace) }
+        : {}),
       streak: parsed.streak ?? emptyStreak(),
       updatedAt: parsed.updatedAt ?? 0,
     }

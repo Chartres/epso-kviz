@@ -1,4 +1,4 @@
-import type { CategoryName, Choice } from '@/domain/types'
+import type { CategoryName, Choice, Citation } from '@/domain/types'
 import type { Rng } from '@/domain/rng'
 import {
   createSession,
@@ -22,6 +22,7 @@ import {
   type ProgressData,
 } from '@/domain/progress'
 import { buildLesson } from '@/domain/lesson'
+import { setCollected } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
@@ -71,6 +72,7 @@ export type Action =
   | { type: 'next'; today?: string }
   | { type: 'finishExam' }
   | { type: 'toggleBookmark'; id: number }
+  | { type: 'setCommonplace'; citation: Citation; id: number; on: boolean; now: number }
   | { type: 'goMenu' }
   | { type: 'navigate'; view: TabView }
 
@@ -173,6 +175,12 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'toggleBookmark':
       return { ...state, progress: toggleBookmark(state.progress, action.id) }
+
+    case 'setCommonplace':
+      return {
+        ...state,
+        progress: setCollected(state.progress, action.citation, action.id, action.on, action.now),
+      }
 
     case 'goMenu':
       return {

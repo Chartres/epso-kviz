@@ -1,3 +1,4 @@
+import { mergeCommonplace } from './commonplace'
 import type { CategoryName, Question } from './types'
 
 /** Consecutive correct answers required to consider a question "mastered". */
@@ -43,11 +44,28 @@ export interface ProgressData {
   version: number
   stats: Record<number, QuestionStat>
   bookmarks: number[]
+  /** Passages collected into the learner's commonplace book (see commonplace.ts). */
+  commonplace?: CommonplaceEntry[]
   streak: Streak
   updatedAt: number
 }
 
+/** A passage in the commonplace book, keyed by act + quote (see commonplace.ts). */
+export interface CommonplaceEntry {
+  doc: string
+  ref: string
+  quote: string
+  /** The question (case) it was collected from. */
+  q: number
+  /** Time of the last change (ms): collected or removed. */
+  at: number
+  /** In the book (true) or removed (false, kept so the removal syncs). */
+  on: boolean
+}
+
 export const PROGRESS_VERSION = 1
+
+const withCommonplace = (c: CommonplaceEntry[]) => (c.length ? { commonplace: c } : {})
 
 export function emptyStreak(): Streak {
   return { current: 0, best: 0, lastDate: '' }
@@ -251,6 +269,7 @@ export function mergeProgress(
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
+    ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
     streak: { ...latest, best: Math.max(sa.best, sb.best) },
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }

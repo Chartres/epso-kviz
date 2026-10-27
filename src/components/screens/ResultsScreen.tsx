@@ -7,6 +7,7 @@ import { makeRng, timeSeed } from '@/domain/rng'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { FeedbackCard } from '@/components/FeedbackCard'
 import { SourceNote } from '@/components/SourceNote'
+import { collectProps } from '@/app/collect'
 import { ReadinessCard } from '@/components/ReadinessCard'
 
 export function ResultsScreen() {
@@ -107,7 +108,7 @@ export function ResultsScreen() {
                     {q[q.correct]}
                   </p>
                   <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
-                  <SourceNote question={q} />
+                  <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
                 </li>
               )
             })}

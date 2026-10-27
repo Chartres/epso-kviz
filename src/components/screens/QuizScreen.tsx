@@ -3,6 +3,7 @@ import { useApp } from '@/app/AppContext'
 import { currentQuestion } from '@/domain/session'
 import { isBookmarked } from '@/domain/progress'
 import { QuestionCard } from '@/components/QuestionCard'
+import { collectProps } from '@/app/collect'
 import { ExamTimer } from '@/components/ExamTimer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { todayStr } from '@/lib/date'
@@ -77,6 +78,7 @@ export function QuizScreen() {
         onToggleBookmark={() =>
           dispatch({ type: 'toggleBookmark', id: question.id })
         }
+        {...collectProps(question, state.progress, dispatch)}
       />
     </div>
   )
