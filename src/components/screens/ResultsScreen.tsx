@@ -155,12 +155,20 @@ export function ResultsScreen() {
             Next lesson
           </button>
         )}
-        {wrong.length > 0 && (
+        {(wrong.length > 0 || unanswered.length > 0) && (
           <button
             type="button"
             onClick={() => {
               track('start_review')
-              dispatch({ type: 'startReview', rng: makeRng(timeSeed()) })
+              dispatch({
+                type: 'startReview',
+                rng: makeRng(timeSeed()),
+                // Limit to this session's wrong/unanswered, not the global queue.
+                ids: [
+                  ...wrong.map((r) => r.id),
+                  ...unanswered.map((q) => q.id),
+                ],
+              })
             }}
             className="rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200 hover:border-steel-400"
           >

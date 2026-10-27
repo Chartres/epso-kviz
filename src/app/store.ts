@@ -1,4 +1,4 @@
-import type { CategoryName, Choice, Citation } from '@/domain/types'
+import type { CategoryName, Choice, Citation, Question } from '@/domain/types'
 import type { Rng } from '@/domain/rng'
 import {
   createSession,
@@ -13,6 +13,7 @@ import {
   reviewQuestions,
   bookmarkedQuestions,
 } from '@/domain/selection'
+import { getQuestion } from '@/domain/questions'
 import { buildExam, evaluateExam, EXAM, type ExamResult } from '@/domain/exam'
 import {
   emptyProgress,
@@ -65,7 +66,7 @@ export type Action =
   | { type: 'setSearch'; search: string }
   | { type: 'startLesson'; rng: Rng }
   | { type: 'startPractice'; rng: Rng }
-  | { type: 'startReview'; rng: Rng }
+  | { type: 'startReview'; rng: Rng; ids?: number[] }
   | { type: 'startBookmarks'; rng: Rng }
   | { type: 'startExam'; rng: Rng; now: number }
   | { type: 'answer'; choice: Choice; now: number }
@@ -113,12 +114,14 @@ export function reducer(state: AppState, action: Action): AppState {
       return begin(state, 'practice', createSession(qs))
     }
 
-    case 'startReview':
-      return begin(
-        state,
-        'review',
-        createSession(reviewQuestions(state.progress)),
-      )
+    case 'startReview': {
+      // When explicit ids are provided (e.g. session's wrong answers) use those;
+      // otherwise fall back to the global weak-spots queue.
+      const qs = action.ids
+        ? action.ids.map(getQuestion).filter((q): q is Question => q !== undefined)
+        : reviewQuestions(state.progress)
+      return begin(state, 'review', createSession(qs))
+    }
 
     case 'startBookmarks':
       return begin(
