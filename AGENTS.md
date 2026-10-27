@@ -12,7 +12,7 @@ Taste rules that apply to every flywheel product live in the hub: `flywheel/docs
 ## Build
 ```bash
 npm ci
-npm run build   # tsc -b && vite build
+npm run build   # tsc -b && vite build && node scripts/prerender.ts (static pages, sitemap, llms.txt)
 ```
 
 ## Test (TDD required; persona-journey test per primary journey)
@@ -35,6 +35,10 @@ mode (30 q, 40-min timer) → results with per-category breakdown and mistake re
 - **Web** → GitHub Pages at `https://epsokviz.dravec.org` (`public/CNAME`). Deploy is automatic
   on push to `main` via `.github/workflows/deploy.yml`. Platform env for the build:
   `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (repo secrets; no-op locally/in tests).
+- Search visibility: the build prerenders static pages (AI Act articles, questions by category,
+  the test guide) plus `sitemap.xml` and `llms.txt` (`scripts/prerender.ts`). After a deploy that
+  changes them, run `node scripts/indexnow.mjs --submit` and log it in flywheel
+  `data/launch-log/epso-kviz.jsonl`.
 - Data source: `data/bank/*.json` (231 Q, Annex II Field 1 — AI; citations checked against `data/sources/` by `src/domain/citations.test.ts`); regenerate the merged
   `data/questions.json`/`meta.json` via `node scripts/merge.mjs`.
 
