@@ -3,10 +3,12 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useRef,
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
 import { loadProgress, saveProgress } from '@/domain/storage'
+import { emptyProgress } from '@/domain/progress'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress } from '@/auth/sync'
@@ -27,6 +29,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     progress: loadProgress(),
   }))
   const { user } = useAuth()
+  // Track whether we have ever seen a signed-in user so we can distinguish a
+  // real sign-out from the initial anonymous state (both have user === null).
+  const hadUser = useRef(false)
 
   // Track app open once on mount (progress is already in state from the initializer).
   useEffect(() => {
@@ -39,8 +44,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [state.progress])
 
   // On sign-in: reconcile local progress with the cloud and adopt the merge.
+  // On sign-out: clear local progress so the next account doesn't inherit it.
   useEffect(() => {
-    if (!user) return
+    if (!user) {
+      if (hadUser.current) {
+        // Actual sign-out — clear to prevent cross-account data leakage.
+        const empty = emptyProgress()
+        dispatch({ type: 'hydrate', progress: empty })
+        saveProgress(empty)
+      }
+      return
+    }
+    hadUser.current = true
     let cancelled = false
     syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
       if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
