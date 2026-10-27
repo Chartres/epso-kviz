@@ -58,6 +58,28 @@ export function PracticeScreen() {
         </span>
       </button>
 
+      {/* Reasoning tests: eliminatory, sat in the candidate's language 1 */}
+      <button
+        type="button"
+        onClick={() => {
+          track('key_action', { action: 'numerical_start' })
+          dispatch({ type: 'openNumerical' })
+        }}
+        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
+      >
+        <span>
+          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
+            Numerical reasoning
+          </span>
+          <span className="mt-0.5 block text-sm text-steel-400">
+            In Czech, Slovak or English · 10 questions, 20 minutes, like the real test.
+          </span>
+        </span>
+        <span aria-hidden className="font-display text-brass-400">
+          →
+        </span>
+      </button>
+
       {/* MODE 2 — practice by topic */}
       <section className="rounded-card border border-steel-700 bg-steel-800/40 p-4">
         <h2 className="font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
