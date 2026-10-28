@@ -40,8 +40,8 @@ export interface Series {
   frames: Frame[]
   options: Frame[]
   correct: number
-  /** For each wrong option, the rule it breaks. */
-  broken: (Attr | undefined)[]
+  /** For each option, the rules it breaks (none for the key). */
+  broken: Attr[][]
 }
 
 const mod = (n: number, m: number) => ((n % m) + m) % m
@@ -78,11 +78,21 @@ const STEPS: Record<Attr, number[]> = {
   position: [1, 2, 3, -1],
 }
 
-/** A wrong value for one attribute: what a plausible slip on that rule would give. */
-function slip(f: Frame, r: Rule, tries: number): Frame {
-  // Off by one step forwards/backwards, or the rule's step reversed, cycling as tries grow.
-  const k = [1, -1, 2, -2, 3][tries % 5]
-  return apply(f, { attr: r.attr, step: r.step }, k)
+/** One wrong value per rule: a plausible slip (a step too far, too short, or one more). */
+function slipValue(answer: Frame, r: Rule, rng: Rng): Frame[Attr] | undefined {
+  for (const k of shuffle([1, -1, 2], rng)) {
+    const v = apply(answer, r, k)[r.attr]
+    if (v !== answer[r.attr] && (r.attr !== 'count' || ((v as number) >= 1 && (v as number) <= MAX_DOTS))) return v
+  }
+  return undefined
+}
+
+// Which rules each option breaks, by rule index. Balanced so the options give nothing away:
+// with two rules a 2×2 grid; with three, every pair of options differs in exactly two rules.
+// Either way no option is the "most typical" one and every value shown appears in two options.
+const DESIGNS: Record<number, number[][]> = {
+  2: [[], [0], [1], [0, 1]],
+  3: [[], [0, 1], [0, 2], [1, 2]],
 }
 
 export function generateSeries(rng: Rng): Series {
@@ -96,30 +106,24 @@ export function generateSeries(rng: Rng): Series {
       position: int(rng, 0, 7),
     }
     const frames = [0, 1, 2, 3, 4].map((k) => frameAt(rules, start, k))
-    const countable = (f: Frame) => f.count >= 1 && f.count <= MAX_DOTS
-    if (![...frames, frameAt(rules, start, 5)].every(countable)) continue
-    // Every rule must visibly change something across the five frames.
-    if (rules.some((r) => new Set(frames.map((f) => f[r.attr])).size < 2)) continue
     const answer = frameAt(rules, start, 5)
+    if (![...frames, answer].every((f) => f.count >= 1 && f.count <= MAX_DOTS)) continue
 
-    const wrong: { frame: Frame; attr: Attr }[] = []
-    for (let i = 0, tries = 0; wrong.length < 3 && tries < 40; tries++, i++) {
-      const r = rules[i % rules.length]
-      const f = { ...answer, [r.attr]: slip(answer, r, tries)[r.attr] } as Frame
-      if (!countable(f) || sameFrame(f, answer) || wrong.some((w) => sameFrame(w.frame, f))) continue
-      wrong.push({ frame: f, attr: r.attr })
-    }
-    if (wrong.length < 3) continue
+    const wrongValues = rules.map((r) => slipValue(answer, r, rng))
+    if (wrongValues.some((v) => v === undefined)) continue
+    const all = DESIGNS[rules.length].map((breaks) => ({
+      frame: breaks.reduce((f, i) => ({ ...f, [rules[i].attr]: wrongValues[i] }) as Frame, answer),
+      broken: breaks.map((i) => rules[i].attr),
+    }))
 
     const order = shuffle([0, 1, 2, 3], rng)
-    const all = [{ frame: answer, attr: undefined as Attr | undefined }, ...wrong]
     return {
       rules,
       start,
       frames,
       options: order.map((i) => all[i].frame),
       correct: order.indexOf(0),
-      broken: order.map((i) => all[i].attr),
+      broken: order.map((i) => all[i].broken),
     }
   }
 }
@@ -182,13 +186,15 @@ export function explainRule(r: Rule, start: Frame, lang: Lang): string {
   }
 }
 
-/** Why a wrong option is wrong: the one rule it breaks. */
-export function explainBroken(attr: Attr, lang: Lang): string {
-  const name = RULE_NAMES[lang][attr]
+/** Why a wrong option is wrong: the rules it breaks. */
+export function explainBroken(attrs: Attr[], lang: Lang): string {
+  const names = attrs.map((a) => RULE_NAMES[lang][a])
+  const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} ${{ en: 'and', cs: 'a', sk: 'a' }[lang]} ${names.at(-1)}` : names[0]
+  const many = attrs.length > 1
   return {
-    en: `This option breaks the rule for ${name}.`,
-    cs: `Tato možnost porušuje pravidlo pro ${name}.`,
-    sk: `Táto možnosť porušuje pravidlo pre ${name}.`,
+    en: `This option breaks the ${many ? 'rules' : 'rule'} for ${list}.`,
+    cs: `Tato možnost porušuje ${many ? 'pravidla' : 'pravidlo'} pro ${list}.`,
+    sk: `Táto možnosť porušuje ${many ? 'pravidlá' : 'pravidlo'} pre ${list}.`,
   }[lang]
 }
 

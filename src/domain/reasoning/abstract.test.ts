@@ -20,6 +20,8 @@ describe('abstract reasoning: format from the notice', () => {
   })
 })
 
+const ATTRS = ['rotation', 'count', 'fill', 'position'] as const
+
 describe('generated series', () => {
   it('are deterministic for a seed', () => {
     expect(generateSeries(makeRng(11))).toEqual(generateSeries(makeRng(11)))
@@ -42,19 +44,36 @@ describe('generated series', () => {
     }
   })
 
-  it('offer four options, all different, each wrong one breaking exactly one rule', () => {
+  it('offer four different options, each wrong one breaking the rules it names', () => {
     for (let seed = 1; seed <= 200; seed++) {
       const s = generateSeries(makeRng(seed))
       expect(s.options).toHaveLength(4)
       for (let i = 0; i < 4; i++)
         for (let j = i + 1; j < 4; j++) expect(sameFrame(s.options[i], s.options[j]), `seed ${seed}`).toBe(false)
       const answer = s.options[s.correct]
+      expect(s.broken[s.correct]).toEqual([])
       s.options.forEach((o, i) => {
-        if (i === s.correct) return
-        const differs = (['rotation', 'count', 'fill', 'position'] as const).filter((a) => o[a] !== answer[a])
-        expect(differs).toEqual([s.broken[i]])
-        expect(s.rules.map((r) => r.attr)).toContain(s.broken[i])
+        const differs = ATTRS.filter((a) => o[a] !== answer[a])
+        expect(differs.sort()).toEqual([...s.broken[i]].sort())
+        for (const a of s.broken[i]) expect(s.rules.map((r) => r.attr)).toContain(a)
       })
+    }
+  })
+
+  it('give no shortcut from the options alone: the answer is never the most typical option', () => {
+    for (let seed = 1; seed <= 2000; seed++) {
+      const s = generateSeries(makeRng(seed))
+      // "Pick the option that shares most values with the others" must not single out the key.
+      const shared = s.options.map((o, i) =>
+        s.options.reduce((n, p, j) => n + (i === j ? 0 : ATTRS.filter((a) => o[a] === p[a]).length), 0),
+      )
+      const best = Math.max(...shared)
+      expect(shared.filter((x) => x === best).length, `seed ${seed}`).toBeGreaterThan(1)
+      // Nor does a per-attribute majority vote: every value shown appears in exactly two options.
+      for (const a of ATTRS) {
+        const vals = s.options.map((o) => o[a])
+        for (const v of vals) expect([2, 4]).toContain(vals.filter((x) => x === v).length)
+      }
     }
   })
 
@@ -120,8 +139,11 @@ describe('worked solutions in cs / sk / en', () => {
   })
 
   it('name the rule a wrong option breaks', () => {
-    expect(explainBroken('count', 'en')).toBe('This option breaks the rule for the dots.')
-    expect(explainBroken('fill', 'cs')).toBe('Tato možnost porušuje pravidlo pro výplň.')
-    expect(explainBroken('position', 'sk')).toBe('Táto možnosť porušuje pravidlo pre štvorček na okraji.')
+    expect(explainBroken(['count'], 'en')).toBe('This option breaks the rule for the dots.')
+    expect(explainBroken(['count', 'rotation'], 'en')).toBe('This option breaks the rules for the dots and the turn.')
+    expect(explainBroken(['fill'], 'cs')).toBe('Tato možnost porušuje pravidlo pro výplň.')
+    expect(explainBroken(['fill', 'count'], 'cs')).toBe('Tato možnost porušuje pravidla pro výplň a tečky.')
+    expect(explainBroken(['position'], 'sk')).toBe('Táto možnosť porušuje pravidlo pre štvorček na okraji.')
+    expect(explainBroken(['position', 'rotation'], 'sk')).toBe('Táto možnosť porušuje pravidlá pre štvorček na okraji a otáčanie.')
   })
 })

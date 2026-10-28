@@ -46,7 +46,7 @@ describe('AbstractScreen — abstract reasoning', () => {
     const solutions = screen.getAllByTestId('solution')
     expect(solutions).toHaveLength(10)
     expect(solutions[0]).toHaveTextContent(/at each step|repeats/)
-    expect(screen.getAllByText(/This option breaks the rule for/)).toHaveLength(10 - expected)
+    expect(screen.getAllByText(/This option breaks the rules? for/)).toHaveLength(10 - expected)
     expect(onFinish).toHaveBeenCalledWith({ lang: 'en', score: expected, total: 10 })
   })
 })

@@ -100,7 +100,7 @@ function Figure({ frame, label, id, className = '' }: { frame: Frame; label: str
   )
 }
 
-const cell = 'rounded-card border border-steel-700 bg-steel-900/50 p-1.5 text-steel-100'
+const cell = 'rounded-card border bg-steel-900/50 p-1.5 text-steel-100'
 
 /**
  * Abstract reasoning: 10 generated "which figure comes next?" series in 10 minutes, no
@@ -197,12 +197,11 @@ export function AbstractScreen({
         </div>
         <ol aria-label={t.series} className="grid grid-cols-3 gap-2 sm:grid-cols-6">
           {s.frames.map((f, k) => (
-            <li key={k} className={cell}>
+            <li key={k} className={`${cell} border-steel-700`}>
               <Figure frame={f} label={`${t.figure} ${k + 1}`} id={`q${index}f${k}`} />
             </li>
           ))}
           <li
-            aria-label="?"
             className="flex aspect-square items-center justify-center rounded-card border border-dashed border-brass-500/60 font-display text-3xl text-brass-400"
           >
             ?
@@ -267,7 +266,7 @@ export function AbstractScreen({
               </p>
               <ol aria-label={t.series} className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {[0, 1, 2, 3, 4, 5].map((k) => (
-                  <li key={k} className={k === 5 ? `${cell} border-verdigris-500` : cell}>
+                  <li key={k} className={`${cell} ${k === 5 ? 'border-verdigris-500' : 'border-steel-700'}`}>
                     <Figure frame={frameAt(s.rules, s.start, k)} label={`${t.figure} ${k + 1}`} id={`r${i}f${k}`} />
                   </li>
                 ))}
