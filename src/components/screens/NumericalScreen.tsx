@@ -71,9 +71,9 @@ const UI: Record<Lang, Record<string, string>> = {
   },
 }
 
-const LANG_ORDER: Lang[] = ['cs', 'sk', 'en']
+export const LANG_ORDER: Lang[] = ['cs', 'sk', 'en']
 
-function defaultLang(): Lang {
+export function defaultLang(): Lang {
   const l = typeof navigator !== 'undefined' ? navigator.language.slice(0, 2) : 'en'
   return l === 'cs' || l === 'sk' ? l : 'en'
 }
