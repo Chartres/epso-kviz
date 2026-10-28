@@ -1,4 +1,5 @@
 import { sample, shuffle, type Rng } from '../rng'
+import type { Lang } from './numerical'
 
 /**
  * Abstract reasoning practice: which figure comes next? Format per the Notice of Competition
@@ -13,11 +14,13 @@ export const ABSTRACT = { questions: 10, minutes: 10 } as const
 export type Attr = 'rotation' | 'count' | 'fill' | 'position'
 export type Fill = 'solid' | 'outline' | 'hatched'
 const FILLS: Fill[] = ['solid', 'outline', 'hatched']
+/** Most dots a figure shows. The count never wraps, so a rising series stays readable. */
+export const MAX_DOTS = 8
 
 export interface Frame {
   /** Degrees, multiple of 45. */
   rotation: number
-  /** Dots under the shape, 1..6. */
+  /** Dots under the shape, 1..MAX_DOTS. */
   count: number
   fill: Fill
   /** Marker on the border, 0..7 clockwise from the top-left corner. */
@@ -48,7 +51,7 @@ function apply(f: Frame, r: Rule, k: number): Frame {
     case 'rotation':
       return { ...f, rotation: mod(f.rotation + r.step * k, 360) }
     case 'count':
-      return { ...f, count: mod(f.count - 1 + r.step * k, 6) + 1 }
+      return { ...f, count: f.count + r.step * k }
     case 'fill':
       return { ...f, fill: FILLS[mod(FILLS.indexOf(f.fill) + r.step * k, 3)] }
     case 'position':
@@ -69,7 +72,8 @@ const int = (rng: Rng, lo: number, hi: number) => lo + Math.floor(rng() * (hi - 
 
 const STEPS: Record<Attr, number[]> = {
   rotation: [45, 90, -90, 135],
-  count: [1, 2, -1],
+  // ±1 only: a steady count over six figures must fit in 1..MAX_DOTS.
+  count: [1, -1],
   fill: [1, 2],
   position: [1, 2, 3, -1],
 }
@@ -87,11 +91,13 @@ export function generateSeries(rng: Rng): Series {
     const rules: Rule[] = attrs.map((attr) => ({ attr, step: STEPS[attr][int(rng, 0, STEPS[attr].length - 1)] }))
     const start: Frame = {
       rotation: 45 * int(rng, 0, 7),
-      count: int(rng, 1, 3),
+      count: int(rng, 1, MAX_DOTS),
       fill: FILLS[int(rng, 0, 2)],
       position: int(rng, 0, 7),
     }
     const frames = [0, 1, 2, 3, 4].map((k) => frameAt(rules, start, k))
+    const countable = (f: Frame) => f.count >= 1 && f.count <= MAX_DOTS
+    if (![...frames, frameAt(rules, start, 5)].every(countable)) continue
     // Every rule must visibly change something across the five frames.
     if (rules.some((r) => new Set(frames.map((f) => f[r.attr])).size < 2)) continue
     const answer = frameAt(rules, start, 5)
@@ -100,7 +106,7 @@ export function generateSeries(rng: Rng): Series {
     for (let i = 0, tries = 0; wrong.length < 3 && tries < 40; tries++, i++) {
       const r = rules[i % rules.length]
       const f = { ...answer, [r.attr]: slip(answer, r, tries)[r.attr] } as Frame
-      if (sameFrame(f, answer) || wrong.some((w) => sameFrame(w.frame, f))) continue
+      if (!countable(f) || sameFrame(f, answer) || wrong.some((w) => sameFrame(w.frame, f))) continue
       wrong.push({ frame: f, attr: r.attr })
     }
     if (wrong.length < 3) continue
@@ -124,6 +130,66 @@ export function buildAbstractTest(rng: Rng): Series[] {
 
 export function scoreAbstract(series: Series[], answers: (number | undefined)[]): number {
   return series.reduce((s, x, i) => s + (answers[i] === x.correct ? 1 : 0), 0)
+}
+
+const FILL_NAMES: Record<Lang, Record<Fill, string>> = {
+  en: { solid: 'solid', outline: 'empty', hatched: 'hatched' },
+  cs: { solid: 'plná', outline: 'prázdná', hatched: 'šrafovaná' },
+  sk: { solid: 'plná', outline: 'prázdna', hatched: 'šrafovaná' },
+}
+
+const RULE_NAMES: Record<Lang, Record<Attr, string>> = {
+  en: { rotation: 'the turn', count: 'the dots', fill: 'the fill', position: 'the border square' },
+  cs: { rotation: 'otáčení', count: 'tečky', fill: 'výplň', position: 'čtvereček na okraji' },
+  sk: { rotation: 'otáčanie', count: 'bodky', fill: 'výplň', position: 'štvorček na okraji' },
+}
+
+const places = (n: number, lang: Lang) =>
+  lang === 'en' ? `${n} place${n === 1 ? '' : 's'}` : lang === 'cs' ? `${n} ${n === 1 ? 'místo' : n < 5 ? 'místa' : 'míst'}` : `${n} ${n === 1 ? 'miesto' : n < 5 ? 'miesta' : 'miest'}`
+
+/** One rule of a series in plain words, for the worked solution. */
+export function explainRule(r: Rule, start: Frame, lang: Lang): string {
+  const cw = r.step > 0
+  const dir = {
+    en: cw ? 'clockwise' : 'anticlockwise',
+    cs: cw ? 'po směru hodinových ručiček' : 'proti směru hodinových ručiček',
+    sk: cw ? 'v smere hodinových ručičiek' : 'proti smeru hodinových ručičiek',
+  }[lang]
+  const n = Math.abs(r.step)
+  switch (r.attr) {
+    case 'rotation':
+      return {
+        en: `The arrow turns ${n}° ${dir} at each step.`,
+        cs: `Šipka se s každým krokem otočí o ${n}° ${dir}.`,
+        sk: `Šípka sa s každým krokom otočí o ${n}° ${dir}.`,
+      }[lang]
+    case 'count':
+      return {
+        en: `One dot ${cw ? 'more' : 'fewer'} at each step.`,
+        cs: `S každým krokem ${cw ? 'přibude' : 'ubude'} jedna tečka.`,
+        sk: `S každým krokom ${cw ? 'pribudne' : 'ubudne'} jedna bodka.`,
+      }[lang]
+    case 'fill': {
+      const seq = [0, 1, 2].map((k) => FILL_NAMES[lang][apply(start, r, k).fill]).join(' → ')
+      return { en: `The fill repeats: ${seq}.`, cs: `Výplň se opakuje: ${seq}.`, sk: `Výplň sa opakuje: ${seq}.` }[lang]
+    }
+    case 'position':
+      return {
+        en: `The square on the border moves ${places(n, lang)} ${dir} at each step.`,
+        cs: `Čtvereček na okraji se s každým krokem posune o ${places(n, lang)} ${dir}.`,
+        sk: `Štvorček na okraji sa s každým krokom posunie o ${places(n, lang)} ${dir}.`,
+      }[lang]
+  }
+}
+
+/** Why a wrong option is wrong: the one rule it breaks. */
+export function explainBroken(attr: Attr, lang: Lang): string {
+  const name = RULE_NAMES[lang][attr]
+  return {
+    en: `This option breaks the rule for ${name}.`,
+    cs: `Tato možnost porušuje pravidlo pro ${name}.`,
+    sk: `Táto možnosť porušuje pravidlo pre ${name}.`,
+  }[lang]
 }
 
 // Marker positions on the border, clockwise from the top-left corner (viewBox 0..100).

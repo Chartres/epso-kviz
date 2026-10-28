@@ -8,6 +8,9 @@ import {
   buildAbstractTest,
   scoreAbstract,
   frameSvg,
+  explainRule,
+  explainBroken,
+  MAX_DOTS,
 } from './abstract'
 
 describe('abstract reasoning: format from the notice', () => {
@@ -55,6 +58,19 @@ describe('generated series', () => {
     }
   })
 
+  it('never wrap the dot count: it rises or falls steadily and stays countable', () => {
+    for (let seed = 1; seed <= 200; seed++) {
+      const s = generateSeries(makeRng(seed))
+      const counts = [...s.frames, frameAt(s.rules, s.start, 5)].map((f) => f.count)
+      const steps = new Set(counts.slice(1).map((c, i) => c - counts[i]))
+      expect(steps.size, `seed ${seed}`).toBe(1)
+      for (const o of s.options) {
+        expect(o.count).toBeGreaterThanOrEqual(1)
+        expect(o.count).toBeLessThanOrEqual(MAX_DOTS)
+      }
+    }
+  })
+
   it('render each frame as an accessible SVG', () => {
     const s = generateSeries(makeRng(4))
     const svg = frameSvg(s.frames[0], 'Figure 1')
@@ -69,5 +85,43 @@ describe('an abstract test', () => {
     expect(t).toHaveLength(10)
     expect(scoreAbstract(t, t.map((s) => s.correct))).toBe(10)
     expect(scoreAbstract(t, t.map((s) => (s.correct + 1) % 4))).toBe(0)
+  })
+})
+
+describe('worked solutions in cs / sk / en', () => {
+  const rules = [
+    { attr: 'rotation', step: -90 },
+    { attr: 'count', step: 1 },
+    { attr: 'fill', step: 2 },
+    { attr: 'position', step: 2 },
+  ] as const
+  const start = { rotation: 0, count: 1, fill: 'solid', position: 0 } as const
+
+  it('state each rule in plain words', () => {
+    const en = rules.map((r) => explainRule(r, start, 'en'))
+    expect(en).toEqual([
+      'The arrow turns 90° anticlockwise at each step.',
+      'One dot more at each step.',
+      'The fill repeats: solid → hatched → empty.',
+      'The square on the border moves 2 places clockwise at each step.',
+    ])
+  })
+
+  it('translate them into Czech and Slovak, with diacritics and the right plural', () => {
+    const cs = rules.map((r) => explainRule(r, start, 'cs'))
+    const sk = rules.map((r) => explainRule(r, start, 'sk'))
+    expect(cs[0]).toBe('Šipka se s každým krokem otočí o 90° proti směru hodinových ručiček.')
+    expect(sk[0]).toBe('Šípka sa s každým krokom otočí o 90° proti smeru hodinových ručičiek.')
+    expect(cs[3]).toContain('o 2 místa')
+    expect(sk[3]).toContain('o 2 miesta')
+    expect(explainRule({ attr: 'position', step: 1 }, start, 'cs')).toContain('o 1 místo po směru')
+    expect(explainRule({ attr: 'count', step: -1 }, start, 'sk')).toBe('S každým krokom ubudne jedna bodka.')
+    cs.forEach((c, i) => expect(c).not.toBe(sk[i]))
+  })
+
+  it('name the rule a wrong option breaks', () => {
+    expect(explainBroken('count', 'en')).toBe('This option breaks the rule for the dots.')
+    expect(explainBroken('fill', 'cs')).toBe('Tato možnost porušuje pravidlo pro výplň.')
+    expect(explainBroken('position', 'sk')).toBe('Táto možnosť porušuje pravidlo pre štvorček na okraji.')
   })
 })
