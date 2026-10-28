@@ -22,6 +22,7 @@
     "Analytics bundle guard on the uploaded dist (# flywheel:analytics-guard). Local fix: the kit's includes('.supabase.co') always passed because supabase-js carries '*.supabase.co'; it now requires https://<ref>.supabase.co. Flywheel should take the same fix into the kit.",
     "deploy.yml: concurrency ci-${{ github.ref }}, cancel-in-progress only off main.",
     "Static pages: page_view {path, static: true} and key_action source_open {doc, ref, from: 'static'} from a ~1 KB inline beacon, same row, ids and bot rule as the client.",
+    "start_exam now carries the likely-score range shown before the mock (likely_low, likely_high, likely_expected, likely_enough), so calibration can be scored against exam_finish (#11).",
     "App: key_action source_open from the answer note (from: 'answer') and the commonplace book (from: 'commonplace'). New key_action actions: abstract_start, abstract_finish."
   ],
   "signature": {
@@ -37,7 +38,7 @@
         "name": "Likely score on a fresh paper",
         "from": "Brier 1950; Lichtenstein, Fischhoff & Phillips 1982; Roediger & Karpicke 2006",
         "status": "live, awaiting Pavol's keep/change/revert",
-        "metric": "exam_finish score inside the 80% range shown before it, ~80% of the time (users with >= 2 mocks)"
+        "metric": "exam_finish score inside the range sent with start_exam (likely_low/likely_high, added in #11), ~80% of the time (users with >= 2 mocks)"
       },
       {
         "name": "The commonplace book",
@@ -112,6 +113,7 @@
   "next": [
     "Pavol: keep/change/revert on the three live moves; pick question-first A/B/C or none.",
     "Flywheel kit: take the check-analytics fix (match https://<ref>.supabase.co) and review BOT_UA false positives.",
+    "Flywheel: flywheel.json kpi_event_map maps only start_* and app_open; the signature metrics are key_action props (source_open, commonplace_add) and need a props-aware rollup or map entries in pull-kpis.",
     "Read source_open per answered verified question after a week of traffic; it is the cited answer's metric.",
     "Verbal reasoning (CS/SK/EN) is the last reasoning test not covered; exam coverage, not a signature move.",
     "Combined reasoning score: show numerical + abstract against 10/20 when both are sat in a session."

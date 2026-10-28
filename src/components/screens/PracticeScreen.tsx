@@ -4,6 +4,7 @@ import { META } from '@/domain/questions'
 import { filterQuestions } from '@/domain/selection'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
+import { readinessProps } from '@/domain/readiness'
 import type { CategoryName } from '@/domain/types'
 
 export function PracticeScreen() {
@@ -40,7 +41,7 @@ export function PracticeScreen() {
       <button
         type="button"
         onClick={() => {
-          track('start_exam')
+          track('start_exam', readinessProps(state.progress))
           dispatch({ type: 'startExam', rng: rng(), now: Date.now() })
         }}
         className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
