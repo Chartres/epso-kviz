@@ -6,6 +6,7 @@ import {
   betaBinomialPmf,
   convolve,
   readiness,
+  readinessProps,
   MIN_FIRST_ATTEMPTS,
 } from './readiness'
 
@@ -113,5 +114,19 @@ describe('readiness', () => {
   it('reports per-category first-try evidence', () => {
     const r = readiness(practise(10, (i) => i < 7))
     for (const cat of CATEGORY_NAMES) expect(r.byCategory[cat]).toEqual({ n: 10, correct: 7 })
+  })
+})
+
+describe('readinessProps', () => {
+  it('records the range shown before a mock, so calibration can be checked against exam_finish', () => {
+    const p = practise(MIN_FIRST_ATTEMPTS, (i) => i % 2 === 0)
+    const r = readiness(p)
+    expect(readinessProps(p)).toEqual({
+      likely_low: r.low,
+      likely_high: r.high,
+      likely_expected: Math.round(r.expected * 10) / 10,
+      likely_enough: true,
+    })
+    expect(readinessProps(emptyProgress()).likely_enough).toBe(false)
   })
 })
