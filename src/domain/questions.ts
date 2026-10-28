@@ -16,6 +16,11 @@ export function getQuestion(id: number): Question | undefined {
   return BY_ID.get(id)
 }
 
+/** Look up ids in order, skipping any that no longer exist in the bank. */
+export function getQuestions(ids: readonly number[]): Question[] {
+  return ids.map(getQuestion).filter((q): q is Question => q !== undefined)
+}
+
 export function byCategory(cat: CategoryName): Question[] {
   return ALL_QUESTIONS.filter((q) => q.cat === cat)
 }

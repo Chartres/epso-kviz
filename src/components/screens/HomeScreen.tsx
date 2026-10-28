@@ -7,15 +7,25 @@ import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { ProgressBar } from '@/components/ui/ProgressBar'
+import { todayStr } from '@/lib/date'
 
 export function HomeScreen() {
   const { state, dispatch } = useApp()
   const sum = useMemo(() => summary(state.progress, ALL_QUESTIONS), [state.progress])
+  // Match the actual session length: startReview (without ids) queues all
+  // unmastered questions (wrong OR correct-but-unmastered) via dueForReview.
   const reviewCount = useMemo(
     () => needsReviewIds(state.progress).length,
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  // Show 0 if the streak is broken (lastDate is neither today nor yesterday).
+  const streakData = state.progress.streak
+  const today = todayStr()
+  const yesterday = todayStr(new Date(Date.now() - 86_400_000))
+  const streak =
+    streakData.lastDate === today || streakData.lastDate === yesterday
+      ? streakData.current
+      : 0
   const rng = () => makeRng(timeSeed())
 
   return (

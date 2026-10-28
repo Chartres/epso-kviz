@@ -1,5 +1,5 @@
 import type { CategoryName, Question } from './types'
-import { ALL_QUESTIONS, getQuestion } from './questions'
+import { ALL_QUESTIONS, getQuestions } from './questions'
 import { shuffle, type Rng } from './rng'
 import { dueForReview, type ProgressData } from './progress'
 
@@ -32,14 +32,10 @@ export function buildPractice(opts: FilterOptions, rng: Rng): Question[] {
   return shuffle(filterQuestions(opts), rng)
 }
 
-export function reviewQuestions(p: ProgressData, now = 0): Question[] {
-  return dueForReview(p, now)
-    .map((id) => getQuestion(id))
-    .filter((q): q is Question => q !== undefined)
+export function reviewQuestions(p: ProgressData): Question[] {
+  return getQuestions(dueForReview(p))
 }
 
 export function bookmarkedQuestions(p: ProgressData): Question[] {
-  return p.bookmarks
-    .map((id) => getQuestion(id))
-    .filter((q): q is Question => q !== undefined)
+  return getQuestions(p.bookmarks)
 }

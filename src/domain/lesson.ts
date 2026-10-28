@@ -1,4 +1,4 @@
-import type { ExamGroup, Question } from './types'
+import type { Question } from './types'
 import { questionsForGroup, getQuestion } from './questions'
 import { EXAM } from './exam'
 import { sample, shuffle, type Rng } from './rng'
@@ -34,7 +34,7 @@ export function buildLesson(
   // 1) Review: due weak-spots, capped.
   const reviewCap = Math.floor(size * REVIEW_FRACTION)
   const review: Question[] = []
-  for (const id of dueForReview(progress, 0)) {
+  for (const id of dueForReview(progress)) {
     if (review.length >= reviewCap) break
     const q = getQuestion(id)
     if (q && take(q)) review.push(q)
@@ -43,15 +43,12 @@ export function buildLesson(
   // 2) New material, distributed by exam composition.
   const newCount = size - review.length
   const fresh: Question[] = []
-  const unmasteredFresh = (q: Question) => {
-    const s = statFor(progress, q.id)
-    return s.seen === 0 // strictly unseen
-  }
+  const isUnseen = (q: Question) => statFor(progress, q.id).seen === 0
 
   for (const part of EXAM.composition) {
     const want = Math.round((newCount * part.count) / EXAM.totalQuestions)
-    const pool = questionsForGroup(part.group as ExamGroup).filter(
-      (q) => !used.has(q.id) && unmasteredFresh(q),
+    const pool = questionsForGroup(part.group).filter(
+      (q) => !used.has(q.id) && isUnseen(q),
     )
     for (const q of sample(pool, want, rng)) {
       if (fresh.length >= newCount) break
@@ -61,16 +58,22 @@ export function buildLesson(
 
   // 3) Top up to size: any remaining unseen, then seen-but-unmastered.
   if (review.length + fresh.length < size) {
-    const all = EXAM.composition.flatMap((p) =>
-      questionsForGroup(p.group as ExamGroup),
-    )
-    const unseen = all.filter((q) => !used.has(q.id) && statFor(progress, q.id).seen === 0)
+    const all = EXAM.composition.flatMap((p) => questionsForGroup(p.group))
+    const unseen = all.filter((q) => !used.has(q.id) && isUnseen(q))
     const unmastered = all.filter(
       (q) => !used.has(q.id) && !isMastered(statFor(progress, q.id)),
     )
     for (const q of [...shuffle(unseen, rng), ...shuffle(unmastered, rng)]) {
       if (review.length + fresh.length >= size) break
       if (take(q)) fresh.push(q)
+    }
+    // Last resort: repeat mastered questions so LESSON_SIZE is always honoured
+    // (e.g. learner has mastered every question in the bank).
+    if (review.length + fresh.length < size) {
+      for (const q of shuffle(all.filter((q) => !used.has(q.id)), rng)) {
+        if (review.length + fresh.length >= size) break
+        if (take(q)) fresh.push(q)
+      }
     }
   }
 

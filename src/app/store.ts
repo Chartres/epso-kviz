@@ -4,7 +4,6 @@ import {
   createSession,
   answerCurrent,
   advance,
-  currentQuestion,
   isFinished,
   type SessionState,
 } from '@/domain/session'
@@ -13,6 +12,7 @@ import {
   reviewQuestions,
   bookmarkedQuestions,
 } from '@/domain/selection'
+import { getQuestions } from '@/domain/questions'
 import { buildExam, evaluateExam, EXAM, type ExamResult } from '@/domain/exam'
 import {
   emptyProgress,
@@ -65,7 +65,7 @@ export type Action =
   | { type: 'setSearch'; search: string }
   | { type: 'startLesson'; rng: Rng }
   | { type: 'startPractice'; rng: Rng }
-  | { type: 'startReview'; rng: Rng }
+  | { type: 'startReview'; rng: Rng; ids?: number[] }
   | { type: 'startBookmarks'; rng: Rng }
   | { type: 'startExam'; rng: Rng; now: number }
   | { type: 'answer'; choice: Choice; now: number }
@@ -83,6 +83,7 @@ function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
     mode,
     session: questions,
     examResult: null,
+    examEndsAt: null,
     view: mode === 'exam' ? 'exam' : 'quiz',
   }
 }
@@ -113,12 +114,14 @@ export function reducer(state: AppState, action: Action): AppState {
       return begin(state, 'practice', createSession(qs))
     }
 
-    case 'startReview':
-      return begin(
-        state,
-        'review',
-        createSession(reviewQuestions(state.progress)),
-      )
+    case 'startReview': {
+      // When explicit ids are provided (e.g. session's wrong answers) use those;
+      // otherwise fall back to the global weak-spots queue.
+      const qs = action.ids
+        ? getQuestions(action.ids)
+        : reviewQuestions(state.progress)
+      return begin(state, 'review', createSession(qs))
+    }
 
     case 'startBookmarks':
       return begin(
@@ -135,14 +138,13 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'answer': {
       if (!state.session) return state
-      const cur = currentQuestion(state.session)
-      if (!cur || state.session.chosen[cur.id] !== undefined) return state
       const session = answerCurrent(state.session, action.choice)
-      const correct = action.choice === cur.correct
+      if (session === state.session) return state // finished or already answered
+      const { id, correct } = session.records[session.records.length - 1]
       return {
         ...state,
         session,
-        progress: recordAnswer(state.progress, cur.id, correct, action.now),
+        progress: recordAnswer(state.progress, id, correct, action.now),
       }
     }
 
@@ -155,6 +157,7 @@ export function reducer(state: AppState, action: Action): AppState {
           session,
           view: 'results',
           examResult: state.mode === 'exam' ? evaluateExam(session) : null,
+          examEndsAt: null,
           progress:
             state.mode === 'lesson' && action.today
               ? recordLessonComplete(state.progress, action.today)
@@ -165,7 +168,7 @@ export function reducer(state: AppState, action: Action): AppState {
     }
 
     case 'finishExam': {
-      if (!state.session) return state
+      if (!state.session || state.mode !== 'exam') return state
       return {
         ...state,
         view: 'results',

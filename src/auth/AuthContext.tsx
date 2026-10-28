@@ -17,7 +17,6 @@ interface AuthContextValue {
   configured: boolean
   loading: boolean
   user: AuthUser | null
-  signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>
   signOut: () => Promise<void>
 }
@@ -35,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
       identify(u?.id ?? null) // cross-product identity on the shared platform
       setLoading(false)
-    })
+    }).catch(() => setLoading(false))
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       const u = session?.user
       setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
@@ -48,13 +47,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     configured: isAuthConfigured,
     loading,
     user,
-    async signInWithGoogle() {
-      if (!supabase) return
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: window.location.href },
-      })
-    },
     async signInWithEmail(email: string) {
       if (!supabase) return { ok: false, error: 'Sign-in is not configured.' }
       const { error } = await supabase.auth.signInWithOtp({

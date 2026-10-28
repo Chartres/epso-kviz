@@ -13,20 +13,29 @@ import { ReadinessCard } from '@/components/ReadinessCard'
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
   const { session, examResult, mode } = state
-  if (!session) return null
-
-  const total = session.questions.length
-  const correct = score(session)
-  const wrong = wrongAnswers(session)
   const isExam = mode === 'exam'
   const isLesson = mode === 'lesson'
 
+  // Must be before the conditional return (rules of hooks).
   useEffect(() => {
+    if (!session) return
+    const total = session.questions.length
+    const correct = score(session)
     const name = isExam ? 'exam_finish' : isLesson ? 'lesson_complete' : 'session_finish'
     track(name, { mode, score: correct, total, passed: examResult?.passed })
     // fire once per results view
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (!session) return null
+
+  const total = session.questions.length
+  const correct = score(session)
+  const wrong = wrongAnswers(session)
+  // Questions not answered at all (timeout exit); only relevant for exam mode.
+  const unanswered = isExam
+    ? session.questions.filter((q) => !(q.id in session.chosen))
+    : []
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10">
@@ -88,10 +97,10 @@ export function ResultsScreen() {
         </div>
       )}
 
-      {wrong.length > 0 && (
+      {(wrong.length > 0 || unanswered.length > 0) && (
         <section className="mt-8">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-rust-400">
-            Wrong answers ({wrong.length})
+            Wrong answers ({wrong.length + unanswered.length})
           </h2>
           <ul className="space-y-3">
             {wrong.map((r) => {
@@ -112,6 +121,23 @@ export function ResultsScreen() {
                 </li>
               )
             })}
+            {unanswered.map((q) => (
+              <li
+                key={q.id}
+                className="rounded-card border border-steel-700 bg-steel-900/50 p-4"
+              >
+                <p className="mb-1 font-mono text-[0.65rem] uppercase tracking-wide text-steel-500">
+                  Not reached
+                </p>
+                <p className="mb-2 text-sm text-steel-200">{q.q}</p>
+                <p className="text-sm text-verdigris-400">
+                  <span className="font-semibold uppercase">{q.correct})</span>{' '}
+                  {q[q.correct]}
+                </p>
+                <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
+                <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
+              </li>
+            ))}
           </ul>
         </section>
       )}
@@ -120,16 +146,30 @@ export function ResultsScreen() {
         {isLesson && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_lesson')
+              dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })
+            }}
             className="glow-brass rounded-card bg-brass-500 px-5 py-2.5 font-display font-semibold uppercase tracking-wide text-steel-950 hover:bg-brass-400"
           >
             Next lesson
           </button>
         )}
-        {wrong.length > 0 && (
+        {(wrong.length > 0 || unanswered.length > 0) && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startReview', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_review')
+              dispatch({
+                type: 'startReview',
+                rng: makeRng(timeSeed()),
+                // Limit to this session's wrong/unanswered, not the global queue.
+                ids: [
+                  ...wrong.map((r) => r.id),
+                  ...unanswered.map((q) => q.id),
+                ],
+              })
+            }}
             className="rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200 hover:border-steel-400"
           >
             Review mistakes

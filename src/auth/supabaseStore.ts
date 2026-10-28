@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
+import type { ProgressData } from '@/domain/progress'
 import type { RemoteProgressStore } from './sync'
 
 /**
@@ -20,7 +20,10 @@ export const supabaseStore: RemoteProgressStore = {
       .maybeSingle()
     if (error) throw error
     const stored = data?.data as ProgressData | undefined
-    if (!stored || stored.version !== PROGRESS_VERSION) return null
+    if (!stored) return null
+    // Return the row even when the version differs: mergeProgress handles schema
+    // drift and the subsequent save normalises the version. Returning null would
+    // cause syncProgress to treat the cloud as empty and overwrite newer data.
     return stored
   },
 
