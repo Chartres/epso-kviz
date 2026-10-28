@@ -16,10 +16,14 @@ function jsFiles(dir) {
   return out;
 }
 
+// A real project URL, not supabase-js's own '*.supabase.co' host pattern, which every
+// bundle carries (local fix; the flywheel kit's plain includes() always passed here).
+export const hasProjectUrl = (js) => /https:\/\/[a-z0-9-]+\.supabase\.co/.test(js);
+
 export function bundleHasAnalytics(dir) {
   const files = jsFiles(dir);
   if (!files.length) return { ok: false, reason: `no JS files under ${dir}` };
-  const hit = files.find((f) => readFileSync(f, 'utf8').includes('.supabase.co'));
+  const hit = files.find((f) => hasProjectUrl(readFileSync(f, 'utf8')));
   if (hit) return { ok: true, reason: `analytics config found in ${path.relative(dir, hit)}` };
   return {
     ok: false,

@@ -47,8 +47,8 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
       # On the exact dist that ships: fail when the build had no Supabase env (no events would
-      # be sent). Fork PRs get no secrets, so they skip it; nothing rebuilds dist after this.
-      - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+      # be sent). Fork and Dependabot PRs get no secrets, so they skip it; nothing rebuilds dist after this.
+      - if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
         run: node scripts/check-analytics.mjs dist # flywheel:analytics-guard
       - uses: actions/upload-pages-artifact@v3
         with:
