@@ -7,6 +7,7 @@ import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { ProgressBar } from '@/components/ui/ProgressBar'
+import { todayStr } from '@/lib/date'
 
 export function HomeScreen() {
   const { state, dispatch } = useApp()
@@ -18,7 +19,14 @@ export function HomeScreen() {
       Object.values(state.progress.stats).filter((s) => s.seen > 0 && !s.lastCorrect).length,
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  // Show 0 if the streak is broken (lastDate is neither today nor yesterday).
+  const streakData = state.progress.streak
+  const today = todayStr()
+  const yesterday = todayStr(new Date(Date.now() - 86_400_000))
+  const streak =
+    streakData.lastDate === today || streakData.lastDate === yesterday
+      ? streakData.current
+      : 0
   const rng = () => makeRng(timeSeed())
 
   return (
