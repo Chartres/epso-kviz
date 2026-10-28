@@ -83,6 +83,7 @@ function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
     mode,
     session: questions,
     examResult: null,
+    examEndsAt: null,
     view: mode === 'exam' ? 'exam' : 'quiz',
   }
 }
@@ -156,6 +157,7 @@ export function reducer(state: AppState, action: Action): AppState {
           session,
           view: 'results',
           examResult: state.mode === 'exam' ? evaluateExam(session) : null,
+          examEndsAt: null,
           progress:
             state.mode === 'lesson' && action.today
               ? recordLessonComplete(state.progress, action.today)
@@ -166,7 +168,7 @@ export function reducer(state: AppState, action: Action): AppState {
     }
 
     case 'finishExam': {
-      if (!state.session) return state
+      if (!state.session || state.mode !== 'exam') return state
       return {
         ...state,
         view: 'results',
