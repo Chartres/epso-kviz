@@ -46,6 +46,15 @@ const input: SiteInput = {
   base,
   date: new Date().toISOString().slice(0, 10),
   articleTitles,
+  // Same env as the app bundle; absent locally and in e2e, so those pages carry no script.
+  beacon:
+    process.env.VITE_SUPABASE_URL && (process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_ANON_KEY)
+      ? {
+          url: process.env.VITE_SUPABASE_URL.replace(/\/$/, ''),
+          key: (process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_ANON_KEY)!,
+          app: 'epso-kviz',
+        }
+      : undefined,
 }
 
 const pages = buildSite(input)
@@ -57,4 +66,4 @@ for (const p of pages) {
 writeFileSync(join(dist, 'sitemap.xml'), sitemapXml(pages, input))
 writeFileSync(join(dist, 'llms.txt'), llmsTxt(pages, input))
 
-console.log(`prerender: ${pages.length} pages, sitemap, llms.txt → dist/`)
+console.log(`prerender: ${pages.length} pages${input.beacon ? ' (with analytics beacon)' : ''}, sitemap, llms.txt → dist/`)

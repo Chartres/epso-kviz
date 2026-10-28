@@ -6,6 +6,9 @@ import { emptyProgress } from '@/domain/progress'
 import { setCollected } from '@/domain/commonplace'
 import { ALL_QUESTIONS } from '@/domain/questions'
 
+const track = vi.fn()
+vi.mock('@/analytics', () => ({ track: (...a: unknown[]) => track(...a) }))
+
 const q = ALL_QUESTIONS.find((x) => x.verified && x.sources?.[0].doc === 'ai-act')!
 
 describe('Commonplace', () => {
@@ -25,5 +28,14 @@ describe('Commonplace', () => {
     expect(within(act).getByText(q.q)).toBeInTheDocument()
     await userEvent.click(within(act).getByRole('button', { name: /remove/i }))
     expect(onRemove).toHaveBeenCalledWith(expect.objectContaining({ doc: q.sources![0].doc, quote: q.sources![0].quote }))
+  })
+
+  it('reports opening a cited source as key_action source_open', async () => {
+    const c = q.sources![0]
+    render(<Commonplace progress={setCollected(emptyProgress(), c, q.id, true, 1)} onRemove={() => {}} />)
+    const link = screen.getByRole('link', { name: new RegExp(c.ref.replace(/[()]/g, '\\$&')) })
+    link.addEventListener('click', (e) => e.preventDefault())
+    await userEvent.click(link)
+    expect(track).toHaveBeenCalledWith('key_action', { action: 'source_open', doc: c.doc, ref: c.ref, from: 'commonplace' })
   })
 })
