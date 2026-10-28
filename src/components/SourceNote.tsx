@@ -1,5 +1,6 @@
 import type { Question } from '@/domain/types'
 import { citationLabel, citationUrl } from '@/domain/citations'
+import { track } from '@/analytics'
 
 interface SourceNoteProps {
   question: Question
@@ -27,6 +28,7 @@ export function SourceNote({ question, collected = [], onCollect }: SourceNotePr
             <figcaption className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 pl-3 font-mono text-xs">
               <a
                 href={citationUrl(c)}
+                onClick={() => track('key_action', { action: 'source_open', doc: c.doc, ref: c.ref, q: question.id, from: 'answer' })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brass-400 underline-offset-2 hover:underline"
