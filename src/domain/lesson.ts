@@ -72,6 +72,14 @@ export function buildLesson(
       if (review.length + fresh.length >= size) break
       if (take(q)) fresh.push(q)
     }
+    // Last resort: repeat mastered questions so LESSON_SIZE is always honoured
+    // (e.g. learner has mastered every question in the bank).
+    if (review.length + fresh.length < size) {
+      for (const q of shuffle(all.filter((q) => !used.has(q.id)), rng)) {
+        if (review.length + fresh.length >= size) break
+        if (take(q)) fresh.push(q)
+      }
+    }
   }
 
   return shuffle([...review, ...fresh], rng).slice(0, size)
