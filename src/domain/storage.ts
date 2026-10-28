@@ -24,13 +24,12 @@ export function loadProgress(): ProgressData {
     if (!raw) return emptyProgress()
     const parsed = JSON.parse(raw) as Partial<ProgressData>
     if (parsed.version !== PROGRESS_VERSION) return emptyProgress()
+    const commonplace = sanitizeCommonplace(parsed.commonplace)
     return {
       version: PROGRESS_VERSION,
       stats: parsed.stats ?? {},
       bookmarks: parsed.bookmarks ?? [],
-      ...(sanitizeCommonplace(parsed.commonplace).length
-        ? { commonplace: sanitizeCommonplace(parsed.commonplace) }
-        : {}),
+      ...(commonplace.length ? { commonplace } : {}),
       streak: parsed.streak ?? emptyStreak(),
       updatedAt: parsed.updatedAt ?? 0,
     }
