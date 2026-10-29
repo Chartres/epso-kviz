@@ -1,0 +1,1040 @@
+{
+ "note": "Verbal reasoning statements, one key per item for all three languages. answer: true | false | cannot (the passage alone does not settle it). Each item was checked blind against its passage in each language; see data/verbal/README.md.",
+ "items": [
+  {
+   "id": "ai44-1",
+   "passage": "32024R1689-r44",
+   "answer": "true",
+   "statement": {
+    "cs": "Jedním z důvodů pochybností o těchto systémech je, že tentýž člověk může emoce vyjadřovat různě.",
+    "sk": "Jedným z dôvodov pochybností o týchto systémoch je, že ten istý človek môže emócie prejavovať rôzne.",
+    "en": "One reason given for doubting these systems is that the same person may express emotions differently."
+   },
+   "why": {
+    "cs": "Text uvádí, že vyjádření emocí se liší „dokonce i u téhož jednotlivce“.",
+    "sk": "Text uvádza, že prejav emócií sa líši „dokonca aj v prípade jedného jednotlivca“.",
+    "en": "The passage says expression of emotions varies \"even within a single individual\"."
+   }
+  },
+  {
+   "id": "ai44-2",
+   "passage": "32024R1689-r44",
+   "answer": "false",
+   "statement": {
+    "cs": "Text navrhuje zakázat systémy rozpoznávání emocí ve všech situacích.",
+    "sk": "Text navrhuje zakázať systémy rozpoznávania emócií vo všetkých situáciách.",
+    "en": "The passage proposes banning emotion recognition systems in all settings."
+   },
+   "why": {
+    "cs": "Zákaz se týká situací souvisejících s prací a vzděláváním a nevztahuje se na systémy pro lékařské nebo bezpečnostní účely.",
+    "sk": "Zákaz sa týka situácií súvisiacich s pracoviskom a vzdelávaním a nevzťahuje sa na systémy na zdravotné alebo bezpečnostné účely.",
+    "en": "The ban covers the workplace and education only, and excludes systems for medical or safety reasons."
+   }
+  },
+  {
+   "id": "ai44-3",
+   "passage": "32024R1689-r44",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Systémy rozpoznávání emocí jsou u některých kultur přesnější než u jiných.",
+    "sk": "Systémy rozpoznávania emócií sú pri niektorých kultúrach presnejšie ako pri iných.",
+    "en": "Emotion recognition systems are more accurate for some cultures than for others."
+   },
+   "why": {
+    "cs": "Text říká, že se vyjádření emocí mezi kulturami liší, ale o přesnosti podle kultur nic neuvádí.",
+    "sk": "Text hovorí, že prejav emócií sa medzi kultúrami líši, ale o presnosti podľa kultúr nič neuvádza.",
+    "en": "The passage says expression varies across cultures but says nothing about accuracy by culture."
+   }
+  },
+  {
+   "id": "ai44-4",
+   "passage": "32024R1689-r44",
+   "answer": "false",
+   "statement": {
+    "cs": "Na systém uváděný na trh výhradně k terapeutickému použití ve škole by se zákaz vztahoval.",
+    "sk": "Na systém uvádzaný na trh výlučne na terapeutické použitie v škole by sa zákaz vzťahoval.",
+    "en": "A system marketed solely for therapeutic use in a school would fall under the prohibition."
+   },
+   "why": {
+    "cs": "Zákaz by se neměl vztahovat na systémy uváděné na trh výhradně z lékařských důvodů, „jako jsou systémy určené k terapeutickému použití“.",
+    "sk": "Zákaz by sa nemal vzťahovať na systémy uvádzané na trh výlučne zo zdravotných dôvodov, „ako sú systémy určené na terapeutické použitie“.",
+    "en": "The prohibition should not cover systems placed on the market strictly for medical reasons, \"such as systems intended for therapeutical use\"."
+   }
+  },
+  {
+   "id": "ai44-5",
+   "passage": "32024R1689-r44",
+   "answer": "true",
+   "statement": {
+    "cs": "Riziko nepříznivého zacházení v práci a ve škole text zčásti spojuje s nerovnováhou moci mezi stranami.",
+    "sk": "Riziko nepriaznivého zaobchádzania v práci a v škole text sčasti spája s nerovnováhou moci medzi stranami.",
+    "en": "The passage links the risk of unfavourable treatment at work and in education partly to the imbalance of power between the parties."
+   },
+   "why": {
+    "cs": "„Vzhledem k nerovnováze moci v kontextu práce nebo vzdělávání…“ mohou tyto systémy vést k nepříznivému zacházení.",
+    "sk": "„Vzhľadom na nerovnováhu moci v kontexte práce alebo vzdelávania…“ môžu tieto systémy viesť k nepriaznivému zaobchádzaniu.",
+    "en": "\"Considering the imbalance of power in the context of work or education…\" such systems could lead to unfavourable treatment."
+   }
+  },
+  {
+   "id": "ai31-1",
+   "passage": "32024R1689-r31",
+   "answer": "false",
+   "statement": {
+    "cs": "Obavy z hodnocení sociálního kreditu se týkají pouze systémů provozovaných veřejnými orgány.",
+    "sk": "Obavy zo sociálneho bodovania sa týkajú len systémov, ktoré používajú orgány verejnej moci.",
+    "en": "The concern about social scoring applies only to systems operated by public authorities."
+   },
+   "why": {
+    "cs": "Text mluví o hodnocení „ze strany veřejných či soukromých aktérů“.",
+    "sk": "Text hovorí o systémoch „používané orgánmi verejnej moci alebo súkromnými aktérmi“.",
+    "en": "The passage covers scoring \"by public or private actors\"."
+   }
+  },
+  {
+   "id": "ai31-2",
+   "passage": "32024R1689-r31",
+   "answer": "true",
+   "statement": {
+    "cs": "Zacházení, které je nepřiměřené závažnosti sociálního chování dané osoby, patří k výsledkům, proti nimž text vystupuje.",
+    "sk": "Zaobchádzanie, ktoré je neprimerané závažnosti spoločenského správania danej osoby, patrí k výsledkom, proti ktorým text vystupuje.",
+    "en": "Treatment out of proportion to the gravity of a person's social behaviour is one of the outcomes the passage objects to."
+   },
+   "why": {
+    "cs": "Text uvádí znevýhodňující zacházení „nepřiměřené nebo neodůvodněné s ohledem na závažnost jejich sociálního chování“.",
+    "sk": "Text uvádza zaobchádzanie „neprimerané alebo neodôvodnené vzhľadom na závažnosť ich spoločenského správania“.",
+    "en": "The passage names treatment \"disproportionate or unjustified to the gravity of their social behaviour\"."
+   }
+  },
+  {
+   "id": "ai31-3",
+   "passage": "32024R1689-r31",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Systémy hodnocení sociálního kreditu se již používají alespoň v jednom členském státě.",
+    "sk": "Systémy sociálneho bodovania sa už používajú aspoň v jednom členskom štáte.",
+    "en": "Social scoring systems are already in use in at least one Member State."
+   },
+   "why": {
+    "cs": "Text o současném používání v členských státech nic neříká.",
+    "sk": "Text o súčasnom používaní v členských štátoch nič nehovorí.",
+    "en": "The passage says nothing about current use in any Member State."
+   }
+  },
+  {
+   "id": "ai31-4",
+   "passage": "32024R1689-r31",
+   "answer": "false",
+   "statement": {
+    "cs": "Zákaz by se vztahoval i na zákonné posuzování osob prováděné za zvláštním účelem podle vnitrostátního práva.",
+    "sk": "Zákaz by sa vzťahoval aj na zákonné hodnotenie osôb vykonávané na špecifické účely podľa vnútroštátneho práva.",
+    "en": "The prohibition would also rule out lawful evaluations of people carried out for a specific purpose under national law."
+   },
+   "why": {
+    "cs": "„Tímto zákazem by neměly být dotčeny zákonné postupy posuzování fyzických osob prováděné za zvláštním účelem…“",
+    "sk": "„Tento zákaz by nemal mať vplyv na zákonné postupy hodnotenia fyzických osôb vykonávané na špecifické účely…“",
+    "en": "\"That prohibition should not affect lawful evaluation practices of natural persons that are carried out for a specific purpose…\""
+   }
+  },
+  {
+   "id": "ai31-5",
+   "passage": "32024R1689-r31",
+   "answer": "true",
+   "statement": {
+    "cs": "Podle textu může újma vzniknout, když se hodnocení použije v kontextu, který nesouvisí s kontextem, v němž byly údaje shromážděny.",
+    "sk": "Podľa textu môže ujma vzniknúť, keď sa skóre použije v kontexte, ktorý nesúvisí s kontextom, v ktorom boli údaje zhromaždené.",
+    "en": "According to the passage, harm can arise when a score is used in a context unrelated to the one in which the data were collected."
+   },
+   "why": {
+    "cs": "Text uvádí nepříznivé zacházení „v sociálních kontextech nesouvisejících s kontextem, ve kterém byly dané údaje původně vytvořeny nebo shromážděny“.",
+    "sk": "Text uvádza nepriaznivé zaobchádzanie „v sociálnych kontextoch nesúvisiacich s kontextom, v ktorom boli údaje pôvodne vygenerované alebo zhromaždené“.",
+    "en": "The passage names unfavourable treatment \"in social contexts, which are unrelated to the context in which the data was originally generated or collected\"."
+   }
+  },
+  {
+   "id": "ai63-1",
+   "passage": "32024R1689-r63",
+   "answer": "false",
+   "statement": {
+    "cs": "Klasifikace systému jako vysoce rizikového potvrzuje, že jeho používání je zákonné podle předpisů o ochraně osobních údajů.",
+    "sk": "Klasifikácia systému ako vysokorizikového potvrdzuje, že jeho používanie je zákonné podľa predpisov o ochrane osobných údajov.",
+    "en": "Classifying a system as high-risk confirms that its use is lawful under data protection law."
+   },
+   "why": {
+    "cs": "Klasifikace „by neměla být vykládána v tom smyslu, že používání tohoto systému je zákonné“ podle jiných předpisů, například o ochraně osobních údajů.",
+    "sk": "Klasifikácia „by sa nemala vykladať ako naznačujúca, že používanie tohto systému je zákonné“ podľa iných predpisov, napríklad o ochrane osobných údajov.",
+    "en": "Classification \"should not be interpreted as indicating that the use of the system is lawful\" under other law, such as data protection."
+   }
+  },
+  {
+   "id": "ai63-2",
+   "passage": "32024R1689-r63",
+   "answer": "true",
+   "statement": {
+    "cs": "Nařízení nemá sloužit jako právní základ pro zpracování osobních údajů, pokud v něm není konkrétně stanoveno jinak.",
+    "sk": "Nariadenie nemá slúžiť ako právny základ pre spracúvanie osobných údajov, pokiaľ sa v ňom výslovne neustanovuje inak.",
+    "en": "The Regulation is not meant to serve as a legal ground for processing personal data, unless it specifically provides otherwise."
+   },
+   "why": {
+    "cs": "To říká poslední věta textu.",
+    "sk": "To hovorí posledná veta textu.",
+    "en": "This is the last sentence of the passage."
+   }
+  },
+  {
+   "id": "ai63-3",
+   "passage": "32024R1689-r63",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Používání polygrafů je ve většině členských států vnitrostátním právem zakázáno.",
+    "sk": "Používanie polygrafov je vo väčšine členských štátov vnútroštátnym právom zakázané.",
+    "en": "The use of polygraphs is banned under national law in most Member States."
+   },
+   "why": {
+    "cs": "Polygrafy jsou zmíněny jen jako příklad oblasti práva; o jejich zákazu text nic neříká.",
+    "sk": "Polygrafy sú spomenuté len ako príklad oblasti práva; o ich zákaze text nič nehovorí.",
+    "en": "Polygraphs are named only as an example of an area of law; the passage says nothing about bans."
+   }
+  },
+  {
+   "id": "ai63-4",
+   "passage": "32024R1689-r63",
+   "answer": "true",
+   "statement": {
+    "cs": "Takové používání systémů AI má i nadále probíhat v souladu s požadavky vyplývajícími z Listiny.",
+    "sk": "Takéto používanie systémov AI sa má aj naďalej vykonávať v súlade s požiadavkami vyplývajúcimi z charty.",
+    "en": "Such use of AI systems should continue to comply with the requirements resulting from the Charter."
+   },
+   "why": {
+    "cs": "„K jakémukoli takovému používání by mělo i nadále docházet pouze v souladu s… požadavky vyplývajícími z Listiny…“",
+    "sk": "„Akékoľvek takéto použitie by sa malo naďalej vykonávať výlučne v súlade s… požiadavkami vyplývajúcimi z charty…“",
+    "en": "\"Any such use should continue to occur solely in accordance with the applicable requirements resulting from the Charter…\""
+   }
+  },
+  {
+   "id": "ai63-5",
+   "passage": "32024R1689-r63",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Většina vysoce rizikových systémů AI zpracovává zvláštní kategorie osobních údajů.",
+    "sk": "Väčšina vysokorizikových systémov AI spracúva osobitné kategórie osobných údajov.",
+    "en": "Most high-risk AI systems process special categories of personal data."
+   },
+   "why": {
+    "cs": "Text zvláštní kategorie zmiňuje, ale nic neříká o tom, kolik systémů je zpracovává.",
+    "sk": "Text osobitné kategórie spomína, ale nič nehovorí o tom, koľko systémov ich spracúva.",
+    "en": "The passage mentions special categories but not how many systems process them."
+   }
+  },
+  {
+   "id": "ai102-1",
+   "passage": "32024R1689-r102",
+   "answer": "true",
+   "statement": {
+    "cs": "Obecný model AI s licencí s otevřeným zdrojovým kódem, jehož parametry včetně vah, informace o architektuře a informace o používání jsou veřejně dostupné, má být považován za model zajišťující vysokou úroveň transparentnosti.",
+    "sk": "Model AI na všeobecné účely s licenciou s otvoreným zdrojovým kódom, ktorého parametre vrátane váh, informácie o architektúre a informácie o používaní sú verejne dostupné, sa má považovať za model zabezpečujúci vysokú úroveň transparentnosti.",
+    "en": "An open-source general-purpose AI model whose parameters including the weights, architecture information and usage information are public should be considered to ensure high levels of transparency."
+   },
+   "why": {
+    "cs": "Přesně tuto podmínku uvádí druhá věta textu.",
+    "sk": "Presne túto podmienku uvádza druhá veta textu.",
+    "en": "The second sentence sets out exactly this condition."
+   }
+  },
+  {
+   "id": "ai102-2",
+   "passage": "32024R1689-r102",
+   "answer": "false",
+   "statement": {
+    "cs": "Licence, která vyžaduje uvedení původního poskytovatele, nemůže být považována za svobodnou licenci s otevřeným zdrojovým kódem.",
+    "sk": "Licencia, ktorá vyžaduje uvedenie pôvodného poskytovateľa, sa nemôže považovať za licenciu s otvoreným zdrojovým kódom.",
+    "en": "A licence that requires users to credit the original provider cannot count as free and open-source."
+   },
+   "why": {
+    "cs": "Licence je svobodná s otevřeným zdrojovým kódem „i v případě“, že vyžaduje připsání původnímu poskytovateli.",
+    "sk": "Licencia sa považuje za licenciu s otvoreným zdrojovým kódom „aj vtedy“, keď vyžaduje pripísanie kreditu pôvodnému poskytovateľovi.",
+    "en": "A licence counts as free and open-source \"also when\" it requires crediting the original provider."
+   }
+  },
+  {
+   "id": "ai102-3",
+   "passage": "32024R1689-r102",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Většina obecných modelů AI na trhu Unie je zpřístupněna na základě licencí s otevřeným zdrojovým kódem.",
+    "sk": "Väčšina modelov AI na všeobecné účely na trhu Únie sa vydáva na základe licencií s otvoreným zdrojovým kódom.",
+    "en": "Most general-purpose AI models on the Union market are released under open-source licences."
+   },
+   "why": {
+    "cs": "Text o podílu takových modelů na trhu nic neříká.",
+    "sk": "Text o podiele takých modelov na trhu nič nehovorí.",
+    "en": "The passage gives no figure or share for the market."
+   }
+  },
+  {
+   "id": "ai102-4",
+   "passage": "32024R1689-r102",
+   "answer": "true",
+   "statement": {
+    "cs": "Text řadí možnost upravovat a přerozdělovat software k rysům svobodné licence s otevřeným zdrojovým kódem.",
+    "sk": "Text zaraďuje možnosť upravovať a redistribuovať softvér k znakom licencie s otvoreným zdrojovým kódom.",
+    "en": "The passage counts the freedom to modify and redistribute software among the features of a free and open-source licence."
+   },
+   "why": {
+    "cs": "První věta: uživatelé k nim mohou „volně přistupovat, používat je, upravovat a přerozdělovat“.",
+    "sk": "Prvá veta: používatelia ich môžu voľne „používať, upravovať a redistribuovať“.",
+    "en": "First sentence: users can freely \"access, use, modify and redistribute them\"."
+   }
+  },
+  {
+   "id": "ai102-5",
+   "passage": "32024R1689-r102",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Modely s otevřeným zdrojovým kódem nesou menší riziko zneužití než proprietární modely.",
+    "sk": "Modely s otvoreným zdrojovým kódom nesú menšie riziko zneužitia ako proprietárne modely.",
+    "en": "Open-source models carry less risk of misuse than proprietary ones."
+   },
+   "why": {
+    "cs": "Text o riziku zneužití nehovoří.",
+    "sk": "Text o riziku zneužitia nehovorí.",
+    "en": "The passage does not discuss risk of misuse."
+   }
+  },
+  {
+   "id": "gdpr43-1",
+   "passage": "32016R0679-r43",
+   "answer": "true",
+   "statement": {
+    "cs": "Lze předpokládat, že souhlas není svobodný, je-li poskytnutí služby podmíněno souhlasem, který pro ni není nezbytný.",
+    "sk": "Súhlas sa nepovažuje za poskytnutý slobodne, ak sa poskytnutie služby podmieňuje súhlasom, ktorý na ňu nie je nevyhnutný.",
+    "en": "Consent is presumed not to be freely given if a service is made dependent on consent that the service does not need."
+   },
+   "why": {
+    "cs": "Druhá věta textu uvádí právě tento případ.",
+    "sk": "Druhá veta textu uvádza práve tento prípad.",
+    "en": "The second sentence names exactly this case."
+   }
+  },
+  {
+   "id": "gdpr43-3",
+   "passage": "32016R0679-r43",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Orgány veřejné moci se o souhlas opírají méně často než soukromé společnosti.",
+    "sk": "Orgány verejnej moci sa o súhlas opierajú menej často ako súkromné spoločnosti.",
+    "en": "Public authorities rely on consent less often than private companies do."
+   },
+   "why": {
+    "cs": "Text o četnosti používání souhlasu nic neříká.",
+    "sk": "Text o častosti používania súhlasu nič nehovorí.",
+    "en": "The passage says nothing about how often consent is used."
+   }
+  },
+  {
+   "id": "gdpr43-4",
+   "passage": "32016R0679-r43",
+   "answer": "false",
+   "statement": {
+    "cs": "Spojit několik operací zpracování pod jeden souhlas je přijatelné, i když by byl vhodný samostatný souhlas.",
+    "sk": "Spojiť niekoľko spracovateľských operácií pod jeden súhlas je prijateľné, aj keď by bol vhodný samostatný súhlas.",
+    "en": "Bundling several processing operations under one consent is acceptable even where separate consent would be appropriate."
+   },
+   "why": {
+    "cs": "Souhlas se v takovém případě předpokládá jako nesvobodný.",
+    "sk": "Súhlas sa v takom prípade nepovažuje za slobodný.",
+    "en": "In that case consent is presumed not to be freely given."
+   }
+  },
+  {
+   "id": "gdpr43-5",
+   "passage": "32016R0679-r43",
+   "answer": "true",
+   "statement": {
+    "cs": "Cílem popsaných pravidel je zajistit, aby byl souhlas svobodný.",
+    "sk": "Cieľom opísaných pravidiel je zabezpečiť, aby sa súhlas poskytol slobodne.",
+    "en": "The aim of the rules described is to ensure that consent is freely given."
+   },
+   "why": {
+    "cs": "Text začíná slovy „S cílem zajistit, aby byl souhlas svobodný…“",
+    "sk": "Text začína slovami „Aby sa zabezpečilo, že súhlas sa poskytol slobodne…“",
+    "en": "The passage opens with \"In order to ensure that consent is freely given…\""
+   }
+  },
+  {
+   "id": "gdpr85-1",
+   "passage": "32016R0679-r85",
+   "answer": "false",
+   "statement": {
+    "cs": "Správce musí porušení zabezpečení ohlásit dozorovému úřadu vždy do 72 hodin.",
+    "sk": "Prevádzkovateľ musí porušenie ochrany údajov oznámiť dozornému orgánu vždy do 72 hodín.",
+    "en": "The controller must always notify the supervisory authority within 72 hours."
+   },
+   "why": {
+    "cs": "Lhůta platí „je-li to možné“, opožděné ohlášení je přípustné s uvedením důvodů a ohlášení odpadá, nepředstavuje-li porušení pravděpodobně riziko.",
+    "sk": "Lehota platí „podľa možnosti“, oneskorené oznámenie je prípustné s odôvodnením a oznámenie odpadá, ak porušenie pravdepodobne nepovedie k riziku.",
+    "en": "The deadline applies \"where feasible\", late notice is allowed with reasons, and no notice is needed if a risk is unlikely."
+   }
+  },
+  {
+   "id": "gdpr85-2",
+   "passage": "32016R0679-r85",
+   "answer": "true",
+   "statement": {
+    "cs": "Trvá-li ohlášení déle než 72 hodin, má správce uvést důvody zpoždění.",
+    "sk": "Ak oznámenie trvá dlhšie ako 72 hodín, prevádzkovateľ má pripojiť odôvodnenie omeškania.",
+    "en": "If notification takes longer than 72 hours, the controller should give the reasons for the delay."
+   },
+   "why": {
+    "cs": "Poslední věta: „měly by být spolu s ním uvedeny důvody zpoždění“.",
+    "sk": "Posledná veta: „malo by sa k oznámeniu pripojiť odôvodnenie omeškania“.",
+    "en": "Last sentence: \"the reasons for the delay should accompany the notification\"."
+   }
+  },
+  {
+   "id": "gdpr85-3",
+   "passage": "32016R0679-r85",
+   "answer": "true",
+   "statement": {
+    "cs": "Ohlášení není nutné, může-li správce doložit, že porušení pravděpodobně nebude mít za následek riziko pro práva a svobody fyzických osob.",
+    "sk": "Oznámenie nie je potrebné, ak prevádzkovateľ vie preukázať, že porušenie pravdepodobne nepovedie k riziku pre práva a slobody fyzických osôb.",
+    "en": "Notification is not needed if the controller can demonstrate that the breach is unlikely to result in a risk to the rights and freedoms of natural persons."
+   },
+   "why": {
+    "cs": "Text tuto výjimku uvádí slovem „ledaže“.",
+    "sk": "Text túto výnimku uvádza slovami „s výnimkou prípadov“.",
+    "en": "The passage gives this exception with \"unless\"."
+   }
+  },
+  {
+   "id": "gdpr85-4",
+   "passage": "32016R0679-r85",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Krádež identity je nejčastější újmou způsobenou porušením zabezpečení osobních údajů.",
+    "sk": "Krádež totožnosti je najčastejšou ujmou spôsobenou porušením ochrany osobných údajov.",
+    "en": "Identity theft is the most common harm caused by personal data breaches."
+   },
+   "why": {
+    "cs": "Krádež identity je jen jednou z vyjmenovaných újem; o četnosti text nic neříká.",
+    "sk": "Krádež totožnosti je len jednou z vymenovaných ujm; o častosti text nič nehovorí.",
+    "en": "Identity theft is one listed harm; the passage says nothing about frequency."
+   }
+  },
+  {
+   "id": "gdpr85-5",
+   "passage": "32016R0679-r85",
+   "answer": "false",
+   "statement": {
+    "cs": "Všechny informace o porušení musí být poskytnuty v jediném ohlášení.",
+    "sk": "Všetky informácie o porušení sa musia poskytnúť v jedinom oznámení.",
+    "en": "All information about the breach has to be supplied in a single notification."
+   },
+   "why": {
+    "cs": "„informace mohou být poskytnuty postupně“.",
+    "sk": "„informácie možno poskytnúť vo viacerých etapách“.",
+    "en": "\"information may be provided in phases\"."
+   }
+  },
+  {
+   "id": "gdpr151-1",
+   "passage": "32016R0679-r151",
+   "answer": "true",
+   "statement": {
+    "cs": "V Dánsku může pokutu podle nařízení uložit soud jako trestní sankci.",
+    "sk": "V Dánsku môže pokutu podľa nariadenia uložiť súd ako trestnú sankciu.",
+    "en": "In Denmark, a fine under the Regulation may be imposed by a court as a criminal penalty."
+   },
+   "why": {
+    "cs": "„v Dánsku pokutu uloží příslušný vnitrostátní soud jakožto trestní sankci“.",
+    "sk": "„v Dánsku pokuty ukladajú príslušné vnútroštátne súdy ako trestnú sankciu“.",
+    "en": "\"in Denmark the fine is imposed by competent national courts as a criminal penalty\"."
+   }
+  },
+  {
+   "id": "gdpr151-2",
+   "passage": "32016R0679-r151",
+   "answer": "false",
+   "statement": {
+    "cs": "V Estonsku ukládají pokuty vnitrostátní soudy v trestním řízení.",
+    "sk": "V Estónsku ukladajú pokuty vnútroštátne súdy v trestnom konaní.",
+    "en": "In Estonia, fines are imposed by the national courts in criminal proceedings."
+   },
+   "why": {
+    "cs": "V Estonsku pokutu ukládá dozorový úřad v přestupkovém řízení.",
+    "sk": "V Estónsku pokutu ukladá dozorný orgán v rámci konania o prečine.",
+    "en": "In Estonia the supervisory authority imposes the fine in a misdemeanour procedure."
+   }
+  },
+  {
+   "id": "gdpr151-3",
+   "passage": "32016R0679-r151",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Dánské soudy obvykle ukládají nižší pokuty než dozorové úřady v jiných členských státech.",
+    "sk": "Dánske súdy zvyčajne ukladajú nižšie pokuty ako dozorné orgány v iných členských štátoch.",
+    "en": "Danish courts usually impose lower fines than supervisory authorities in other Member States."
+   },
+   "why": {
+    "cs": "Text o výši pokut nic neříká.",
+    "sk": "Text o výške pokút nič nehovorí.",
+    "en": "The passage says nothing about the size of fines."
+   }
+  },
+  {
+   "id": "gdpr151-4",
+   "passage": "32016R0679-r151",
+   "answer": "true",
+   "statement": {
+    "cs": "Zvláštní postup v Dánsku a Estonsku je možný jen tehdy, má-li účinek rovnocenný správním pokutám uloženým dozorovými úřady.",
+    "sk": "Osobitný postup v Dánsku a Estónsku je možný len vtedy, ak má rovnocenný účinok ako správne pokuty ukladané dozornými orgánmi.",
+    "en": "The special arrangements for Denmark and Estonia are allowed only if they have an effect equivalent to administrative fines imposed by supervisory authorities."
+   },
+   "why": {
+    "cs": "Text tuto podmínku uvádí slovy „pokud takové uplatnění pravidel má… účinek, který je rovnocenný“.",
+    "sk": "Text túto podmienku uvádza slovami „za podmienky, že… má rovnocenný účinok“.",
+    "en": "The passage sets this condition: \"provided that such an application… has an equivalent effect\"."
+   }
+  },
+  {
+   "id": "gdpr151-5",
+   "passage": "32016R0679-r151",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Estonský právní systém umožňuje za porušení ochrany osobních údajů ukládat trestní sankce.",
+    "sk": "Estónsky právny systém umožňuje za porušenia ochrany osobných údajov ukladať trestné sankcie.",
+    "en": "Estonia's legal system allows criminal penalties for data protection infringements."
+   },
+   "why": {
+    "cs": "Text popisuje u Estonska jen přestupkové řízení; zda existují i trestní sankce, neuvádí.",
+    "sk": "Text pri Estónsku opisuje len konanie o prečine; či existujú aj trestné sankcie, neuvádza.",
+    "en": "For Estonia the passage describes only a misdemeanour procedure; it does not say whether criminal penalties exist."
+   }
+  },
+  {
+   "id": "da88-1",
+   "passage": "32023R2854-r88",
+   "answer": "true",
+   "statement": {
+    "cs": "Poplatky za přesun dat jsou jedním z příkladů poplatků za změnu poskytovatele.",
+    "sk": "Poplatky za výstup údajov sú jedným z príkladov poplatkov za presun.",
+    "en": "Data egress charges are one example of switching charges."
+   },
+   "why": {
+    "cs": "Text uvádí: „Běžným příkladem poplatků za změnu poskytovatele jsou náklady spojené s přesunem dat“.",
+    "sk": "Text uvádza: „Bežným príkladom poplatkov za presun sú náklady súvisiace s prenosom údajov“.",
+    "en": "The passage gives them among the \"common examples of switching charges\"."
+   }
+  },
+  {
+   "id": "da88-2",
+   "passage": "32023R2854-r88",
+   "answer": "false",
+   "statement": {
+    "cs": "Do zrušení poplatků mohou poskytovatelé nadále účtovat plnou výši poplatků za změnu poskytovatele.",
+    "sk": "Do zrušenia poplatkov môžu poskytovatelia naďalej účtovať plnú výšku poplatkov za presun.",
+    "en": "Until switching charges are abolished, providers may keep imposing them at their full level."
+   },
+   "why": {
+    "cs": "Do té doby mají být oprávněni účtovat jen „snížené“ poplatky.",
+    "sk": "Do uvedeného dátumu majú mať možnosť účtovať len „znížené“ poplatky.",
+    "en": "Up to that date they should be able to impose only \"reduced\" switching charges."
+   }
+  },
+  {
+   "id": "da88-3",
+   "passage": "32023R2854-r88",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Poplatky za změnu poskytovatele jsou dnes hlavním důvodem, proč zákazníci zůstávají u svého cloudového poskytovatele.",
+    "sk": "Poplatky za presun sú dnes hlavným dôvodom, prečo zákazníci zostávajú u svojho cloudového poskytovateľa.",
+    "en": "Switching charges are currently the main reason customers stay with their cloud provider."
+   },
+   "why": {
+    "cs": "Text říká, že poplatky přechod brzdí, ale ne, že jsou hlavním důvodem.",
+    "sk": "Text hovorí, že poplatky presun brzdia, ale nie, že sú hlavným dôvodom.",
+    "en": "The passage says charges inhibit switching, not that they are the main reason customers stay."
+   }
+  },
+  {
+   "id": "da88-4",
+   "passage": "32023R2854-r88",
+   "answer": "false",
+   "statement": {
+    "cs": "Podle textu mají poplatky za změnu poskytovatele obvykle zdrojovému poskytovateli přinést dodatečný zisk.",
+    "sk": "Podľa textu majú poplatky za presun zvyčajne priniesť zdrojovému poskytovateľovi dodatočný zisk.",
+    "en": "According to the passage, switching charges are typically meant to earn the source provider extra profit."
+   },
+   "why": {
+    "cs": "Jejich cílem je obvykle přenést na zákazníka náklady zdrojového poskytovatele.",
+    "sk": "Ich cieľom je zvyčajne preniesť na zákazníka náklady zdrojového poskytovateľa.",
+    "en": "They are typically intended to pass on the source provider's costs to the customer."
+   }
+  },
+  {
+   "id": "da88-5",
+   "passage": "32023R2854-r88",
+   "answer": "true",
+   "statement": {
+    "cs": "Text tvrdí, že neoprávněné poplatky mohou snížit motivaci zákazníků vybrat si dalšího poskytovatele služeb.",
+    "sk": "Text tvrdí, že neodôvodnené poplatky môžu znížiť motiváciu zákazníkov vybrať si dodatočného poskytovateľa služieb.",
+    "en": "The passage argues that unjustified charges can reduce customers' incentive to choose an additional service provider."
+   },
+   "why": {
+    "cs": "„snižují motivaci k výběru jiného nebo dalšího poskytovatele služeb“.",
+    "sk": "„znižujú motiváciu vybrať si iného alebo dodatočného poskytovateľa služieb“.",
+    "en": "\"reducing incentives to choose a different or additional service provider\"."
+   }
+  },
+  {
+   "id": "da19-1",
+   "passage": "32023R2854-r19",
+   "answer": "true",
+   "statement": {
+    "cs": "Podle textu by datová gramotnost měla zahrnovat více než učení se o nástrojích a technologiích.",
+    "sk": "Podľa textu by dátová gramotnosť mala zahŕňať viac než učenie sa o nástrojoch a technológiách.",
+    "en": "According to the passage, data literacy should involve more than learning about tools and technologies."
+   },
+   "why": {
+    "cs": "„by se neměla omezovat pouze na učení se o nástrojích a technologiích“.",
+    "sk": "„by mala presahovať rámec učenia sa o nástrojoch a technológiách“.",
+    "en": "\"should go beyond learning about tools and technologies\"."
+   }
+  },
+  {
+   "id": "da19-2",
+   "passage": "32023R2854-r19",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Většině malých a středních podniků v Unii dnes datová gramotnost chybí.",
+    "sk": "Väčšine malých a stredných podnikov v Únii dnes dátová gramotnosť chýba.",
+    "en": "Most SMEs in the Union currently lack data literacy."
+   },
+   "why": {
+    "cs": "Text o současné úrovni datové gramotnosti nic neříká.",
+    "sk": "Text o súčasnej úrovni dátovej gramotnosti nič nehovorí.",
+    "en": "The passage says nothing about current levels of data literacy."
+   }
+  },
+  {
+   "id": "da19-3",
+   "passage": "32023R2854-r19",
+   "answer": "true",
+   "statement": {
+    "cs": "Od příslušných orgánů se očekává, že budou datovou gramotnost podporovat.",
+    "sk": "Od príslušných orgánov sa očakáva, že budú dátovú gramotnosť podporovať.",
+    "en": "Competent authorities are expected to promote data literacy."
+   },
+   "why": {
+    "cs": "„Příslušné orgány by měly podporovat nástroje a přijmout opatření ke zvýšení datové gramotnosti…“",
+    "sk": "„Príslušné orgány by mali podporovať nástroje a prijímať opatrenia na zlepšenie dátovej gramotnosti…“",
+    "en": "\"Competent authorities should promote tools and adopt measures to advance data literacy…\""
+   }
+  },
+  {
+   "id": "da19-4",
+   "passage": "32023R2854-r19",
+   "answer": "false",
+   "statement": {
+    "cs": "Text tvrdí, že opatření v oblasti datové gramotnosti zcela jistě zlepší pracovní podmínky.",
+    "sk": "Text tvrdí, že opatrenia v oblasti dátovej gramotnosti určite zlepšia pracovné podmienky.",
+    "en": "The passage claims that data literacy measures will certainly improve working conditions."
+   },
+   "why": {
+    "cs": "Text říká jen, že by to „mohlo přispět“.",
+    "sk": "Text hovorí len, že by to „mohlo prispieť“.",
+    "en": "The passage says only that they \"could contribute\"."
+   }
+  },
+  {
+   "id": "da19-5",
+   "passage": "32023R2854-r19",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Školení v datové gramotnosti by mělo být pro spotřebitele povinné.",
+    "sk": "Školenie v dátovej gramotnosti by malo byť pre spotrebiteľov povinné.",
+    "en": "Data literacy training should be compulsory for consumers."
+   },
+   "why": {
+    "cs": "O povinném školení text nic neříká.",
+    "sk": "O povinnom školení text nič nehovorí.",
+    "en": "The passage says nothing about compulsory training."
+   }
+  },
+  {
+   "id": "dsa69-1",
+   "passage": "32022R2065-r69",
+   "answer": "true",
+   "statement": {
+    "cs": "Poskytovatelé online platforem by neměli předkládat reklamy založené na profilování, které využívá zvláštní kategorie osobních údajů.",
+    "sk": "Poskytovatelia online platforiem by nemali prezentovať reklamy založené na profilovaní, ktoré využíva osobitné kategórie osobných údajov.",
+    "en": "Providers of online platforms should not present advertisements based on profiling that uses special categories of personal data."
+   },
+   "why": {
+    "cs": "To je zákaz uvedený ve čtvrté větě.",
+    "sk": "To je zákaz uvedený vo štvrtej vete.",
+    "en": "This is the prohibition in the fourth sentence."
+   }
+  },
+  {
+   "id": "dsa69-2",
+   "passage": "32022R2065-r69",
+   "answer": "false",
+   "statement": {
+    "cs": "Text považuje online platformy za prostředí s nižším společenským rizikem, pokud jde o cílenou reklamu.",
+    "sk": "Text považuje online platformy za prostredie s nižším spoločenským rizikom, pokiaľ ide o cielenú reklamu.",
+    "en": "The passage treats online platforms as a lower-risk environment for targeted advertising."
+   },
+   "why": {
+    "cs": "Online platformy „představují vyšší společenské riziko“.",
+    "sk": "Online platformy „predstavujú vyššie spoločenské riziko“.",
+    "en": "Online platforms \"present a higher societal risk\"."
+   }
+  },
+  {
+   "id": "dsa69-3",
+   "passage": "32022R2065-r69",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Cílená reklama je hlavním zdrojem příjmů online platforem.",
+    "sk": "Cielená reklama je hlavným zdrojom príjmov online platforiem.",
+    "en": "Targeted advertising is the main source of revenue for online platforms."
+   },
+   "why": {
+    "cs": "O příjmech platforem text nic neříká.",
+    "sk": "O príjmoch platforiem text nič nehovorí.",
+    "en": "The passage says nothing about platform revenue."
+   }
+  },
+  {
+   "id": "dsa69-4",
+   "passage": "32022R2065-r69",
+   "answer": "false",
+   "statement": {
+    "cs": "Popsaný zákaz zbavuje inzerenty jejich povinností podle práva Unie v oblasti ochrany osobních údajů.",
+    "sk": "Opísaný zákaz zbavuje inzerentov ich povinností podľa práva Únie o ochrane osobných údajov.",
+    "en": "The prohibition described releases advertisers from their obligations under Union data protection law."
+   },
+   "why": {
+    "cs": "„Tímto zákazem nejsou dotčeny povinnosti vztahující se na poskytovatele online platforem nebo jakékoli jiné poskytovatele služeb či inzerenty zabývající se šířením reklamy podle práva Unie v oblasti ochrany osobních údajů.“",
+    "sk": "„Týmto zákazom nie sú dotknuté povinnosti… inzerenta… podľa práva Únie o ochrane osobných údajov.“",
+    "en": "\"This prohibition is without prejudice to the obligations applicable to… any… advertiser… under Union law on protection of personal data.\""
+   }
+  },
+  {
+   "id": "dsa69-5",
+   "passage": "32022R2065-r69",
+   "answer": "true",
+   "statement": {
+    "cs": "Podle textu mohou manipulativní techniky přispívat k dezinformačním kampaním.",
+    "sk": "Podľa textu môžu manipulačné techniky prispievať k dezinformačným kampaniam.",
+    "en": "According to the passage, manipulative techniques can contribute to disinformation campaigns."
+   },
+   "why": {
+    "cs": "Druhá věta uvádí právě tento příklad.",
+    "sk": "Druhá veta uvádza práve tento príklad.",
+    "en": "The second sentence gives this example."
+   }
+  },
+  {
+   "id": "nis52-1",
+   "passage": "32022L2555-r52",
+   "answer": "true",
+   "statement": {
+    "cs": "Text naznačuje, že otevřený zdrojový kód může usnadnit odhalování zranitelností úsilím komunity.",
+    "sk": "Text naznačuje, že otvorený zdrojový kód môže uľahčiť objavovanie zraniteľností úsilím komunity.",
+    "en": "The passage suggests that open source can support community-driven discovery of vulnerabilities."
+   },
+   "why": {
+    "cs": "Otevřený zdrojový kód může vést „k postupu odhalování zranitelností řízeném komunitou“.",
+    "sk": "Otvorený zdrojový kód môže viesť „ku komunitnému procesu objavovania zraniteľností“.",
+    "en": "Open source can lead to \"a community-driven process of discovering vulnerabilities\"."
+   }
+  },
+  {
+   "id": "nis52-2",
+   "passage": "32022L2555-r52",
+   "answer": "false",
+   "statement": {
+    "cs": "Text ukládá členským státům používat výhradně nástroje kybernetické bezpečnosti s otevřeným zdrojovým kódem.",
+    "sk": "Text ukladá členským štátom používať výlučne nástroje kybernetickej bezpečnosti s otvoreným zdrojovým kódom.",
+    "en": "The passage requires Member States to use only open-source cybersecurity tools."
+   },
+   "why": {
+    "cs": "Členské státy by měly jen „mít možnost podporovat“ jejich používání.",
+    "sk": "Členské štáty by mali len „mať možnosť podporovať“ ich používanie.",
+    "en": "Member States \"should… be able to promote\" their use; nothing is required."
+   }
+  },
+  {
+   "id": "nis52-3",
+   "passage": "32022L2555-r52",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Údržba nástrojů s otevřeným zdrojovým kódem je levnější než údržba proprietárních nástrojů.",
+    "sk": "Údržba nástrojov s otvoreným zdrojovým kódom je lacnejšia ako údržba proprietárnych nástrojov.",
+    "en": "Open-source cybersecurity tools are cheaper to maintain than proprietary tools."
+   },
+   "why": {
+    "cs": "Text náklady údržby obou druhů nástrojů neporovnává.",
+    "sk": "Text náklady na údržbu oboch druhov nástrojov neporovnáva.",
+    "en": "The passage does not compare maintenance costs."
+   }
+  },
+  {
+   "id": "nis52-4",
+   "passage": "32022L2555-r52",
+   "answer": "true",
+   "statement": {
+    "cs": "Politiky podporující nástroje s otevřeným zdrojovým kódem mají podle textu zvláštní význam pro malé a střední podniky.",
+    "sk": "Politiky podporujúce nástroje s otvoreným zdrojovým kódom majú podľa textu osobitný význam pre malé a stredné podniky.",
+    "en": "According to the passage, policies promoting open-source cybersecurity tools are of particular importance for small and medium-sized enterprises."
+   },
+   "why": {
+    "cs": "Poslední věta to uvádí výslovně.",
+    "sk": "Posledná veta to uvádza výslovne.",
+    "en": "The last sentence says so."
+   }
+  },
+  {
+   "id": "nis52-5",
+   "passage": "32022L2555-r52",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Většina kybernetických incidentů v Unii postihuje malé a střední podniky.",
+    "sk": "Väčšina kybernetických incidentov v Únii postihuje malé a stredné podniky.",
+    "en": "Most cybersecurity incidents in the Union affect small and medium-sized enterprises."
+   },
+   "why": {
+    "cs": "O incidentech text nic neříká.",
+    "sk": "O incidentoch text nič nehovorí.",
+    "en": "The passage says nothing about incidents."
+   }
+  },
+  {
+   "id": "eaa70-1",
+   "passage": "32019L0882-r70",
+   "answer": "true",
+   "statement": {
+    "cs": "Na mikropodniky poskytující služby v oblasti působnosti směrnice by se její požadavky neměly vztahovat.",
+    "sk": "Na mikropodniky poskytujúce služby v rozsahu pôsobnosti smernice by sa jej požiadavky nemali vzťahovať.",
+    "en": "The Directive's requirements should not apply to microenterprises providing services within its scope."
+   },
+   "why": {
+    "cs": "To je závěr poslední věty.",
+    "sk": "To je záver poslednej vety.",
+    "en": "This is the conclusion in the last sentence."
+   }
+  },
+  {
+   "id": "eaa70-2",
+   "passage": "32019L0882-r70",
+   "answer": "false",
+   "statement": {
+    "cs": "Podle textu stojí plnění požadavků na přístupnost mikropodniky v poměru k jejich zdrojům méně než jiné podniky.",
+    "sk": "Podľa textu stojí dodržiavanie požiadaviek na prístupnosť mikropodniky v pomere k ich zdrojom menej ako iné podniky.",
+    "en": "According to the passage, meeting the accessibility requirements costs microenterprises less, relative to their resources, than other undertakings."
+   },
+   "why": {
+    "cs": "Vyžaduje to „obecně větší podíl jejich finančních a lidských zdrojů“.",
+    "sk": "Vyžaduje si to „vo všeobecnosti… väčší podiel ich finančných a ľudských zdrojov“.",
+    "en": "It takes \"a greater share of their financial and human resources\"."
+   }
+  },
+  {
+   "id": "eaa70-3",
+   "passage": "32019L0882-r70",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Výjimka se vztahuje i na mikropodniky, které vyrábějí výrobky.",
+    "sk": "Výnimka sa vzťahuje aj na mikropodniky, ktoré vyrábajú výrobky.",
+    "en": "The exemption also covers microenterprises that manufacture products."
+   },
+   "why": {
+    "cs": "Text mluví jen o mikropodnicích poskytujících služby; o výrobcích mlčí.",
+    "sk": "Text hovorí len o mikropodnikoch poskytujúcich služby; o výrobcoch mlčí.",
+    "en": "The passage speaks only of microenterprises providing services; it is silent on products."
+   }
+  },
+  {
+   "id": "eaa70-4",
+   "passage": "32019L0882-r70",
+   "answer": "true",
+   "statement": {
+    "cs": "Vedení dokumentace k prokázání souladu tvoří významnou část nákladů mikropodniků.",
+    "sk": "Vypĺňanie a archivovanie dokladov na preukázanie súladu tvorí značnú časť nákladov mikropodnikov.",
+    "en": "Paperwork to demonstrate compliance accounts for a significant proportion of microenterprises' costs."
+   },
+   "why": {
+    "cs": "Třetí věta to uvádí výslovně.",
+    "sk": "Tretia veta to uvádza výslovne.",
+    "en": "The third sentence says so."
+   }
+  },
+  {
+   "id": "eaa70-5",
+   "passage": "32019L0882-r70",
+   "answer": "false",
+   "statement": {
+    "cs": "Podle textu musí všechny hospodářské subjekty, na které se směrnice vztahuje, plnit požadavky na přístupnost v plném rozsahu bez ohledu na zátěž.",
+    "sk": "Podľa textu musia všetky hospodárske subjekty, na ktoré sa smernica vzťahuje, dodržiavať požiadavky na prístupnosť v plnom rozsahu bez ohľadu na záťaž.",
+    "en": "According to the passage, all economic operators covered by the Directive must meet the accessibility requirements in full, whatever the burden."
+   },
+   "why": {
+    "cs": "Mají je plnit „pouze v tom rozsahu, v jakém nejsou nepřiměřené“.",
+    "sk": "Majú ich dodržiavať „len v tom rozsahu, v akom nie sú neprimerané“.",
+    "en": "They comply \"only… to the extent they are not disproportionate\"."
+   }
+  },
+  {
+   "id": "chips1-1",
+   "passage": "32023R1781-r1",
+   "answer": "true",
+   "statement": {
+    "cs": "Text uvádí, že Unie je při vývoji čipů silně závislá na třetích zemích.",
+    "sk": "Text uvádza, že Únia je pri navrhovaní čipov silne závislá od tretích krajín.",
+    "en": "The passage states that the Union depends strongly on third countries for the design of chips."
+   },
+   "why": {
+    "cs": "„silnou závislost na třetích zemích v oblasti výroby a vývoje čipů“.",
+    "sk": "„silnú závislosť od tretích krajín vo výrobe a v navrhovaní čipov“.",
+    "en": "\"a strong third-country dependency in manufacturing and design of chips\"."
+   }
+  },
+  {
+   "id": "chips1-2",
+   "passage": "32023R1781-r1",
+   "answer": "false",
+   "statement": {
+    "cs": "Podle textu nese za udržení silné průmyslové základny v oblasti čipů odpovědnost v první řadě Unie.",
+    "sk": "Podľa textu je za zachovanie silnej priemyselnej základne v oblasti čipov primárne zodpovedná Únia.",
+    "en": "According to the passage, the Union is primarily responsible for maintaining a strong industrial base for chips."
+   },
+   "why": {
+    "cs": "Odpovědnost nesou „v první řadě členské státy“.",
+    "sk": "Primárne zodpovedné sú „členské štáty“.",
+    "en": "\"Member States are primarily responsible\"."
+   }
+  },
+  {
+   "id": "chips1-3",
+   "passage": "32023R1781-r1",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Narušení dodávek způsobila hlavně pandemie covidu-19.",
+    "sk": "Narušenia dodávok spôsobila hlavne pandémia COVID-19.",
+    "en": "The supply disruptions were caused mainly by the COVID-19 pandemic."
+   },
+   "why": {
+    "cs": "Příčiny narušení text neuvádí.",
+    "sk": "Príčiny narušení text neuvádza.",
+    "en": "The passage does not give the cause of the disruptions."
+   }
+  },
+  {
+   "id": "chips1-4",
+   "passage": "32023R1781-r1",
+   "answer": "true",
+   "statement": {
+    "cs": "Polovodiče jsou v textu představeny jako přispívající k cílům Zelené dohody pro Evropu.",
+    "sk": "Polovodiče sú v texte predstavené ako prispievajúce k cieľom Európskej zelenej dohody.",
+    "en": "Semiconductors are presented as contributing to the objectives of the European Green Deal."
+   },
+   "why": {
+    "cs": "Druhá věta to uvádí výslovně.",
+    "sk": "Druhá veta to uvádza výslovne.",
+    "en": "The second sentence says so."
+   }
+  },
+  {
+   "id": "chips1-5",
+   "passage": "32023R1781-r1",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Výroba čipů v Unii za poslední desetiletí poklesla.",
+    "sk": "Výroba čipov v Únii za posledné desaťročie klesla.",
+    "en": "Chip production in the Union has fallen over the last decade."
+   },
+   "why": {
+    "cs": "O vývoji výroby v čase text nic neříká.",
+    "sk": "O vývoji výroby v čase text nič nehovorí.",
+    "en": "The passage says nothing about production trends."
+   }
+  },
+  {
+   "id": "od38-1",
+   "passage": "32019L1024-r38",
+   "answer": "true",
+   "statement": {
+    "cs": "Muzea by měla mít možnost účtovat za opakované použití dokumentů poplatky převyšující mezní náklady.",
+    "sk": "Múzeá by mali mať možnosť účtovať si za opakované použitie dokumentov poplatky nad rámec hraničných nákladov.",
+    "en": "Museums should be able to charge above marginal costs for the re-use of documents."
+   },
+   "why": {
+    "cs": "První věta to uvádí výslovně.",
+    "sk": "Prvá veta to uvádza výslovne.",
+    "en": "The first sentence says so."
+   }
+  },
+  {
+   "id": "od38-2",
+   "passage": "32019L1024-r38",
+   "answer": "false",
+   "statement": {
+    "cs": "Celkový příjem knihoven z opakovaného použití může převýšit náklady včetně přiměřené návratnosti investic, vyžaduje-li to jejich běžný provoz.",
+    "sk": "Celkový príjem knižníc z opakovaného použitia môže prekročiť náklady vrátane primeranej návratnosti investícií, ak si to vyžaduje ich bežná prevádzka.",
+    "en": "Libraries' total income from re-use may exceed their costs plus a reasonable return on investment if their normal running requires it."
+   },
+   "why": {
+    "cs": "Celkový příjem „by neměl přesahovat“ náklady se započítáním přiměřené návratnosti; výjimka pro běžný provoz se týká jen mezních nákladů.",
+    "sk": "Celková výška príjmu by „nemala prekročiť“ náklady spolu s primeranou návratnosťou; dôvod bežnej prevádzky sa týka len hraničných nákladov.",
+    "en": "Total income \"should not exceed\" costs plus a reasonable return; normal running justifies only going above marginal cost."
+   }
+  },
+  {
+   "id": "od38-3",
+   "passage": "32019L1024-r38",
+   "answer": "true",
+   "statement": {
+    "cs": "Náklady na anonymizaci osobních údajů mohou být zahrnuty do způsobilých nákladů.",
+    "sk": "Náklady na anonymizáciu osobných údajov sa môžu zahrnúť do oprávnených nákladov.",
+    "en": "The costs of anonymising personal data can be included in the eligible costs."
+   },
+   "why": {
+    "cs": "Třetí věta: „Do způsobilých nákladů by případně měly být zahrnuty i náklady na anonymizaci“.",
+    "sk": "Tretia veta: „Do oprávnených nákladov by sa v príslušných prípadoch mali zahrnúť aj náklady na anonymizáciu“.",
+    "en": "Third sentence: \"Where applicable, the costs of anonymisation… should also be included\"."
+   }
+  },
+  {
+   "id": "od38-4",
+   "passage": "32019L1024-r38",
+   "answer": "cannot",
+   "statement": {
+    "cs": "Ceny soukromého sektoru za opakované použití podobných dokumentů jsou obvykle vyšší než ceny archivů.",
+    "sk": "Ceny súkromného sektora za opakované použitie podobných dokumentov sú zvyčajne vyššie ako ceny archívov.",
+    "en": "Private-sector prices for re-using similar documents are usually higher than those of archives."
+   },
+   "why": {
+    "cs": "Text ceny neporovnává.",
+    "sk": "Text ceny neporovnáva.",
+    "en": "The passage does not compare price levels."
+   }
+  },
+  {
+   "id": "od38-5",
+   "passage": "32019L1024-r38",
+   "answer": "false",
+   "statement": {
+    "cs": "Při výpočtu přiměřené návratnosti investic se knihovny musí řídit cenami soukromého sektoru.",
+    "sk": "Pri výpočte primeranej návratnosti investícií sa knižnice musia riadiť cenami súkromného sektora.",
+    "en": "When calculating a reasonable return on investment, libraries are required to follow private-sector prices."
+   },
+   "why": {
+    "cs": "Ceny soukromého sektoru „by mohly být… brány v potaz“, není to povinnost.",
+    "sk": "Výška poplatkov súkromného sektora sa „by… mohla zohľadňovať“, nie je to povinnosť.",
+    "en": "Private-sector prices \"could be considered\"; it is not a requirement."
+   }
+  }
+ ]
+}

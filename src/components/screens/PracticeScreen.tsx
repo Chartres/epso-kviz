@@ -63,6 +63,26 @@ export function PracticeScreen() {
       <button
         type="button"
         onClick={() => {
+          track('key_action', { action: 'verbal_start' })
+          dispatch({ type: 'openVerbal' })
+        }}
+        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
+      >
+        <span>
+          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
+            Verbal reasoning
+          </span>
+          <span className="mt-0.5 block text-sm text-steel-400">
+            In Czech, Slovak or English · 20 questions, 35 minutes, like the real test.
+          </span>
+        </span>
+        <span aria-hidden className="font-display text-brass-400">
+          →
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={() => {
           track('key_action', { action: 'numerical_start' })
           dispatch({ type: 'openNumerical' })
         }}

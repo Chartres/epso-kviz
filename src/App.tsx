@@ -11,10 +11,34 @@ import { StatsScreen } from '@/components/screens/StatsScreen'
 import { NumericalScreen } from '@/components/screens/NumericalScreen'
 import { AbstractScreen } from '@/components/screens/AbstractScreen'
 import { track } from '@/analytics'
+import { lazy, Suspense } from 'react'
+
+// Verbal passages are ~35 KB gzipped in three languages; load them only when opened. If the
+// chunk is gone (an old cached shell after a deploy), reload once to pick up the new build.
+const VerbalScreen = lazy(() =>
+  import('@/components/screens/VerbalScreen').then(
+    (m) => ({ default: m.VerbalScreen }),
+    (err) => {
+      if (sessionStorage.getItem('verbal-reload')) throw err
+      sessionStorage.setItem('verbal-reload', '1')
+      location.reload()
+      return new Promise<never>(() => {})
+    },
+  ),
+)
 
 function CurrentView() {
   const { state, dispatch } = useApp()
   switch (state.view) {
+    case 'verbal':
+      return (
+        <Suspense fallback={null}>
+          <VerbalScreen
+            onExit={() => dispatch({ type: 'navigate', view: 'practice' })}
+            onFinish={(r) => track('key_action', { action: 'verbal_finish', ...r })}
+          />
+        </Suspense>
+      )
     case 'numerical':
       return (
         <NumericalScreen
