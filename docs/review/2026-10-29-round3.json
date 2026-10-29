@@ -1,0 +1,168 @@
+{
+  "product": "epso-kviz",
+  "date": "2026-10-29",
+  "round": 3,
+  "headline": "Question first is live. B (write a few words, then compare) is the default in practice, review, bookmarks and the daily lesson, and a Practice-tab setting switches between none, A, B and C. It never applies in the exam simulation. The private-bank move is planned with a fetch path ready behind a flag, and a listing is drafted. Nothing was moved, posted or changed in settings.",
+  "shipped": [
+    {
+      "title": "Question first: form B by default, switchable to none, A or C",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/15",
+      "merged": "2026-10-29",
+      "live_checked": "Deploy tagged deploy-2026-10-29-4 (558837b). Live at 390 px in real Chromium with Supabase blocked (no rows written): Today's lesson opens on 01 / 12 with 'Your answer, in a few words' and no options. Compare shows the options, and answering shows 'Your words:' beside the explanation. The Practice tab has B · Write checked. With A · Tap set, the exam simulation still shows its options at once. scrollWidth is 390, so there is no horizontal scroll."
+    },
+    {
+      "title": "Private bank: plan (A/B), fetch path ready behind a flag; listing draft",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/16",
+      "merged": "2026-10-29",
+      "live_checked": "pending: filled after the deploy of 5fdbb47"
+    }
+  ],
+  "decisions": [
+    {
+      "question": "Question first: where does the setting live?",
+      "options": [
+        "bottom of the Practice tab",
+        "a new settings screen",
+        "inside each question"
+      ],
+      "default_taken": "bottom of the Practice tab, with a one-line pointer under every held question",
+      "why": "The app has no settings screen and practice options already live there. Moving it is one block."
+    },
+    {
+      "question": "Question first: how does the setting persist?",
+      "options": [
+        "on this device (localStorage), like progress",
+        "synced to the account"
+      ],
+      "default_taken": "on this device, key epso-kviz:settings:v1",
+      "why": "It needs no schema change. Syncing it later means adding one field to the progress row."
+    },
+    {
+      "question": "Question first: do existing users also get B?",
+      "options": [
+        "yes, B for everyone",
+        "B only for new users; existing users keep none"
+      ],
+      "default_taken": "B for everyone",
+      "why": "Pavol said B as the default. One tap on the Practice tab sets None."
+    },
+    {
+      "question": "Form B: must the box be filled before comparing?",
+      "options": [
+        "no, an empty box is allowed",
+        "yes, at least a few characters"
+      ],
+      "default_taken": "allowed; recorded as wrote: false",
+      "why": "Typing is never forced on a phone, and the metric can split by wrote."
+    },
+    {
+      "question": "Form C: how long is the hold?",
+      "options": [
+        "8 s (as in the mockup)",
+        "5 s",
+        "a setting"
+      ],
+      "default_taken": "8 s",
+      "why": "It matches the mockup Pavol saw. The value is one constant."
+    },
+    {
+      "question": "Tracking without new event names",
+      "options": [
+        "key_action question_first {mode, wrote?, q, from} + question_first_set {mode, was} + question_first on start_*",
+        "key_action only"
+      ],
+      "default_taken": "all three",
+      "why": "The start_* tag lets first-try accuracy be compared by mode against none, which is the signature metric. B's words never leave the device."
+    },
+    {
+      "question": "Private bank: what moves as 'the bank'?",
+      "options": [
+        "bank/ + verification/",
+        "also data/verbal/ and the study guide"
+      ],
+      "default_taken": "bank/ + verification/ in the plan; verbal items and the guide stay public",
+      "why": "Pavol said 'the bank'. The rest is listed in the plan as his call."
+    },
+    {
+      "question": "Private bank: which option?",
+      "options": [
+        "A: private Chartres/epso-bank fetched at build",
+        "B: epso-kviz private on Cloudflare Pages"
+      ],
+      "default_taken": "plan both, recommend A without a history rewrite; nothing moved",
+      "why": "A keeps the public verification trail, GitHub Pages and the hand-back path. The live site shows every question either way."
+    },
+    {
+      "question": "Listing: where?",
+      "options": [
+        "r/EUCareers wiki by modmail",
+        "one r/EUCareers post",
+        "a commercial prep site's list"
+      ],
+      "default_taken": "r/EUCareers wiki by modmail (drafted, not sent)",
+      "why": "It's where AD/430 candidates ask questions. Reddit refused automated reads, so Pavol checks the wiki and rules by hand first. No other list I could verify accepts entries."
+    },
+    {
+      "question": "The 12 unverified questions",
+      "options": [
+        "leave labelled and visible (Pavol's pick)"
+      ],
+      "default_taken": "left labelled and visible; no change",
+      "why": "Pavol's pick."
+    }
+  ],
+  "commonplace_explainer": {
+    "text": "The commonplace book is your own collection of the law's exact wording. When you answer a verified question, the box under the explanation quotes the sentence from the AI Act or another EU act that settles it. Tap “Copy to my commonplace book” under that passage to keep it. Your passages are on the Guide tab, under “My commonplace book”, filed by act and article. Each one shows the question it came from, and “Copy all as text” exports the lot, so you can reread the real wording before a mock instead of someone's summary.",
+    "screenshot": "e2e/shots/commonplace-book-390.png"
+  },
+  "private_bank": {
+    "plan_path": "docs/plans/private-bank.md",
+    "recommendation": "Option A (private Chartres/epso-bank, fetched at build with a read-only token), with no history rewrite. The live app bundle carries all 231 questions, and the prerendered pages carry 159 of them (every verified question, plus a 20-question engineering sample), so privacy protects the source files, the verification notes and future drafts, not the content. A rewrite would break commit links and deploy tags for no real gain.",
+    "pavol_steps": [
+      "Create the private repo Chartres/epso-bank, empty.",
+      "Say 'go, Option A'. Claude pushes bank/ and verification/ into it, or he runs the four git commands in the plan.",
+      "Create a fine-grained token: owner Chartres, only epso-bank, Contents read-only, longest expiry. Note the expiry date.",
+      "Add it to epso-kviz → Settings → Secrets and variables → Actions as EPSO_BANK_TOKEN (optionally also as a Dependabot secret).",
+      "Say the secret is in. Claude opens the switch-over PR (fetch step in CI, bank files gitignored, sample bank, licence text).",
+      "Answer the history question: leave it (recommended) or rewrite it (destructive, only on his explicit yes)."
+    ]
+  },
+  "listing_draft": {
+    "where": "r/EUCareers wiki, by modmail to the moderators (not verified from here: Reddit returns 403 to automated reads; Pavol checks the wiki page and the self-promotion rule first). Full draft: docs/plans/listing-draft.md",
+    "text": "EPSO AI Field Trainer (https://epsokviz.dravec.org): free, unofficial practice for EPSO/AD/430/26 Field 1 (Artificial Intelligence). 231 multiple-choice questions across the three Annex II areas (AI engineering, AI Act and governance, EU digital policy), and a mock of 30 questions in 40 minutes. Verbal, numerical and abstract reasoning practice in Czech, Slovak or English. For 139 of the 151 law and policy questions, the answer shows the EUR-Lex passage that settles it; the other 12 are marked as not verified. No sign-up. Made by a candidate in the same competition.",
+    "repo_description": "Free, unofficial practice trainer for EPSO/AD/430/26 Field 1 (Artificial Intelligence): 231 MCQs (139 law and policy answers checked against the AI Act and other EU acts), a 30-question/40-minute mock, and reasoning tests in Czech, Slovak or English.",
+    "topics": [
+      "epso",
+      "eu-careers",
+      "epso-exam",
+      "ai-act",
+      "eu-ai-act",
+      "eu-law",
+      "european-union",
+      "exam-preparation",
+      "practice-test",
+      "multiple-choice",
+      "spaced-repetition",
+      "pwa",
+      "react",
+      "typescript",
+      "vite"
+    ]
+  },
+  "next": [
+    "Pavol: the commonplace book. Keep, change or revert, now that it's explained (text and screenshot above).",
+    "Pavol: private bank. Option A or B, and the history question. The steps are in docs/plans/private-bank.md.",
+    "Pavol: send the modmail and set the repo description and topics, or edit them first (docs/plans/listing-draft.md).",
+    "After a week: read key_action question_first by mode, and the wrote share in B, and how many switch to None (question_first_set). Then compare first-try accuracy on later reviews by mode.",
+    "IndexNow: no static pages changed this round, so nothing to submit.",
+    "Still open from earlier rounds: the verbal item form (statement vs EPSO's 4-option form)."
+  ],
+  "screenshots": [
+    "e2e/shots/question-first-none-390.png",
+    "e2e/shots/question-first-a-390.png",
+    "e2e/shots/question-first-b-390.png",
+    "e2e/shots/question-first-c-390.png",
+    "e2e/shots/question-first-setting-390.png",
+    "e2e/shots/commonplace-book-390.png"
+  ]
+}
