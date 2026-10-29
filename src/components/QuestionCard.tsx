@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Choice, Question } from '@/domain/types'
 import { QUESTION_FIRST_HOLD_SECONDS, type QuestionFirstMode } from '@/domain/settings'
 import { SourceNote } from './SourceNote'
@@ -86,14 +86,25 @@ export function QuestionCard({
   const [recall, setRecall] = useState('')
   const [hold, setHold] = useState(QUESTION_FIRST_HOLD_SECONDS)
   const optionsVisible = shown || answered
+  const optionsRef = useRef<HTMLDivElement>(null)
+  const focusOptions = useRef(false)
 
   function show() {
     if (shown) return
     setShown(true)
+    // A and B unmount the control that had focus; hand it to the options.
+    focusOptions.current = questionFirst === 'a' || questionFirst === 'b'
     if (questionFirst !== 'none') {
       onRecall?.(questionFirst === 'b' ? { mode: 'b', wrote: recall.trim() !== '' } : { mode: questionFirst })
     }
   }
+
+  useEffect(() => {
+    if (shown && focusOptions.current) {
+      focusOptions.current = false
+      optionsRef.current?.focus()
+    }
+  }, [shown])
 
   // Form C: count down, then show the options without a tap.
   useEffect(() => {
@@ -112,7 +123,9 @@ export function QuestionCard({
       if (e.metaKey || e.ctrlKey || e.altKey) return
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key
       if (!optionsVisible) {
-        // Form A: Enter or Space shows the options. B and C have their own control.
+        // Form A: Enter or Space shows the options. B and C have their own control. A focused
+        // button or link (End, Bookmark) keeps its own Enter.
+        if (e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement) return
         if (questionFirst === 'a' && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
           show()
@@ -193,11 +206,10 @@ export function QuestionCard({
       )}
 
       {!optionsVisible && questionFirst === 'c' && (
-        <p
-          role="status"
-          className="rounded-card border border-steel-700 px-4 py-3 text-center font-mono text-sm text-steel-400"
-        >
-          Options in {hold} s
+        <p className="rounded-card border border-steel-700 px-4 py-3 text-center font-mono text-sm text-steel-400">
+          {/* The ticking number stays out of screen readers; they hear one line. */}
+          <span aria-hidden="true">Options in {hold} s</span>
+          <span className="sr-only">The options appear in a few seconds.</span>
         </p>
       )}
 
@@ -206,7 +218,7 @@ export function QuestionCard({
       )}
 
       {optionsVisible && (
-      <div role="group" aria-label="Answer options" className="flex flex-col gap-3">
+      <div ref={optionsRef} tabIndex={-1} role="group" aria-label="Answer options" className="flex flex-col gap-3 focus:outline-none">
         {OPTIONS.map((opt) => {
           const state = optionState(opt, question, chosen, reveal)
           return (

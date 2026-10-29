@@ -56,7 +56,7 @@ test('question first: B by default in the lesson, switchable to none, A and C; n
   // C: the options arrive on their own.
   await pick(page, 'C · Wait')
   await practiseOne(page)
-  await expect(page.getByRole('status')).toContainText(/Options in \d s/)
+  await expect(page.getByText(/Options in \d s/)).toBeVisible()
   await page.screenshot({ path: 'e2e/shots/question-first-c-390.png' })
   await expect(options(page)).toBeVisible({ timeout: 12_000 })
   await page.getByRole('button', { name: '← End' }).click()

@@ -176,10 +176,19 @@ describe('QuestionCard — question first', () => {
     expect(onAnswer).toHaveBeenCalledWith('b')
   })
 
-  it('A: Enter shows the options', async () => {
+  it('A: Enter shows the options and focus moves to them', async () => {
     setup({ questionFirst: 'a' })
     await userEvent.keyboard('{Enter}')
     expect(options()).toBeInTheDocument()
+    expect(options()).toHaveFocus()
+  })
+
+  it('A: Enter on a focused button keeps its own action', async () => {
+    const { onToggleBookmark } = setup({ questionFirst: 'a' })
+    screen.getByRole('button', { name: /bookmark/i }).focus()
+    await userEvent.keyboard('{Enter}')
+    expect(onToggleBookmark).toHaveBeenCalled()
+    expect(options()).not.toBeInTheDocument()
   })
 
   it('B: write first, compare, and the words sit beside the key in the feedback', async () => {
@@ -244,7 +253,7 @@ describe('QuestionCard — question first', () => {
       const onRecall = vi.fn()
       setup({ questionFirst: 'c', onRecall })
       expect(options()).not.toBeInTheDocument()
-      expect(screen.getByRole('status')).toHaveTextContent('Options in 8 s')
+      expect(screen.getByText('Options in 8 s')).toBeInTheDocument()
       for (let i = 0; i < 8; i++) act(() => vi.advanceTimersByTime(1000))
       expect(options()).toBeInTheDocument()
       expect(onRecall).toHaveBeenCalledTimes(1)

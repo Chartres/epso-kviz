@@ -31,7 +31,6 @@ test('commonplace book: collect a verified passage, find it filed under its act'
   await expect(act.getByText(/top penalty bracket/)).toBeVisible()
   await page.screenshot({ path: 'e2e/shots/commonplace-book.png', fullPage: true })
   // The book itself, at phone size (for the decision page).
-  await page.getByRole('heading', { name: 'My commonplace book' }).scrollIntoViewIfNeeded()
   await page.evaluate(() => document.getElementById('commonplace-title')?.scrollIntoView({ block: 'start' }))
   await page.screenshot({ path: 'e2e/shots/commonplace-book-390.png' })
 
