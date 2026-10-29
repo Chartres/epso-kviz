@@ -4,6 +4,9 @@ import userEvent from '@testing-library/user-event'
 import { SourceNote } from './SourceNote'
 import type { Question } from '@/domain/types'
 
+const track = vi.fn()
+vi.mock('@/analytics', () => ({ track: (...a: unknown[]) => track(...a) }))
+
 const Q: Question = {
   id: 1041,
   cat: 'AI Act & Governance',
@@ -40,5 +43,13 @@ describe('SourceNote — commonplace book', () => {
   it('shows no collect buttons when no handler is given (read-only contexts)', () => {
     render(<SourceNote question={Q} />)
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  })
+
+  it('reports opening a cited source as key_action source_open', async () => {
+    render(<SourceNote question={Q} />)
+    const link = screen.getByRole('link', { name: /Art 99\(5\)/ })
+    link.addEventListener('click', (e) => e.preventDefault())
+    await userEvent.click(link)
+    expect(track).toHaveBeenCalledWith('key_action', { action: 'source_open', doc: 'ai-act', ref: 'Art 99(5)', q: 1041, from: 'answer' })
   })
 })

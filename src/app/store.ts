@@ -27,7 +27,7 @@ import { shuffle } from '@/domain/rng'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
 export type TabView = 'home' | 'practice' | 'stats' | 'guide'
-export type View = TabView | 'quiz' | 'exam' | 'results' | 'numerical'
+export type View = TabView | 'quiz' | 'exam' | 'results' | 'numerical' | 'abstract'
 export type Mode = 'practice' | 'review' | 'bookmarks' | 'exam' | 'lesson'
 
 export const TAB_VIEWS: TabView[] = ['home', 'practice', 'stats', 'guide']
@@ -76,6 +76,7 @@ export type Action =
   | { type: 'goMenu' }
   | { type: 'navigate'; view: TabView }
   | { type: 'openNumerical' }
+  | { type: 'openAbstract' }
 
 function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
   return {
@@ -198,6 +199,9 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'openNumerical':
       return { ...state, view: 'numerical' }
+
+    case 'openAbstract':
+      return { ...state, view: 'abstract' }
 
     default:
       return state

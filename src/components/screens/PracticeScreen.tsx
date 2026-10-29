@@ -4,6 +4,7 @@ import { META } from '@/domain/questions'
 import { filterQuestions } from '@/domain/selection'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
+import { readinessProps } from '@/domain/readiness'
 import type { CategoryName } from '@/domain/types'
 
 export function PracticeScreen() {
@@ -40,7 +41,7 @@ export function PracticeScreen() {
       <button
         type="button"
         onClick={() => {
-          track('start_exam')
+          track('start_exam', readinessProps(state.progress))
           dispatch({ type: 'startExam', rng: rng(), now: Date.now() })
         }}
         className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
@@ -73,6 +74,26 @@ export function PracticeScreen() {
           </span>
           <span className="mt-0.5 block text-sm text-steel-400">
             In Czech, Slovak or English · 10 questions, 20 minutes, like the real test.
+          </span>
+        </span>
+        <span aria-hidden className="font-display text-brass-400">
+          →
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          track('key_action', { action: 'abstract_start' })
+          dispatch({ type: 'openAbstract' })
+        }}
+        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
+      >
+        <span>
+          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
+            Abstract reasoning
+          </span>
+          <span className="mt-0.5 block text-sm text-steel-400">
+            Instructions in Czech, Slovak or English · 10 questions, 10 minutes, like the real test.
           </span>
         </span>
         <span aria-hidden className="font-display text-brass-400">

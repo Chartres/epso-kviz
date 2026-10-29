@@ -1,0 +1,127 @@
+{
+  "product": "epso-kviz",
+  "date": "2026-10-28",
+  "headline": "Signals contract in, the 51 static pages now record visits and source opens, and abstract reasoning completes the reasoning pair in CS/SK/EN with options that can't be gamed.",
+  "shipped": [
+    {
+      "title": "Signals contract and bot filter; page_view and source_open on the static pages",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/10",
+      "merged": "2026-10-28",
+      "live_checked": "Live /ai-act/article-99/ carries the beacon and data-doc/data-ref links. Real Chromium (Supabase routed, no rows written): a person sends page_view {path, static} then key_action source_open; webdriver sends nothing. Deploy tagged deploy-2026-10-28. The shared insert policy accepts both event names (read from pg_policies)."
+    },
+    {
+      "title": "Abstract reasoning in Czech, Slovak or English: 10 series, 10 minutes",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/9",
+      "merged": "2026-10-28",
+      "live_checked": "Deploy tagged deploy-2026-10-28-2. Live at 390 px: Practice -> Abstract reasoning -> Slovenčina -> Začať shows 'Otázka 1 z 10', 5 series figures and 4 option figures; a full sitting scores (2 z 10) with 10 explained solutions."
+    }
+  ],
+  "signals_fixed": [
+    "Signals contract test and vendored allow-list (v2, 2026-10-27): src/platform/flywheel-events.contract.test.ts + flywheel-events.json. No pending names used.",
+    "flywheel-client: isAutomatedBrowser; webdriver, bot, headless and audit UAs send nothing.",
+    "Analytics bundle guard on the uploaded dist (# flywheel:analytics-guard). Local fix: the kit's includes('.supabase.co') always passed because supabase-js carries '*.supabase.co'; it now requires https://<ref>.supabase.co. Flywheel should take the same fix into the kit.",
+    "deploy.yml: concurrency ci-${{ github.ref }}, cancel-in-progress only off main.",
+    "Static pages: page_view {path, static: true} and key_action source_open {doc, ref, from: 'static'} from a ~1 KB inline beacon, same row, ids and bot rule as the client.",
+    "start_exam now carries the likely-score range shown before the mock (likely_low, likely_high, likely_expected, likely_enough), so calibration can be scored against exam_finish (#11).",
+    "App: key_action source_open from the answer note (from: 'answer') and the commonplace book (from: 'commonplace'). New key_action actions: abstract_start, abstract_finish."
+  ],
+  "signature": {
+    "doc": "docs/SIGNATURE.md",
+    "mechanics": [
+      {
+        "name": "The cited answer",
+        "from": "Ad fontes; Accursius, Glossa ordinaria (c. 1230)",
+        "status": "live, awaiting Pavol's keep/change/revert",
+        "metric": "key_action {action: 'source_open'} / answered verified questions; target >= 10%"
+      },
+      {
+        "name": "Likely score on a fresh paper",
+        "from": "Brier 1950; Lichtenstein, Fischhoff & Phillips 1982; Roediger & Karpicke 2006",
+        "status": "live, awaiting Pavol's keep/change/revert",
+        "metric": "exam_finish score inside the range sent with start_exam (likely_low/likely_high, added in #11), ~80% of the time (users with >= 2 mocks)"
+      },
+      {
+        "name": "The commonplace book",
+        "from": "Erasmus, De copia (1512); Locke, A New Method of Making Common-Place-Books (1706)",
+        "status": "live, awaiting Pavol's keep/change/revert",
+        "metric": "key_action {action: 'commonplace_add'}: share of users with >= 5 entries and their 7-day return vs none"
+      },
+      {
+        "name": "Question first",
+        "from": "Socratic questioning; Slamecka & Graf 1978 (generation effect)",
+        "status": "proposed",
+        "metric": "key_action {action: 'recall_first'}; first-try accuracy on later reviews, recall-first vs normal"
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "question": "The cited answer: keep, change or revert?",
+      "options": ["keep", "change", "revert"],
+      "default_taken": "keep (live, unchanged)",
+      "why": "Its metric only went live today (#10); judge it on source_open data, not on taste."
+    },
+    {
+      "question": "Likely score on a fresh paper: keep, change or revert?",
+      "options": ["keep", "change", "revert"],
+      "default_taken": "keep (live, unchanged)",
+      "why": "Needs users with two or more mocks before calibration can be judged."
+    },
+    {
+      "question": "The commonplace book: keep, change or revert?",
+      "options": ["keep", "change", "revert"],
+      "default_taken": "keep (live, unchanged)",
+      "why": "commonplace_add has been tracked since #4; no change made this round."
+    },
+    {
+      "question": "Question first: which form, if any?",
+      "options": ["A: tap to reveal the options", "B: type your answer in a few words first", "C: options fade in after a few seconds", "none"],
+      "default_taken": "none built; recommendation A",
+      "why": "Signature move, waits for Pavol. A keeps the retrieval step for one tap and compares cleanly. Mockups: docs/signature/question-first-{a,b,c}.png."
+    },
+    {
+      "question": "Abstract reasoning: should the dot count wrap (6 -> 1) mid-series?",
+      "options": ["no wrap: steps of ±1 within 1..8", "wrap and say so in the instructions"],
+      "default_taken": "no wrap",
+      "why": "A wrap reads as a trick, not as reasoning."
+    },
+    {
+      "question": "Abstract reasoning: how should distractors be built?",
+      "options": ["each breaks one rule (draft)", "balanced design: 2x2 grid for two rules, pairs differing in two rules for three"],
+      "default_taken": "balanced design",
+      "why": "The review showed 'pick the option most like the others' scored 98% on the draft; the balanced design gives no shortcut (tested over 2,000 seeds)."
+    },
+    {
+      "question": "Abstract reasoning on a phone: how to show six figures at 390 px?",
+      "options": ["wrap 3 + 3, one row from sm", "one row with horizontal scroll"],
+      "default_taken": "wrap 3 + 3",
+      "why": "One row at 390 px makes dots too small to count; this uses the existing card grid, so it is not a new presentation."
+    },
+    {
+      "question": "Analytics guard on fork and Dependabot PRs?",
+      "options": ["skip (no secrets there)", "run only on main pushes"],
+      "default_taken": "skip on fork/Dependabot PRs, run on main and same-repo PRs",
+      "why": "Same-repo PRs catch a missing secret before merge."
+    },
+    {
+      "question": "Vendored BOT_UA false positives ('bot\\b' matches a CUBOT phone UA; 'preview' is broad)?",
+      "options": ["keep the kit regex", "fork it locally"],
+      "default_taken": "keep the kit regex",
+      "why": "A fleet-wide rule belongs in the flywheel kit; flagged for flywheel."
+    }
+  ],
+  "next": [
+    "Pavol: keep/change/revert on the three live moves; pick question-first A/B/C or none.",
+    "Flywheel kit: take the check-analytics fix (match https://<ref>.supabase.co) and review BOT_UA false positives.",
+    "Flywheel: flywheel.json kpi_event_map maps only start_* and app_open; the signature metrics are key_action props (source_open, commonplace_add) and need a props-aware rollup or map entries in pull-kpis.",
+    "Read source_open per answered verified question after a week of traffic; it is the cited answer's metric.",
+    "Verbal reasoning (CS/SK/EN) is the last reasoning test not covered; exam coverage, not a signature move.",
+    "Combined reasoning score: show numerical + abstract against 10/20 when both are sat in a session."
+  ],
+  "screenshots": {
+    "abstract_390": "e2e/shots/abstract-cs-question-390.png",
+    "abstract_1280": "e2e/shots/abstract-en-question-1280.png",
+    "abstract_results_390": "e2e/shots/abstract-cs-results-390.png",
+    "question_first_mockups": ["docs/signature/question-first-a.png", "docs/signature/question-first-b.png", "docs/signature/question-first-c.png"]
+  }
+}

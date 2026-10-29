@@ -1,67 +1,98 @@
-# SIGNATURE.md — EPSO AI Field Trainer
+# EPSO AI Field Trainer — signature
 
-The founder signature for this product, per the deep-round charter (flywheel
-`docs/program/2026-10-27-deep-round.md`). The idea in one line: **ad fontes**. Learn the law
-from the law itself, test yourself before you are told, and measure honestly.
+The part of the EPSO AI Field Trainer that could only have come from Pavol. Nothing in
+"Signature moves" is built before Pavol has picked it.
 
-## 1. Lineage
+In one line: **ad fontes**. Learn the law from the law itself, test yourself before you are
+told, and measure honestly.
 
-| Source | Year | URL | changes: |
-|---|---|---|---|
-| Erasmus, *De duplici copia verborum ac rerum* and *De ratione studii*; the humanist commonplace book (later systematised in John Locke's *A New Method of Making Common-Place-Books*, 1706) | 1512; 1511; 1706 | https://en.wikipedia.org/wiki/De_Copia · https://en.wikipedia.org/wiki/Commonplace_book | The candidate keeps their own **commonplace book**: verbatim passages from the AI Act and the acquis, collected while practising and filed by act and article. These are passages they met while working through a problem, not a summary someone else wrote. |
-| *Ad fontes*: the humanists' return to source texts, and the glossed legal page (Accursius, *Glossa ordinaria* on the Corpus Juris, c. 1230) | 15th–16th c.; c. 1230 | https://en.wikipedia.org/wiki/Ad_fontes · https://en.wikipedia.org/wiki/Glossa_ordinaria_(law) | Every governance and policy answer carries the passage of the official text that settles it, checked verbatim in CI. The explanation reads as a gloss on the source, set beside the text with its reference. |
-| Langdell's case method, Harvard Law School | 1870 | https://en.wikipedia.org/wiki/Case_method | Questions are set as cases ("A start-up is placing an Annex III recruitment tool on the market…"), and you answer by applying the article to the facts. The bank is written that way, and new questions follow it. |
-| Thomas Aquinas, *Summa Theologiae*: the *quaestio* (question, objections, *sed contra*, *respondeo*, replies) | 1265–1274 | https://en.wikipedia.org/wiki/Summa_Theologica#Structure | Each rationale names the tempting wrong option and says why it fails, the "reply to the objection". Planned: a reply to every distractor, shown for the option you actually chose. |
-| Ebbinghaus, *Über das Gedächtnis* (the spacing effect); Roediger & Karpicke, "Test-Enhanced Learning" (the testing effect) | 1885; 2006 | https://psychclassics.yorku.ca/Ebbinghaus/index.htm · https://doi.org/10.1111/j.1467-9280.2006.01693.x | Practice is retrieval, not rereading: missed questions come back on a schedule, and mastery means right twice in a row. The study guide is there to be read *after* a question has exposed a gap. |
-| Slamecka & Graf, "The generation effect"; Lichtenstein, Fischhoff & Phillips, "Calibration of probabilities"; Brier, "Verification of forecasts expressed in terms of probability" | 1978; 1982; 1950 | https://doi.org/10.1037/0278-7393.4.6.592 · https://doi.org/10.1017/CBO9780511809477.023 · https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2 | Answer before you see the options (Socratic: the question first). Readiness is a calibrated range from first tries, never a flattering single number. A later step scores confidence ratings against outcomes. |
+## Lineage
 
-## 2. Refused
+| Source | Year | changes: |
+|---|---|---|
+| Erasmus, *De copia* and *De ratione studii*; the humanist commonplace book, later set out by Locke, *A New Method of Making Common-Place-Books* | 1512; 1511; 1706 | The candidate keeps a **commonplace book**: verbatim passages from the AI Act and the acquis, collected while practising and filed by act and article. They are passages met while working a problem, not someone else's summary. |
+| *Ad fontes*; the glossed legal page (Accursius, *Glossa ordinaria* on the Corpus Juris) | 15th–16th c.; c. 1230 | Every governance and policy answer carries the passage of the official text that settles it, checked verbatim in CI. The explanation reads as a gloss set beside the text, with its reference. |
+| Langdell's case method, Harvard Law School | 1870 | Questions are set as cases ("A start-up is placing an Annex III recruitment tool on the market…"). You answer by applying the article to the facts. |
+| Aquinas, *Summa Theologiae*: the *quaestio* (objections, *sed contra*, *respondeo*, replies) | 1265–1274 | Each rationale names the tempting wrong option and says why it fails: the reply to the objection. |
+| Ebbinghaus, *Über das Gedächtnis*; Roediger & Karpicke, "Test-Enhanced Learning" | 1885; 2006 | Practice is retrieval, not rereading. Missed questions come back on a schedule, and mastery means right twice in a row. |
+| Slamecka & Graf, "The generation effect"; Lichtenstein, Fischhoff & Phillips, "Calibration of probabilities"; Brier, "Verification of forecasts…" | 1978; 1982; 1950 | Readiness is a calibrated range from first tries, never a flattering single number. The generation effect is the case for question-first mode (proposed below). |
 
-- **Toy gamification.** No confetti, mascots, cartoon emoji, or badges for their own sake.
-  Candidates are professionals preparing for a career exam.
+## Refused
+
+- **Toy design.** No confetti, mascots, cartoon emoji, or badges for their own sake. Candidates
+  are professionals preparing for a career exam.
 - **Streak anxiety.** The day count stays a quiet number. There are no loss warnings, no
-  "don't break your streak" notifications, and no streak freezes for sale.
-- **Flattering scores.** We don't predict a pass, guarantee results, or invent a cut-off. EPSO
-  doesn't publish the cut-off, so neither do we. A mock built from questions you've already seen
+  "don't break your streak" notifications, and no streak freezes.
+- **Flattering scores.** No predicted pass, no guarantee, no invented cut-off. EPSO doesn't
+  publish the cut-off, so neither do we. A mock built from questions you have already seen
   doesn't count as evidence.
 - **Sources dressed up.** An unverified question never shows a quote as if the quote settled it.
+- **Dark patterns.** No infinite feed, no daily-goal inflation, no paywall teasers. The app stays
+  free.
 - **The generic AI-app look.** No purple gradients, blobs, rounded-everything or "✨". No
-  chatbot tutor that answers confidently from training data older than the law.
-- **Engagement bought at the cost of learning.** No infinite feed and no daily-goal inflation.
+  chatbot tutor answering from training data older than the law.
 
-## 3. Signature mechanics
+## Signature moves
 
-| Mechanic | What the user sees | From | How we'll know it works | Status |
+| Move | What the user sees | From | Metric (event in kpi_event_map) | Status |
 |---|---|---|---|---|
-| **The cited answer** | Under each rationale, the verbatim passage with its article reference and a EUR-Lex link, and "Checked against the official text on …" | *Ad fontes*, the glossa | Share of answered verified questions where the user opens the source link (`key_action` with `{action: 'source_open'}`); target ≥ 10% | shipped (PR #2) |
-| **Likely score on a fresh paper** | A 10th–90th percentile range of 0–30 from first tries only, the chance of reaching 15/30, and the notice's real ranking rule (about 360 essays marked for 240 places) | Brier, Lichtenstein et al.; the testing effect | Predicted vs actual first-try score on the next mock, over users with ≥ 2 mocks; the 80% range should contain the actual score ~80% of the time | shipped (this round) |
-| **Commonplace book** | "Copy to my commonplace book" on each cited passage. A Commonplace view files the passages by act and article, with the case they came from; it can be exported as text | Erasmus, *De Copia*; Locke 1706 | Users with ≥ 5 entries; their 7-day return rate vs users with none (`key_action` with `{action: 'commonplace_add'}`) | building (this round) |
-| **Question first** | Optional "recall first" mode: the stem appears alone and the options appear after a tap, once you've formed an answer | Socratic questioning; the generation effect | First-try accuracy on later reviews of the same questions, recall-first vs normal | proposed |
+| **The cited answer** | Under each verified rationale: the verbatim passage, its article reference and a EUR-Lex link, and "Checked against the official text on …". The same passages appear on the 51 prerendered pages. | *Ad fontes*; the glossa | `key_action {action: 'source_open'}` from the answer, the commonplace book and the static pages (live since #10), divided by answered verified questions. Target ≥ 10%. | live (#2; metric #10), awaiting Pavol's keep / change / revert |
+| **Likely score on a fresh paper** | A 10th–90th percentile range of 0–30 from first tries only, the chance of reaching 15/30, and the notice's real ranking rule (about 360 essays marked for 240 places). | Brier; Lichtenstein et al.; the testing effect | `exam_finish` score against the range sent with `start_exam` (`likely_low` / `likely_high`, since #11): the 80% range should contain the actual score about 80% of the time, over users with ≥ 2 mocks. | live (#3), awaiting Pavol's keep / change / revert |
+| **The commonplace book** | "Copy to my commonplace book" on each cited passage. A view that files the passages by act and article, with the case they came from; exportable as text. | Erasmus, *De copia*; Locke | `key_action {action: 'commonplace_add'}`: the share of users with ≥ 5 entries, and their 7-day return rate against users with none. | live (#4), awaiting Pavol's keep / change / revert |
+| **Question first** | The stem appears alone; the options come only once you have formed an answer. | Socratic questioning; the generation effect | `key_action {action: 'recall_first'}`, then first-try accuracy on later reviews of the same questions, recall-first against normal. | proposed |
 
-## 4. Visual signature
+Status: proposed → approved (dated) → live → or changed / reverted.
 
-The glossed legal page and the Official Journal. The law sits in the middle of the page, and
-the gloss and reference sit beside it in a smaller face. In the app:
+### Proposal: question first
 
-- Source passages are set as quotations: a text serif in italic, a rule on the left, and the
-  reference (act, article) in small mono, the way an apparatus or margin note is set. This is
-  the one signature element on the answer screen.
-- The rest stays the instrument-panel palette already in use (steel, brass, verdigris), held
-  to the taste standard's rules: four type steps, accent twice per screen, AA contrast, the
-  375 px phone contract. No redesign for its own sake.
+An opt-in mode for practice and the daily lesson. It never applies to the exam simulation, which
+has to match the real format. The screenshots are DOM mockups at 390 px; nothing is built.
 
-## 5. Founder lens
+- **Option A: tap to reveal.** The stem stands alone with "Show the four options". You form the
+  answer in your head, then tap. ![A](signature/question-first-a.png)
+  Cost: small, one flag in the question card plus a settings toggle; about half a day with
+  tests.
+- **Option B: write it first.** A short free-text box ("Your answer, in a few words") before the
+  options. Your words are shown beside the key in the feedback. ![B](signature/question-first-b.png)
+  Cost: medium, about a day. It is the strongest form of the generation effect, but it adds
+  typing on a phone to every question, and the text is never scored.
+- **Option C: timed hold.** The options fade in after a few seconds, with no tap.
+  ![C](signature/question-first-c.png)
+  Cost: smallest. It is passive, so it forces no retrieval, and it slows down the candidates who
+  already know the answer.
 
-- **II (the order).** The product must not cost Pavol's presence. Verification runs in CI, and
-  re-verification is a scripted pass when an act changes, not an evening of reading. The
-  readiness model needs no server and no moderation.
-- **VI (moat, reach, loose ends).** The moat is frozen judgment: a verification trail checked
-  against the law and kept current. It reaches the people it's for through answers that are
-  findable and citable: prerendered article explainers with verified quotes, and an honest
-  llms.txt. Unsourced questions are listed rather than hidden, so they aren't loose ends.
-- **VIII (never lie or trick).** Ranges instead of promises, no invented cut-off, unverified
-  questions shown as such, no dark patterns. Where we don't know something, the screen says
-  so.
+**Recommendation: A.** It keeps the retrieval step and costs one tap. It is easy to switch off
+per session, and the metric can compare it fairly against normal mode. B is worth trying later
+as a variant for missed questions only.
 
-The difference that follows: incumbents sell volume ("1,500+ questions"). We sell
-correctness you can check, and an honest estimate of where you stand.
+## Visual signature
+
+The glossed legal page and the Official Journal. The law sits in the middle of the page; the
+gloss and reference sit beside it in a smaller face. In the app:
+
+- Source passages are set as quotations: italic, a rule on the left, and the reference (act,
+  article) in small mono, the way an apparatus or margin note is set. This is the one
+  signature element on the answer screen.
+- Everything else uses the instrument-panel palette already in place (steel, brass,
+  verdigris), held to the taste standard: four type steps, the accent twice per screen, AA
+  contrast, and the phone contract. The reasoning tests use the same chrome, with figures
+  drawn in the text colour.
+
+## Founder lens
+
+Articles II, VI and VIII bind this product.
+
+- Verification runs in CI, and re-verification is a scripted pass when an act changes. The
+  readiness model needs no server and no moderation, so the product does not take Pavol's
+  evenings.
+- The moat is a verification trail kept current against the law. It reaches people through
+  findable, citable pages and an honest llms.txt. Unsourced questions are listed, not hidden.
+- Ranges instead of promises, unverified questions shown as such, and no dark patterns. Where
+  we don't know something, the screen says so.
+
+## Decision log
+
+| Date | Options shown | Pavol chose | Note |
+|---|---|---|---|
+| 2026-10-28 | Keep / change / revert for each live move: the cited answer, likely score on a fresh paper, the commonplace book | pending | Hand-back `docs/review/2026-10-28.json` |
+| 2026-10-28 | Question first: A tap to reveal · B write it first · C timed hold (recommend A) | pending | Nothing built |

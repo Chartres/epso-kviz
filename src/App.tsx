@@ -9,6 +9,7 @@ import { ResultsScreen } from '@/components/screens/ResultsScreen'
 import { StudyScreen } from '@/components/screens/StudyScreen'
 import { StatsScreen } from '@/components/screens/StatsScreen'
 import { NumericalScreen } from '@/components/screens/NumericalScreen'
+import { AbstractScreen } from '@/components/screens/AbstractScreen'
 import { track } from '@/analytics'
 
 function CurrentView() {
@@ -19,6 +20,13 @@ function CurrentView() {
         <NumericalScreen
           onExit={() => dispatch({ type: 'navigate', view: 'practice' })}
           onFinish={(r) => track('key_action', { action: 'numerical_finish', ...r })}
+        />
+      )
+    case 'abstract':
+      return (
+        <AbstractScreen
+          onExit={() => dispatch({ type: 'navigate', view: 'practice' })}
+          onFinish={(r) => track('key_action', { action: 'abstract_finish', ...r })}
         />
       )
     case 'practice':

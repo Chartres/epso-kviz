@@ -3,6 +3,7 @@ import type { ProgressData } from '@/domain/progress'
 import type { Citation } from '@/domain/types'
 import { commonplaceEntries, commonplaceText } from '@/domain/commonplace'
 import { citationUrl } from '@/domain/citations'
+import { track } from '@/analytics'
 
 /**
  * The learner's commonplace book: verbatim passages they collected while practising,
@@ -60,7 +61,13 @@ export function Commonplace({
                       {e.quote}
                     </blockquote>
                     <div className="mt-1 flex flex-wrap items-center gap-x-4 pl-3 font-mono text-xs">
-                      <a href={citationUrl(e)} target="_blank" rel="noopener noreferrer" className="text-brass-400 hover:underline">
+                      <a
+                        href={citationUrl(e)}
+                        onClick={() => track('key_action', { action: 'source_open', doc: e.doc, ref: e.ref, from: 'commonplace' })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brass-400 hover:underline"
+                      >
                         {e.ref} ↗
                       </a>
                       <button

@@ -127,3 +127,14 @@ export function readiness(
     atLeast: (s: number) => pmf.slice(Math.max(0, s)).reduce((a, b) => a + b, 0),
   }
 }
+
+/** The likely-score range as event props, sent when a mock starts so calibration can be scored later. */
+export function readinessProps(progress: ProgressData) {
+  const r = readiness(progress)
+  return {
+    likely_low: r.low,
+    likely_high: r.high,
+    likely_expected: Math.round(r.expected * 10) / 10,
+    likely_enough: r.enough,
+  }
+}

@@ -1,5 +1,6 @@
 import type { Citation, Meta, Question } from '../domain/types'
 import { labelFor, urlFor, type Sources } from '../domain/citationRefs.ts'
+import { beaconScript, type BeaconConfig } from './beacon.ts'
 
 /**
  * Static pages prerendered at build time (scripts/prerender.ts), so search engines and AI
@@ -18,6 +19,8 @@ export interface SiteInput {
   date: string
   /** AI Act article titles ("Penalties"), keyed by article ("99", "4a"), read from the pinned text. */
   articleTitles?: Record<string, string>
+  /** Analytics config from the build env; without it the pages carry no script. */
+  beacon?: BeaconConfig
 }
 
 export interface Page {
@@ -62,7 +65,7 @@ const newest = (qs: readonly Question[]) =>
   qs.map((q) => q.verified ?? '').sort().pop() || undefined
 
 function passageHtml(c: Citation, input: SiteInput): string {
-  return `<figure><blockquote>${esc(c.quote)}</blockquote><figcaption><a href="${esc(urlFor(c, input.sources))}" rel="noopener">${esc(labelFor(c, input.sources))}</a></figcaption></figure>`
+  return `<figure><blockquote>${esc(c.quote)}</blockquote><figcaption><a href="${esc(urlFor(c, input.sources))}" rel="noopener" data-doc="${esc(c.doc)}" data-ref="${esc(c.ref)}">${esc(labelFor(c, input.sources))}</a></figcaption></figure>`
 }
 
 const LETTERS = ['a', 'b', 'c', 'd'] as const
@@ -274,7 +277,7 @@ export function renderPage(p: Page, input: SiteInput): string {
 <body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
 <main>${p.body}</main>
 <footer><p>Unofficial study aid, not affiliated with EPSO or the European Commission. Questions and explanations: CC BY-NC-SA 4.0. Quoted passages: © European Union, reused under Commission Decision 2011/833/EU, and other sources as credited.</p></footer>
-</body></html>
+${input.beacon ? `<script>${beaconScript(input.beacon)}</script>\n` : ''}</body></html>
 `
 }
 

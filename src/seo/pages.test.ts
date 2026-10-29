@@ -91,6 +91,15 @@ describe('prerendered site', () => {
     expect(html).toContain('application/ld+json')
   })
 
+  it('carries the analytics beacon only when the build has the Supabase config, and marks cited links for it', () => {
+    const p = page('/ai-act/article-99/')!
+    expect(renderPage(p, input)).not.toContain('<script>')
+    const html = renderPage(p, { ...input, beacon: { url: 'https://abc.supabase.co', key: 'sb_publishable_x', app: 'epso-kviz' } })
+    expect(html).toMatch(/<script>\(function\(\)\{.*page_view.*<\/script>\n<\/body>/s)
+    expect(html).toContain('https://abc.supabase.co/rest/v1/events')
+    expect(p.body).toMatch(/<a href="[^"]+" rel="noopener" data-doc="ai-act" data-ref="Art 99\(\d\)/)
+  })
+
   it('lists every page in the sitemap, and llms.txt states the verified counts honestly', () => {
     const xml = sitemapXml(site, input)
     for (const p of site) expect(xml).toContain(`<loc>https://epsokviz.dravec.org${p.path}</loc>`)
