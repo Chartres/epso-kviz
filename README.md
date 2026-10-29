@@ -36,6 +36,9 @@ with the reason they are not verified: a judgment no text decides, or a source w
 - **Real exam simulation.** 30 questions in the official composition (10 engineering + 10
   governance + 10 policy), 40-minute timer, pass at 15/30, per-category breakdown — no feedback
   during the exam, matching the real test.
+- **Reasoning tests in Czech, Slovak or English.** Verbal (20 statements on EUR-Lex passages,
+  35 minutes; true, false or cannot say), numerical (10 questions, 20 minutes) and abstract
+  (10 series, 10 minutes), timed as in the notice's Table 3. Verbal items: `data/verbal/`.
 - **Study guide.** 12 lessons covering the material behind every question, sourced from the AI
   Act, the Notice of Competition, and Commission policy documents.
 - **Profiles & sync (optional).** Sign in with a magic-link email to sync progress across

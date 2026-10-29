@@ -11,10 +11,23 @@ import { StatsScreen } from '@/components/screens/StatsScreen'
 import { NumericalScreen } from '@/components/screens/NumericalScreen'
 import { AbstractScreen } from '@/components/screens/AbstractScreen'
 import { track } from '@/analytics'
+import { lazy, Suspense } from 'react'
+
+// Verbal passages are ~35 KB gzipped in three languages; load them only when opened.
+const VerbalScreen = lazy(() => import('@/components/screens/VerbalScreen').then((m) => ({ default: m.VerbalScreen })))
 
 function CurrentView() {
   const { state, dispatch } = useApp()
   switch (state.view) {
+    case 'verbal':
+      return (
+        <Suspense fallback={null}>
+          <VerbalScreen
+            onExit={() => dispatch({ type: 'navigate', view: 'practice' })}
+            onFinish={(r) => track('key_action', { action: 'verbal_finish', ...r })}
+          />
+        </Suspense>
+      )
     case 'numerical':
       return (
         <NumericalScreen
