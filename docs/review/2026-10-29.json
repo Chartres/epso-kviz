@@ -7,13 +7,13 @@
       "title": "Verbal reasoning in Czech, Slovak or English: 20 statements, 35 minutes",
       "pr": "https://github.com/Chartres/epso-kviz/pull/12",
       "merged": "2026-10-29",
-      "live_checked": "LIVE_12"
+      "live_checked": "Deploy tagged deploy-2026-10-29 (374b27f). Live at 390 px in real Chromium with Supabase blocked: Practice -> Verbal reasoning -> Slovenčina -> Začať shows 'Otázka 1 z 20', a verbatim passage with its CELEX link, and A Pravda / B Nepravda / C Nedá sa určiť. A full sitting scores (n z 20) with 20 reasons. No horizontal scroll (scrollWidth 390)."
     },
     {
       "title": "Verify the last 20 governance/policy questions: 8 verified (6 after correction), 12 marked unverifiable",
       "pr": "https://github.com/Chartres/epso-kviz/pull/13",
       "merged": "2026-10-29",
-      "live_checked": "LIVE_13"
+      "live_checked": "Deploy tagged deploy-2026-10-29-2 (5ddfa05). The live bundle carries 8 questions verified 2026-10-29, the DG Competition brief citation and the corrected 2073 wording ('eased during 2024'). The verbal sitting re-checked on the same deploy."
     }
   ],
   "verbal": {
