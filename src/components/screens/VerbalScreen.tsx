@@ -229,7 +229,12 @@ export function VerbalScreen({
         </fieldset>
         <button
           type="button"
-          onClick={() => (last ? finish() : setIndex(index + 1))}
+          onClick={() => {
+            if (last) return finish()
+            setIndex(index + 1)
+            // a new passage starts at the top
+            window.scrollTo(0, 0)
+          }}
           className="mt-6 w-full rounded-card bg-brass-500 px-5 py-3 font-display font-semibold uppercase tracking-wide text-steel-950 hover:bg-brass-400"
         >
           {last ? t.finish : t.next}
