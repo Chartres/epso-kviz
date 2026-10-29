@@ -131,5 +131,11 @@
    "verified": false,
    "note": "Evaluation-communication judgment; no text decides it."
   }
+ },
+ "blind_check": {
+  "date": "2026-10-29",
+  "reviewer": "fresh subagent given only each verified question, its options, key, explanation and quotes",
+  "result": "8 of 8 agree; none unverified",
+  "weakest": "2056: no quote rules out (c) directly; (d) wins because it has direct support and (c) has none. 1052 and 2078 rule out off-topic options (ISO/IEC 25059; GPSR, DSA) by scope rather than by a contradicting quote."
  }
 }
