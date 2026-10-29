@@ -1,0 +1,99 @@
+{
+  "product": "epso-kviz",
+  "date": "2026-10-29",
+  "headline": "All three EPSO reasoning tests are now live in CS/SK/EN: verbal reasoning (20 statements, 35 minutes) is built on verbatim EUR-Lex passages, and every key held under blind checks in all three languages. The last 20 unverified governance/policy questions are settled: 8 verified (6 after correction) and 12 marked unverifiable, so 139 of 151 are now verified.",
+  "shipped": [
+    {
+      "title": "Verbal reasoning in Czech, Slovak or English: 20 statements, 35 minutes",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/12",
+      "merged": "2026-10-29",
+      "live_checked": "Deploy tagged deploy-2026-10-29 (374b27f). Live at 390 px in real Chromium with Supabase blocked: Practice -> Verbal reasoning -> Slovenčina -> Začať shows 'Otázka 1 z 20', a verbatim passage with its CELEX link, and A Pravda / B Nepravda / C Nedá sa určiť. A full sitting scores (n z 20) with 20 reasons. No horizontal scroll (scrollWidth 390)."
+    },
+    {
+      "title": "Verify the last 20 governance/policy questions: 8 verified (6 after correction), 12 marked unverifiable",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/13",
+      "merged": "2026-10-29",
+      "live_checked": "Deploy tagged deploy-2026-10-29-2 (5ddfa05). The live bundle carries 8 questions verified 2026-10-29, the DG Competition brief citation and the corrected 2073 wording ('eased during 2024'). The verbal sitting re-checked on the same deploy."
+    }
+  ],
+  "verbal": {
+    "format_source": "Notice of Competition EPSO/AD/430/26, OJ C/2026/4668, section 4.3.2(b), Table 3, read from the Publications Office (Cellar) on 2026-10-29: verbal reasoning, language 1, 20 questions, 35 minutes, pass 10/20.",
+    "passages": "14 recitals from 8 EU acts (CELEX 32024R1689, 32016R0679, 32023R2854, 32022R2065, 32022L2555, 32019L0882, 32023R1781, 32019L1024), verbatim from the CS, SK and EN Official Journal editions. Each carries its CELEX number, recital number and EUR-Lex link. The attribution and Commission Decision 2011/833/EU are recorded in data/verbal/passages.json.",
+    "items": "69 statements (27 true, 21 false, 21 cannot say), each in all three languages with one key and a reason. A sitting takes 4 statements from each of 5 random passages.",
+    "checks": [
+      "CI: every item's passage id exists.",
+      "CI: every quote in a reason matches its passage verbatim, in each language (this caught 10 slips while the items were being written).",
+      "CI: the format is 20/35/10, and a sitting has 20 distinct items with each passage's statements kept together.",
+      "Blind self-check: three fresh subagents, one per language, got only the passages and the statements. All 210 answers matched the key.",
+      "gdpr43-2 was dropped anyway because 'cannot say' was arguable.",
+      "ai63-4 was reworded from 'must' to 'should' and re-checked blind: 3 of 3 agreed.",
+      "Independent code review: nothing blocking. Its two non-blocking findings were fixed before merge: a reload-once if the lazy chunk has gone after a deploy, and scroll to top on Next."
+    ]
+  },
+  "verification": {
+    "attached_source_key_unchanged": 2,
+    "corrected_then_verified": 6,
+    "marked_unverifiable": 12,
+    "verified_total": "139 of 151 (governance 72, policy 67)",
+    "detail": "Verified as they stood: 1052, 1072. Corrected, then verified: 1066, 1080, 2056, 2062, 2073, 2078. Unverifiable: 7 are judgments no text decides (1067, 1074, 1079, 2070, 2080, 2081, 2086); 4 rest on sources we may not pin (1002, 2043 OECD; 1073 IIA; 1077 Reg. 1049/2001 release); 1 is a negative claim (2082). Reasons: data/verification/2026-10-29.json.",
+    "new_pinned_sources": [
+      "jrc-ai-standardisation-2023 (CC BY 4.0)",
+      "competition-brief-genai-2024 (reproduction with acknowledgement)",
+      "nist-sp-1270 (US federal work)"
+    ],
+    "checks": [
+      "CI quote check passes against the 41 pinned texts. The citation floor is raised to 72 governance and 67 policy.",
+      "A blind reviewer given only the 8 verified questions and their quotes agreed on all 8.",
+      "Independent data review found nothing blocking. Its one correctness note was fixed before merge: 2073 option (a) and the explanation now cover only 2024, the period the pinned report covers."
+    ]
+  },
+  "signals_fixed": [
+    "key_action verbal_start (Practice tab) and verbal_finish {lang, score, total}, the same shape as numerical_* and abstract_*. No new event names.",
+    "The verbal screen is lazy-loaded, which keeps 35 KB gzip of passages off first load for everyone who never opens it."
+  ],
+  "decisions": [
+    {
+      "question": "Verbal item form: true/false/cannot-say statements, or EPSO's current '4 statements, which one is correct?' per passage?",
+      "options": ["true / false / cannot say per statement (as briefed)", "4-option 'which statement is correct' per passage"],
+      "default_taken": "true / false / cannot say",
+      "why": "This is the form the brief specified, and it is checkable item by item. Moving to the 4-option form means regrouping the existing statements, with no new passages needed."
+    },
+    {
+      "question": "Verbal passages: recitals of EU acts, or articles?",
+      "options": ["recitals", "articles", "mix"],
+      "default_taken": "recitals as first published",
+      "why": "Recitals are reasoned prose, closest to EPSO-style passages, and the test asks only what the text says, so later amendments don't matter."
+    },
+    {
+      "question": "Where does verbal sit on the Practice tab?",
+      "options": ["above numerical and abstract (the notice's order)", "below them"],
+      "default_taken": "above",
+      "why": "It follows Table 3's order and is reversible by moving one block."
+    },
+    {
+      "question": "Accept a JRC technical report and a DG Competition staff brief as sources for verification?",
+      "options": ["accept (official EU publications, not law)", "law and Commission acts only"],
+      "default_taken": "accept, for the standards and competition questions only",
+      "why": "No legal act names the ISO/IEC standards or the Commission's competition stance on GenAI partnerships. These are the official EU texts that do."
+    },
+    {
+      "question": "Unverifiable questions: keep, rewrite into checkable ones, or retire?",
+      "options": ["keep, labelled as not verified (as now)", "rewrite toward pinned sources", "retire from the exam draw"],
+      "default_taken": "keep, labelled",
+      "why": "The app already shows them as unverified, and retiring them would change the exam's category balance. Pavol's call."
+    }
+  ],
+  "next": [
+    "Pavol: keep/change/revert on the three live signature moves; question-first A/B/C or none (still pending from 2026-10-28).",
+    "Pavol: verbal item form (statement vs EPSO's 4-option form) and what to do with the 12 unverifiable questions.",
+    "Read verbal_finish after a week: completion rate, and score by language (does SK/CS read harder than EN?).",
+    "IndexNow: no static pages changed this round, so nothing to submit.",
+    "Combined reasoning view: show verbal against 10/20 and numerical + abstract against 10/20 when sat in one session.",
+    "Engineering (80 questions) is still uncited; next step is pinning open references (NIST, ENISA)."
+  ],
+  "screenshots": [
+    "e2e/shots/verbal-cs-question-390.png",
+    "e2e/shots/verbal-en-question-1280.png",
+    "e2e/shots/verbal-cs-results-390.png"
+  ]
+}
