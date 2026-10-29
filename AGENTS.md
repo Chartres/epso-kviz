@@ -41,6 +41,8 @@ mode (30 q, 40-min timer) → results with per-category breakdown and mistake re
   `data/launch-log/epso-kviz.jsonl`.
 - Data source: `data/bank/*.json` (231 Q, Annex II Field 1 — AI; citations checked against `data/sources/` by `src/domain/citations.test.ts`); regenerate the merged
   `data/questions.json`/`meta.json` via `node scripts/merge.mjs`.
+- Private bank (planned, off): `scripts/fetch-bank.mjs` does nothing while `EPSO_BANK_SOURCE` is unset;
+  nothing calls it yet. Plan and Pavol's steps: `docs/plans/private-bank.md`.
 
 ## Analytics (Common Platform)
 Vendored client: `src/platform/flywheel-client.ts`, wrapped by `src/analytics.ts`. First-party,
