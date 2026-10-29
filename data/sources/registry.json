@@ -229,6 +229,24 @@
       "title": "COM(2026) 502 Proposal for a Regulation establishing a framework of measures for strengthening Europe's cloud and AI ecosystem (Cloud and AI Development Act), Council doc. 10104/26",
       "celex": "52026PC0502",
       "url": "https://data.consilium.europa.eu/doc/document/ST-10104-2026-INIT/en/pdf"
+    },
+    "jrc-ai-standardisation-2023": {
+      "short": "JRC, AI standardisation work plan analysis",
+      "title": "JRC Technical Report: Analysis of the preliminary AI standardisation work plan in support of the AI Act (Soler Garrido et al., EUR 31518 EN, 2023)",
+      "celex": "JRC132833, doi:10.2760/5847",
+      "url": "https://op.europa.eu/en/publication-detail/-/publication/b14d9c86-faa3-11ed-a05c-01aa75ed71a1/language-en"
+    },
+    "competition-brief-genai-2024": {
+      "short": "Competition Policy Brief 3/2024",
+      "title": "Competition Policy Brief No 3/2024: Competition in Generative AI and Virtual Worlds (DG Competition, September 2024)",
+      "celex": "KD-AK-24-003-EN-N, doi:10.2763/679899",
+      "url": "https://competition-policy.ec.europa.eu/document/download/c86d461f-062e-4dde-a662-15228d6ca385_en"
+    },
+    "nist-sp-1270": {
+      "short": "NIST SP 1270",
+      "title": "NIST Special Publication 1270: Towards a Standard for Identifying and Managing Bias in Artificial Intelligence (March 2022)",
+      "celex": "NIST SP 1270",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1270.pdf"
     }
   }
 }

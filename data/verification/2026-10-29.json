@@ -1,0 +1,141 @@
+{
+ "date": "2026-10-29",
+ "method": "Third pass over the 20 governance and policy questions still unverified after 2026-10-27. Each key, option and rationale was read again against the pinned texts and three newly pinned ones: the JRC's 'Analysis of the preliminary AI standardisation work plan in support of the AI Act' (2023, CC BY 4.0), DG Competition's Competition Policy Brief 3/2024 'Competition in Generative AI and Virtual Worlds' (reuse with acknowledgement) and NIST SP 1270 (US federal work). The bar was the one the 10-27 review set: the quoted passage must settle the key on its own. Where a passage settled the key only after a stem, option or rationale was reworded, the question was corrected first and then verified. Questions that rest on judgment, on sources whose terms do not allow pinning, or on a negative claim are marked unverifiable with the reason. Each of the 8 verified questions is then given, with only its quotes, to an independent reviewer that has not seen this work; any it does not agree with is unverified. Result: 2 verified, 6 corrected and verified, 12 unverifiable.",
+ "counts": {
+  "verified": 2,
+  "corrected": 6,
+  "unverifiable": 12
+ },
+ "questions": {
+  "1002": {
+   "status": "unverifiable",
+   "initial": "fixed-unverified",
+   "verified": false,
+   "note": "Recital 12 asks only for alignment with 'the work of international organisations'; no EU text we hold names the OECD, and the Commission's definition guidelines cite the OECD only in a footnote on lifecycle phases. The OECD Recommendation (OECD/LEGAL/0449) and its 2024 explanatory memorandum carry OECD terms and conditions, not an open licence, so they are not pinned. The key is the accepted reading; it stays unverified."
+  },
+  "1052": {
+   "status": "ok",
+   "initial": "unsourced",
+   "verified": "2026-10-29",
+   "note": "Key (a) confirmed by the JRC analysis of the AI standardisation work plan: ISO/IEC 42001 specifies an AI management system and ISO/IEC 42006 sets requirements for bodies that audit and certify it; 23894 is risk-management guidance built on ISO 31000; 22989 is concepts and terminology. Rationale trimmed: the claim about sharing ISO/IEC 27001's harmonised clauses is not in the source and was dropped. The JRC read 42001 and 23894 as drafts (2023); both have since been published.",
+   "newSource": "jrc-ai-standardisation-2023"
+  },
+  "1066": {
+   "status": "corrected",
+   "initial": "unverified-after-review",
+   "verified": "2026-10-29",
+   "note": "The question asked what distinguishes 'a usable risk benchmark from a marketing score' and keyed 'construct validity', a term the Code does not use; (b) (large item count) was partly true, since the Code lists sample size under internal validity. Reframed on the Code's own standard: stem now asks what makes a systemic-risk evaluation rigorous under the Safety and Security chapter; (a) now reads internal validity, external validity and reproducibility, with no test data used in training; (b) says item count 'on its own' suffices; (c) now says publishing every item lets providers optimise against it. Key unchanged (a)."
+  },
+  "1067": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "MLOps reproducibility practice. No public text sets a minimum set of items to version for an LLM decision; AI Act Art 12 (logging) and NIST AI 600-1 (versioning of underlying models) are related but do not decide it. A judgment question."
+  },
+  "1072": {
+   "status": "ok",
+   "initial": "unsourced",
+   "verified": "2026-10-29",
+   "note": "Key (a) confirmed by the JRC analysis: ISO/IEC 23894 builds on ISO 31000 with AI-specific additions, and risk work builds on it together with the 42001 management system. Distractor (c) is ruled out by the same report: ISO/IEC 42005 gives guidelines for AI impact assessment, not records of processing. Rationale reworded to match.",
+   "newSource": "jrc-ai-standardisation-2023"
+  },
+  "1073": {
+   "status": "unverifiable",
+   "initial": "fixed-unverified",
+   "verified": false,
+   "note": "The three-lines model is the IIA's (2020), a copyrighted paper we may not pin. EU banking texts (EBA internal governance guidelines) describe a 'three lines of defence' with the risk function as an independent control function, which conflicts with the IIA wording the 10-27 fix adopted, so they cannot stand in for it."
+  },
+  "1074": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "NIST AI RMF GOVERN 1.6 confirms an AI inventory is a recognised governance control. No text says it comes first; that sequencing is a judgment."
+  },
+  "1077": {
+   "status": "unverifiable",
+   "initial": "unverified-after-review",
+   "verified": false,
+   "note": "Key (a) matches Rule 1 of the Commission's staff guidelines on online generative AI tools (Ares(2023)3615578). That note was released under Reg. (EC) 1049/2001, which grants access but not reuse, so it is not pinned; no published Commission text states the rule."
+  },
+  "1079": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Contract-design judgment on lock-in. The Data Act switching rules cover data processing services but do not decide which clause matters most here."
+  },
+  "1080": {
+   "status": "corrected",
+   "initial": "unsourced",
+   "verified": "2026-10-29",
+   "note": "Option (a) said calibration and equal error rates cannot both hold 'when base rates differ'; NIST SP 1270 states the result as calibration against balance for the positive and negative classes, impossible together except in special cases. (a) reworded to the source's terms; the rationale cites it and adds that fairness cannot be reduced to one statistical definition, which rules out (c). Key unchanged (a). Kleinberg et al. (2016) and Chouldechova (2017) are not pinned (arXiv default licence); NIST SP 1270 is a US federal work.",
+   "newSource": "nist-sp-1270"
+  },
+  "2043": {
+   "status": "unverifiable",
+   "initial": "ok-unpinned",
+   "verified": false,
+   "note": "Key (d) is confirmed by the OECD.AI pages that host the Hiroshima AI Process Reporting Framework (launched 7 February 2025; version 2.0 now running). OECD content is under OECD terms and conditions, not an open licence, and no pinned EU text describes the framework, so it is not pinned."
+  },
+  "2056": {
+   "status": "corrected",
+   "initial": "unsourced",
+   "verified": "2026-10-29",
+   "note": "Key (d) confirmed by DG Competition's Policy Brief 3/2024: DG Competition is looking into investments and partnerships between large digital players and generative AI developers, and concentrations below the EUMR thresholds may be reviewed nationally or referred to the Commission (within the limits set by the Illumina judgment). Distractor (c) had footing: the DMA imposes interoperability duties on gatekeepers without a dominance finding. Reworded to 'on any model provider under competition law without first finding an infringement', which is clearly wrong. Rationale tightened: dropped 'or integrated into', which DMA Recital 29 does not say.",
+   "newSource": "competition-brief-genai-2024"
+  },
+  "2062": {
+   "status": "corrected",
+   "initial": "unverified-after-review",
+   "verified": "2026-10-29",
+   "note": "Option (d) said 'cognitive and clerical tasks' and 'evidence clearer on task composition than on net jobs'; the International AI Safety Report says the nearest-term impact is on jobs made up mainly of cognitive tasks and that magnitude and timing remain uncertain. (d) now reads: exposure concentrates in cognitive tasks, while the size and timing of net job effects remain uncertain. Apply AI Section 3.2 (Commission monitoring AI's labour-market impact) added against (c). Key unchanged (d)."
+  },
+  "2070": {
+   "status": "unverifiable",
+   "initial": "fixed-unverified",
+   "verified": false,
+   "note": "Key (d) is a reasoning point (hosting location confers no control over weights, updates or withdrawal) that no text states. Reg. (EU) 2018/1807 bears only on distractor (b), already made absolute on 10-27."
+  },
+  "2073": {
+   "status": "corrected",
+   "initial": "unverified-after-review",
+   "verified": "2026-10-29",
+   "note": "Option (a) claimed model releases fell since 2023, which no pinned text checks. Replaced with 'concentration in the general-purpose AI market has eased since 2024 as more providers entered', which the International AI Safety Report contradicts (the consensus of high concentration 'has continued to hold'). Added quotes for the key (dependency on a few companies for GPUs; three companies control 67% of cloud) and against (b) (56% of notable 2023 models developed in the US). Rationale rewritten to match. Key unchanged (d)."
+  },
+  "2078": {
+   "status": "corrected",
+   "initial": "unverified-after-review",
+   "verified": "2026-10-29",
+   "note": "The stem named a generic 'AI-driven customer service interface', which the EAA reaches only through a covered service. Stem now names a chat in a bank's consumer app or an online shop; EAA Art 2(2)(d) and (f) cover consumer banking and e-commerce services from 28 June 2025. Key unchanged (d)."
+  },
+  "2080": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Policy-design judgment on a national AI strategy; no text decides it."
+  },
+  "2081": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "AI Act Art 14(4)(b) corroborates the automation-bias concern; the key, that blanket oversight of every decision is not credible at scale, is a judgment no text states."
+  },
+  "2082": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "The key is a negative claim (no cross-cutting US federal AI statute) that no quote can prove, and the other options need the Council of Europe Treaty Office status page and UK and Chinese primary texts. CoE Convention Art 30 (pinned) rules out (c)'s 'binds all signatories'."
+  },
+  "2086": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Evaluation-communication judgment; no text decides it."
+  }
+ },
+ "blind_check": {
+  "date": "2026-10-29",
+  "reviewer": "fresh subagent given only each verified question, its options, key, explanation and quotes",
+  "result": "8 of 8 agree; none unverified",
+  "weakest": "2056: no quote rules out (c) directly; (d) wins because it has direct support and (c) has none. 1052 and 2078 rule out off-topic options (ISO/IEC 25059; GPSR, DSA) by scope rather than by a contradicting quote."
+ }
+}

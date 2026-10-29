@@ -1,0 +1,1582 @@
+Issue 3 | September 2024
+
+ISBN 978-92-68-16497-6, ISSN: 2315-3113
+
+Competition Policy Brief
+Competition in Generative AI and
+Virtual Worlds
+Klaus Kowalski, Cristina Volpin, and Zsolt Zombori*
+
+Introduction
+Generative artificial intelligence (AI) refers to neural networks
+that can generate high-quality text, images, and other forms of
+content based on the data they were trained on. Differently from
+traditional AI, generative AI models can process inputs to produce
+new content by predicting the likelihood of data typically
+appearing together. 1
+Virtual worlds are persistent, immersive environments, based on
+technologies including 3D and extended reality (XR), which make
+it possible to blend physical and digital worlds in real-time, for a
+variety of purposes such as designing, making simulations,
+collaborating, learning, socialising, carrying out transactions or
+providing entertainment. 2
+
+* European Commission – Directorate-General for Competition –
+Directorate for Information Technology, Communication and Media. The
+authors are grateful to Brice Allibert, Inge Bernaerts, Friedrich Wenzel
+Bulst, Kassiani Christodoulou, Thomas Kramler, Luca Manigrassi, Linsey
+McCallum, Neale McDonald, Emily O’Reilly, Carlota Reyners Fontana,
+Annemarie Ter Heegde, Paolo Tomassi, Joao Vareda and Marc Zedler,
+for their precious comments and contribution to the preparation of this
+brief.
+1
+See Regulation (EU) 2024/1689 of the European Parliament and of the
+Council of 13 June 2024 laying down harmonised rules on artificial
+intelligence and amending (Artificial Intelligence Act) OJ L, 2024/1689,
+12 July 2024, recitals 99 and 105; European Commission’s Living
+Guidelines on the Responsible Use of Generative AI in Research, ERA
+Forum Stakeholders’ document, available at https://research-andinnovation.ec.europa.eu/document/download/2b6cf7e5-36ac-41cbaab5-0d32050143dc_en?filename=ec_rtd_ai-guidelines.pdf, p. 3. See
+also G7 Competition Authorities and Policymakers’ Summit Digital
+Competition Communiqué, 8 November 2023, available at
+https://www.bundeskartellamt.de/SharedDocs/Publikation/EN/Others/G7
+_2023_Communique.pdf?__blob=publicationFile&v=2.
+2
+See Commission Staff Working Document, An EU initiative on Web 4.0
+and virtual worlds: a head start in the next technological transition,
+available at https://digital-strategy.ec.europa.eu/en/library/staff-working
+-document-information-insights-and-market-trends-web-40-andvirtual-worlds, pp. 3 and 87.
+
+The content of this article does not necessarily reflect the
+official position of the European Commission. Responsibility
+for the information and views expressed lies entirely with
+the authors.
+
+These technologies are
+redefining the way we all
+interact, work and consume
+content and are widely
+presumed
+to
+enhance
+automation and improve
+productivity. It is also
+expected that together,
+generative AI and virtual
+worlds
+will
+create
+immersive and intelligent
+interactions, which will
+have an impact on many
+sectors, among others
+manufacturing,
+retail,
+finance, education, energy
+and
+healthcare.
+The
+unprecedented and fast
+transformation
+these
+technologies are likely to
+bring
+raises
+many
+questions, including in
+relation to competition
+policy and enforcement.
+
+In a nutshell
+Generative AI and virtual
+worlds technologies are set
+to have a profound impact on
+many industries. While they
+will bring many positive
+changes, they could also give
+rise to competition concerns.
+Some of these concerns may
+arise in connection with key
+inputs to these technologies,
+such as data, AI accelerator
+chips,
+computing
+infrastructure, cloud capacity
+and
+technical
+expertise.
+Others may relate to the
+deployment and distribution
+of these technologies.
+The European Commission
+remains alert to potential
+anticompetitive practices and
+is committed to keeping
+these sectors competitive
+and contestable via antitrust,
+merger control and the DMA.
+
+DG Competition is deeply
+committed
+to
+understanding how these
+transformative
+technologies will reshape
+the EU´s economy and
+potentially
+improve
+productivity and competitiveness and is keen to ensure that
+citizens, small and large businesses can enjoy the benefits that
+competitive generative AI and virtual worlds markets can bring, in
+terms of price, choice, innovation and quality. With that goal in
+mind, the Commission launched two calls for contributions on
+competition in virtual worlds and generative AI, open from
+
+KD-AK-24-003-EN-N, doi 10.2763/679899
+©European Union, 2024
+Reproduction is authorised provided the source is
+acknowledged. More publications on:
+https://ec.europa.eu/competition-policy/publications_en and
+http://bookshop.europa.eu
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+Hungarian, Portuguese, and the UK competition authorities, as
+well as the US Federal Trade Commission.
+
+9 January to 11 March 2024. 3 Interested stakeholders were
+invited to share their experience and provide feedback on
+competition in these sectors and their insights on how
+competition law can help ensure that these sectors remain
+competitive. DG Competition received around 120 contributions
+on generative AI. Most of the contributions came from companies
+or business representatives. The remaining contributions were
+submitted by academics, policy groups, competition authorities
+and regulators, civil society, other government representatives
+and law firms. On virtual worlds, DG Competition received just
+over 50 submissions from businesses, academia, national
+competition authorities, regulatory bodies, associations, and
+citizens.
+
+While the role of competition enforcement in preserving
+competitive generative AI and virtual worlds markets is clearly
+important, it should be noted that the way in which market
+dynamics and competition will unfold in relation to these
+technologies is susceptible to be affected by many other factors,
+including regulation on policy aspects different from competition,
+such as, for instance, AI safety, data and copyright law. Some of
+these aspects are discussed below in the section on Other factors
+promoting competition in generative AI related markets.
+
+Generative AI
+
+As a follow-up to the calls for contributions, DG Competition
+organised a workshop on 28 June 2024, which brought together
+different perspectives emerging from the contributions and
+facilitated exchanges and the sharing of insights on the
+complexities of competition dynamics within virtual worlds and
+generative AI as well as the challenges, opportunities, and
+regulatory implications arising from the evolving landscape of
+these digital innovations. 4 The workshop featured three panel
+discussions, each addressing key themes and issues pertinent to
+competition in virtual worlds and generative AI. The panel
+discussions are available on the YouTube channel of
+DG Competition.
+
+Market dynamics and potential barriers to entry and
+expansion
+This policy brief focuses on competition dynamics and potential
+concerns in generative AI related markets. It does not discuss AI
+as an enforcement tool or AI as a possible tool to facilitate
+anticompetitive conduct in other markets, as in the context, for
+instance, of algorithmic collusion.
+The generative AI sector, which encompasses several markets at
+the upstream and downstream levels of the provision of
+generative AI models, 6 is currently described by players and
+stakeholders as very dynamic, with a rich R&D activity and many
+players of different sizes along the supply chain of AI foundation
+model development and deployment.
+
+As regards generative AI, DG Competition has also engaged in a
+thorough analysis of several investments and partnerships
+between large digital players and generative AI developers, both
+from the merger control and the antitrust viewpoint, including by
+sending requests for information to relevant players. 5 It also sent
+requests for information to better understand whether
+agreements between large digital players and original equipment
+manufacturers (OEMs) for the pre-installation of AI foundation
+models on new devices may raise anticompetitive concerns.
+
+The responses to the call for contributions and the on-going
+market investigations identified some market tendencies, which
+will shape generative AI related markets in the future, as well as
+several potential bottlenecks, i.e. parts of the generative AI
+production or supply chain that can be more vulnerable to
+anticompetitive practices and negatively affect the overall wellfunctioning, performance, and efficiency of generative AI related
+markets. These bottlenecks may be due to resource constraints,
+technological barriers (such as a lack of interoperability) or
+market access issues, which may reduce the presence of active
+competitors. Depending on the context, some of these
+bottlenecks may qualify as barriers to entry and expansion or
+lead to an anticompetitive practice.
+
+This policy brief is based on the responses to the calls for
+contributions on competition in virtual worlds and generative AI,
+the follow-up workshop, and, in relation to generative AI, also on
+interviews with key stakeholders and parallel market
+investigations. It has benefitted from fruitful collaboration and
+exchange with other competition authorities engaged in the
+analysis of these issues around the world, including the French,
+
+3
+
+See DG COMP’s Calls for Contributions on Competition in Virtual Worlds
+and Generative AI, 9 January 2024, available at https://competitionpolicy.ec.europa.eu/about/europes-digital-future_en
+and
+https://
+competition-policy.ec.europa.eu/system/files/2024-01/20240109_callfor-contributions_virtual-worlds_and_generative-AI.pdf.
+4
+See DG COMP’s Workshop on Competition in Virtual Worlds and
+Generative AI, 28 June 2024, available at https://competition-policy.
+ec.europa.eu/about/reaching-out/virtual-worlds-and-generative-ai_en.
+5
+See DG COMP’s Press Release of 9 January 2024, IP/24/85,
+Commission launches calls for contributions on competition in virtual
+worlds and generative AI, available at https://ec.europa.eu/commission/
+presscorner/detail/en/IP_24_85.
+
+6
+
+2
+
+Based on the feedback from the call for contributions and other
+information collected, for the purpose of this policy paper, the
+generative AI sector should be understood as the value chain of
+generative AI models, which may indicatively include, among others,
+and without prejudice to the market definition assessment performed
+in concrete cases, the following markets: chips manufacturing,
+provision of cloud infrastructure, data licensing, supply of specific types
+of AI workforce, the supply of productivity software, supply of specific
+chatbot services, supply of specific mobile phone digital assistant
+services, etc.
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+Market tendencies
+There are several emerging tendencies characterising generative
+AI related markets that seem to be prevailing at the time of
+writing and may be relevant from a competition perspective: 7
+
+Tendency towards vertical integration or establishing
+partnerships to access distribution channels
+Linked to the above, often, partnerships also offer AI foundation
+model developers a more direct access to customers and
+consumers via, for example, integration of the AI foundation
+model functionality into an established product of a larger digital
+player, or more targeted access to customers or consumers. From
+the competition viewpoint, this may be efficient if it gives smaller
+players wider outreach and direct access to the distribution
+network of the larger players. It may also, however, raise
+concerns in relation to the risks of abuse of dominance by
+established large players aiming at foreclosing competitors, for
+instance, through control over distribution channels for generative
+AI applications or services. A similar approach may also be the
+rationale for mergers and acquisitions leading to the integration
+of players into an ecosystem. 10
+
+Tendency towards vertical integration or establishing
+partnerships to access input resources
+The first noticeable tendency in this sector is linked to the
+presence of established vertically integrated players, typically
+offering, in addition to proprietary AI foundation models, also
+cloud or data centre services at the upstream level, and AI
+systems and applications to customers and final consumers at
+the downstream level. This is the case, for example, of Google,
+Amazon and Microsoft. These players combine large financial
+resources with access to inputs that are key for offering AI
+services and the direct knowledge of ongoing customers’ needs,
+for example, in terms of IT services, privacy needs, data storage
+requirements or fine-tuning demands. 8
+
+Tendency towards more efficient, smaller models
+Another important tendency that is likely to shape the generative
+AI sector in the coming years is the race to produce smaller AI
+foundation models that can efficiently run on mobile devices
+such as tablets and smartphones, locally and without internet
+connection (i.e. offline). This tendency promises to be
+transformative for the industry because, if confirmed, it would
+mark the beginning of a parallel tendency to the so far strongly
+predominant principle of ‘scaling laws’ which characterises the
+industry, according to which the performance of an AI foundation
+model is a function of the model size (which depends on the
+number of parameters or “weights” of the model) and pretraining dataset. Due to the importance of economies of scale
+and scope in this sector, it has been considered until recently that
+only AI foundation model developers with a critical mass can
+effectively recoup initial investments and be competitive in the
+market. 11
+
+Innovative small AI foundation model developers also often
+choose to secure privileged access to cloud computing power by
+establishing partnerships with existing digital players. 9 These
+partnerships are aimed at providing them with access to these
+important inputs. From the competition viewpoint, this may be
+beneficial when it allows smaller and more innovative players to
+enter and grow in the market by securing access to important
+inputs. It may, however, also raise concerns in relation to risks of
+concentration of key inputs in the hands of few players and
+creation of dependencies between players, which may lead to
+foreclosure issues and have negative impacts on competition for
+consumers.
+
+7
+
+See responses to Questions 9 and 10 of DG COMP’s Calls for
+Contributions on Competition in Virtual Worlds and Generative AI,
+9 January 2024, available at https://competition-policy.ec.europa.eu/
+about/europes-digital-future_en.
+8
+See on this point also French competition authority, Opinion 24-A-05
+on the competitive functioning of the generative artificial intelligence
+sector, 28 June 2024, available at https://www.autoritedelaconcurrence
+.fr/en/opinion/competitive-functioning-generative-artificial-intelligencesector, para. 220; the Portuguese competition authority, Issues Paper
+on competition and generative AI, 6 November 2023, available at
+https://www.concorrencia.pt/sites/default/files/documentos/Issues%20
+Paper%20-%20Competition%20and%20Generative%20Artificial%20
+Intelligence.pdf, pp. 16 and 25; and the UK CMA’s Update Report on AI
+Foundation Models, 11 April 2024, available at https://assets.publishing.
+service.gov.uk/media/6617ef792b2963dfa2d1ea6d/Update_Paper.pdf,
+p. 8.
+9
+Examples include, for instance, OpenAI exclusive computing partnership
+with Microsoft to build new Azure AI supercomputing technologies,
+https://news.microsoft.com/2019/07/22/openai-forms-exclusivecomputing-partnership-with-microsoft-to-build-new-azure-ai-super
+computing-technologies/; Amazon and Anthropic strategic collaboration
+to advance generative AI, https://www.aboutamazon.com/news/
+company-news/amazon-aws-anthropic-ai; Microsoft and Mistral AI
+partnership to accelerate AI innovation and introduce Mistral Large first
+on Azure, https://azure.microsoft.com/en-us/blog/microsoft-and-mistralai-announce-new-partnership-to-accelerate-ai-innovation-andintroduce-mistral-large-first-on-azure/.
+
+Running smaller and more efficient AI foundation models on
+mobile devices is becoming a commercial reality, 12 with varying
+levels of performance and integration depending on the
+10
+
+According to the European Commission’s Notice on the definition of the
+relevant market for the purposes of Union competition law, 8 February
+2024, C(2023) 6789 final, https://eur-lex.europa.eu/legal-content/
+EN/TXT/PDF/?uri=PI_COM:C(2023)6789&qid=1726475579651, p. 40,
+“(Digital) ecosystems can, in certain circumstances, be thought of as
+consisting of a primary core product and several secondary (digital)
+products whose consumption is connected to the core product, for
+instance, by technological links or interoperability”.
+11
+See also the French Opinion 24-A-05, fn. 8, p. 63; the Portuguese
+Issues Paper, fn. 8, pp. 16 and 25; and the UK CMA’s Update Report,
+fn. 8, p. 8. See also Azeem Azhar, Substack, AI’s USD 100 billion
+question: the scaling ceiling, 13 July 2024, available at https://www.
+exponentialview.co/p/can-scaling-scale?utm_source=substack&utm_
+medium=email.
+12
+See, for instance, the agreement between Samsung Galaxy and Google
+Cloud to deploy Google’s Gemini Pro and Imagen 2 on Vertex AI via the
+cloud to the Samsung Galaxy S24 Series, Press Release, Samsung,
+18 January 2024, Samsung and Google Cloud Join Forces to Bring
+Generative AI to Samsung Galaxy S24 Series, https://news.
+samsung.com/global/samsung-and-google-cloud-join-forces-to-bringgenerative-ai-to-samsung-galaxy-s24-series.
+
+3
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+sector, in particular for startups, unless they benefit from
+substantial funding by large digital platforms. Finally, while
+useful, it is also generally considered that synthetic data (i.e.
+artificial data generated by large language models) cannot be a
+complete substitute for high-quality real-world data. The more
+the datasets are complete, accurate, relevant, and unique, the
+more they are considered valuable. 15
+
+characteristics of the hardware. Such development may bring
+significant improvements in terms of speed, privacy and data
+protection, but may also raise concerns linked to exclusivity
+agreements and default pre-installation of specific foundation
+models on popular device brands.
+Tendency towards the parallel development of open source
+and proprietary models
+A further tendency that is emerging is the development of AI
+foundation models that present varying degrees of openness.
+This includes (i) fully open models (where access to the source
+code and training weights and data is provided); (ii) partially open
+models (where access to model-trained weights is provided but
+not to the source code); (iii) closed source models (accessible via
+APIs, i.e. access is given to the output but not to the source code);
+and (iv) fully closed (where no access to source code, weights or
+output is provided).
+
+Second, the cost and scarcity of the specialised chips supporting
+AI neural networks, such as GPUs, TPUs and other AI accelerators,
+may also represent an important bottleneck. Waiting times for
+buying an H100 chip (used for AI applications) from the biggest
+manufacturer at present (Nvidia), for example, were nearly 12
+months at end of 2023. This waiting time is now reduced to 3-4
+months, but costs remain quite high (reported to be up to 30 or
+40 thousand US dollars per unit, and possibly more for the faster
+GB200 NVL72), 16 especially if one considers that thousands of
+GPUs are required to train and operate AI foundation models. 17
+
+Some players focus on open-source models (such as Meta with
+Llama), while others (such as Mistral AI, Open AI or Google)
+develop both an open-source and a proprietary version of their
+models. This has a significant impact on the market dynamics,
+potentially reducing the barriers to entry in some of the
+generative AI related markets and promoting innovation and
+choice.
+
+Computing capacity, in the form of large clusters of chips, can be
+made available in the form of physical data centres or on the
+cloud (or a mix of these two options). Despite the availability of
+many compute power providers, costs remain very high also for
+cloud capacity, which also consume a very substantial amount of
+energy. Several partnerships concluded in this industry have
+precisely the objective of providing promising startups with
+compute capacity at cost in exchange for access to the startups’
+AI technology and intellectual property. For instance, press
+reports describe partnerships between Microsoft and OpenAI,
+Microsoft and Mistral AI, as well as Amazon and Anthropic as
+concluded for this purpose. 18 Some companies are also racing to
+strategically secure access to renewable energy to meet the
+
+Potential barriers to entry in generative AI related markets
+The consultation and the on-going market investigations revealed
+that the key components for the development and deployment of
+generative AI systems include data, AI accelerator chips,
+computing infrastructure, cloud capacity and technical
+expertise. 13 As mentioned above, depending on the economic
+context, each of these may qualify as a potential barrier to entry
+or expansion, 14 or potentially lead to an anticompetitive practice.
+
+15
+
+See responses to Questions 1 and 7 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+16
+Anton Shilov, Nvidia's next-gen Blackwell AI Superchips could cost up to
+$70,000 — fully-equipped server racks reportedly range up to
+$3,000,000 or more, Tom’s Hardware, 14 May 2024, available at
+https://www.tomshardware.com/pc-components/gpus/nvidias-next-genblackwell-ai-gpus-to-cost-up-to-dollar70000-fully-equipped-serversrange-up-to-dollar3000000-report.
+17
+Anton Shilov, Nvidia's H100 AI GPU shortages ease as lead times drop
+from up to four months to 8-12 weeks, Tom’s Hardware, 10 April 2024,
+available at https://www.tomshardware.com/pc-components/gpus/
+nvidias-h100-ai-gpu-shortages-ease-as-lead-times-drop-from-up-tofour-months-to-8-12-weeks; Anton Shilov, Wait times for Nvidia's AI
+GPUs ease to three to four months, suggesting peak in near-term
+growth — the wait list for an H100 was previously eleven months,
+Tom’s Hardware, 16 February 2024, available at https://www.toms
+hardware.com/tech-industry/artificial-intelligence/wait-times-fornvidias-ai-gpus-eases-to-three-to-four-months-suggesting-peak-innear-term-growth-the-wait-list-for-an-h100-was-previously-elevenmonths-ubs; Anton Shilov, Nvidia's H100 AI GPUs cost up to four times
+more than AMD's competing MI300X — AMD's chips cost $10 to $15K
+apiece; Nvidia's H100 has peaked beyond $40,000: Report, Tom’s
+Hardware,
+2 February
+2024,
+available
+at
+https://www.
+tomshardware.com/tech-industry/artificial-intelligence/nvidias-h100-aigpus-cost-up-to-four-times-more-than-amds-competing-mi300xamds-chips-cost-dollar10-to-dollar15k-apiece-nvidias-h100-haspeaked-beyond-dollar40000.
+18
+See above fn. 9.
+
+First, in relation to data, the necessity of very large, high-quality
+datasets for pre-training, the preparatory phase of the AI
+foundation model, may represent a bottleneck. Accessing such
+data appears very costly and availability seems limited. According
+to the consultation, several factors are contributing to this. One
+factor is that, despite successful pre-training experience on public
+data, navigating the uncertainty on the application of copyright
+laws and the need for new, specialized datasets may pose
+challenges in the future. Another factor is the costs of data
+licensing agreements between large players and the right holders
+of high-quality online content, such as publishers and news
+outlets, which are at the moment high enough to pose a
+significant barrier to entry in the AI foundation model developing
+13
+
+See responses to Question 1 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3). See
+also French Opinion 24-A-05, fn. 8, paras. 122 and ss.; the Portuguese
+Issues Paper, fn. 8, pp. 14 and ss.; and the UK CMA’s Update Report,
+fn. 8, p. 6-7.
+14
+See responses to Questions 2 and 3 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+
+4
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+applications to significantly benefit from feedback data loops,
+particularly in multimodal AI foundation models. Feedback data
+loops can, for instance, occur in the deployment phase, when the
+model continues its learning from the interaction with the user
+(e.g. correction or precision of the prompts, forms of feedback,
+etc.) or from the data uploaded by the users for further
+elaboration (e.g. requests for translation of an uploaded pdf file).
+
+growing energy needs of data centres, which are needed for the
+operation of AI applications. This is the case, for instance, of the
+Microsoft and Brookfield agreement for more than 10.5
+gigawatts (reported to be almost eight times larger than the
+largest power purchase agreement ever signed by a company). 19
+Third, a recurring issue is also the difficulty of finding highly
+skilled labour in generative AI. While startups may have the
+ability to offer equity shares to attract talent, some respondents
+noted the difficulties of competing with the salaries and
+conditions offered by large players, especially US-based. The
+consultation did not highlight a widespread use of non-compete
+clauses restricting the mobility of AI engineers to other jobs and
+the market for the acquisition of AI talent seems to be dynamic
+at this stage. It highlighted, however, a general scarcity of highly
+qualified experts in the AI field. The intense fight to procure this
+precious input may thus lead to ”acqui-hires”, i.e. transactions
+whereby a player acquires all or almost all the key employees of
+the target company, such as in the recent case of Microsoft and
+Inflection where almost all of Inflection´s employees, in addition
+to the chief executive of AI, were hired by Microsoft together with
+a non-exclusive license. 20 It may also lead to attempts to
+foreclose competitors by making it difficult to secure talent
+needed to establish oneself or grow in the industry.
+
+As data feedback loops may in turn reinforce network effects, the
+latter may be significant because the models with the largest
+user base are more likely to provide accurate answers and, in
+turn, attract more users. 21 This may be the case, for example, for
+AI applications with plug-ins which facilitate access to different
+services, because the higher the number of plug-ins, the more
+attractive that specific AI interface will become. Such effects may
+also appear or be boosted when generative AI applications are
+integrated into larger digital ecosystems of other products and
+services, thanks to data integration, seamless user experience
+and fewer interoperability issues (see further on generative AI
+ecosystems below in the section on Ecosystems dynamics in the
+generative AI industry). 22 Important network effects may
+therefore end up constituting barriers to entry for new rivals and
+contribute to the creation or the strengthening of market power
+in these markets.
+
+Other potential barriers to entry and expansion
+The generative AI sector also seems to present other barriers to
+entry and expansion. Some of these are characteristic of digital
+markets in general, such as economies of scale and scope, and
+the presence of ecosystems of large players which may facilitate
+the penetration of neighbouring markets.
+
+Barriers to entry may also affect neighbouring markets, which
+may then indirectly also harm competition in generative AI
+markets. For instance, switching cloud service providers seems to
+remain challenging, due to pricing strategies, such as cloud
+credits and committed spend discounts, the lack of
+interoperability and data portability, and various software
+licensing practices, which may lead to customers’ lock-in. 23
+DG Competition has come across similar allegations in its ongoing investigations in the cloud sector.
+
+Other characteristics are quite different and mark a substantial
+difference in the analysis of the anticompetitive risks potentially
+arising in generative AI related markets. For instance, the fact
+that there are, at least at present, very high marginal costs
+attached to the actual operation of the model (e.g. answering a
+prompt), alongside the high initial fixed ones for the pre-training
+of the foundation model which strongly favour large players.
+
+Competition enforcement in generative AI related
+markets – A reference framework
+Competition authorities have an important role in preserving
+competition in generative AI related markets, both at the
+upstream and the downstream level, and in preserving choice and
+innovation for consumers in a pivotal sector for the future of the
+European economy.
+
+According to respondents and interviewees, some uncertainty
+remains around how powerful data feedback loops and network
+effects will be and whether they will constitute barriers to entry
+and be associated with anticompetitive concerns as has been the
+case in the past in relation to some digital markets.
+
+21
+
+While data cannot be continuously fed into a model after the pretraining phase to perfect it, due to the costs and time required to
+pre-train a model, it still seems possible for AI models and
+
+See also French Opinion 24-A-05, fn. 8, p. 63; and the Portuguese
+Issues Paper, fn. 8, p. 40; and the UK CMA’s Update Report, fn. 8,
+pp. 20-21.
+22
+See also French Opinion 24-A-05, fn. 8, p. 58 and ss.; the Portuguese
+Issues Paper, fn. 8, pp. 16 and 25; and the UK CMA’s Update Report,
+fn. 8, p. 20.
+23
+See, for instance, French Competition Authority, Opinion 23-A-08 of
+29 June 2023 on competition in the cloud sector, available at
+https://www.autoritedelaconcurrence.fr/en/opinion/competition-cloudsector, and Competition and Markets Authority, working papers in the
+cloud services market investigation, published on 23 May 2024,
+available at https://www.gov.uk/cma-cases/cloud-services-marketinvestigation#working-papers.
+
+19
+
+Brookfield Press Release, Brookfield and Microsoft Collaborating to
+Deliver Over 10.5 GW of New Renewable Power Capacity Globally,
+1 May 2024, available at https://bep.brookfield.com/press-releases/bep/
+brookfield-and-microsoft-collaborating-deliver-over-105-gw-newrenewable-power.
+20
+Tabby Kinder, Microsoft hires DeepMind co-founder Mustafa Suleyman
+to run new consumer AI unit, Financial Times, 19 March 2024,
+https://www.ft.com/content/5feedf3a-ff7a-4c89-9b1d-f9b48834ff4c.
+
+5
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+To the extent that such concentrations do not meet the turnover
+thresholds under the EU Merger Regulation, the Commission will
+work together with Member States and the parties to assess
+whether they will be reviewed under national merger control
+regimes or referred to the European Commission in line with the
+legal requirements for such referrals as clarified in the recent
+Illumina judgment of the European Court of Justice. 26
+
+The primary focus of competition authorities has been to ensure
+that conduct and transactions by generative AI players remain
+compliant with competition law. DG Competition has been vigilant
+to catch early on any potential anticompetitive issues that could
+emerge in these markets, both from the antitrust and, where
+appropriate, the merger control viewpoint.
+As regards antitrust enforcement in generative AI, and in light of
+the market tendencies and emerging risks highlighted above,
+DG Competition is looking into possible vertical or other concerns
+relating to the investments and partnerships between large
+digital players and generative AI developers.
+
+The following sections provide a non-exhaustive list of possible
+avenues that may be adopted, depending on the circumstances,
+for framing the analysis of potential anticompetitive issues that
+may arise in generative AI related markets (upstream and
+downstream), within the current EU competition law framework. 27
+
+It is also looking into whether agreements between Google and
+OEMs (such as Samsung) for the pre-installation of Google’s
+small AI model “Gemini Nano” on mobile devices may raise
+anticompetitive concerns by making it more difficult for other
+foundation models to be accessed or pre-installed on those
+devices.
+
+Possible relevant market definitions and useful criteria for the
+identification of market shares
+Whilst defining relevant markets is an exercise that can only be
+conducted in the context of a full-fledged competition
+investigation, the information gathered by DG Competition so far
+suggests that the following elements could be starting
+hypotheses for the purpose of relevant market definition in
+investigations in the AI sector.
+
+DG Competition is also monitoring from the merger control
+viewpoint investments and partnerships between large digital
+players and generative AI developers, including the one involving
+Microsoft and OpenAI. While it was preliminarily concluded that,
+even following the firing and re-hiring of the CEO of OpenAI and
+the granting of an observatory seat for Microsoft on the OpenAI
+board in November 2023, Microsoft did not acquire control of
+OpenAI on a lasting basis, DG Competition is keeping this and
+other partnerships under close scrutiny.
+
+It may be useful to distinguish between the upstream and the
+downstream levels. The relevant markets upstream may typically
+be those for the purchase by the AI developer of the necessary
+inputs. Examples would include the possible market for the
+purchase of high-quality data for pre-training, the possible
+market for the purchase of cloud capacity from cloud services
+providers, the possible market for the purchase of data centre
+services, or the possible market for attracting AI engineering
+talent. Depending on the specific case, and for each of these
+markets, there can of course be further segmentation and
+product differentiation, for instance, in relation to data for
+general purpose pre-training and specialised datasets for a
+specific domain in the form of model-as-a-service; in relation to
+generalist cloud compute and specialised cloud services; in
+relation to the type of skillset of the concerned employees; or in
+relation to different types of AI accelerators (such as GPUs, TPUs,
+or others).
+
+DG Competition also monitors whether transfers of highly skilled
+employees between two undertakings (sometimes via acquihires), like the hiring by Microsoft of most of the employees of
+Inflection, are subject to scrutiny under EU merger rules. While it
+is for the parties to a transaction to assess whether their
+agreements need to be notified for merger control, they may
+approach the Commission with a consultation in case of doubt.
+In the case of Microsoft and Inflection, based on information
+provided to the Commission by these companies, the Commission
+considers that the transaction involves all assets necessary to
+transfer Inflection’s position in the markets for generative AI
+foundation models and for AI chatbots to Microsoft. 24 Taking
+further into account that Inflection itself announced on 19 March
+2024 that the “new Inflection” would shift its focus to its AI
+studio business, 25 the Commission regards the agreements
+entered into between Microsoft and Inflection as a structural
+change in the market that amounts to a concentration as defined
+under Article 3 of the EUMR.
+
+The relevant markets downstream could typically be markets for
+the sale or supply of generative AI foundation model services.
+Further segmentation and product differentiation may include a
+distinction, for instance, between consumer-facing and business
+models, cloud-based and on-device models, general purpose and
+specific purpose models, or unimodal and multimodal models. At
+this level, given the nascent state of the industry, where many AI
+foundation models are yet to be fully monetised 28 and therefore
+revenue streams are not necessarily a proxy of market power,
+
+24
+
+See DG COMP’s Press Release of 18 September 2024, IP/24/4727,
+Commission takes note of the withdrawal of referral requests by
+Member States concerning the acquisition of certain assets of
+Inflection by Microsoft, available at https://ec.europa.eu/commission/
+presscorner/detail/en/ip_24_4727.
+25
+See Inflection’s Press Release, The new Inflection: an important change
+to how we’ll work, 19 March 2024, https://inflection.ai/the-newinflection.
+
+26
+
+Joined cases C-611/22 P and C-625/22 P, Illumina v. Commission and
+Grail v. Commission, 3 September 2024, EU:C:2024:677.
+27
+See responses to Question 11 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+28
+See responses to Question 5 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+
+6
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+alternative metrics for the assessment of market shares may
+have to be considered. At present, these could include, for
+instance, the following:
+(1) The activity volume, such as the average number of
+users, the number of interactions or of tokens (units of
+data) processed, which would suggest the frequency of
+use of a given AI foundation model;
+(2) The costs and power of the processing capacity used
+for inferencing 29 (as one of the possible proxies of
+quality of performance of the models);
+(3) The number of purchases or downloads of the model
+(or downloads of the original model and number of
+models derived from the original one for the opensource ones);
+(4) Other specific deployment parameters (such as the
+number of calls to one’s APIs).
+Because of their importance in generative AI related markets,
+market definition may also need to take into account network
+effects and ecosystem dynamics. As noted in the European
+Commission’s revised Market Definition Notice in relation to
+digital ecosystems, 30 the presence of network effects, switching
+costs and customers’ lock-in, and single- or multi-homing might
+have to be part of the analysis (see further below the section on
+Ecosystems dynamics in the generative AI industry).
+
+(2)
+
+Possible theories of harm
+Based on the responses to the call for contributions and on-going
+market investigations, some potential anticompetitive concerns
+that may materialise in generative AI related markets in the
+future were raised.
+DG Competition will therefore remain vigilant, particularly (but
+not exclusively) in relation to following five possible types of
+competition risks in these markets: 31
+
+(3)
+
+(1) The risk that incumbent large digital players, which may
+currently enjoy preferential access to generative AI’s key
+components, grant it to third parties on an exclusive basis, or
+prevent competitors from accessing it. This may affect
+access to any of the key inputs described above, including
+computing infrastructure (such as GPUs, supercomputing
+power, and cloud capacity), data or talent. One example
+would be that of a large digital player reserving exclusive
+access to its AI computing infrastructure to a specific player
+or providing preferential access to a certain player and
+access at worse conditions to all other players. Another
+
+(4)
+(5)
+
+32
+
+example would be that of a large vertical buyer 32 or a
+dominant player entering into an exclusive licensing
+agreement to secure high-quality data content from one
+specialised upstream source, should this prevent other
+players from pre-training or fine-tuning a model in that
+specific domain. A further example would be a dominant
+integrated player active both in cloud and at the level of
+generative AI development refusing to give access to its
+cloud infrastructure to competitors with the effect of
+foreclosing those competitors. Another example would be a
+dominant generative AI player with deep pockets engaging in
+acqui-hires or predatory hiring of talent, with the effect of
+foreclosing competitors by hiring their AI key staff. This
+practice may lead de facto to the dissolution of an active or
+of a potential competitor by absorbing the expert talent in
+its entirety or near-entirety, thus leading to a loss of choice
+or innovation or the reduction of competitive constraints
+downstream. 33
+The risk that large players offering generative AI foundation
+models may use their market power to limit choice or distort
+competition in downstream markets, when distributing and
+commercialising AI applications. This can take the form, for
+instance, of exclusivity clauses or leveraging behaviour,
+including self-preferencing, refusal to supply, tying or
+bundling, non-compete and lock-in strategies. 34 One example
+would be one where a large player would offer its own AI
+foundation model on its marketplace alongside other models
+and would put in place conditions that lead to offer a
+preferential display of its AI foundation model, while
+demoting the display of the competitors’ ones. Another
+example could involve the tying of a distinct digital product,
+such as, for instance a search engine, to an AI foundation
+model owned by the same digital player, thus forcing
+consumers to acquire or use both products. 35
+The risk that agreements between horizontal competitors
+may reduce competitive constraints between such players or
+enable unlawful exchange of commercially sensitive
+information.
+The risk that vertically integrated players may adopt pricing
+policies for the purpose of margin squeezing other players.
+The risk of killer or reverse killer acquisitions, that is
+acquisitions aimed at eliminating nascent competition in
+generative AI related markets to protect the acquirer’s
+
+For an analysis of vertical foreclosure, see also Commission Regulation
+(EU) 2022/720 of 10 May 2022 on the application of Article 101(3) of
+the Treaty on the Functioning of the European Union to categories of
+vertical agreements and concerted practices (VBER) and the Guidelines
+on vertical restraints, OJ C 248, 30 June 2022, p. 1–85.
+33
+Depending on the concrete assessment, this conduct may be relevant
+under merger control or antitrust scrutiny.
+34
+For companies offering online intermediation services, see VBER and
+Vertical Guidelines, fn. 32 above.
+35
+Some of these theories of harm have already been applied in other
+digital markets (for instance, self-preferencing in Google Shopping and
+exclusivity - in the form of anti-fragmentation - and tying in Google
+Android) and they are likely to be a suitable reference also in the
+generative AI domain.
+
+29
+
+Inferencing is typically the process of using a trained generative AI
+model to generate output, for instance, making predictions or
+answering prompts based on the data it has been fed during the pretraining phase.
+30
+European Commission’s Notice on the definition of the relevant market,
+fn. 10, p. 40.
+31
+See responses to Question 4 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+
+7
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+As mentioned above in the section on Possible relevant market
+definitions and useful criteria for the identification of market
+shares, if an ecosystem approach is considered appropriate in a
+specific case, it may also have to be reflected in the way in which
+the relevant market is defined and market shares are accounted
+for. This is because the assessment of market shares in a specific
+relevant market, depending on the specific circumstances of the
+case, may not be, alone, fully informative of the actual
+competitive position of the analysed player.
+
+position in those markets, which may harm choice and
+innovation in the longer term at that level of the supply
+chain.
+Further, it may be noted that investments in small AI developers
+by large companies are seen by the industry as important for
+developing and distributing AI systems, securing necessary
+capital, accessing intellectual property, and gaining technological
+insights. When not granting exclusivity rights, these partnerships
+can be pro-competitive. However, in some circumstances, they
+may create the conditions for the concentration of key inputs in
+the hands of few players, for foreclosure strategies or for other
+distortions of competition, warranting monitoring by competition
+authorities to maintain a level playing field. 36 This means that
+they may undergo merger control or antitrust scrutiny.
+
+As recommended by the Market Definition Notice in relation to
+digital markets, it may also be important to consider supply and
+demand-side issues, like network effects or the capacity to multihoming of users, to better understand market dynamics. 42
+Furthermore, while not all generative AI players are structured as
+a platform, the experience relating to multi-sided market
+definition may be of relevance in those cases where generative
+AI players opt for a business model that charges only one side of
+the market, for instance, by selling advertising, while offering
+some AI functionalities or services to final users for free (e.g.
+chatbots or search engines).
+
+Ecosystems dynamics in the generative AI industry
+Given the connections between different products and services in
+the AI production and supply stack and the way in which
+dominance in a generative AI related market may have an impact
+on several other markets, a holistic view of ecosystem dynamics
+in the generative AI industry may be particularly relevant as a
+way to better capture market realities.
+
+Potential efficiency gains to be considered
+Since generative AI development and deployment are
+characterised by their technological innovation, due consideration
+should be given to concrete efficiency gains that may arise from
+practices or agreements between undertakings in the generative
+AI sector, under the framework of both Article 101 and 102 TFEU.
+Specifically, regarding partnerships, examples of potential
+efficiency gains may include:
+
+The existence of dynamics within an ecosystem played an
+important role, for example, in the recent DG Competition
+prohibition decision of the Booking/eTraveli merger. 37 The case
+took into account, among other things, the importance of
+considering the specific features and effects of ecosystem
+dynamics, of network effects, as well as of behavioural biases,
+such as defaulting, customer inertia or single-homing. 38 These
+features have also been analysed in other transactions, such as
+Meta/Kustomer, 39 and in abuse of dominance cases like Google
+Android. 40 The attention to these issues is dictated by the nature
+of competitive dynamics in the technology space.
+
+(1) combining complementary skills and assets of the involved
+players, which may result in the issuing of a better or new
+product or technology that would not otherwise come to
+light;
+(2) disseminating technological expertise across the market,
+which may lead to further innovation; and
+(3) reducing costs or dependencies when supply of a specific
+input is limited, which may increase supply and strengthen
+the internal market. 43
+
+Some of these factors may be relevant (and likely to be applied)
+also in the analysis of the competitive dynamics in generative AI
+related markets. 41
+
+36
+
+See also the French Opinion 24-A-05, fn. 8, paras. 290 ss. and the UK
+CMA’s Initial Report on AI Foundation Models, available at
+https://www.gov.uk/government/publications/ai-foundation-modelsinitial-report, reviewed by an Update Report, fn. 8, pp. 17-18 and
+Figure 5.
+37
+European Commission, M.10615, Booking Holdings / eTraveli Group,
+Decision of 25 September 2023, pp. 199 and ss.
+38
+Ibid., pp. 118 and ss.
+39
+European Commission, M. 10262, Meta (formerly Facebook) /
+Kustomer, Decision of 27 January 2022, pp. 110 and ss. See also
+European Commission’s Competition Merger Brief, Adobe/Figma: Much
+Ado(be) About Nothing?, 2/2024, forthcoming at https://competitionpolicy.ec.europa.eu/publications/competition-policy-briefs_en#mergerbrief.
+40
+Case T-604/18, Google and Alphabet v Commission, 14 September
+2022, EU:T:2022:541, para. 116.
+41
+See also See also French Opinion 24-A-05, fn. 8, para. 128; the
+Portuguese Issues Paper, fn. 8, p. 33 and ss.; and the UK CMA’s Update
+Report, fn. 8, p. 16.
+
+Specific types of agreements may also fall under Article 101(3)
+block exemptions. 44 Relevant efficiencies that benefit consumers
+42
+
+European Commission’s Notice on the definition of the relevant market,
+fn. 10, p. 40.
+43
+European Commission’s Guidelines on the applicability of Article 101 of
+the Treaty on the Functioning of the European Union to horizontal cooperation agreements, C(2023) 3445 final, p. 39.
+44
+See, for R&D agreements, Commission Regulation (EU) 2023/1066 of
+1 June 2023 on the application of Article 101(3) of the Treaty on the
+Functioning of the European Union to certain categories of research
+and development agreements; for specialisation agreements,
+Commission Regulation (EU) 2023/1067 of 1 June 2023 on the
+application of Article 101(3) of the Treaty on the Functioning of the
+European Union to certain categories of specialisation agreements; for
+technology transfer licensing, Commission Regulation (EU) No
+316/2014 of 21 March 2014 on the application of Article 101(3) of the
+
+8
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+also need to be considered in the context of mergers in the AI
+sector.
+
+9 January 2024 two calls for contributions on competition and
+generative AI and held a workshop on 28 June 2024 to provide
+an overview of the results. 46 It also sent a series of requests for
+information to several players in the generative AI sector to gain
+a better understanding of the market dynamics.
+
+Generative AI related markets and the DMA
+DG Competition sees the role of competition law enforcement in
+generative AI related markets and the implementation of the
+DMA as complementary, and equally important tools at its
+disposal. The objective of the DMA is to ensure contestable and
+fair markets in the digital sector where gatekeepers are present.
+It achieves these objectives by ordering designated gatekeepers
+to comply with specific obligations in relation to a predefined list
+of core platform services.
+
+In cooperation with the US Department of Justice (DoJ),
+US Federal Trade Commission (FTC), and UK Competition and
+Markets Authority (CMA), the European Commission also issued
+on 23 July 2024 a joint statement on competition in generative
+AI related markets, aimed at signalling the agencies’ common
+readiness to prevent anticompetitive practices in this sector,
+raising awareness among customers and consumers about
+possible anticompetitive infringements they may witness, and
+clarifying their expectations of market behaviour by relevant
+players. 47 The European Commission also contributes its input in
+discussions and meetings at the G7, promoting a level playing
+field for the development of AI markets.
+
+There are two main ways in which the DMA will be relevant for
+generative AI services. First, a generative AI player may offer a
+core platform service and meet the gatekeeper requirements of
+the DMA. Second, generative AI powered functionalities may be
+integrated or embedded in existing designated core platform
+services and therefore be covered by the DMA obligations. Those
+obligations apply in principle to the entire core platform service
+as designated, including features that rely on generative AI. For
+these purposes, DG Competition will continue to reassess the
+situation as the services evolve, as services that do not fall under
+the DMA currently may well do so in the future because of the
+integration of AI powered services into core platform services.
+
+Other factors promoting competition in generative AI related
+markets
+There are several factors that can be considered important to
+reduce potential barriers to entry or limit their effects, as well as
+directly or indirectly promoting competition in generative AI
+related markets. Some examples include:
+(1) The presence of open-source models, which can promote
+choice and innovation in the sector and lower barriers to
+entry. 48
+(2) The availability of freely or easily accessible high-quality
+databases, which can support the pre-training phase for the
+development of different AI foundation models and can also
+promote wider offerings.
+(3) The availability of freely accessible public supercomputers to
+researchers and stakeholders.
+(4) The availability and mobility of AI talent.
+(5) The ability of customers and consumers to switch and multihome across different cloud or AI foundation model
+providers, potentially reducing the impact of network effects
+and making it easier for rival players to penetrate the
+market.
+(6) The presence and dissemination of differentiated AI
+foundation models, for instance specialised ones for specific
+sectors or functions. This may largely depend on access to
+specific datasets, and in turn on the regulatory frameworks
+applicable to the licensing of such data, as well as the
+market price of such data.
+(7) The presence of pro-competitive non-exclusive partnerships
+between generative AI developers and players with access to
+important inputs or access to consumers, enabling smaller or
+
+The DMA will not however cover all competition concerns related
+to generative AI services, in particular for non-designated
+companies and for conduct which goes beyond the scope of the
+DMA.
+
+Competition advocacy and other pro-competitive
+initiatives in generative AI related markets
+Competition authorities’ activities
+As the generative AI sector is nascent, efforts have been made by
+many competition authorities to better understand the
+competitive dynamics of generative AI related markets also
+conducting market studies and issuing reports. 45 As noted in the
+Introduction, DG Competition published for this purpose on
+Treaty on the Functioning of the European Union to categories of
+technology transfer agreements (TTBER); and for vertical agreements,
+Commission Regulation (EU) 2022/720 of 10 May 2022 on the
+application of Article 101(3) of the Treaty on the Functioning of the
+European Union to categories of vertical agreements and concerted
+practices (VBER).
+45
+See, for instance, in the European Union, the French Opinion 24-A-05,
+fn. 8; the Hungarian competition authority’s market analysis on the
+impact of AI on market competition and consumer behaviour (launched
+on 4 January 2024) available at https://www.gvh.hu/en/press_room/
+press_releases/press-releases-2024/gvh-launches-market-analysis-onthe-impact-of-artificial-intelligence and the Portuguese Issues Paper,
+fn. 8. See also, outside of the European Union, the UK CMA’s Initial
+Report on AI Foundation Models, fn. 36 reviewed by an Update Report,
+fn. 8; and the US FTC’s market inquiry into the investments and
+partnerships being formed between AI developers and major cloud
+service
+providers
+available
+at
+https://www.ftc.gov/newsevents/news/press-releases/2024/01/ftc-launches-inquiry-generativeai-investments-partnerships.
+
+46
+
+The video recording of the workshop is available at the YouTube
+channel of DG Competition.
+47
+Joint Statement on Competition in Generative AI Foundation Models
+and AI Products, 23 July 2024.
+48
+See responses to Question 6 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+
+9
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+Further, in the European Union, legislation has been adopted
+enabling free access to text and data mining while protecting
+copyright holders. The provision contained in Article 3 of the EU’s
+Copyright Directive contains an exception to EU copyright law for
+text and data mining for scientific purposes and, while other
+exceptions may be implemented for text and data mining,
+Article 4(3) allows rightsholders to reserve the use of works
+where appropriate. 52 Another example is the Data Act, which will
+potentially
+facilitate
+switching,
+data
+portability
+and
+interoperability between cloud providers and other data
+processing services at no cost. 53
+
+more innovative players to establish themselves on the
+market.
+(8) Some well-targeted interoperability standards across
+different AI foundation models and across different level of
+the generative AI supply stack, which do not decrease
+incentives to invest but that allow customers of one AI
+foundation model, for instance, to interact upstream with
+different cloud providers and downstream with different
+generative AI system deployers or users. 49
+Public policy activities relating to these factors may therefore
+contribute to ensuring competitive generative AI related markets.
+
+The AI Act itself, while not directly focusing on competition,
+ensures that all providers of general-purpose AI models operating
+in the EU comply with copyright and related laws, in order ‘to
+ensure a level playing field […] where no provider should be able
+to gain a competitive advantage in the Union market by applying
+lower copyright standards than those provided in the Union.’ 54
+
+For instance, public authorities might engage in initiatives to
+promote open-source models and, when appropriate and
+necessary, interoperability standards, and to strengthen,
+wherever possible, the factors that limit or reduce barriers to
+entry to these markets.
+Furthermore, the European Union, represented by the European
+Commission, is already investing significant resources to make
+public supercomputers accessible in several Member States. The
+European High Performance Computing Joint Undertaking
+(EuroHPC) is a government-industry collaboration aimed at
+developing and adopting the most innovative and competitive
+supercomputing systems in Europe, as well as expanding their
+access to European users, including SMEs and startups. So far, it
+successfully deployed eight supercomputers in different EU
+Member States, whilst a ninth exascale supercomputer (Jupiter) is
+currently under construction in Germany. 50 The accessibility of
+such public supercomputers enables innovation, by making the
+pre-training and the fine-tuning of foundation models accessible
+to a wider set of stakeholders. 51
+
+Finally, as mentioned above, the DMA allows prohibiting ex ante
+instances of potentially problematic conduct relating to the
+integration of generative AI services into other digital products by
+gatekeepers, as well as monitoring any potentially problematic
+acquisitions on the basis of Article 14 of the DMA. 55
+
+As part of its AI innovation package of January 2024, the
+European Commission launched several additional activities,
+including financial support to generative AI projects through, for
+instance, Horizon Europe and the Digital Europe programme, as
+well as support to education, training, skilling and re-skilling
+activities to strengthen the pool of generative AI talent European
+companies can draw from. Competition authorities may, for
+instance, ensure that companies do not agree on illegal nopoaching or no-hire of AI engineers or other key employees or
+promote Governments’ initiatives to limit excessively long or
+unjustified non-compete agreements that may prevent them
+from moving to other jobs. Policies aimed at fostering education
+and re-skilling of workers in the AI domain may also be helpful to
+make AI talent as widely available to companies as possible.
+
+Enabling technologies power virtual worlds through a
+combination of hardware and software technologies, providing
+the infrastructure and the input and output devices that can
+support immersive experiences and interactions. Large digital
+players, such as Meta, Apple, Sony or Microsoft have invested in
+hardware technologies such as virtual reality headsets. High-
+
+Virtual Worlds
+Market dynamics and emerging tendencies
+The virtual worlds industry features diverse players with distinct
+strategies, who invest in a variety of intertwined technologies and
+services. Stakeholders confirm that from a conceptual point of
+view, these can be grouped in three layers: enabling technologies,
+virtual worlds platforms and specific services. 56
+
+52
+
+See Articles 3 and 4(3) of Directive (EU) 2019/790 of the European
+Parliament and of the Council of 17 April 2019 on copyright and
+related rights in the Digital Single Market and amending Directives
+96/9/EC and 2001/29/EC, OJ L 130, 17 May 2019, pp. 92–125.
+53
+Articles 23 and ss. of Regulation (EU) 2023/2854 of the European
+Parliament and of the Council of 13 December 2023 on harmonised
+rules on fair access to and use of data and amending Regulation (EU)
+2017/2394 and Directive (EU) 2020/1828 (Data Act), OJ L, 2023/2854,
+22 December 2023.
+54
+See recital 106 of Regulation (EU) 2024/1689 of the European
+Parliament and of the Council of 13 June 2024 laying down
+harmonised rules on artificial intelligence and amending (Artificial
+Intelligence Act) OJ L, 2024/1689, 12 July 2024, available at
+http://data.europa.eu/eli/reg/2024/1689/oj.
+55
+See responses to Question 12 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+56
+See responses to Questions 2 and 3 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+
+49
+
+See responses to Question 8 of DG COMP's Calls for Contributions on
+Competition in Virtual Worlds and Generative AI (see above fn. 3).
+50
+See, for more information, https://digital-strategy.ec.europa.eu/en/
+policies/high-performance-computing-joint-undertaking; https://eurohpc
+-ju.europa.eu/index_en.
+51
+See also the French Opinion 24-A-05, fn. 8, p. 52.
+
+10
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+speed networks, cloud computing, chips, relevant intellectual
+property, AI and data are also key enabling factors, access to
+which can play a crucial role for vibrant competition in the virtual
+worlds sector.
+
+product will look like in the buyer’s home, as well as (v) education
+and training in virtual classrooms or “gamified” environments.
+If an undertaking is active across multiple layers of the value
+chain, vertical integration may give rise to foreclosure concerns.57
+Large digital players that control key technologies, such as virtual
+reality headsets, cloud computing services, chips, or already
+existing platforms, could be in the position to dictate what the
+other elements of virtual worlds ecosystems will look like.
+
+A dynamic area within enabling technologies is the so-called
+“digital twins” technology, where several players, such as Bosch,
+Dassault Systèmes, General Electric, IBM, Microsoft, SAP and
+others are active. Digital twins are virtual models of physical
+objects or systems, such as an engine, factory or even entire
+supply chain. They can, for instance, be used for training purposes
+but also to predict and prevent points of failure or bottlenecks on
+the factory floor or within the supply chain. They have reportedly
+already led to improvements, e.g. in aircraft manufacturing and
+maintenance and in healthcare for enhancing patient care and
+medical training. With regard to digital twins and B2B
+applications in general, stakeholders see significant opportunities
+for the European industry, including SMEs, and highlight that an
+overall competitive environment and, in particular, access to live
+data and computing power, are essential to realise the full
+potential of this technology.
+
+Examples of vertical integration raised by stakeholders include
+Meta, which through its vertical integration, has taken early
+prominence in the consumer-facing virtual worlds space. By
+combining leading hardware (virtual reality headsets), app stores
+and virtual content with data created in its social media
+platforms, Meta is in an advantageous position to drive user
+adoption and engagement. Apple is another prominent player
+following a strategy of vertical expansion. Its virtual and
+augmented reality headset utilises its own chip and operating
+system, integrating its virtual worlds offering into its existing
+hardware and applications ecosystem. Nvidia is leading
+specialised chip development for industrial virtual reality
+applications, building on its expertise in 3D gaming, and also
+offers its Omniverse solution to build digital twins. Similarly,
+Microsoft provides key underlying technologies and hardware for
+virtual worlds, including headsets, Azure cloud computing services
+and digital twins, and gained ground in AI innovation.
+
+Virtual worlds platforms on which virtual worlds are developed
+and accessed are currently taking shape and it is not yet possible
+to define them clearly. Virtual worlds platforms can be
+distinguished between platforms in the B2C sector, such as
+gaming or virtual social spaces like Meta Horizon, and the B2B
+sector, such as work environment platforms or industrial virtual
+worlds like Nvidia’s Omniverse. There are also virtual worlds
+maintained by public actors such as cities or public authorities.
+
+At the same time, vertical integration can also be procompetitive, creating greater efficiencies, better quality, or lower
+costs for consumers. That said, the strong positions of a number
+of large digital players in key enabling technologies and
+platforms may warrant the attention of competition law
+enforcement so as to ensure that potential entrants are not
+excluded through either foreclosing access to key inputs for their
+own virtual worlds or acquisitions.
+
+Virtual worlds platforms have a number of specificities that set
+them apart from other platforms. They stand out due to their
+immersive and dynamic nature, compared to two-dimensional,
+often static platforms, such as an online marketplace or a news
+aggregator. They are persistent and continuous, allowing users to
+enter and exit, similarly to a permanent location in the physical
+world. They typically offer multiple ways of perception, sensing
+and manipulation, compared to touchscreens or displays. Finally,
+virtual worlds platforms offer unique development tools and they
+cater to diverse applications.
+
+There are diverging views on whether virtual worlds should adopt
+open standards and different platforms seem to explore different
+options in that regard. Many stakeholders consider that without
+seamless interoperability, virtual identities (avatars), virtually
+purchased goods or digital twin models cannot be moved
+between competing platforms. However, proponents of
+proprietary ecosystems emphasise that private standards and
+closed ecosystems could also have benefits by offering better
+security and more tailored experiences. Striking the right balance
+is considered crucial, and the potential impact on innovation
+should be carefully assessed.
+
+Some stakeholders consider that operating systems and app
+stores, some of which are already subject to DMA obligations,
+should also be regarded as separate layers of the value chain
+(rather than part of the platform layer).
+On the third layer – services – companies specialise in offering
+specific and tailored services to businesses and customers on top
+of virtual worlds platforms and within the virtual worlds
+environment. The potential for such services is vast. Common
+examples for such services currently include (i) virtual work in
+immersive, remote workspaces, (ii) medical services, allowing
+high precision, robot-assisted or remote surgeries, (iii) a variety of
+industrial services based on digital twins, (iv) e-commerce of
+virtual goods or the sale of physical goods, such as furniture and
+other design products, in virtual spaces that simulate what the
+
+57
+
+11
+
+See responses to Questions 2, 3 and 8 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+Potential barriers to entry and expansion
+
+Several contributors, however, point at a number of already
+existing risks.
+
+Stakeholders raise that strong scale effects can increase entry
+barriers in virtual worlds markets. The costs of the necessary
+investment and innovation are very high in the sector. Large
+digital players may have more financial means should they
+decide to invest heavily in the underlying infrastructure,
+technology, content and talent. In contrast, European start-ups
+and SMEs often lack access to funding, which makes it difficult
+for them to scale up and match the offer of the established tech
+companies.
+58
+
+Rising concentration and cross-ownership in the video games
+sector could lead to the risk of existing market power in video
+game ecosystems potentially translating into market power in
+virtual worlds. Similar risks could arise in relation to vertically
+integrated players, where market power on critical inputs – being
+technology and infrastructure such as headsets or cloud, but also
+platforms such as app stores or social media – could be
+transferred into virtual worlds markets.
+
+Network effects, especially of platform-based services that
+connect a large number of users with service providers (e.g.
+multiplayer gaming or social media platforms that are
+transitioning into immersive virtual worlds), play a crucial role in
+driving user adoption and engagement within virtual worlds and
+they can make it difficult for new entrants to gain foothold: as
+more users join a platform, its value increases, attracting even
+more users. This draws service providers to the largest platforms,
+while small platforms may struggle to attract enough services,
+especially if proprietary development toolkits and standards
+make deployment for multiple platforms too costly. While this
+phenomenon may be more prominent in B2C platforms, its
+relevance should not be dismissed for B2B platforms either.
+
+Consolidation of market power by a few dominant platforms
+could lead to gatekeeping behaviours, which could restrict entry
+and competition. Dominant platforms could also engage in
+exclusionary practices, limiting consumer choice, thereby stifling
+innovation. The competitive advantage afforded by the use of
+data for personalised virtual experiences could further entrench
+the market position of established players, especially if they limit
+data portability or their competitors’ access to such data sets. In
+this context, several contributors raise the need to extend the
+scope of the DMA and reduce its thresholds.
+Contributors also flag the risk of aggressive acquisition
+strategies. These can allow financially sound, leading tech
+companies to absorb innovative startups, diminishing the
+vibrancy and diversity of the ecosystem and eliminating potential
+challengers or innovative technologies that could be disruptive to
+their existing models. Beyond such “killer acquisitions”, some
+contributors also point out a risk of “kill zones”: in certain
+segments, the presence of some ecosystems could discourage
+other undertakings from investing or competing. In these zones,
+startups and competitors are less likely to thrive due to the
+perceived risks or lack of opportunities, which can stifle
+investment and innovation and ultimately chill competition.
+
+Customer lock-in can increase switching costs, if users have
+already invested money and time into a platform. Potential
+restrictions on switching, e.g. because of limited interoperability,
+cost of portability, exclusivity agreements or other factors that
+may result in customers’ losing assets, such as digital twin
+models, can deter them from trying out new platforms.
+Established digital platforms collect vast amounts of user data,
+which they use to improve services and target advertising. 59
+Virtual worlds platforms will likely not be different, particularly
+because the personalisation of the immersive experience will
+heavily rely on data relating to user behaviour and interactions.
+Without fair access to this data, new entrants could be
+disadvantaged. Moreover, potential data portability restrictions
+could contribute to increasing switching costs and lock-in effects,
+strengthening existing positions of platforms and foreclosure of
+rivals by limiting their capacity to attract users. In that context,
+stakeholders point out that user ownership of their own data is
+critical.
+
+Potential other anticompetitive practices, such as exclusivity
+agreements (e.g. between platforms and IP rightsholders), unfair
+trading conditions (e.g. major platforms imposing their own
+standards), self-preferencing, tying and bundling, refusal to
+supply interoperability information, predatory pricing and margin
+squeeze may also arise in virtual worlds markets.
+
+Conclusions and next steps
+Generative AI and virtual worlds technologies will considerably
+impact and shape numerous markets in the coming years. The
+deployment of these technologies will undoubtedly bring
+significant positive changes, as well as innovation, new business
+models and new ways of doing things.
+
+Potential competition concerns
+Some stakeholders argue in the call for contributions that it
+would be too early to make assumptions about possible
+competition concerns in virtual worlds markets and that the EU
+already has the right tools to address any issues that may arise.
+
+They may also, however, give rise to competition concerns that
+may threaten the well-functioning of markets and negatively
+affect innovation, choice and quality. These concerns may include
+exclusionary practices or other forms of foreclosure by dominant
+players, such as exclusivity agreements, imposition of unfair
+trading conditions, self-preferencing, tying and bundling, refusal
+
+58
+
+See responses to Questions 1 and 5 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+59
+See responses to Questions 1, 7 and 8 of DG COMP's Calls for
+Contributions on Competition in Virtual Worlds and Generative AI (see
+above fn. 3).
+
+12
+
+Competition in Generative AI and Virtual Worlds | Competition Policy Brief No 3/2024
+
+to supply, margin squeeze or predatory pricing, reducing choice
+and innovation for consumers.
+
+As regards virtual worlds, DG Competition is closely monitoring
+how these nascent markets evolve, as virtual worlds are expected
+to transform traditional markets (such as manufacturing,
+education, software, gaming, media, etc.). This will also allow
+DG Competition to apply existing knowledge of these markets to
+their virtual extensions, building also on its experience on the
+evolution of digital markets.
+
+They may also consist of acquisition strategies aimed at
+eliminating nascent competitors (killer acquisitions) or absorbing
+most of their key employees (acqui-hires) and critical know-how.
+Incentives to invest and innovate may be further chilled by the
+presence of ecosystems, network effects and tipping dynamics in
+the so-called “kill zones” described above. 60
+
+DG Competition currently has also preliminary investigations
+ongoing into markets that are crucial for the development of
+generative AI and virtual worlds, like the markets for cloud or for
+different types of specialised chips (such as GPUs, TPUs and
+other AI accelerators).
+
+A heightened risk of horizontal collusion or exchange of
+commercially sensitive information may also emerge, as well as
+wage-fixing and no-poach agreements between employers vis-àvis key employees.
+
+As a follow up to the joint statement published with the US DoJ
+and FTC and the UK CMA, 61 and given the global nature of the
+business operations of AI players, the European Commission is
+also committed to strengthening the coordination at the level of
+the ECN, ICN and OECD in relation to enforcement in generative
+AI related markets. It is also fully engaged in G7 discussions on
+these issues, advancing the global dialogue on goals including
+the reduction of barriers to entry in AI development, sustaining
+diversity of AI business models, and fostering innovation.
+
+Given the magnitude and extent of the impacts of these
+technologies and the risks they might entail, DG Competition is
+actively monitoring the AI and virtual worlds sectors to ensure
+that competition is not negatively affected. As mentioned above,
+DG Competition is already analysing the investments and
+partnerships between large digital players and generative AI
+developers, as well as agreements for the pre-installation of
+generative AI models on the devices to ensure they do not raise
+anticompetitive concerns.
+
+DG Competition will use all tools at its disposal to address
+potential concerns in the generative AI and virtual worlds sectors,
+including antitrust, merger control and the DMA, to ensure that
+these sectors remain competitive, contestable and fair.
+
+DG Competition is also monitoring partnerships between large
+digital players and AI developers from the merger control
+viewpoint.
+
+60
+
+61
+
+See above the section on Virtual Worlds – Potential competition
+concerns.
+
+13
+
+See above the section on Competition advocacy and other procompetitive initiatives in generative AI related markets and fn. 47.
+
+

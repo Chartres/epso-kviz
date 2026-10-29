@@ -2133,7 +2133,25 @@
   "c": "ISO/IEC 25059, which sets out a quality model for AI-based systems",
   "d": "ISO/IEC 42001, specifying requirements for an AI management system",
   "correct": "d",
-  "explain": "ISO/IEC 42001 is the certifiable AI management system standard, structured on the same harmonised clauses as ISO/IEC 27001. ISO/IEC 23894 is guidance on AI risk management that cannot be certified against, which is what makes it the tempting near-miss."
+  "explain": "ISO/IEC 42001 specifies an AI management system, and ISO/IEC 42006 sets the requirements for bodies that audit and certify such systems, so 42001 is the standard an organisation is certified against. ISO/IEC 23894 is guidance on AI risk management built on ISO 31000, which is what makes it the tempting near-miss; 22989 defines concepts and terminology.",
+  "sources": [
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Executive summary, Conformity assessment",
+    "quote": "a standard defining requirements for conformity assessment bodies auditing an AI management system based on ISO/IEC 42001"
+   },
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Section 2.1 Risk management",
+    "quote": "ISO/IEC DIS 23894 builds on the generic ISO/IEC 31000 guidelines on risk management, providing additional information, when necessary, on AI-specific requirements."
+   },
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Table 1",
+    "quote": "ISO/IEC 22989 Artificial Intelligence concepts and terminology"
+   }
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 1053,
@@ -2470,14 +2488,19 @@
  {
   "id": 1066,
   "cat": "AI Act & Governance",
-  "q": "You must design a benchmark measuring whether a general-purpose model poses a specific capability risk. What most distinguishes a usable risk benchmark from a marketing score?",
-  "a": "construct validity and an uncontaminated held-out split, reported with uncertainty",
-  "b": "a large item count, so that per-item noise averages out over the whole evaluation",
-  "c": "scoring by a larger frontier model as judge rather than by trained human raters",
-  "d": "full publication of every item, so that providers can optimise against one target",
+  "q": "You must design an evaluation of whether a general-purpose AI model poses a specific systemic risk. Under the Safety and Security chapter of the GPAI Code of Practice, what makes the evaluation rigorous?",
+  "a": "internal validity, external validity and reproducibility, with no test data used in training",
+  "b": "a large item count, which on its own is enough to make the result rigorous",
+  "c": "scoring by a larger frontier model acting as judge rather than by trained human raters",
+  "d": "full publication of every item, so that any provider can optimise its model against it",
   "correct": "a",
-  "explain": "A risk benchmark is decision-grade only if it measures the construct it claims to, on data the model has not seen, with per-capability results and error bars. Publishing every item invites contamination and Goodharting, which is precisely how a benchmark decays into a marketing number.",
+  "explain": "The Code defines 'high scientific and technical rigour' as internal validity, external validity and reproducibility, and lists preventing the use of test data in training as one way to show internal validity. A large enough sample is one example of internal validity, not the standard itself; publishing every item invites the very contamination the Code asks providers to prevent.",
   "sources": [
+   {
+    "doc": "gpai-cop-safety",
+    "ref": "Glossary, 'high scientific and technical rigour'",
+    "quote": "model evaluations with high scientific and technical rigour have internal validity (see definition below) and external validity (see definition above), as well as being reproducible"
+   },
    {
     "doc": "gpai-cop-safety",
     "ref": "Glossary, 'internal validity'",
@@ -2493,7 +2516,8 @@
     "ref": "Glossary, 'external validity'",
     "quote": "ensures model evaluations are suitably calibrated for results to be used as a proxy for model behaviour outside the evaluation environment."
    }
-  ]
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 1067,
@@ -2611,7 +2635,25 @@
   "c": "ISO/IEC 23894, guidance on AI risk management aligned with ISO 31000",
   "d": "ISO/IEC 42005, which covers records of processing for machine-learning models",
   "correct": "c",
-  "explain": "ISO/IEC 23894 gives AI-specific risk management guidance built on the ISO 31000 structure and is designed to sit under an ISO/IEC 42001 management system. ISO/IEC 42005 exists but concerns AI system impact assessment, not records of processing, which is what makes it a convincing wrong answer."
+  "explain": "ISO/IEC 23894 gives AI-specific risk management guidance built on ISO 31000, and European work on AI risk builds on it together with the ISO/IEC 42001 management system, where risk management is one component. ISO/IEC 42005 exists but gives guidelines for AI impact assessment, not records of processing, which is what makes it a convincing wrong answer.",
+  "sources": [
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Section 2.1 Risk management",
+    "quote": "ISO/IEC DIS 23894 builds on the generic ISO/IEC 31000 guidelines on risk management, providing additional information, when necessary, on AI-specific requirements."
+   },
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Section 2.1 Risk management",
+    "quote": "new JTC21 work on risk is also expected to build upon ISO/IEC 42001 draft standard for AI management system, where risk management is a component of it."
+   },
+   {
+    "doc": "jrc-ai-standardisation-2023",
+    "ref": "Section 2.1 Risk management",
+    "quote": "ISO/IEC 42005 aims to provide further guidelines for AI impact assessment by providers of high-risk AI systems"
+   }
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 1073,
@@ -2750,12 +2792,30 @@
   "id": 1080,
   "cat": "AI Act & Governance",
   "q": "An audit shows a screening model is well calibrated within each group but has unequal false-negative rates between them. The correct reading is:",
-  "a": "calibration and equal error rates cannot both hold when base rates differ",
+  "a": "calibration and balance across groups for the positive and negative classes cannot both hold, except in special cases",
   "b": "calibration within groups is the accepted legal definition of fairness in the Union",
   "c": "the model is biased and recalibrating it per group will equalise the error rates",
   "d": "unequal false-negative rates always indicate that a protected attribute was used",
   "correct": "a",
-  "explain": "This is the impossibility result: where base rates differ, a classifier cannot simultaneously be calibrated within groups and equalised on false-positive and false-negative rates, so choosing a criterion is a judgement about which harm matters more. Neither recalibration nor dropping the protected attribute dissolves the trade-off."
+  "explain": "This is the impossibility result: outside narrow special cases, a score cannot be both calibrated within groups and balanced across groups for the positive and negative classes, so unequal error rates alongside good calibration are expected, and choosing a criterion is a judgement about which harm matters more. Recalibrating does not dissolve the trade-off, and fairness cannot be reduced to one statistical definition.",
+  "sources": [
+   {
+    "doc": "nist-sp-1270",
+    "ref": "Section 3.2.2",
+    "quote": "it is important to recognize the impossibility of satisfying certain mathematical fairness constraints at once except in highly constrained special cases"
+   },
+   {
+    "doc": "nist-sp-1270",
+    "ref": "Section 3.2.2",
+    "quote": "there is an inherent incompatibility between two conditions: calibration and balancing the positive and negative classes. These conditions cannot be satisfied simultaneously unless under certain constraints"
+   },
+   {
+    "doc": "nist-sp-1270",
+    "ref": "Section 3.2.2",
+    "quote": "fairness cannot be reduced to a concise mathematical definition"
+   }
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 2003,
@@ -3670,18 +3730,29 @@
   "cat": "EU Digital Policy & Strategy",
   "q": "Which statement about AI and EU competition policy is accurate?",
   "a": "acquisitions of model developers escape merger control entirely because the targets have little turnover",
-  "b": "the Commission may impose interoperability duties on model providers without any finding of dominance",
+  "b": "the Commission may impose interoperability duties on any model provider under competition law without first finding an infringement",
   "c": "partnerships between large platforms and model developers can be reviewed even short of a notifiable merger",
   "d": "designation under the Digital Markets Act extends automatically to every AI service a gatekeeper offers",
   "correct": "c",
-  "explain": "The Commission has examined big-tech and model-lab arrangements under merger and antitrust tools, precisely because compute-for-equity structures often fall outside notification thresholds. DMA designation is service by service: an AI assistant is covered only if it is designated as, or integrated into, a designated core platform service.",
+  "explain": "DG Competition is examining investments and partnerships between large digital players and generative AI developers under antitrust rules, and concentrations below the EU Merger Regulation thresholds may still be reviewed under national merger control or referred to the Commission. DMA designation is service by service: an AI assistant is covered only if it is a designated core platform service.",
   "sources": [
+   {
+    "doc": "competition-brief-genai-2024",
+    "ref": "p. 6",
+    "quote": "DG Competition is looking into possible vertical or other concerns relating to the investments and partnerships between large digital players and generative AI developers."
+   },
+   {
+    "doc": "competition-brief-genai-2024",
+    "ref": "p. 6",
+    "quote": "To the extent that such concentrations do not meet the turnover thresholds under the EU Merger Regulation, the Commission will work together with Member States and the parties to assess whether they will be reviewed under national merger control regimes or referred to the European Commission"
+   },
    {
     "doc": "dma",
     "ref": "Recital 29",
     "quote": "Gatekeepers should comply with the obligations laid down in this Regulation in respect of each of the core platform services listed in the relevant designation decision."
    }
-  ]
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 2058,
@@ -3790,11 +3861,26 @@
   "q": "The most defensible statement for a 2026 policy brief on AI and the EU labour market is:",
   "a": "net displacement will exceed job creation in every Member State and every sector before 2030",
   "b": "labour-market effects fall outside Union competence and cannot be addressed at Union level",
-  "c": "exposure concentrates in cognitive and clerical tasks, with evidence clearer on task composition than on net jobs",
+  "c": "exposure concentrates in cognitive tasks, while the size and timing of net job effects remain uncertain",
   "d": "productivity gains fully offset displacement, so aggregate employment effects can safely be disregarded in planning",
   "correct": "c",
-  "explain": "That is the honest reading of the current evidence base: occupational exposure measures are reasonably robust, while net employment effects remain contested and vary by sector and Member State. The other options either overclaim a uniform outcome or deny competences the Union plainly has in skills and social policy.",
+  "explain": "That is the honest reading of the evidence: the nearest-term impact falls on jobs made up mainly of cognitive tasks, while the magnitude and timing of displacement remain uncertain and net effects vary by country and sector. The other options either overclaim a uniform outcome or deny a role the Commission already takes on: monitoring AI's labour-market impact to support skills and inclusive policies.",
   "sources": [
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.1 Labour market risks",
+    "quote": "General-purpose AI will likely have the most significant near-term impact on jobs that consist mainly of cognitive tasks."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.1 Labour market risks",
+    "quote": "General-purpose AI is likely to transform a range of jobs and displace workers, though the magnitude and timing of these effects remains uncertain."
+   },
+   {
+    "doc": "apply-ai",
+    "ref": "Section 3.2",
+    "quote": "the Commission will actively monitor the impact of AI on the labour market in order to anticipate the needs of the market, spot potential disruptions and support the development of appropriate and inclusive policies"
+   },
    {
     "doc": "iasr-2025",
     "ref": "Section 2.3.1 Labour market risks",
@@ -3805,7 +3891,8 @@
     "ref": "Section 2.3.1 Labour market risks",
     "quote": "Labour market risks arise from the potential of general-purpose AI to automate a wide range of complex cognitive tasks across sectors."
    }
-  ]
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 2063,
@@ -4066,12 +4153,32 @@
   "cat": "EU Digital Policy & Strategy",
   "q": "In technology watch on the general-purpose AI ecosystem, which observation is the most robust basis for concern about concentration?",
   "a": "training costs have fallen far enough that a mid-sized firm could now train a frontier model of its own",
-  "b": "the number of general-purpose AI models released each year has fallen steadily since 2023",
+  "b": "concentration in the general-purpose AI market eased during 2024 as more providers entered",
   "c": "frontier training depends on a small number of accelerator suppliers and hyperscale cloud operators",
   "d": "most of the world's most capable models are now developed inside the European Union",
   "correct": "c",
-  "explain": "Supply of advanced accelerators and of hyperscale training capacity is genuinely narrow, and that structural fact is what EU compute policy responds to. Model releases have risen rather than fallen, and frontier training runs remain well beyond a mid-sized firm's reach even though inference and fine-tuning costs have dropped sharply.",
+  "explain": "Access to advanced chips and hyperscale cloud is genuinely narrow: developers depend on a few companies for GPUs, and three companies control about two-thirds of cloud computing. Concentration did not ease in 2024, most notable models in 2023 came from the US rather than the EU, and a state-of-the-art model can cost hundreds of millions of dollars to develop, well beyond a mid-sized firm.",
   "sources": [
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.3",
+    "quote": "Increasing dependency on prominent tech companies for access to essential hardware (GPUs), AI model interfaces (APIs), and cloud storage services"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.3",
+    "quote": "Just three companies control 67% of cloud computing services"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.3",
+    "quote": "the previous consensus that market concentration in the general-purpose AI market is high has continued to hold"
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Section 2.3.2",
+    "quote": "in 2023, the majority of notable general-purpose AI models (56%) were developed in the US."
+   },
    {
     "doc": "iasr-2025",
     "ref": "Section 2.3.3 Key information",
@@ -4087,7 +4194,8 @@
     "ref": "Section 2.3.4",
     "quote": "Taiwan Semiconductor Manufacturing Company (TSMC), the world’s largest semiconductor manufacturer and the main supplier of chips to AI hardware firms such as Nvidia"
    }
-  ]
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 2074,
@@ -4203,13 +4311,13 @@
  {
   "id": 2078,
   "cat": "EU Digital Policy & Strategy",
-  "q": "For an AI-driven customer service interface offered to consumers in the Union, accessibility obligations arise principally from:",
+  "q": "For an AI-driven customer service chat in a bank's consumer app or in an online shop serving consumers in the Union, accessibility obligations arise principally from:",
   "a": "the General Product Safety Regulation, which covers consumer products placed on the Union market",
   "b": "the European Accessibility Act, applicable since June 2025 to e-commerce, banking and consumer computing",
   "c": "Directive (EU) 2016/2102, on the accessibility of public sector websites and mobile applications",
   "d": "the Digital Services Act, which requires online platforms to design their interfaces free of dark patterns",
   "correct": "b",
-  "explain": "The European Accessibility Act sets accessibility requirements for consumer-facing products and services, including e-commerce and consumer banking, and has applied since 28 June 2025. The public sector website directive is the close alternative but reaches only public sector bodies' sites and apps.",
+  "explain": "The European Accessibility Act applies to services provided to consumers after 28 June 2025, including consumer banking and e-commerce, so the chat in either falls under it. The public sector website directive is the close alternative but reaches only public sector bodies' websites and apps.",
   "sources": [
    {
     "doc": "eaa",
@@ -4225,8 +4333,14 @@
     "doc": "wad",
     "ref": "Art 1(2)",
     "quote": "This Directive lays down the rules requiring Member States to ensure that websites, independently of the device used for access thereto, and mobile applications of public sector bodies meet the accessibility requirements set out in Article 4."
+   },
+   {
+    "doc": "eaa",
+    "ref": "Art 2(2)(d)-(f)",
+    "quote": "(d) consumer banking services; (e) e-books and dedicated software; and (f) e-commerce services."
    }
-  ]
+  ],
+  "verified": "2026-10-29"
  },
  {
   "id": 2079,
