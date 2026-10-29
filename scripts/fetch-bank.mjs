@@ -12,7 +12,7 @@
 // caller runs `node scripts/merge.mjs` to rebuild data/questions.json and meta.json.
 // Usage: node scripts/fetch-bank.mjs [--allow-local]
 //   --allow-local  if the flag is on but no token is set (a local dev run), keep the local copy
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
 export const DEFAULT_REPO = 'Chartres/epso-bank'
@@ -59,16 +59,26 @@ async function get(url, token, accept) {
 
 export async function fetchBank({ repo, ref, token }, dataDir = new URL('../data/', import.meta.url)) {
   const api = `https://api.github.com/repos/${repo}/contents`
-  let total = 0
+  // Download everything first; touch data/ only once every file has arrived and parsed.
+  const got = {}
   for (const folder of FOLDERS) {
     const listing = await (await get(`${api}/${folder}?ref=${encodeURIComponent(ref)}`, token, 'application/vnd.github+json')).json()
     const names = jsonFiles(listing)
     if (folder === 'bank' && names.length === 0) throw new Error(`${repo}@${ref} has no bank/*.json`)
-    const out = new URL(`${folder}/`, dataDir)
-    mkdirSync(out, { recursive: true })
+    got[folder] = []
     for (const name of names) {
       const text = await (await get(`${api}/${folder}/${name}?ref=${encodeURIComponent(ref)}`, token, 'application/vnd.github.raw')).text()
-      JSON.parse(text) // refuse to write anything that isn't JSON
+      JSON.parse(text) // refuse anything that isn't JSON
+      got[folder].push([name, text])
+    }
+  }
+  let total = 0
+  for (const folder of FOLDERS) {
+    const out = new URL(`${folder}/`, dataDir)
+    // Mirror the bank repo: a file renamed or removed there must not linger here and be merged twice.
+    rmSync(out, { recursive: true, force: true })
+    mkdirSync(out, { recursive: true })
+    for (const [name, text] of got[folder]) {
       writeFileSync(new URL(name, out), text)
       total++
     }

@@ -55,8 +55,8 @@ Every figure in it was checked against the README and the 2026-10-29 hand-back.
 ## Repo description (Settings → About; 350 characters max)
 
 > Free, unofficial practice trainer for EPSO/AD/430/26 Field 1 (Artificial Intelligence):
-> 231 MCQs, answers checked against the AI Act and other EU acts, a 30-question/40-minute
-> mock, and reasoning tests in Czech, Slovak or English.
+> 231 MCQs (139 law and policy answers checked against the AI Act and other EU acts), a
+> 30-question/40-minute mock, and reasoning tests in Czech, Slovak or English.
 
 Website field: `https://epsokviz.dravec.org`
 

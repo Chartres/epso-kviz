@@ -14,11 +14,12 @@ that.
   So all 231 questions, their keys and their explanations are inside the public JavaScript at
   https://epsokviz.dravec.org (checked: `dist/assets/index-*.js` contains the question text).
   Anyone can read them with the browser's developer tools.
-- **The 51 prerendered pages.** The three `/questions/<category>/` pages publish every
-  governance, policy and engineering question with its answer, by design. They are what
-  search engines and AI assistants index (FAQ JSON-LD). The 46 `/ai-act/article-N/` pages and the
-  `/ai-act/` index show the questions that cite each article. `/guide/ad-430-26-field-1/` shows
-  none.
+- **The 51 prerendered pages.** These are what search engines and AI assistants index. The
+  three `/questions/<category>/` pages publish every *verified* question with its answer: 72
+  governance and 67 policy. Engineering has none verified yet, so its page shows a fixed
+  sample of 20 of its 80. The 46 `/ai-act/article-N/` pages and the `/ai-act/` index show the
+  verified questions that cite each article. `/guide/ad-430-26-field-1/` shows none. So about
+  159 of the 231 questions are on crawlable pages, and the other 72 are only in the bundle.
 - **The verbal items** (`data/verbal/`), the study guide (`src/content/`) and the pinned
   source texts (`data/sources/`) are not part of "the bank". They stay where they are unless
   Pavol says otherwise.
@@ -79,7 +80,9 @@ Ready now and off: `scripts/fetch-bank.mjs` (tests in `src/platform/fetch-bank.t
   `data/bank/`.
 - `EPSO_BANK_SOURCE=github` + `EPSO_BANK_TOKEN`: it lists `bank/` and `verification/` in
   `Chartres/epso-bank@main` through the GitHub contents API and writes each `*.json` into
-  `data/`. It refuses anything that isn't JSON. Override the source with `EPSO_BANK_REPO` and
+  `data/`. It downloads everything first and refuses anything that isn't JSON. Only then does it
+  replace `data/bank/` and `data/verification/` with an exact mirror, so a failed fetch leaves
+  the local copy untouched. Override the source with `EPSO_BANK_REPO` and
   `EPSO_BANK_REF`.
 - `EPSO_BANK_SOURCE=github` with no token: it fails, so CI never ships a stale bank by
   accident. With `--allow-local` (a dev run) it keeps the local copy instead.
@@ -90,19 +93,27 @@ The switch-over PR, after step 5:
    both read the bank):
    ```yaml
    - name: Fetch the question bank (private)
-     run: node scripts/fetch-bank.mjs && node scripts/merge.mjs
+     run: node scripts/fetch-bank.mjs --allow-local && node scripts/merge.mjs
      env:
        EPSO_BANK_SOURCE: github
        EPSO_BANK_TOKEN: ${{ secrets.EPSO_BANK_TOKEN }}
    ```
+   `--allow-local` matters only where the secret is missing (fork and Dependabot PRs). There
+   the step keeps whatever bank is on disk, which after step 2 is the sample from step 3. The
+   deploy job runs only on pushes to `main`, which always have the secret. A guard there
+   (`test -n "$EPSO_BANK_TOKEN"` before the Pages build) makes sure a deploy never ships the
+   sample.
 2. `git rm -r --cached data/bank data/questions.json data/verification`, then add them to
-   `.gitignore`. Pavol's local copies stay on disk and are the dev fallback:
+   `.gitignore`. `data/meta.json` stays tracked: `merge.mjs` rewrites its counts on every
+   build, so CI must not fail on the diff (it doesn't today), and it carries no questions. Pavol's local copies stay on disk and are the dev fallback:
    `npm run dev` works offline exactly as now.
 3. Add `data/sample/` (about 12 questions, 4 per category, already public on the static
    pages), so that someone without access can clone and run the app. `merge.mjs` falls back
    to it when `data/bank/` is missing.
-4. Fork and Dependabot PRs get no secret. Their CI says "bank not available" and runs on the
-   sample instead of failing for an unrelated reason.
+4. Fork and Dependabot PRs get no secret, so they run on the sample (see the `--allow-local`
+   note above) instead of failing for an unrelated reason. The tests that pin bank-wide
+   numbers (`dataset.test.ts`, the citation floor in `citations.test.ts`) skip their
+   count checks on the sample. The quote checks still run on its questions.
 5. Update `AGENTS.md` (data source line), `README.md`, `data/README.md` and the licence files.
 
 ### What stays public on the live site
