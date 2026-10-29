@@ -107,4 +107,12 @@ describe('app store', () => {
     expect(s.session).toBeNull()
     expect(s.examEndsAt).toBeNull()
   })
+
+  it('switches the question-first form (default B)', () => {
+    const s0 = initialState()
+    expect(s0.settings.questionFirst).toBe('b')
+    const s1 = reducer(s0, { type: 'setQuestionFirst', mode: 'none' })
+    expect(s1.settings.questionFirst).toBe('none')
+    expect(reducer(s1, { type: 'setQuestionFirst', mode: 'c' }).settings.questionFirst).toBe('c')
+  })
 })

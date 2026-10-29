@@ -8,6 +8,8 @@ import { ExamTimer } from '@/components/ExamTimer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { todayStr } from '@/lib/date'
 import type { Choice } from '@/domain/types'
+import { questionFirstFor } from '@/domain/settings'
+import { track } from '@/analytics'
 
 const MODE_LABEL: Record<string, string> = {
   lesson: "Today's lesson",
@@ -25,6 +27,7 @@ export function QuizScreen() {
   if (!session || !mode) return null
   const question = currentQuestion(session)
   const isExam = mode === 'exam'
+  const questionFirst = questionFirstFor(mode, state.settings.questionFirst)
 
   if (!question) {
     return (
@@ -78,6 +81,8 @@ export function QuizScreen() {
         onToggleBookmark={() =>
           dispatch({ type: 'toggleBookmark', id: question.id })
         }
+        questionFirst={questionFirst}
+        onRecall={(r) => track('key_action', { action: 'question_first', ...r, q: question.id, from: mode })}
         {...collectProps(question, state.progress, dispatch)}
       />
     </div>

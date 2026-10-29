@@ -47,7 +47,7 @@ export function HomeScreen() {
       <button
         type="button"
         onClick={() => {
-          track('start_lesson')
+          track('start_lesson', { question_first: state.settings.questionFirst })
           dispatch({ type: 'startLesson', rng: rng() })
         }}
         className="glow-brass instrument mb-3 block w-full rounded-card border border-brass-500/70 bg-brass-500/10 p-5 text-left transition-colors hover:bg-brass-500/20"
@@ -71,7 +71,7 @@ export function HomeScreen() {
         <button
           type="button"
           onClick={() => {
-            track('start_review')
+            track('start_review', { question_first: state.settings.questionFirst })
             dispatch({ type: 'startReview', rng: rng() })
           }}
           className="mb-3 flex w-full items-center justify-between rounded-card border border-steel-700 bg-steel-800/40 px-5 py-3.5 text-left transition-colors hover:border-steel-500"
