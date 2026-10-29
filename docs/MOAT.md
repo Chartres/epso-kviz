@@ -160,6 +160,17 @@ NIST AI RMF, the International AI Safety Report and others). Verified now: **131
 (governance 68, policy 63). Six more rationales or options corrected. 20 remain unverified,
 each with its reason in `data/verification/2026-10-27.json`.
 
+**Third pass, 2026-10-29.** The last 20 were taken one by one. Three more texts pinned: the
+JRC's analysis of the AI standardisation work plan (CC BY 4.0), DG Competition's policy brief
+on generative AI (2024) and NIST SP 1270 on AI bias. Verified now: **139 of 151** (governance
+72, policy 67). Two were verified with key and options unchanged (ISO/IEC 42001 and 23894;
+rationales trimmed to what the source says). Six were corrected first, so that the quoted text
+settles the key on its own: a stem or an option reworded, and the rationale with it. Twelve
+are marked unverifiable, each with its reason in `data/verification/2026-10-29.json`: seven
+are judgment questions that no text decides, four rest on sources we may not pin (OECD twice,
+IIA, a Commission staff note released only under Reg. 1049/2001), and one rests on a negative
+claim (no US federal AI statute) that no quote can prove.
+
 Engineering (80 questions) is not yet cited: it rests on textbooks and papers that are not
 freely reusable. Next step there is pinning open references (NIST AI RMF, ENISA reports,
 ISO/IEC terminology where free, arXiv papers under CC licences).
