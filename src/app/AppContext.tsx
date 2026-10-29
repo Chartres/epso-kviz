@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
 import { loadProgress, saveProgress } from '@/domain/storage'
+import { loadSettings, saveSettings } from '@/domain/settings'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress } from '@/auth/sync'
@@ -20,7 +21,10 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, undefined, initialState)
+  const [state, dispatch] = useReducer(reducer, undefined, () => ({
+    ...initialState(),
+    settings: loadSettings(),
+  }))
   const { user } = useAuth()
 
   // Hydrate persisted progress once on mount.
@@ -33,6 +37,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveProgress(state.progress)
   }, [state.progress])
+
+  // Settings stay on this device (not synced): they describe how you like to practise here.
+  useEffect(() => {
+    saveSettings(state.settings)
+  }, [state.settings])
 
   // On sign-in: reconcile local progress with the cloud and adopt the merge.
   useEffect(() => {

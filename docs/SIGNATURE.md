@@ -36,17 +36,19 @@ told, and measure honestly.
 
 | Move | What the user sees | From | Metric (event in kpi_event_map) | Status |
 |---|---|---|---|---|
-| **The cited answer** | Under each verified rationale: the verbatim passage, its article reference and a EUR-Lex link, and "Checked against the official text on …". The same passages appear on the 51 prerendered pages. | *Ad fontes*; the glossa | `key_action {action: 'source_open'}` from the answer, the commonplace book and the static pages (live since #10), divided by answered verified questions. Target ≥ 10%. | live (#2; metric #10), awaiting Pavol's keep / change / revert |
-| **Likely score on a fresh paper** | A 10th–90th percentile range of 0–30 from first tries only, the chance of reaching 15/30, and the notice's real ranking rule (about 360 essays marked for 240 places). | Brier; Lichtenstein et al.; the testing effect | `exam_finish` score against the range sent with `start_exam` (`likely_low` / `likely_high`, since #11): the 80% range should contain the actual score about 80% of the time, over users with ≥ 2 mocks. | live (#3), awaiting Pavol's keep / change / revert |
-| **The commonplace book** | "Copy to my commonplace book" on each cited passage. A view that files the passages by act and article, with the case they came from; exportable as text. | Erasmus, *De copia*; Locke | `key_action {action: 'commonplace_add'}`: the share of users with ≥ 5 entries, and their 7-day return rate against users with none. | live (#4), awaiting Pavol's keep / change / revert |
-| **Question first** | The stem appears alone; the options come only once you have formed an answer. | Socratic questioning; the generation effect | `key_action {action: 'recall_first'}`, then first-try accuracy on later reviews of the same questions, recall-first against normal. | proposed |
+| **The cited answer** | Under each verified rationale: the verbatim passage, its article reference and a EUR-Lex link, and "Checked against the official text on …". The same passages appear on the 51 prerendered pages. | *Ad fontes*; the glossa | `key_action {action: 'source_open'}` from the answer, the commonplace book and the static pages (live since #10), divided by answered verified questions. Target ≥ 10%. | live (#2; metric #10); kept 2026-10-29 |
+| **Likely score on a fresh paper** | A 10th–90th percentile range of 0–30 from first tries only, the chance of reaching 15/30, and the notice's real ranking rule (about 360 essays marked for 240 places). | Brier; Lichtenstein et al.; the testing effect | `exam_finish` score against the range sent with `start_exam` (`likely_low` / `likely_high`, since #11): the 80% range should contain the actual score about 80% of the time, over users with ≥ 2 mocks. | live (#3); kept 2026-10-29 |
+| **The commonplace book** | "Copy to my commonplace book" on each cited passage. A view that files the passages by act and article, with the case they came from; exportable as text. | Erasmus, *De copia*; Locke | `key_action {action: 'commonplace_add'}`: the share of users with ≥ 5 entries, and their 7-day return rate against users with none. | live (#4); explained 2026-10-29, awaiting Pavol's pick |
+| **Question first** | The stem appears alone; the options come only once you have formed an answer. Default B: write a few words, then compare. A setting on the Practice tab switches between none, A (tap), B (write) and C (wait). Never in the exam simulation. | Socratic questioning; the generation effect | `key_action {action: 'question_first', mode, wrote?, q, from}` when the options appear; `question_first` on `start_lesson` / `start_practice` / `start_review` / `start_bookmarks`; `key_action {action: 'question_first_set', mode, was}`. Then first-try accuracy on later reviews of the same questions, by mode against none. | approved 2026-10-29 (B, switchable); live (round 3) |
 
 Status: proposed → approved (dated) → live → or changed / reverted.
 
 ### Proposal: question first
 
-An opt-in mode for practice and the daily lesson. It never applies to the exam simulation, which
-has to match the real format. The screenshots are DOM mockups at 390 px; nothing is built.
+Built 2026-10-29 as Pavol picked: B is the default, and a setting switches between none, A, B
+and C. It applies to practice, review, bookmarks and the daily lesson, never to the exam
+simulation, which has to match the real format. The screenshots below are the original DOM
+mockups at 390 px; the built screens are in `e2e/shots/question-first-*-390.png`.
 
 - **Option A: tap to reveal.** The stem stands alone with "Show the four options". You form the
   answer in your head, then tap. ![A](signature/question-first-a.png)
@@ -94,5 +96,9 @@ Articles II, VI and VIII bind this product.
 
 | Date | Options shown | Pavol chose | Note |
 |---|---|---|---|
-| 2026-10-28 | Keep / change / revert for each live move: the cited answer, likely score on a fresh paper, the commonplace book | pending | Hand-back `docs/review/2026-10-28.json` |
-| 2026-10-28 | Question first: A tap to reveal · B write it first · C timed hold (recommend A) | pending | Nothing built |
+| 2026-10-28 | Keep / change / revert for each live move: the cited answer, likely score on a fresh paper, the commonplace book | see 2026-10-29 | Hand-back `docs/review/2026-10-28.json` |
+| 2026-10-28 | Question first: A tap to reveal · B write it first · C timed hold (recommend A) | see 2026-10-29 | Nothing built |
+| 2026-10-29 | The cited answer: keep / change / revert | keep | "keep as it is" |
+| 2026-10-29 | Likely score on a fresh paper: keep / change / revert | keep | "keep as it is" |
+| 2026-10-29 | Question first: A · B · C · none | B, switchable | "B, but with options in settings to change between nothing A B C." Built in round 3: B by default, setting on the Practice tab, stored on the device. |
+| 2026-10-29 | The commonplace book: keep / change / revert | explained, awaiting his pick | He wrote "I don't know what this is." Unchanged; a plain explanation and a 390 px screenshot go on the next decision page (`docs/review/2026-10-29-round3.json`). |

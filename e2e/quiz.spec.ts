@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test'
 
+// This journey predates question first (default B since 2026-10-29); it runs with the form off.
+// The question-first journey is e2e/question-first.spec.ts.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('epso-kviz:settings:v1', JSON.stringify({ questionFirst: 'none' })))
+})
+
 test('practice journey: home → practice tab → answer → feedback', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'EPSO AI Field Trainer' })).toBeVisible()

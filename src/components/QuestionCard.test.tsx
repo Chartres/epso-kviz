@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { QuestionCard } from './QuestionCard'
 import type { Question } from '@/domain/types'
@@ -149,5 +149,113 @@ describe('QuestionCard', () => {
     const { onToggleBookmark } = setup()
     await userEvent.click(screen.getByRole('button', { name: /bookmark/i }))
     expect(onToggleBookmark).toHaveBeenCalled()
+  })
+})
+
+describe('QuestionCard — question first', () => {
+  const options = () => screen.queryByRole('group', { name: 'Answer options' })
+
+  it('none: shows the options with the stem (as before)', () => {
+    const onRecall = vi.fn()
+    setup({ questionFirst: 'none', onRecall })
+    expect(options()).toBeInTheDocument()
+    expect(onRecall).not.toHaveBeenCalled()
+  })
+
+  it('A: holds the options until "Show the four options"; answer keys do nothing before', async () => {
+    const onRecall = vi.fn()
+    const { onAnswer } = setup({ questionFirst: 'a', onRecall })
+    expect(screen.getByText(Q.q)).toBeInTheDocument()
+    expect(options()).not.toBeInTheDocument()
+    await userEvent.keyboard('2')
+    expect(onAnswer).not.toHaveBeenCalled()
+    await userEvent.click(screen.getByRole('button', { name: 'Show the four options' }))
+    expect(options()).toBeInTheDocument()
+    expect(onRecall).toHaveBeenCalledWith({ mode: 'a' })
+    await userEvent.keyboard('2')
+    expect(onAnswer).toHaveBeenCalledWith('b')
+  })
+
+  it('A: Enter shows the options', async () => {
+    setup({ questionFirst: 'a' })
+    await userEvent.keyboard('{Enter}')
+    expect(options()).toBeInTheDocument()
+  })
+
+  it('B: write first, compare, and the words sit beside the key in the feedback', async () => {
+    const onRecall = vi.fn()
+    const { onAnswer } = setup({ questionFirst: 'b', onRecall })
+    expect(options()).not.toBeInTheDocument()
+    const box = screen.getByLabelText('Your answer, in a few words')
+    // Typing letters a–d into the box must not answer the question.
+    await userEvent.type(box, 'drift in the inputs')
+    expect(onAnswer).not.toHaveBeenCalled()
+    await userEvent.click(screen.getByRole('button', { name: 'Compare with the options' }))
+    expect(options()).toBeInTheDocument()
+    expect(onRecall).toHaveBeenCalledWith({ mode: 'b', wrote: true })
+  })
+
+  it('B: shows your words in the feedback once answered', async () => {
+    const onAnswer = vi.fn()
+    const { rerender } = render(
+      <QuestionCard
+        question={Q}
+        reveal
+        bookmarked={false}
+        index={0}
+        total={10}
+        onAnswer={onAnswer}
+        onNext={vi.fn()}
+        onToggleBookmark={vi.fn()}
+        questionFirst="b"
+      />,
+    )
+    await userEvent.type(screen.getByLabelText('Your answer, in a few words'), 'drift')
+    await userEvent.click(screen.getByRole('button', { name: 'Compare with the options' }))
+    rerender(
+      <QuestionCard
+        question={Q}
+        reveal
+        chosen="b"
+        bookmarked={false}
+        index={0}
+        total={10}
+        onAnswer={onAnswer}
+        onNext={vi.fn()}
+        onToggleBookmark={vi.fn()}
+        questionFirst="b"
+      />,
+    )
+    expect(screen.getByText('Your words:')).toBeInTheDocument()
+    expect(screen.getByText('drift')).toBeInTheDocument()
+  })
+
+  it('B: comparing with an empty box is allowed and recorded as not written', async () => {
+    const onRecall = vi.fn()
+    setup({ questionFirst: 'b', onRecall })
+    await userEvent.click(screen.getByRole('button', { name: 'Compare with the options' }))
+    expect(onRecall).toHaveBeenCalledWith({ mode: 'b', wrote: false })
+    expect(screen.queryByText('Your words:')).not.toBeInTheDocument()
+  })
+
+  it('C: the options appear on their own after the hold', () => {
+    vi.useFakeTimers()
+    try {
+      const onRecall = vi.fn()
+      setup({ questionFirst: 'c', onRecall })
+      expect(options()).not.toBeInTheDocument()
+      expect(screen.getByRole('status')).toHaveTextContent('Options in 8 s')
+      for (let i = 0; i < 8; i++) act(() => vi.advanceTimersByTime(1000))
+      expect(options()).toBeInTheDocument()
+      expect(onRecall).toHaveBeenCalledTimes(1)
+      expect(onRecall).toHaveBeenCalledWith({ mode: 'c' })
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('an answered question always shows its options', () => {
+    setup({ questionFirst: 'a', chosen: 'b' })
+    expect(options()).toBeInTheDocument()
   })
 })

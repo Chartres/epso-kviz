@@ -24,6 +24,7 @@ import {
 import { buildLesson } from '@/domain/lesson'
 import { setCollected } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
+import { defaultSettings, type QuestionFirstMode, type Settings } from '@/domain/settings'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
 export type TabView = 'home' | 'practice' | 'stats' | 'guide'
@@ -44,6 +45,7 @@ export interface AppState {
   progress: ProgressData
   selectedCategories: Set<CategoryName>
   search: string
+  settings: Settings
 }
 
 export function initialState(): AppState {
@@ -56,6 +58,7 @@ export function initialState(): AppState {
     progress: emptyProgress(),
     selectedCategories: new Set(),
     search: '',
+    settings: defaultSettings(),
   }
 }
 
@@ -63,6 +66,7 @@ export type Action =
   | { type: 'hydrate'; progress: ProgressData }
   | { type: 'setCategories'; categories: Set<CategoryName> }
   | { type: 'setSearch'; search: string }
+  | { type: 'setQuestionFirst'; mode: QuestionFirstMode }
   | { type: 'startLesson'; rng: Rng }
   | { type: 'startPractice'; rng: Rng }
   | { type: 'startReview'; rng: Rng }
@@ -99,6 +103,9 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'setSearch':
       return { ...state, search: action.search }
+
+    case 'setQuestionFirst':
+      return { ...state, settings: { ...state.settings, questionFirst: action.mode } }
 
     case 'startLesson':
       return begin(

@@ -6,6 +6,21 @@ import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { readinessProps } from '@/domain/readiness'
 import type { CategoryName } from '@/domain/types'
+import { QUESTION_FIRST_MODES, type QuestionFirstMode } from '@/domain/settings'
+
+const QUESTION_FIRST_LABEL: Record<QuestionFirstMode, string> = {
+  none: 'None',
+  a: 'A · Tap',
+  b: 'B · Write',
+  c: 'C · Wait',
+}
+
+const QUESTION_FIRST_HELP: Record<QuestionFirstMode, string> = {
+  none: 'The options show with the question, as before.',
+  a: 'The question shows alone. Form your answer, then tap to see the options.',
+  b: 'Write your answer in a few words, then compare it with the options. Your words stay on this device.',
+  c: 'The options appear after a few seconds. Use them to think first.',
+}
 
 export function PracticeScreen() {
   const { state, dispatch } = useApp()
@@ -174,7 +189,7 @@ export function PracticeScreen() {
           type="button"
           disabled={practiceCount === 0}
           onClick={() => {
-            track('start_practice')
+            track('start_practice', { question_first: state.settings.questionFirst })
             dispatch({ type: 'startPractice', rng: rng() })
           }}
           className="glow-brass mt-3 w-full rounded-card bg-brass-500 px-5 py-3 font-display font-semibold uppercase tracking-wide text-steel-950 transition-colors hover:bg-brass-400 disabled:cursor-not-allowed disabled:opacity-50"
@@ -188,7 +203,7 @@ export function PracticeScreen() {
         type="button"
         disabled={bookmarkCount === 0}
         onClick={() => {
-          track('start_bookmarks')
+          track('start_bookmarks', { question_first: state.settings.questionFirst })
           dispatch({ type: 'startBookmarks', rng: rng() })
         }}
         className="mt-4 flex w-full items-center justify-between rounded-card border border-steel-700 bg-steel-800/40 px-5 py-3.5 text-left transition-colors hover:border-steel-500 disabled:cursor-not-allowed disabled:opacity-50"
@@ -198,6 +213,44 @@ export function PracticeScreen() {
           {bookmarkCount > 0 ? `${bookmarkCount} questions →` : 'none'}
         </span>
       </button>
+
+      {/* Question first (SIGNATURE.md): how the options are held back in practice and lessons */}
+      <fieldset className="mt-4 rounded-card border border-steel-700 bg-steel-800/40 p-4">
+        <legend className="px-1 font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
+          Question first
+        </legend>
+        <div className="flex flex-wrap gap-2">
+          {QUESTION_FIRST_MODES.map((m) => {
+            const active = state.settings.questionFirst === m
+            return (
+              <label
+                key={m}
+                className={`cursor-pointer border px-3 py-1.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-brass-400 ${
+                  active
+                    ? 'border-brass-500 bg-brass-500/15 text-brass-300'
+                    : 'border-steel-700 text-steel-300 hover:border-steel-500'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="question-first"
+                  value={m}
+                  checked={active}
+                  onChange={() => {
+                    track('key_action', { action: 'question_first_set', mode: m, was: state.settings.questionFirst })
+                    dispatch({ type: 'setQuestionFirst', mode: m })
+                  }}
+                  className="sr-only"
+                />
+                {QUESTION_FIRST_LABEL[m]}
+              </label>
+            )
+          })}
+        </div>
+        <p className="mt-3 text-sm text-steel-400">
+          {QUESTION_FIRST_HELP[state.settings.questionFirst]} Not in the exam simulation.
+        </p>
+      </fieldset>
     </div>
   )
 }

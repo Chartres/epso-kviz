@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test'
 
+// This journey predates question first (default B since 2026-10-29); it runs with the form off.
+// The question-first journey is e2e/question-first.spec.ts.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('epso-kviz:settings:v1', JSON.stringify({ questionFirst: 'none' })))
+})
+
 // Persona: Marek, a data-protection lawyer sitting AD/430/26 Field 1. He learns the AI Act
 // from its own wording: after a question, he copies the passage that settled it into his
 // commonplace book, then rereads the book, filed by act and article, before a mock.
@@ -24,6 +30,10 @@ test('commonplace book: collect a verified passage, find it filed under its act'
   await expect(act.getByText(/Art 99/).first()).toBeVisible()
   await expect(act.getByText(/top penalty bracket/)).toBeVisible()
   await page.screenshot({ path: 'e2e/shots/commonplace-book.png', fullPage: true })
+  // The book itself, at phone size (for the decision page).
+  await page.getByRole('heading', { name: 'My commonplace book' }).scrollIntoViewIfNeeded()
+  await page.evaluate(() => document.getElementById('commonplace-title')?.scrollIntoView({ block: 'start' }))
+  await page.screenshot({ path: 'e2e/shots/commonplace-book-390.png' })
 
   // It survives a reload (offline-first local progress).
   await page.reload()
