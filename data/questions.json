@@ -4153,11 +4153,11 @@
   "cat": "EU Digital Policy & Strategy",
   "q": "In technology watch on the general-purpose AI ecosystem, which observation is the most robust basis for concern about concentration?",
   "a": "training costs have fallen far enough that a mid-sized firm could now train a frontier model of its own",
-  "b": "concentration in the general-purpose AI market has eased since 2024 as more providers entered",
+  "b": "concentration in the general-purpose AI market eased during 2024 as more providers entered",
   "c": "frontier training depends on a small number of accelerator suppliers and hyperscale cloud operators",
   "d": "most of the world's most capable models are now developed inside the European Union",
   "correct": "c",
-  "explain": "Access to advanced chips and hyperscale cloud is genuinely narrow: developers depend on a few companies for GPUs, and three companies control about two-thirds of cloud computing. Concentration has not eased, most notable models in 2023 came from the US rather than the EU, and a state-of-the-art model can cost hundreds of millions of dollars to develop, well beyond a mid-sized firm.",
+  "explain": "Access to advanced chips and hyperscale cloud is genuinely narrow: developers depend on a few companies for GPUs, and three companies control about two-thirds of cloud computing. Concentration did not ease in 2024, most notable models in 2023 came from the US rather than the EU, and a state-of-the-art model can cost hundreds of millions of dollars to develop, well beyond a mid-sized firm.",
   "sources": [
    {
     "doc": "iasr-2025",
