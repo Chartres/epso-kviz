@@ -14,7 +14,7 @@
       "title": "Private bank: plan (A/B), fetch path ready behind a flag; listing draft",
       "pr": "https://github.com/Chartres/epso-kviz/pull/16",
       "merged": "2026-10-29",
-      "live_checked": "pending: filled after the deploy of 5fdbb47"
+      "live_checked": "Deploy tagged deploy-2026-10-29-5 (5fdbb47). The live app bundle is unchanged (index-dtA4BNcJ.js, the same hash as after #15), which confirms the build did not change and the fetch step is not wired in. /questions/policy/ returns 200. docs/plans/private-bank.md and docs/plans/listing-draft.md are on main."
     }
   ],
   "decisions": [
