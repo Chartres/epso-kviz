@@ -1,0 +1,78 @@
+{
+  "product": "epso-kviz",
+  "date": "2026-10-30",
+  "headline": "On the Guide tab the guide now comes first: the commonplace book sits below the lessons, folded, with a link at the end of Contents. Form C holds for 5 s. Both are live. The private-bank switch-over is built and green as draft PR #19. Phase 2 has not started because Chartres/epso-bank does not exist (or this account cannot see it) and the EPSO_BANK_TOKEN secret is not set.",
+  "shipped": [
+    {
+      "title": "Guide first: commonplace book below the lessons, folded; form C hold 5 s",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/18",
+      "merged": "2026-10-30",
+      "live_checked": "Deploy tagged deploy-2026-10-30 (03d0877), bundle index-DeejT8qE.js. Checked live in Chromium with Supabase blocked and one passage seeded. At 390 px, Contents starts at y=124 and the book heading at y=16808, after all 12 lessons. At 1280 px they are at y=104 and y=9411. The link 'My commonplace book · 1 passage' at the end of Contents opens the book (aria-expanded=true). scrollWidth equals the viewport, so there is no horizontal scroll. With form C set, a practice question starts at 'Options in 5 s'."
+    },
+    {
+      "title": "Private bank, phase 1: fetch from Chartres/epso-bank at build, public sample for clones",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/19",
+      "merged": null,
+      "live_checked": "Not merged, kept as a draft. CI is green on f077fd3 with the sample, because the secret is missing: the fetch step logged 'no EPSO_BANK_TOKEN', merged 30 questions, ran 225 tests with 5 skipped, and skipped e2e. Locally with the full bank: 230/230 tests pass and meta.json is unchanged. A clean clone without the bank passes npm ci, typecheck, tests and build."
+    }
+  ],
+  "private_bank": {
+    "phase": 1,
+    "repo_exists": false,
+    "secret_works": false,
+    "what_is_missing": "Both. (1) Chartres/epso-bank: list_repos for this account shows only Chartres/epso-kviz and Chartres/epso-trainer. Attaching epso-bank to the session was also refused here, so even once it exists, the push of bank/ and verification/ may have to be Pavol's: the four git commands in docs/plans/private-bank.md. (2) EPSO_BANK_TOKEN: the CI run for PR #19 shows 'EPSO_BANK_TOKEN:' empty, so the secret is not set. Nothing was pushed or merged and the bank is still on main. The live site still serves all 231 questions."
+  },
+  "decisions": [
+    {
+      "question": "Commonplace book: fold it, or move it below the guide?",
+      "options": ["fold", "move below with a heading", "both"],
+      "default_taken": "both: below the 12 lessons, folded, with a passage count and a link at the end of Contents",
+      "why": "Moving it alone still leaves a long open list after the last lesson. Folded, it is one line. Reverting the fold is one prop."
+    },
+    {
+      "question": "Commonplace book: remember open/closed?",
+      "options": ["folded on every visit", "remember on the device"],
+      "default_taken": "folded on every visit",
+      "why": "No new storage key. The Contents link opens it in one tap."
+    },
+    {
+      "question": "Private bank: size of the public sample",
+      "options": ["about 12 (the plan)", "30, 10 per category"],
+      "default_taken": "30: the first 10 verified governance and policy questions and the first 10 engineering questions, all already on /questions/*/",
+      "why": "The exam simulation draws 10 per group, so it still works on a clone."
+    },
+    {
+      "question": "Private bank: e2e on PRs without the secret",
+      "options": ["skip e2e on the sample", "make e2e sample-aware"],
+      "default_taken": "skip on the sample. It runs whenever the full bank is fetched, which means every push to main and every PR from this repo once the secret exists",
+      "why": "The journeys search for questions that are only in the full bank. A non-PR run fails if it would ship the sample."
+    },
+    {
+      "question": "Private bank: licence cut-off date",
+      "options": ["2026-10-30", "the merge date"],
+      "default_taken": "2026-10-30 in data/LICENSE, README.md and data/README.md",
+      "why": "A placeholder in a licence could ship by mistake. If #19 merges later, change the three dates to the merge date."
+    },
+    {
+      "question": "Private bank: do the verbal items and the study guide move?",
+      "options": ["stay public under CC BY-NC-SA", "move with the bank"],
+      "default_taken": "stay public",
+      "why": "Pavol said 'the bank'. The plan left this as his call."
+    }
+  ],
+  "next": [
+    "Pavol: create the empty private repo Chartres/epso-bank and push bank/ and verification/ to it, using the four git commands in docs/plans/private-bank.md (step 2). Push verification/ too, because the fetch lists both folders. This session could not attach the repo, so plan for the push being his.",
+    "Pavol: make the fine-grained token (Chartres, only epso-bank, Contents read-only, longest expiry; note the date) and add it as the Actions secret EPSO_BANK_TOKEN on epso-kviz.",
+    "Then phase 2: re-run CI on PR #19. The log should show 'fetch-bank: 6 files from Chartres/epso-bank@main' and e2e should run. Mark it ready, squash-merge, check the live site still has 231 questions, and check data/bank is gone from main. If the merge date isn't 2026-10-30, update the licence dates first.",
+    "Before pulling #19 onto a machine that has the bank: pulling deletes the tracked data/bank and data/verification from the working tree. Restore with git restore --source=<switch-over commit>~1 -- data/bank data/verification, or fetch with the token.",
+    "Proposal (not built): sync the commonplace book's open/closed state or remember it per device, if Pavol finds himself reopening it often.",
+    "IndexNow: no static page content changed this round, so nothing to submit."
+  ],
+  "screenshots": [
+    "e2e/shots/guide-tab-before-390.png",
+    "e2e/shots/guide-tab-after-390.png",
+    "e2e/shots/guide-tab-before-1280.png",
+    "e2e/shots/guide-tab-after-1280.png",
+    "e2e/shots/guide-commonplace-open-390.png"
+  ]
+}
