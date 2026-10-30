@@ -28,6 +28,18 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The bank is in the private repo Chartres/epso-bank (docs/plans/private-bank.md). Without
+      # the secret (fork and Dependabot PRs) --allow-local keeps what is on disk, which in a
+      # fresh checkout is nothing, so merge.mjs builds from the public sample in data/sample/.
+      - name: Fetch the question bank (private)
+        id: bank
+        run: |
+          node scripts/fetch-bank.mjs --allow-local
+          node scripts/merge.mjs
+          if [ -d data/bank ]; then echo "bank=full" >> "$GITHUB_OUTPUT"; else echo "bank=sample" >> "$GITHUB_OUTPUT"; fi
+        env:
+          EPSO_BANK_SOURCE: github
+          EPSO_BANK_TOKEN: ${{ secrets.EPSO_BANK_TOKEN }}
       - run: npm run typecheck
       - run: npm test
       - name: Build
@@ -35,8 +47,11 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
-      - run: npx playwright install --with-deps chromium
-      - name: E2E (Playwright)
+      # The journeys search for questions that are only in the full bank, so e2e needs it.
+      - if: steps.bank.outputs.bank == 'full'
+        run: npx playwright install --with-deps chromium
+      - if: steps.bank.outputs.bank == 'full'
+        name: E2E (Playwright)
         run: npm run e2e
       # e2e rebuilds dist at '/', so the Pages build comes last. PAGES_BASE is a repo
       # variable: '/epso-kviz/' while on github.io, unset once the custom domain is live.
@@ -50,6 +65,10 @@ jobs:
       # be sent). Fork and Dependabot PRs get no secrets, so they skip it; nothing rebuilds dist after this.
       - if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
         run: node scripts/check-analytics.mjs dist # flywheel:analytics-guard
+      # Never ship the sample: anything but a PR must have built from the full bank.
+      - if: github.event_name != 'pull_request'
+        name: Full bank on the shipped build
+        run: test "${{ steps.bank.outputs.bank }}" = full || { echo "::error::no EPSO_BANK_TOKEN, so the build used the 30-question sample"; exit 1; }
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

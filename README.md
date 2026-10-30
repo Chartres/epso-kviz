@@ -71,7 +71,7 @@ npm run dev          # local dev server
 npm test             # unit/component tests (watch: npm run test:watch)
 npm run e2e          # Playwright end-to-end
 npm run build        # production build
-node scripts/merge.mjs   # regenerate questions.json/meta.json from data/bank/*.json
+node scripts/merge.mjs   # regenerate questions.json/meta.json from data/bank/ (or data/sample/)
 ```
 
 Enabling sign-in/sync is optional — see [`docs/SUPABASE.md`](docs/SUPABASE.md).
@@ -79,7 +79,7 @@ Enabling sign-in/sync is optional — see [`docs/SUPABASE.md`](docs/SUPABASE.md)
 ## Project layout
 
 ```
-data/            bank/*.json (source questions), merge.mjs, questions.json + meta.json
+data/            sample/ (public 30 Q), bank/ (private, fetched), questions.json + meta.json
 src/domain/      pure logic: rng, session, exam, progress, storage, selection, questions
 src/content/     the study guide (12 lessons)
 src/app/         reducer store + context (offline-first persistence + cloud sync)
@@ -91,8 +91,10 @@ docs/            Supabase setup
 
 ## Licence
 
-Code: MIT ([`LICENSE`](LICENSE)). Question bank, explanations and study guide (`data/bank/`,
-`data/questions.json`, `src/content/`): CC BY-NC-SA 4.0 ([`data/LICENSE`](data/LICENSE)). The source
+Code: MIT ([`LICENSE`](LICENSE)). From 30 October 2026 the question bank is kept in a private
+repository and is not licensed for reuse; copies published here before that date stay under
+CC BY-NC-SA 4.0. The 30-question sample (`data/sample/`), the verbal items and the study guide
+(`src/content/`) stay under CC BY-NC-SA 4.0. Details: [`data/LICENSE`](data/LICENSE). The source
 texts in `data/sources/` keep their own terms, listed in
 [`data/sources/LICENSES.md`](data/sources/LICENSES.md).
 

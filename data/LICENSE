@@ -1,15 +1,22 @@
-Question bank, explanations and study guide — EPSO AI Field Trainer
-Copyright (c) 2026 Pavol Dravecký
+Question bank, explanations and verification notes — EPSO AI Field Trainer
+Copyright (c) 2026 Pavol Dravecký. All rights reserved.
 
-Covers: data/bank/, data/questions.json, data/meta.json, data/verification/, src/content/.
+From 30 October 2026, the question bank (bank/ and verification/) is kept in a private
+repository and is not licensed for reuse. The questions shown on epsokviz.dravec.org may be
+read and quoted for personal study. Copying, scraping or republishing them, in whole or in
+part, needs written permission.
 
-Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
-International licence (CC BY-NC-SA 4.0):
-https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+Versions of the bank published in this repository before 30 October 2026 (data/bank/,
+data/questions.json, data/verification/) were released under CC BY-NC-SA 4.0. That licence
+cannot be withdrawn for those copies, so anyone who received them keeps the rights it gives
+them. It does not extend to questions or changes made after that date.
 
-You may copy and adapt this material for non-commercial use if you credit
-"EPSO AI Field Trainer (epsokviz.dravec.org)" and share your adaptations under the
-same licence. Commercial use needs written permission.
+Still under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode):
+the public sample in data/sample/ (30 questions already published under that licence),
+data/meta.json, the verbal items in data/verbal/ and the study guide in src/content/. You may
+copy and adapt them for non-commercial use if you credit "EPSO AI Field Trainer
+(epsokviz.dravec.org)" and share your adaptations under the same licence. Commercial use
+needs written permission.
 
 Not covered: the public source texts in data/sources/. Each keeps its own terms
 (EU texts under Commission Decision 2011/833/EU, NIST works in the US public domain,

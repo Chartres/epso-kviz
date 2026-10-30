@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { ReadinessCard, chance } from './ReadinessCard'
 import { emptyProgress, recordAnswer, type ProgressData } from '@/domain/progress'
-import { byCategory, CATEGORY_NAMES } from '@/domain/questions'
+import { byCategory, CATEGORY_NAMES, META } from '@/domain/questions'
 import { MIN_FIRST_ATTEMPTS } from '@/domain/readiness'
 
 function practise(n: number, right: (i: number) => boolean): ProgressData {
@@ -30,7 +30,8 @@ describe('ReadinessCard', () => {
     expect(screen.getByText(/only first tries count/i)).toBeInTheDocument()
   })
 
-  it('with enough evidence, shows the 80% range, the chance of 15/30 and the ranking rule', () => {
+  // Needs the full bank; skipped on the public sample (a clone without the private bank).
+  it.skipIf(META.sample)('with enough evidence, shows the 80% range, the chance of 15/30 and the ranking rule', () => {
     render(<ReadinessCard progress={practise(12, (i) => i % 3 !== 0)} />)
     const range = screen.getByTestId('readiness-range')
     expect(range.textContent).toMatch(/^\d{1,2}–\d{1,2}$/)

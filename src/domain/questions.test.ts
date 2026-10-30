@@ -10,7 +10,8 @@ import {
 const metaCount = (name: string) => META.categories.find((c) => c.name === name)!.count
 
 describe('question dataset', () => {
-  it('loads the full merged set', () => {
+  // Needs the full bank; skipped on the public sample (a clone without the private bank).
+  it.skipIf(META.sample)('loads the full merged set', () => {
     expect(ALL_QUESTIONS).toHaveLength(META.totalQuestions)
     // the exam needs 10 per group with room to vary between sittings
     expect(META.totalQuestions).toBeGreaterThanOrEqual(180)
