@@ -62,6 +62,8 @@ export interface Meta {
   source: string
   sourceUrl: string
   totalQuestions: number
+  /** Set by merge.mjs when it ran on the public sample (no data/bank/). */
+  sample?: boolean
   categories: Category[]
   exam: ExamConfig
   duplicatePairs: [number, number][]

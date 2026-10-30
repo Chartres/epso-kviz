@@ -10,3 +10,9 @@ playwright-report/
 test-results/
 .vite/
 *.tsbuildinfo
+
+# The question bank lives in the private repo Chartres/epso-bank and is fetched at build
+# (scripts/fetch-bank.mjs). Without it, scripts/merge.mjs builds from data/sample/.
+data/bank/
+data/verification/
+data/questions.json

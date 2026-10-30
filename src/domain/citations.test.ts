@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { ALL_QUESTIONS } from './questions'
+import { ALL_QUESTIONS, META } from './questions'
 import {
   SOURCES,
   normalizeQuote,
@@ -82,7 +82,8 @@ describe('verified bank', () => {
     'EU Digital Policy & Strategy': 67,
     'AI Engineering & Operations': 0,
   }
-  it('verified coverage stays at or above the floor per category', () => {
+  // Needs the full bank; skipped on the public sample (a clone without the private bank).
+  it.skipIf(META.sample)('verified coverage stays at or above the floor per category', () => {
     for (const [cat, floor] of Object.entries(FLOOR)) {
       const n = ALL_QUESTIONS.filter((q) => q.cat === cat && q.verified).length
       expect(n, cat).toBeGreaterThanOrEqual(floor)

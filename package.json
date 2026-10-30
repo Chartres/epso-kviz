@@ -14,7 +14,8 @@
     "coverage": "vitest run --coverage",
     "e2e": "playwright test",
     "typecheck": "tsc -b --noEmit",
-    "data": "node scripts/merge.mjs"
+    "data": "node scripts/merge.mjs",
+    "postinstall": "node scripts/merge.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",

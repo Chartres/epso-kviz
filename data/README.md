@@ -13,6 +13,20 @@ of Competition).
 - Standard ML engineering practice and the EU digital acquis primary sources, for the questions
   outside the two regulations above.
 
+## Where the bank lives
+
+Since 30 October 2026 `bank/` and `verification/` are in the private repo
+`Chartres/epso-bank`. CI fetches them at build with a read-only token (`EPSO_BANK_TOKEN`,
+`scripts/fetch-bank.mjs`), so the live site still has all 231 questions. Both folders and
+`questions.json` are gitignored here.
+
+Without the bank (a fresh clone, a fork PR), `npm ci` runs `merge.mjs`, which builds from
+`sample/`: 30 questions, 10 per category, all already on the public question pages. The app,
+the exam simulation and the unit tests run on it; the tests that pin bank-wide numbers skip,
+and so does the e2e suite in CI. `meta.json` then carries `"sample": true`.
+
+With access: `EPSO_BANK_SOURCE=github EPSO_BANK_TOKEN=… node scripts/fetch-bank.mjs && node scripts/merge.mjs`.
+
 ## Structure
 
 - `bank/*.json` — one file per category (`engineering.json`, `governance.json`, `policy.json`),

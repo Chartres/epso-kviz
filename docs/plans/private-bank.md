@@ -1,7 +1,16 @@
 # Plan: the question bank in a private place
 
-Status: **plan only.** Nothing has moved. The bank is still in `data/bank/`, the build is
-unchanged, and no setting, secret or repo has been created. Pavol picked "move the bank to a
+Status (2026-10-30): **Option A picked, no history rewrite.** The switch-over PR is built and
+kept as a draft until `Chartres/epso-bank` and the `EPSO_BANK_TOKEN` secret exist. Until it
+merges, the bank is still in `data/bank/` on `main`.
+
+**Before pulling the switch-over onto a machine with the bank:** pulling it deletes the
+tracked `data/bank/` and `data/verification/` from the working tree. Get them back afterwards
+with `git restore --source=<switch-over commit>~1 -- data/bank data/verification` (they are then untracked
+and ignored), or fetch them with the token.
+
+The original plan follows. Where it differs from what was built: the sample is 30 questions
+(10 per category, so the exam simulation works), not about 12; and e2e skips on the sample. Pavol picked "move the bank to a
 private repo and fetch it at build" on 2026-10-29. Each step below that only he can take is
 marked **Pavol**.
 

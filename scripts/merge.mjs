@@ -1,8 +1,10 @@
-// Merge data/bank/*.json into data/questions.json and refresh meta.json counts.
+// Merge data/bank/*.json (or the public sample, data/sample/) into data/questions.json and
+// refresh meta.json counts.
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { bankSource } from './bank-source.mjs'
 
 const dir = new URL('../data/', import.meta.url)
-const bankDir = new URL('bank/', dir)
+const { dir: bankDir, sample } = bankSource(dir)
 const meta = JSON.parse(readFileSync(new URL('meta.json', dir), 'utf8'))
 const registry = JSON.parse(readFileSync(new URL('sources/registry.json', dir), 'utf8'))
 
@@ -61,7 +63,10 @@ for (const c of meta.categories) {
   c.range = [qs[0].id, qs[qs.length - 1].id]
 }
 meta.totalQuestions = questions.length
+// Set only on the sample, so a full-bank merge leaves the tracked meta.json unchanged.
+if (sample) meta.sample = true
+else delete meta.sample
 
 writeFileSync(new URL('questions.json', dir), JSON.stringify(questions, null, 1) + '\n')
 writeFileSync(new URL('meta.json', dir), JSON.stringify(meta, null, 2) + '\n')
-console.log(`merged ${questions.length} questions:`, meta.categories.map((c) => `${c.id}=${c.count}`).join(' '))
+console.log(`merged ${questions.length} questions${sample ? ' (public sample: no data/bank/)' : ''}:`, meta.categories.map((c) => `${c.id}=${c.count}`).join(' '))

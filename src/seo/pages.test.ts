@@ -24,7 +24,8 @@ describe('articleOf', () => {
 })
 
 describe('prerendered site', () => {
-  it('has an AI Act article page per article that a verified question cites', () => {
+  // Needs the full bank; skipped on the public sample (a clone without the private bank).
+  it.skipIf(META.sample)('has an AI Act article page per article that a verified question cites', () => {
     const art99 = page('/ai-act/article-99/')!
     expect(art99).toBeDefined()
     expect(art99.title).toMatch(/AI Act Article 99/)
@@ -91,7 +92,8 @@ describe('prerendered site', () => {
     expect(html).toContain('application/ld+json')
   })
 
-  it('carries the analytics beacon only when the build has the Supabase config, and marks cited links for it', () => {
+  // Needs the full bank; skipped on the public sample (a clone without the private bank).
+  it.skipIf(META.sample)('carries the analytics beacon only when the build has the Supabase config, and marks cited links for it', () => {
     const p = page('/ai-act/article-99/')!
     expect(renderPage(p, input)).not.toContain('<script>')
     const html = renderPage(p, { ...input, beacon: { url: 'https://abc.supabase.co', key: 'sb_publishable_x', app: 'epso-kviz' } })

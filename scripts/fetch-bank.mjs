@@ -1,7 +1,7 @@
 // Fetch the question bank from a private repo at build time (docs/plans/private-bank.md).
 //
 // Off by default: with EPSO_BANK_SOURCE unset this does nothing and the build uses the local
-// data/bank/ as it always has. Nothing calls this script yet; it waits for Pavol's go.
+// data/bank/ (or the public sample, see bank-source.mjs). CI turns it on (deploy.yml).
 //
 //   EPSO_BANK_SOURCE=github     turn it on
 //   EPSO_BANK_TOKEN=...         fine-grained, read-only "Contents" on the bank repo

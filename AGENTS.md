@@ -39,10 +39,12 @@ mode (30 q, 40-min timer) → results with per-category breakdown and mistake re
   the test guide) plus `sitemap.xml` and `llms.txt` (`scripts/prerender.ts`). After a deploy that
   changes them, run `node scripts/indexnow.mjs --submit` and log it in flywheel
   `data/launch-log/epso-kviz.jsonl`.
-- Data source: `data/bank/*.json` (231 Q, Annex II Field 1 — AI; citations checked against `data/sources/` by `src/domain/citations.test.ts`); regenerate the merged
-  `data/questions.json`/`meta.json` via `node scripts/merge.mjs`.
-- Private bank (planned, off): `scripts/fetch-bank.mjs` does nothing while `EPSO_BANK_SOURCE` is unset;
-  nothing calls it yet. Plan and Pavol's steps: `docs/plans/private-bank.md`.
+- Data source: the private repo `Chartres/epso-bank` (`bank/*.json`, 231 Q, Annex II Field 1 — AI;
+  `verification/*.json`). CI fetches it into `data/` with the `EPSO_BANK_TOKEN` secret
+  (`scripts/fetch-bank.mjs`), then `node scripts/merge.mjs` writes `data/questions.json` and
+  `meta.json`. Citations are checked against `data/sources/` by `src/domain/citations.test.ts`.
+  Without the bank, merge builds from the public 30-question `data/sample/`; bank-wide tests and
+  e2e skip, and a non-PR run fails rather than ship the sample. Plan: `docs/plans/private-bank.md`.
 
 ## Analytics (Common Platform)
 Vendored client: `src/platform/flywheel-client.ts`, wrapped by `src/analytics.ts`. First-party,
