@@ -8,13 +8,20 @@ import { track } from '@/analytics'
 /**
  * The learner's commonplace book: verbatim passages they collected while practising,
  * filed by act and article, each with the case it came from.
+ *
+ * It sits below the study guide and is folded by default, so a full book never pushes the
+ * guide down (Pavol, 2026-10-30). The Contents list links to it.
  */
 export function Commonplace({
   progress,
   onRemove,
+  open,
+  onToggle,
 }: {
   progress: ProgressData
   onRemove: (citation: Citation) => void
+  open: boolean
+  onToggle: () => void
 }) {
   const groups = useMemo(() => commonplaceEntries(progress), [progress])
   const count = groups.reduce((n, g) => n + g.entries.length, 0)
@@ -31,12 +38,34 @@ export function Commonplace({
   }
 
   return (
-    <section aria-labelledby="commonplace-title" className="mt-6 rounded-card border border-steel-700 bg-steel-800/40 p-4">
-      <div className="flex items-baseline justify-between gap-3">
+    <section
+      id="commonplace"
+      aria-labelledby="commonplace-title"
+      className="mt-10 scroll-mt-4 rounded-card border border-steel-700 bg-steel-800/40 p-4"
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3">
         <h2 id="commonplace-title" className="font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
-          My commonplace book
+          {count === 0 ? (
+            'My commonplace book'
+          ) : (
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-expanded={open}
+              aria-controls="commonplace-passages"
+              className="flex min-h-11 flex-wrap items-baseline gap-x-2 text-left uppercase hover:text-brass-300"
+            >
+              <span aria-hidden="true" className="font-mono text-xs text-brass-400">
+                {open ? '▾' : '▸'}
+              </span>
+              My commonplace book
+              <span className="whitespace-nowrap font-mono text-xs font-normal normal-case tracking-normal text-steel-400">
+                {count} {count === 1 ? 'passage' : 'passages'}
+              </span>
+            </button>
+          )}
         </h2>
-        {count > 0 && (
+        {count > 0 && open && (
           <button type="button" onClick={copyAll} className="min-h-11 font-mono text-xs text-brass-400 hover:underline">
             {copy === 'done' ? 'Copied' : copy === 'failed' ? 'Copy failed — select and copy by hand' : 'Copy all as text'}
           </button>
@@ -49,8 +78,8 @@ export function Commonplace({
           headings, reread before an argument. Build yours from the law itself. After a verified
           question, tap “Copy to my commonplace book” under the passage that settled it.
         </p>
-      ) : (
-        <div className="mt-3 space-y-6">
+      ) : !open ? null : (
+        <div id="commonplace-passages" className="mt-3 space-y-6">
           {groups.map((g) => (
             <section key={g.doc} aria-label={g.title}>
               <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">{g.title}</h3>
