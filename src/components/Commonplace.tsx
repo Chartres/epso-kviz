@@ -78,9 +78,10 @@ export function Commonplace({
           headings, reread before an argument. Build yours from the law itself. After a verified
           question, tap “Copy to my commonplace book” under the passage that settled it.
         </p>
-      ) : !open ? null : (
-        <div id="commonplace-passages" className="mt-3 space-y-6">
-          {groups.map((g) => (
+      ) : (
+        // Always in the page so aria-controls has a target; the passages render only when open.
+        <div id="commonplace-passages" hidden={!open} className="mt-3 space-y-6">
+          {open && groups.map((g) => (
             <section key={g.doc} aria-label={g.title}>
               <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">{g.title}</h3>
               <ul className="mt-2 space-y-4">
