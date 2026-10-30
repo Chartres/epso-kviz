@@ -25,6 +25,8 @@ test('commonplace book: collect a verified passage, find it filed under its act'
   await page.getByRole('button', { name: /Next|Finish/ }).click()
   await page.getByRole('button', { name: 'Back to menu' }).click()
   await page.getByRole('button', { name: 'Guide', exact: true }).click()
+  // The book sits below the guide, folded (2026-10-30); the Contents list opens it.
+  await page.getByRole('link', { name: /My commonplace book · 1 passage/ }).click()
   const act = page.getByRole('region', { name: /Regulation \(EU\) 2024\/1689/ })
   await expect(act).toBeVisible()
   await expect(act.getByText(/Art 99/).first()).toBeVisible()
@@ -37,5 +39,6 @@ test('commonplace book: collect a verified passage, find it filed under its act'
   // It survives a reload (offline-first local progress).
   await page.reload()
   await page.getByRole('button', { name: 'Guide', exact: true }).click()
+  await page.getByRole('button', { name: /My commonplace book/ }).click()
   await expect(page.getByRole('region', { name: /Regulation \(EU\) 2024\/1689/ })).toBeVisible()
 })

@@ -13,8 +13,8 @@ export type QuestionFirstMode = 'none' | 'a' | 'b' | 'c'
 
 export const QUESTION_FIRST_MODES: QuestionFirstMode[] = ['none', 'a', 'b', 'c']
 export const DEFAULT_QUESTION_FIRST: QuestionFirstMode = 'b'
-/** Form C: seconds before the options appear. */
-export const QUESTION_FIRST_HOLD_SECONDS = 8
+/** Form C: seconds before the options appear. Pavol, 2026-10-30: 5 s. */
+export const QUESTION_FIRST_HOLD_SECONDS = 5
 
 export interface Settings {
   questionFirst: QuestionFirstMode

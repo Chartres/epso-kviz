@@ -1,11 +1,19 @@
+import { useMemo, useState } from 'react'
 import { META } from '@/domain/questions'
 import { LESSONS } from '@/content/studyGuide'
 import { imageUrl } from '@/lib/assets'
 import { useApp } from '@/app/AppContext'
 import { Commonplace } from '@/components/Commonplace'
+import { commonplaceEntries } from '@/domain/commonplace'
 
 export function StudyScreen() {
   const { state, dispatch } = useApp()
+  // The guide comes first; the commonplace book follows the lessons, folded (Pavol, 2026-10-30).
+  const [bookOpen, setBookOpen] = useState(false)
+  const passages = useMemo(
+    () => commonplaceEntries(state.progress).reduce((n, g) => n + g.entries.length, 0),
+    [state.progress],
+  )
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pt-2">
       <h1 className="font-display text-2xl font-bold uppercase tracking-tight text-steel-50">
@@ -25,13 +33,6 @@ export function StudyScreen() {
         .
       </p>
 
-      <Commonplace
-        progress={state.progress}
-        onRemove={(citation) =>
-          dispatch({ type: 'setCommonplace', citation, id: 0, on: false, now: Date.now() })
-        }
-      />
-
       {/* Table of contents */}
       <nav aria-label="Contents" className="mt-5 rounded-card border border-steel-700 bg-steel-800/40 p-4">
         <h2 className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-steel-400">
@@ -46,6 +47,13 @@ export function StudyScreen() {
             </li>
           ))}
         </ol>
+        <a
+          href="#commonplace"
+          onClick={() => setBookOpen(true)}
+          className="mt-3 block border-t border-steel-700 pt-2 text-sm text-steel-300 hover:text-brass-400"
+        >
+          My commonplace book{passages > 0 && ` · ${passages} ${passages === 1 ? 'passage' : 'passages'}`}
+        </a>
       </nav>
 
       {LESSONS.map((l) => (
@@ -87,6 +95,15 @@ export function StudyScreen() {
           </p>
         </section>
       ))}
+
+      <Commonplace
+        progress={state.progress}
+        open={bookOpen}
+        onToggle={() => setBookOpen((o) => !o)}
+        onRemove={(citation) =>
+          dispatch({ type: 'setCommonplace', citation, id: 0, on: false, now: Date.now() })
+        }
+      />
     </div>
   )
 }
