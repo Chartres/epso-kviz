@@ -1,0 +1,79 @@
+{
+  "product": "epso-kviz",
+  "date": "2026-11-02",
+  "headline": "Pavol's rule for all quiz apps is live. Every answer counts when given; a new practice set skips answered questions, apart from at most 40% due review. A lesson or practice round left early waits on home with Pokračovat / Nový trénink and resumes at the first unanswered question. Streak and lesson_complete count only a finished round. An exam left early keeps its answers and records no attempt.",
+  "shipped": [
+    {
+      "title": "Unfinished round: answers count when given, the round waits on home",
+      "pr": "https://github.com/Chartres/epso-kviz/pull/21",
+      "merged": "2026-11-01",
+      "live_checked": "Deployed as f3babd0, bundle index-JBMCjH-L.js. Checked live in Chromium at 390 px with a cs-CZ locale and Supabase blocked. Answered 8 of 12 in the daily lesson (form B), pressed End, reloaded: home shows 'Rozpracovaný trénink · Dnešní lekce · 8 / 12' with Pokračovat and Nový trénink. scrollWidth 390, so there is no horizontal scroll. Pokračovat opened at 09 / 12, on the same question that was ninth before leaving, with the form-B box shown. Streak stayed at 0."
+    }
+  ],
+  "decisions": [
+    {
+      "question": "Language of the two labels",
+      "options": ["English only, like the rest of home", "browser language: CS / SK / EN"],
+      "default_taken": "Browser language, as the reasoning tests do: CS 'Pokračovat / Nový trénink', SK 'Pokračovať / Nový tréning', EN 'Continue / New round'. The rest of home stays English.",
+      "why": "The orchestrator's brief asked for CS/SK/EN labels, and the reasoning tests already pick their language this way. The strings are one table in src/components/UnfinishedRound.tsx."
+    },
+    {
+      "question": "Which rounds wait on home",
+      "options": ["lesson and practice", "lesson, practice, review and bookmarks"],
+      "default_taken": "lesson, practice, review and bookmarks",
+      "why": "Review and bookmarks rounds work the same way as practice rounds. One line in RESUMABLE_MODES."
+    },
+    {
+      "question": "How many unfinished rounds",
+      "options": ["one slot", "one per mode"],
+      "default_taken": "One slot. Nový trénink replaces it, and so does another non-exam round from its first answer. A round opened and left unanswered keeps it, and so does the exam.",
+      "why": "One card on home. The independent review found that a round opened without an answer wiped the waiting one; fixed before merge."
+    },
+    {
+      "question": "Practice set after the rule",
+      "options": ["all filtered questions", "unseen plus at most 40% due review"],
+      "default_taken": "Unseen plus at most 40% due review, the same share as the daily lesson. A search serves every match because it is a lookup. A filter with nothing unanswered serves the whole pool again.",
+      "why": "Rule 1 says a new set skips what was answered. The two exceptions keep the button from serving nothing, or from hiding the question someone searched for."
+    },
+    {
+      "question": "Exam simulation draw",
+      "options": ["unchanged (all questions)", "skip answered"],
+      "default_taken": "unchanged",
+      "why": "The rule covers an exam left early, not how the exam is drawn. Whether a mock should prefer unseen questions is listed under proposals."
+    },
+    {
+      "question": "Reasoning tests left early",
+      "options": ["resume like practice", "treat as a timed sitting, like the exam"],
+      "default_taken": "Treated as a timed sitting: no resume and no score when left, which is the behaviour already in place.",
+      "why": "They are timed like the real test, and resuming would leave the timer meaningless. Their answers aren't stored anywhere."
+    },
+    {
+      "question": "Question first and the commonplace book on resume",
+      "options": ["keep the written answer", "start the question fresh"],
+      "default_taken": "The resumed question starts fresh in the chosen form (A/B/C). Answer options are fixed A–D, so their order never changes. Commonplace entries already save the moment they're collected.",
+      "why": "Only answered questions are kept, and an unanswered question has nothing to restore."
+    },
+    {
+      "question": "Analytics for resume",
+      "options": ["new event name", "existing key_action"],
+      "default_taken": "key_action {action: 'round_resume', mode, answered, total}. Nový trénink sends the usual start_*.",
+      "why": "The brief asked for no new event names."
+    }
+  ],
+  "proposals": [
+    {
+      "title": "Exam simulation from unseen questions first",
+      "why": "SIGNATURE.md says a mock built from questions already seen is not evidence. Rule 1 ('a new set skips what was answered') could extend to the exam draw: unseen first, topped up from the rest when a category runs out.",
+      "cost": "Small: buildExam takes progress, plus a test."
+    }
+  ],
+  "next": [
+    "Update the flywheel portfolio record (data/products/epso-kviz.json) with PR #21; the flywheel repo is not reachable from this session.",
+    "PR #19 (private bank) is untouched and still waits on Chartres/epso-bank and the EPSO_BANK_TOKEN secret.",
+    "No static page changed, so no IndexNow submission is needed."
+  ],
+  "screenshots": [
+    "e2e/shots/unfinished-home-390.png",
+    "e2e/shots/unfinished-resumed-390.png"
+  ]
+}
