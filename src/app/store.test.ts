@@ -115,4 +115,76 @@ describe('app store', () => {
     expect(s1.settings.questionFirst).toBe('none')
     expect(reducer(s1, { type: 'setQuestionFirst', mode: 'c' }).settings.questionFirst).toBe('c')
   })
+
+  describe('unfinished round (Pavol, 2026-11-01)', () => {
+    function answerN(s: AppState, n: number, today = '2026-11-01'): AppState {
+      for (let i = 0; i < n; i++) {
+        const cur = currentQuestion(s.session!)!
+        s = reducer(s, { type: 'answer', choice: cur.correct, now: 1000 + i })
+        s = reducer(s, { type: 'next', today })
+      }
+      return s
+    }
+
+    it('leaving a lesson at 8 of 12 keeps the answers and waits on home, with no streak', () => {
+      let s = reducer(start(), { type: 'startLesson', rng: makeRng(2) })
+      const ids = s.session!.questions.map((q) => q.id)
+      s = answerN(s, 8)
+      s = reducer(s, { type: 'goMenu' })
+      expect(s.view).toBe('home')
+      expect(Object.keys(s.progress.stats)).toHaveLength(8)
+      expect(s.progress.streak.current).toBe(0)
+      expect(s.unfinished?.mode).toBe('lesson')
+      expect(s.unfinished?.answers).toHaveLength(8)
+
+      s = reducer(s, { type: 'resumeRound' })
+      expect(s.view).toBe('quiz')
+      expect(s.mode).toBe('lesson')
+      expect(s.session!.index).toBe(8)
+      expect(s.session!.questions.map((q) => q.id)).toEqual(ids)
+
+      s = answerN(s, 4)
+      expect(s.view).toBe('results')
+      expect(s.progress.streak.current).toBe(1)
+      expect(score(s.session!)).toBe(12)
+      expect(s.unfinished).toBeNull()
+    })
+
+    it('a new round replaces the unfinished one', () => {
+      let s = reducer(start(), { type: 'startLesson', rng: makeRng(2) })
+      s = answerN(s, 3)
+      s = reducer(s, { type: 'goMenu' })
+      expect(s.unfinished).not.toBeNull()
+      s = reducer(s, { type: 'startLesson', rng: makeRng(3) })
+      expect(s.unfinished).toBeNull()
+      // answered questions come back only through the review share, a minority of the set
+      const answered = Object.keys(s.progress.stats).map(Number)
+      const back = s.session!.questions.filter((q) => answered.includes(q.id)).length
+      expect(back).toBeLessThanOrEqual(Math.floor(12 * 0.4))
+    })
+
+    it('an exam left early keeps its answers but records no attempt and leaves the round slot alone', () => {
+      let s = reducer(start(), { type: 'startLesson', rng: makeRng(2) })
+      s = answerN(s, 2)
+      s = reducer(s, { type: 'goMenu' })
+      const waiting = s.unfinished
+      s = reducer(s, { type: 'startExam', rng: makeRng(5), now: 0 })
+      s = answerN(s, 5)
+      s = reducer(s, { type: 'goMenu' })
+      expect(Object.keys(s.progress.stats)).toHaveLength(7)
+      expect(s.examResult).toBeNull()
+      expect(s.unfinished).toBe(waiting)
+    })
+
+    it('resumed practice restores its filter', () => {
+      let s = reducer(start(), { type: 'setCategories', categories: new Set(['AI Act & Governance']) })
+      s = reducer(s, { type: 'startPractice', rng: makeRng(1) })
+      s = answerN(s, 2)
+      s = reducer(s, { type: 'goMenu' })
+      s = reducer(s, { type: 'setCategories', categories: new Set() })
+      s = reducer(s, { type: 'resumeRound' })
+      expect([...s.selectedCategories]).toEqual(['AI Act & Governance'])
+      expect(s.session!.index).toBe(2)
+    })
+  })
 })

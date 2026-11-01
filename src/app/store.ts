@@ -25,6 +25,7 @@ import { buildLesson } from '@/domain/lesson'
 import { setCollected } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
 import { defaultSettings, type QuestionFirstMode, type Settings } from '@/domain/settings'
+import { restoreRound, snapshotRound, type RoundSnapshot } from '@/domain/round'
 
 // Bottom-tab destinations (persistent nav) + focused full-screen flows.
 export type TabView = 'home' | 'practice' | 'stats' | 'guide'
@@ -46,6 +47,8 @@ export interface AppState {
   selectedCategories: Set<CategoryName>
   search: string
   settings: Settings
+  /** A lesson or practice round left early, waiting on home (domain/round.ts). */
+  unfinished: RoundSnapshot | null
 }
 
 export function initialState(): AppState {
@@ -59,6 +62,7 @@ export function initialState(): AppState {
     selectedCategories: new Set(),
     search: '',
     settings: defaultSettings(),
+    unfinished: null,
   }
 }
 
@@ -72,6 +76,7 @@ export type Action =
   | { type: 'startReview'; rng: Rng }
   | { type: 'startBookmarks'; rng: Rng }
   | { type: 'startExam'; rng: Rng; now: number }
+  | { type: 'resumeRound' }
   | { type: 'answer'; choice: Choice; now: number }
   | { type: 'next'; today?: string }
   | { type: 'finishExam' }
@@ -93,7 +98,25 @@ function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
   }
 }
 
+/**
+ * Keep the unfinished-round slot in step with the session: an answered, unfinished lesson or
+ * practice round is kept; a finished one, or a new one, replaces it. Leaving to home (no
+ * session) and the exam leave it as it is.
+ */
+function trackUnfinished(prev: AppState, next: AppState): AppState {
+  if (next.session === prev.session || !next.session || next.mode === 'exam') return next
+  const unfinished = snapshotRound(next.mode, next.session, {
+    categories: next.selectedCategories,
+    search: next.search,
+  })
+  return unfinished === next.unfinished ? next : { ...next, unfinished }
+}
+
 export function reducer(state: AppState, action: Action): AppState {
+  return trackUnfinished(state, step(state, action))
+}
+
+function step(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'hydrate':
       return { ...state, progress: action.progress }
@@ -118,6 +141,7 @@ export function reducer(state: AppState, action: Action): AppState {
       const qs = buildPractice(
         { categories: state.selectedCategories, search: state.search },
         action.rng,
+        state.progress,
       )
       return begin(state, 'practice', createSession(qs))
     }
@@ -141,6 +165,16 @@ export function reducer(state: AppState, action: Action): AppState {
         ...begin(state, 'exam', createSession(buildExam(action.rng))),
         examEndsAt: action.now + EXAM.timeLimitMinutes * 60 * 1000,
       }
+
+    case 'resumeRound': {
+      const snap = state.unfinished
+      const session = snap ? restoreRound(snap) : null
+      if (!snap || !session) return { ...state, unfinished: null }
+      const resumed = begin(state, snap.mode, session)
+      return snap.filter
+        ? { ...resumed, selectedCategories: new Set(snap.filter.categories), search: snap.filter.search }
+        : resumed
+    }
 
     case 'answer': {
       if (!state.session) return state

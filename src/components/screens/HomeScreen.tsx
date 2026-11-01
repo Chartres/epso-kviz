@@ -7,6 +7,7 @@ import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { ProgressBar } from '@/components/ui/ProgressBar'
+import { UnfinishedRound } from '@/components/UnfinishedRound'
 
 export function HomeScreen() {
   const { state, dispatch } = useApp()
@@ -42,6 +43,9 @@ export function HomeScreen() {
           <AuthPanel />
         </div>
       </header>
+
+      {/* A round left early waits here (Pavol's rule, 2026-11-01) */}
+      <UnfinishedRound />
 
       {/* Primary job: today's lesson */}
       <button
