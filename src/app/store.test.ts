@@ -150,13 +150,21 @@ describe('app store', () => {
       expect(s.unfinished).toBeNull()
     })
 
-    it('a new round replaces the unfinished one', () => {
+    it('a round opened and left unanswered keeps the waiting one; an answered one replaces it', () => {
       let s = reducer(start(), { type: 'startLesson', rng: makeRng(2) })
       s = answerN(s, 3)
       s = reducer(s, { type: 'goMenu' })
-      expect(s.unfinished).not.toBeNull()
+      const waiting = s.unfinished
+      expect(waiting).not.toBeNull()
+      s = reducer(s, { type: 'startPractice', rng: makeRng(9) })
+      s = reducer(s, { type: 'goMenu' })
+      expect(s.unfinished).toBe(waiting)
       s = reducer(s, { type: 'startLesson', rng: makeRng(3) })
-      expect(s.unfinished).toBeNull()
+      expect(s.unfinished).toBe(waiting)
+      s = answerN(s, 1)
+      expect(s.unfinished?.answers).toHaveLength(1)
+      expect(s.unfinished?.ids).not.toEqual(waiting!.ids)
+      expect(reducer(s, { type: 'discardRound' }).unfinished).toBeNull()
       // answered questions come back only through the review share, a minority of the set
       const answered = Object.keys(s.progress.stats).map(Number)
       const back = s.session!.questions.filter((q) => answered.includes(q.id)).length

@@ -77,6 +77,7 @@ export type Action =
   | { type: 'startBookmarks'; rng: Rng }
   | { type: 'startExam'; rng: Rng; now: number }
   | { type: 'resumeRound' }
+  | { type: 'discardRound' }
   | { type: 'answer'; choice: Choice; now: number }
   | { type: 'next'; today?: string }
   | { type: 'finishExam' }
@@ -100,11 +101,13 @@ function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
 
 /**
  * Keep the unfinished-round slot in step with the session: an answered, unfinished lesson or
- * practice round is kept; a finished one, or a new one, replaces it. Leaving to home (no
- * session) and the exam leave it as it is.
+ * practice round is kept; a finished one replaces it, and so does a new one from its first
+ * answer. A round opened and left without an answer, leaving to home (no session) and the exam
+ * leave it as it is. "Nový trénink" clears it explicitly (`discardRound`).
  */
 function trackUnfinished(prev: AppState, next: AppState): AppState {
   if (next.session === prev.session || !next.session || next.mode === 'exam') return next
+  if (next.session.records.length === 0) return next
   const unfinished = snapshotRound(next.mode, next.session, {
     categories: next.selectedCategories,
     search: next.search,
@@ -175,6 +178,9 @@ function step(state: AppState, action: Action): AppState {
         ? { ...resumed, selectedCategories: new Set(snap.filter.categories), search: snap.filter.search }
         : resumed
     }
+
+    case 'discardRound':
+      return { ...state, unfinished: null }
 
     case 'answer': {
       if (!state.session) return state
