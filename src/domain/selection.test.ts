@@ -64,6 +64,42 @@ describe('buildPractice', () => {
   })
 })
 
+describe('buildPractice with progress (Pavol, 2026-11-01)', () => {
+  const cat = 'EU Digital Policy & Strategy' as const
+  const pool = byCategory(cat)
+
+  it('skips answered questions; due review comes back as a minority', () => {
+    let p = emptyProgress()
+    // 20 wrong (due), 10 mastered
+    pool.slice(0, 20).forEach((q, i) => (p = recordAnswer(p, q.id, false, i)))
+    pool.slice(20, 30).forEach((q, i) => {
+      p = recordAnswer(p, q.id, true, 100 + i)
+      p = recordAnswer(p, q.id, true, 200 + i)
+    })
+    const res = buildPractice({ categories: new Set([cat]) }, makeRng(3), p)
+    const ids = new Set(res.map((q) => q.id))
+    const unseen = pool.slice(30)
+    expect(unseen.every((q) => ids.has(q.id))).toBe(true)
+    expect(pool.slice(20, 30).some((q) => ids.has(q.id))).toBe(false)
+    const review = res.filter((q) => pool.slice(0, 20).some((w) => w.id === q.id)).length
+    expect(review).toBeGreaterThan(0)
+    expect(review / res.length).toBeLessThanOrEqual(0.4)
+  })
+
+  it('serves the whole pool when everything in it was answered', () => {
+    let p = emptyProgress()
+    pool.forEach((q, i) => (p = recordAnswer(p, q.id, true, i)))
+    expect(buildPractice({ categories: new Set([cat]) }, makeRng(4), p)).toHaveLength(pool.length)
+  })
+
+  it('a search serves every match, answered or not', () => {
+    const all = buildPractice({ search: 'AI Office' }, makeRng(5))
+    let p = emptyProgress()
+    all.forEach((q, i) => i % 2 === 0 && (p = recordAnswer(p, q.id, true, i)))
+    expect(buildPractice({ search: 'AI Office' }, makeRng(5), p)).toHaveLength(all.length)
+  })
+})
+
 describe('reviewQuestions', () => {
   it('returns the spaced-repetition queue as full questions', () => {
     let p = emptyProgress()

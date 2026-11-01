@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { META } from '@/domain/questions'
-import { filterQuestions } from '@/domain/selection'
+import { buildPractice } from '@/domain/selection'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { readinessProps } from '@/domain/readiness'
@@ -27,14 +27,16 @@ export function PracticeScreen() {
   const bookmarkCount = state.progress.bookmarks.length
   const selectedCount = state.selectedCategories.size
 
-  // Live count of what "Start practicing" will serve (categories ∩ search).
+  // Live count of what "Start practicing" will serve: categories ∩ search, answered ones
+  // skipped except a minority of due review (selection.ts).
   const practiceCount = useMemo(
     () =>
-      filterQuestions({
-        categories: state.selectedCategories,
-        search: state.search,
-      }).length,
-    [state.selectedCategories, state.search],
+      buildPractice(
+        { categories: state.selectedCategories, search: state.search },
+        makeRng(0),
+        state.progress,
+      ).length,
+    [state.selectedCategories, state.search, state.progress],
   )
 
   function toggleCat(name: CategoryName) {

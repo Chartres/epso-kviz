@@ -33,6 +33,9 @@ with the reason they are not verified: a judgment no text decides, or a source w
   resurface via lightweight **spaced repetition** — drill exactly your weak spots.
 - **Daily lesson.** A 12-question batch mixing due review with new material, weighted to the real
   exam composition. Builds a streak.
+- **Nothing lost.** Every answer counts the moment it is given. A round left early waits on home
+  to be continued at the next question; a new set skips what you have answered, apart from a
+  minority of due review.
 - **Real exam simulation.** 30 questions in the official composition (10 engineering + 10
   governance + 10 policy), 40-minute timer, pass at 15/30, per-category breakdown — no feedback
   during the exam, matching the real test.

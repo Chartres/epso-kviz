@@ -8,6 +8,7 @@ import {
 import { reducer, initialState, type AppState, type Action } from './store'
 import { loadProgress, saveProgress } from '@/domain/storage'
 import { loadSettings, saveSettings } from '@/domain/settings'
+import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress } from '@/auth/sync'
@@ -24,6 +25,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
     ...initialState(),
     settings: loadSettings(),
+    unfinished: loadRound(),
   }))
   const { user } = useAuth()
 
@@ -42,6 +44,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveSettings(state.settings)
   }, [state.settings])
+
+  // The unfinished round stays on this device too (not synced; progress shape unchanged).
+  useEffect(() => {
+    saveRound(state.unfinished)
+  }, [state.unfinished])
 
   // On sign-in: reconcile local progress with the cloud and adopt the merge.
   useEffect(() => {

@@ -29,7 +29,9 @@ Gate: typecheck · test · build must pass (CI is `.github/workflows/deploy.yml`
 npm run dev         # Vite dev server (http://localhost:5173)
 ```
 Primary journeys: home → daily lesson (12 q) → completion + streak; practice by category; exam
-mode (30 q, 40-min timer) → results with per-category breakdown and mistake review.
+mode (30 q, 40-min timer) → results with per-category breakdown and mistake review; a round left
+early → waits on home (Pokračovat / Nový trénink) → resumes at the first unanswered question
+(`src/domain/round.ts`, `e2e/unfinished-round.spec.ts`).
 
 ## Release (the finish line — produces a storefront link)
 - **Web** → GitHub Pages at `https://epsokviz.dravec.org` (`public/CNAME`). Deploy is automatic

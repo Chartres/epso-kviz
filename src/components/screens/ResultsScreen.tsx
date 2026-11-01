@@ -9,6 +9,7 @@ import { FeedbackCard } from '@/components/FeedbackCard'
 import { SourceNote } from '@/components/SourceNote'
 import { collectProps } from '@/app/collect'
 import { ReadinessCard } from '@/components/ReadinessCard'
+import { completionEvent } from '@/domain/round'
 
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
@@ -22,8 +23,9 @@ export function ResultsScreen() {
   const isLesson = mode === 'lesson'
 
   useEffect(() => {
-    const name = isExam ? 'exam_finish' : isLesson ? 'lesson_complete' : 'session_finish'
-    track(name, { mode, score: correct, total, passed: examResult?.passed })
+    // Completion events count only a finished round (Pavol's rule, 2026-11-01).
+    const name = completionEvent(mode, session, examResult)
+    if (name) track(name, { mode, score: correct, total, passed: examResult?.passed })
     // fire once per results view
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
