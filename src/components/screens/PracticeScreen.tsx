@@ -184,7 +184,7 @@ export function PracticeScreen() {
             value={state.search}
             onChange={(e) => dispatch({ type: 'setSearch', search: e.target.value })}
             placeholder="Narrow by searching question text (optional)…"
-            className="w-full rounded-card border border-steel-700 bg-steel-900/60 px-4 py-2.5 text-sm text-steel-100 placeholder:text-steel-500 focus:border-brass-500 focus:outline-none"
+            className="min-h-11 w-full rounded-card border border-steel-700 bg-steel-900/60 px-4 py-2.5 text-sm text-steel-100 placeholder:text-steel-500 focus:border-brass-500 focus:outline-none"
           />
         </label>
 

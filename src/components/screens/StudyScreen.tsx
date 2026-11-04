@@ -50,7 +50,7 @@ export function StudyScreen() {
         <a
           href="#commonplace"
           onClick={() => setBookOpen(true)}
-          className="mt-3 block border-t border-steel-700 pt-2 text-sm text-steel-300 hover:text-brass-400"
+          className="mt-3 flex min-h-11 items-center border-t border-steel-700 pt-1 text-sm text-steel-300 hover:text-brass-400"
         >
           My commonplace book{passages > 0 && ` · ${passages} ${passages === 1 ? 'passage' : 'passages'}`}
         </a>
