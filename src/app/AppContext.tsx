@@ -13,6 +13,7 @@ import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress } from '@/auth/sync'
+import { mergeProgress } from '@/domain/progress'
 import { track } from '@/analytics'
 
 interface AppContextValue {
@@ -61,7 +62,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     syncingRef.current = true
     syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
       syncingRef.current = false
-      if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
+      if (!cancelled) {
+        // Re-merge with the latest local snapshot: answers recorded while the
+        // cloud round-trip was in flight are in localStorage (saveProgress runs
+        // synchronously on every state.progress change) but were not in the
+        // snapshot passed to syncProgress at the start (finding #4).
+        dispatch({ type: 'hydrate', progress: mergeProgress(merged, loadProgress()) })
+      }
     }).catch(() => {
       syncingRef.current = false
     })
