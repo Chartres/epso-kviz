@@ -92,7 +92,13 @@
     "C: leave as is"
    ],
    "recommendation": "A. The exam tests judgment here, and a citation that only touches the topic would look like evidence without being any.",
-   "cost": "A: one sentence on the page. B: about a day per 10 to 15 questions, with no guarantee that many pass the bar."
+   "cost": "A: one sentence on the page. B: about a day per 10 to 15 questions, with no guarantee that many pass the bar.",
+   "decided": {
+    "on": "2026-11-04",
+    "choice": "A",
+    "words": "A.",
+    "built": "The engineering page and llms.txt say most engineering questions are practice judgments that no public text decides."
+   }
   }
  ],
  "next": [

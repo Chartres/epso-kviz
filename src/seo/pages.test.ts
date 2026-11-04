@@ -89,13 +89,23 @@ describe('prerendered site', () => {
     const eng = page('/questions/engineering/')!
     const v = ALL_QUESTIONS.filter((q) => q.cat === 'AI Engineering & Operations' && q.verified)
     expect(v.length).toBeGreaterThan(0)
-    expect(eng.body).toContain(`${v.length} of the 80 questions in this category are verified`)
+    expect(eng.body).toContain(`The ${v.length} that a public text does settle are verified and come first, with their passages quoted.`)
     expect(eng.body.match(/class="q"/g)).toHaveLength(20)
     const first = eng.body.indexOf(esc(v[0].q))
     const firstUnverified = eng.body.indexOf(esc(ALL_QUESTIONS.find((q) => q.cat === 'AI Engineering & Operations' && !q.verified)!.q))
     expect(first).toBeGreaterThan(-1)
     expect(first).toBeLessThan(firstUnverified)
     expect(llmsTxt(site, input)).toContain(`${v.length} of the 80 AI-engineering questions are cited`)
+  })
+
+  it('says plainly that most engineering questions are practice judgments (Pavol, 2026-11-04: A)', () => {
+    const eng = page('/questions/engineering/')!
+    expect(eng.body).toContain('practice judgments')
+    expect(eng.body).toMatch(/no public text decides/i)
+    expect(eng.body).not.toContain('not yet cited')
+    expect(llmsTxt(site, input)).toMatch(/practice judgments/)
+    expect(eng.description).toContain('practice judgments')
+    expect(page('/questions/governance/')!.body).not.toContain('practice judgments')
   })
 
   it('states the paper composition from meta, not a hard-coded number', () => {
