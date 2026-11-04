@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useRef,
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
@@ -28,6 +29,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     unfinished: loadRound(),
   }))
   const { user } = useAuth()
+  // True while the sign-in cloud sync is in flight; the debounced push skips to
+  // avoid upsetting the cloud row with unmerged local progress (finding #1).
+  const syncingRef = useRef(false)
 
   // Hydrate persisted progress once on mount.
   useEffect(() => {
@@ -54,19 +58,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     let cancelled = false
+    syncingRef.current = true
     syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
+      syncingRef.current = false
       if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
+    }).catch(() => {
+      syncingRef.current = false
     })
     return () => {
       cancelled = true
+      syncingRef.current = false
     }
   }, [user?.id])
 
   // While signed in, push progress changes to the cloud (debounced).
+  // Skips while the sign-in sync is in flight to avoid upsetting the cloud row
+  // with unmerged local progress before the merge completes (finding #1).
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
-      supabaseStore.save(user.id, state.progress).catch(() => {})
+      if (!syncingRef.current) {
+        supabaseStore.save(user.id, state.progress).catch(() => {})
+      }
     }, 1500)
     return () => clearTimeout(t)
   }, [state.progress, user?.id])
