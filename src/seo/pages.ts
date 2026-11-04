@@ -229,7 +229,7 @@ function categoryPages(input: SiteInput): Page[] {
   return input.meta.categories.map((c) => {
     const all = input.questions.filter((q) => q.cat === c.name)
     const verified = all.filter((q) => q.verified)
-    // A category with few verified questions tops the page up with a fixed sample, labelled.
+    // A category with few verified questions tops the page up with a fixed sample; the intro says which are which.
     const SAMPLE = 20
     const fill = verified.length >= SAMPLE ? [] : all.filter((q) => !q.verified).slice(0, SAMPLE - verified.length)
     const shown = [...verified, ...fill]
@@ -248,7 +248,7 @@ function categoryPages(input: SiteInput): Page[] {
       path,
       title,
       lastmod: newest(shown),
-      description: `${c.name} practice questions for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) field-related test, with answers and explanations${verified.length ? ' checked against the official EU texts' : ''}.`,
+      description: `${c.name} practice questions for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) field-related test, with answers and explanations${!verified.length ? '' : fill.length ? `; ${verified.length} checked against public texts` : ' checked against the official texts'}.`,
       body: `<h1>${esc(c.name)}</h1><p>One of the three Annex II categories of the EPSO/AD/430/26 Field 1 test; ${paper}. ${intro}</p>${shown.map((q, i) => questionHtml(q, i + 1, input)).join('')}${cta}`,
       jsonLd: [quizLd(title, shown, path, input)],
     }
@@ -375,7 +375,7 @@ export function llmsTxt(pages: Page[], input: SiteInput): string {
     `> Free, unofficial practice trainer for the EPSO/AD/430/26 competition, Field 1 (Artificial Intelligence): the field-related MCQ (${e.totalQuestions} questions, ${e.timeLimitMinutes} minutes, pass ${e.passThreshold}/${e.totalQuestions}, the only ranking test). Not affiliated with EPSO or the European Commission.`,
     '',
     `- ${input.questions.length} questions across the three Annex II categories: ${input.meta.categories.map((c) => `${c.name} (${c.count})`).join(', ')}.`,
-    `- ${verified} of ${input.questions.length} are verified: the answer was checked against the official text (AI Act 2024/1689 as amended by the Digital Omnibus 2026/1744, and other EU texts), and the passage is quoted. ${citedLine(input)}`,
+    `- ${verified} of ${input.questions.length} are verified: the answer was checked against a pinned public text (mostly the AI Act 2024/1689 as amended by the Digital Omnibus 2026/1744 and other EU acts; for engineering, NIST and the International AI Safety Report), and the passage is quoted. ${citedLine(input)}`,
     `- Features: daily 12-question lessons with spaced repetition, practice by category, a timed 30-question mock in the official composition, a likely-score range from first attempts only, and a commonplace book of collected passages.`,
     `- Free, no account needed, works offline. Source code: https://github.com/Chartres/epso-kviz`,
     '',
