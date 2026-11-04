@@ -31,7 +31,7 @@ export function SourceNote({ question, collected = [], onCollect }: SourceNotePr
                 onClick={() => track('key_action', { action: 'source_open', doc: c.doc, ref: c.ref, q: question.id, from: 'answer' })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brass-400 underline-offset-2 hover:underline"
+                className="inline-flex min-h-11 items-center text-brass-400 underline-offset-2 hover:underline"
               >
                 {citationLabel(c)} ↗
               </a>

@@ -146,12 +146,12 @@ export function QuestionCard({
 
   return (
     <article className="mx-auto w-full max-w-2xl">
-      <header className="mb-4 flex items-center justify-between text-sm text-steel-400">
-        <span className="font-mono font-medium tabular-nums text-steel-300">
+      <header className="mb-4 flex items-center justify-between gap-2 text-sm text-steel-400">
+        <span className="shrink-0 whitespace-nowrap font-mono font-medium tabular-nums text-steel-300">
           {String(index + 1).padStart(2, '0')}
           <span className="text-steel-600"> / {total}</span>
         </span>
-        <span className="border border-steel-700 px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-steel-400">
+        <span className="min-w-0 border border-steel-700 px-2 py-1 text-center font-mono text-[0.7rem] uppercase tracking-[0.1em] text-steel-400">
           {question.cat}
         </span>
         <button
@@ -159,7 +159,7 @@ export function QuestionCard({
           onClick={onToggleBookmark}
           aria-pressed={bookmarked}
           aria-label={bookmarked ? 'Remove bookmark' : 'Add bookmark'}
-          className={`px-2 py-1 font-mono text-xs uppercase tracking-wide transition-colors ${
+          className={`-mr-2 min-h-11 shrink-0 whitespace-nowrap px-2 font-mono text-xs uppercase tracking-wide transition-colors ${
             bookmarked ? 'text-brass-400' : 'text-steel-500 hover:text-brass-400'
           }`}
         >

@@ -26,6 +26,7 @@ export function StudyScreen() {
           href={META.sourceUrl}
           target="_blank"
           rel="noreferrer"
+          data-inline
           className="text-brass-400 underline"
         >
           the Notice of Competition (OJ C/2026/4668)
@@ -38,10 +39,10 @@ export function StudyScreen() {
         <h2 className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-steel-400">
           Contents
         </h2>
-        <ol className="space-y-1">
+        <ol>
           {LESSONS.map((l) => (
             <li key={l.id}>
-              <a href={`#${l.id}`} className="text-sm text-steel-300 hover:text-brass-400">
+              <a href={`#${l.id}`} className="flex min-h-11 items-center py-1 text-sm text-steel-300 hover:text-brass-400">
                 {l.title}
               </a>
             </li>
@@ -50,7 +51,7 @@ export function StudyScreen() {
         <a
           href="#commonplace"
           onClick={() => setBookOpen(true)}
-          className="mt-3 block border-t border-steel-700 pt-2 text-sm text-steel-300 hover:text-brass-400"
+          className="mt-3 flex min-h-11 items-center border-t border-steel-700 pt-1 text-sm text-steel-300 hover:text-brass-400"
         >
           My commonplace book{passages > 0 && ` · ${passages} ${passages === 1 ? 'passage' : 'passages'}`}
         </a>
@@ -88,7 +89,7 @@ export function StudyScreen() {
               href={l.source.url}
               target="_blank"
               rel="noreferrer"
-              className="text-brass-400 underline"
+              className="inline-flex min-h-11 items-center text-brass-400 underline"
             >
               {l.source.label}
             </a>

@@ -162,7 +162,7 @@ export function PracticeScreen() {
                 type="button"
                 onClick={() => toggleCat(c.name)}
                 aria-pressed={active}
-                className={`border px-3 py-1.5 text-sm transition-colors ${
+                className={`min-h-11 border px-3 py-1.5 text-sm transition-colors ${
                   active
                     ? 'border-brass-500 bg-brass-500/15 text-brass-300'
                     : 'border-steel-700 text-steel-300 hover:border-steel-500'
@@ -184,7 +184,7 @@ export function PracticeScreen() {
             value={state.search}
             onChange={(e) => dispatch({ type: 'setSearch', search: e.target.value })}
             placeholder="Narrow by searching question text (optional)…"
-            className="w-full rounded-card border border-steel-700 bg-steel-900/60 px-4 py-2.5 text-sm text-steel-100 placeholder:text-steel-500 focus:border-brass-500 focus:outline-none"
+            className="min-h-11 w-full rounded-card border border-steel-700 bg-steel-900/60 px-4 py-2.5 text-sm text-steel-100 placeholder:text-steel-500 focus:border-brass-500 focus:outline-none"
           />
         </label>
 
@@ -234,7 +234,7 @@ export function PracticeScreen() {
             return (
               <label
                 key={m}
-                className={`cursor-pointer border px-3 py-1.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-brass-400 ${
+                className={`flex min-h-11 cursor-pointer items-center border px-3 py-1.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-brass-400 ${
                   active
                     ? 'border-brass-500 bg-brass-500/15 text-brass-300'
                     : 'border-steel-700 text-steel-300 hover:border-steel-500'
