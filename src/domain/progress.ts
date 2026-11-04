@@ -279,12 +279,16 @@ export function mergeProgress(
   const sa = a.streak ?? emptyStreak()
   const sb = b.streak ?? emptyStreak()
   const latest = sb.lastDate >= sa.lastDate ? sb : sa
+  // When both sides have the same lastDate, take the higher current so a local
+  // 5-day streak merged with a remote first lesson on the same day stays at 5.
+  const current =
+    sa.lastDate === sb.lastDate ? Math.max(sa.current, sb.current) : latest.current
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: { ...latest, best: Math.max(sa.best, sb.best) },
+    streak: { ...latest, current, best: Math.max(sa.best, sb.best) },
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }
