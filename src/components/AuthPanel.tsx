@@ -45,7 +45,7 @@ export function AuthPanel() {
         onClick={() => setOpen((o) => !o)}
         aria-label={user ? 'Account' : 'Sign in'}
         aria-expanded={open}
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-steel-600 text-steel-300 transition-colors hover:border-brass-500 hover:text-brass-400"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-steel-600 text-steel-300 transition-colors hover:border-brass-500 hover:text-brass-400"
       >
         {user && initial ? (
           <span className="font-mono text-sm font-semibold text-brass-300">
