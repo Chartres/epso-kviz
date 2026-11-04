@@ -235,11 +235,18 @@ function categoryPages(input: SiteInput): Page[] {
     const shown = [...verified, ...fill]
     const path = `/questions/${c.id}/`
     const title = `${c.name}: ${shown.length} practice questions for EPSO AD/430/26 Field 1 (AI)`
-    const intro = !verified.length
-      ? `A sample of ${shown.length} of the ${all.length} questions in this category. They rest on standard ML engineering practice and are not yet cited to pinned sources.`
-      : fill.length
-        ? `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against a pinned text, and the passage that settles it is quoted. They come first; the other ${fill.length} shown here rest on standard practice and are not yet cited.`
-        : `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against the official text, and the passage that settles it is quoted. The others are in the trainer, marked as not yet verified.`
+    // Engineering (Pavol, 2026-11-04, option A): mostly practice judgments, said plainly.
+    const judgment =
+      c.group === 'engineering'
+        ? ` Most questions here are practice judgments: which control, metric or design fits the case. No public text decides them, so they carry a rationale but no quoted source${verified.length ? `; the ${verified.length} that a public text does settle are verified and come first, with the passage quoted` : ''}.`
+        : ''
+    const intro = judgment
+      ? `${shown.length} of the ${all.length} questions in this category.${judgment}`
+      : !verified.length
+        ? `A sample of ${shown.length} of the ${all.length} questions in this category, not yet cited to pinned sources.`
+        : fill.length
+          ? `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against a pinned text, and the passage that settles it is quoted. They come first; the other ${fill.length} shown here are not yet cited.`
+          : `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against the official text, and the passage that settles it is quoted. The others are in the trainer, marked as not yet verified.`
     const comp = input.meta.exam.composition
     const paper = comp.every((p) => p.count === comp[0].count)
       ? `the ${input.meta.exam.totalQuestions}-question paper draws ${comp[0].count} from each`
@@ -362,7 +369,7 @@ function citedLine(input: SiteInput): string {
   const eng = input.questions.filter((q) => q.cat === 'AI Engineering & Operations')
   const v = eng.filter((q) => q.verified).length
   return v
-    ? `${v} of the ${eng.length} AI-engineering questions are cited to public texts; the others rely on standard practice and are marked as not yet verified.`
+    ? `${v} of the ${eng.length} AI-engineering questions are cited to public texts; the others are practice judgments that no public text decides, given with a rationale but no quoted source.`
     : 'AI-engineering questions are not yet cited.'
 }
 
