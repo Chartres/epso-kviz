@@ -26,6 +26,7 @@ export function StudyScreen() {
           href={META.sourceUrl}
           target="_blank"
           rel="noreferrer"
+          data-inline
           className="text-brass-400 underline"
         >
           the Notice of Competition (OJ C/2026/4668)
@@ -88,7 +89,7 @@ export function StudyScreen() {
               href={l.source.url}
               target="_blank"
               rel="noreferrer"
-              className="text-brass-400 underline"
+              className="inline-flex min-h-11 items-center text-brass-400 underline"
             >
               {l.source.label}
             </a>
