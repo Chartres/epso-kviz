@@ -37,6 +37,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
       identify(u?.id ?? null) // cross-product identity on the shared platform
       setLoading(false)
+    }).catch(() => {
+      // Network or storage failure: treat as signed out and unblock the UI.
+      setLoading(false)
     })
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       const u = session?.user
