@@ -91,6 +91,20 @@ function isNextDay(prev: string, today: string): boolean {
   return b - a === 86_400_000
 }
 
+/**
+ * The streak count to display: `current` if today or yesterday was the last lesson,
+ * otherwise 0 (the streak has been broken and the stored count is stale until the
+ * next lesson resets it to 1 via recordLessonComplete).
+ */
+export function activeStreak(streak: Streak, today: string): number {
+  if (!streak.lastDate || streak.current === 0) return 0
+  if (streak.lastDate === today) return streak.current
+  const [py, pm, pd] = streak.lastDate.split('-').map(Number)
+  const [ty, tm, td] = today.split('-').map(Number)
+  const diff = Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd)
+  return diff <= 86_400_000 ? streak.current : 0
+}
+
 /** Record that the learner completed a lesson on `today` (YYYY-MM-DD). */
 export function recordLessonComplete(
   p: ProgressData,

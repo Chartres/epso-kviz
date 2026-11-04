@@ -3,7 +3,7 @@
  * local persistence, and supabaseStore version gating (finding #5).
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, act, waitFor } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import { AppProvider, useApp } from './AppContext'
 import { emptyProgress, recordAnswer, type ProgressData } from '@/domain/progress'
 import { saveProgress } from '@/domain/storage'
@@ -18,8 +18,8 @@ const { mockSyncProgress, mockSave } = vi.hoisted(() => {
   return { mockSyncProgress, mockSave }
 })
 
-const mockUseAuth = vi.hoisted(() =>
-  vi.fn<[], { user: AuthUser | null }>(() => ({ user: null })),
+const mockUseAuth = vi.hoisted(
+  () => vi.fn(() => ({ user: null as AuthUser | null })),
 )
 
 vi.mock('@/auth/AuthContext', () => ({ useAuth: () => mockUseAuth() }))

@@ -2,7 +2,7 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds } from '@/domain/progress'
+import { summary, needsReviewIds, activeStreak } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
@@ -16,7 +16,8 @@ export function HomeScreen() {
     () => needsReviewIds(state.progress).length,
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  const today = new Date().toISOString().slice(0, 10)
+  const streak = activeStreak(state.progress.streak, today)
   const rng = () => makeRng(timeSeed())
 
   return (
