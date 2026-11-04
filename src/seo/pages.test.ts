@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { ALL_QUESTIONS, META } from '@/domain/questions'
 import { SOURCES } from '@/domain/citations'
-import { buildSite, renderPage, sitemapXml, llmsTxt, articleOf, type SiteInput } from './pages'
+import { buildSite, renderPage, sitemapXml, llmsTxt, articleOf, esc, type SiteInput } from './pages'
 
 const input: SiteInput = {
   questions: ALL_QUESTIONS,
@@ -42,6 +42,37 @@ describe('prerendered site', () => {
       for (const q of cites4a.filter((q) => !q.sources!.some((c) => articleOf(c) === '4')))
         expect(page('/ai-act/article-4/')?.body ?? '').not.toContain(q.q)
     }
+  })
+
+  it('has a page per other EU act that at least two verified questions cite, and an index', () => {
+    const count = (doc: string) =>
+      ALL_QUESTIONS.filter((q) => q.verified && q.sources?.some((c) => c.doc === doc)).length
+    const gdpr = page('/acts/gdpr/')!
+    expect(gdpr).toBeDefined()
+    expect(gdpr.title).toContain(SOURCES.gdpr.short)
+    const q = ALL_QUESTIONS.find((x) => x.verified && x.sources?.some((c) => c.doc === 'gdpr'))!
+    expect(gdpr.body).toContain(esc(q.q))
+    expect(gdpr.body).toContain(SOURCES.gdpr.url)
+    expect(gdpr.jsonLd[0]['@type']).toBe('Quiz')
+    // the AI Act and the Omnibus have their article pages; a one-question act gets no thin page
+    expect(page('/acts/ai-act/')).toBeUndefined()
+    expect(page('/acts/ai-omnibus/')).toBeUndefined()
+    for (const doc of Object.keys(SOURCES)) {
+      if (doc === 'ai-act' || doc === 'ai-omnibus') continue
+      expect(Boolean(page(`/acts/${doc}/`)), doc).toBe(count(doc) >= 2)
+    }
+    const index = page('/acts/')!
+    expect(index.body).toContain('/acts/gdpr/')
+    expect(page('/guide/ad-430-26-field-1/')!.body).toContain('/acts/')
+  })
+
+  it('shows only the passages from the act itself on its page, and only verified questions', () => {
+    const dsa = page('/acts/dsa/')!
+    const text = dsa.body.split('<h2>The text</h2>')[1].split('<h2>Practice questions</h2>')[0]
+    const docs = [...text.matchAll(/data-doc="([^"]+)"/g)].map((m) => m[1])
+    expect(docs.length).toBeGreaterThan(0)
+    expect(new Set(docs)).toEqual(new Set(['dsa']))
+    for (const q of ALL_QUESTIONS.filter((x) => !x.verified)) expect(dsa.body).not.toContain(esc(q.q))
   })
 
   it('states the paper composition from meta, not a hard-coded number', () => {

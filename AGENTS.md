@@ -37,7 +37,7 @@ early → waits on home (Pokračovat / Nový trénink) → resumes at the first 
 - **Web** → GitHub Pages at `https://epsokviz.dravec.org` (`public/CNAME`). Deploy is automatic
   on push to `main` via `.github/workflows/deploy.yml`. Platform env for the build:
   `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (repo secrets; no-op locally/in tests).
-- Search visibility: the build prerenders static pages (AI Act articles, questions by category,
+- Search visibility: the build prerenders static pages (AI Act articles, other EU acts, questions by category,
   the test guide) plus `sitemap.xml` and `llms.txt` (`scripts/prerender.ts`). After a deploy that
   changes them, run `node scripts/indexnow.mjs --submit` and log it in flywheel
   `data/launch-log/epso-kviz.jsonl`.
