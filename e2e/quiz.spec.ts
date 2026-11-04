@@ -45,6 +45,7 @@ test('daily lesson from home: 12 questions with completion + streak', async ({
 test('exam mode from practice tab: 30 questions with a timer', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Practice', exact: true }).click()
+  await expect(page.getByTestId('exam-new')).toHaveText('All new to you: unseen questions first.')
   await page.getByRole('button', { name: /Exam simulation/ }).click()
   await expect(page.getByText('01 / 30')).toBeVisible()
   await expect(page.getByRole('timer')).toBeVisible()

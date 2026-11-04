@@ -165,7 +165,7 @@ function step(state: AppState, action: Action): AppState {
 
     case 'startExam':
       return {
-        ...begin(state, 'exam', createSession(buildExam(action.rng))),
+        ...begin(state, 'exam', createSession(buildExam(action.rng, state.progress))),
         examEndsAt: action.now + EXAM.timeLimitMinutes * 60 * 1000,
       }
 
