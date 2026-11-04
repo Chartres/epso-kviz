@@ -136,6 +136,8 @@ export function QuestionCard({
         e.preventDefault()
         onAnswer(KEY_TO_CHOICE[key])
       } else if (answered && (e.key === 'Enter' || e.key === ' ')) {
+        // Don't steal Enter/Space from focused buttons (Bookmark, SourceNote links).
+        if (e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement) return
         e.preventDefault()
         onNext()
       }
