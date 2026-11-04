@@ -80,7 +80,7 @@ describe('verified bank', () => {
   const FLOOR: Record<CategoryName, number> = {
     'AI Act & Governance': 72,
     'EU Digital Policy & Strategy': 67,
-    'AI Engineering & Operations': 0,
+    'AI Engineering & Operations': 2,
   }
   it('verified coverage stays at or above the floor per category', () => {
     for (const [cat, floor] of Object.entries(FLOOR)) {

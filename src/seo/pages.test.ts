@@ -85,6 +85,19 @@ describe('prerendered site', () => {
     for (const p of site.filter((x) => x.path.startsWith('/acts/'))) expect(p.description.length, p.path).toBeLessThanOrEqual(200)
   })
 
+  it('puts verified engineering questions first and tops the page up with a labelled sample', () => {
+    const eng = page('/questions/engineering/')!
+    const v = ALL_QUESTIONS.filter((q) => q.cat === 'AI Engineering & Operations' && q.verified)
+    expect(v.length).toBeGreaterThan(0)
+    expect(eng.body).toContain(`${v.length} of the 80 questions in this category are verified`)
+    expect(eng.body.match(/class="q"/g)).toHaveLength(20)
+    const first = eng.body.indexOf(esc(v[0].q))
+    const firstUnverified = eng.body.indexOf(esc(ALL_QUESTIONS.find((q) => q.cat === 'AI Engineering & Operations' && !q.verified)!.q))
+    expect(first).toBeGreaterThan(-1)
+    expect(first).toBeLessThan(firstUnverified)
+    expect(llmsTxt(site, input)).toContain(`${v.length} of the 80 AI-engineering questions are cited`)
+  })
+
   it('states the paper composition from meta, not a hard-coded number', () => {
     const per = META.exam.composition[0].count
     expect(page('/questions/governance/')!.body).toContain(`${META.exam.totalQuestions}-question paper draws ${per} from each`)

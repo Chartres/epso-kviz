@@ -1,0 +1,107 @@
+{
+ "date": "2026-11-04",
+ "method": "First pass over the 80 AI Engineering & Operations questions. Each key, option and rationale was read against the pinned public texts (AI Act, NIST AI RMF, NIST AI 600-1, NIST SP 1270, the International AI Safety Report 2025, the JRC standardisation analysis and others). The bar is the one used for governance and policy: the quoted passage must settle the key on its own against the strongest distractor. Each proposed question was then given, with only its quotes and without the key, to an independent reviewer, who picked the keyed option for both and judged both settled by the quotes alone. Most engineering questions are practice judgments (which control first, which metric fits) that public texts touch only in passing; they are not forced into citations.",
+ "counts": {
+  "verified": 2,
+  "unverifiable_listed": 14,
+  "judgment_not_listed": 64
+ },
+ "questions": {
+  "1": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Drift diagnosis is judgment. The pinned texts' drift definitions are non-standard (see flag on 2) and cannot separate covariate shift from concept drift."
+  },
+  "2": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Flag (key not wrong): No error in the key. But if anyone sources Q1 or Q2 from the pinned NIST or JRC texts, those definitions conflict with the bank's. NIST SP 1270 (glossary) defines 'concept drift' as 'Use of a system outside the planned domain of application', not as a change in P(y|X). JRC 2023 (Section 2.9 Conformity Assessment, bullet 'Concept/Data drift') describes data drift as 'a mismatch between the relationship between input and output learned by the AI model and the real-world relationship', which is concept drift in the bank's terms. Do not cite either text for Q1 or Q2."
+  },
+  "3": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Training-serving skew and feature stores appear in no pinned text."
+  },
+  "8": {
+   "status": "ok",
+   "initial": "unsourced",
+   "verified": "2026-11-04",
+   "note": "Key (a) settled by AI Act Annex XI Section 2 point 2, which equates red teaming with adversarial testing, and the International AI Safety Report glossary, which defines it as searching for inputs that induce undesirable behaviour. That rules out golden-set scoring (c), which replays fixed known inputs. Rationale reworded to the sources' terms."
+  },
+  "23": {
+   "status": "ok",
+   "initial": "unsourced",
+   "verified": "2026-11-04",
+   "note": "Key (a) settled by NIST AI 600-1 Section 2.9: indirect prompt injection is injecting prompts into data likely to be retrieved, without a direct interface. The same section defines data poisoning as compromising a training dataset, ruling out (c); the IASR glossary defines jailbreaking as prompts submitted to bypass guardrails, ruling out (b). Rationale reworded."
+  },
+  "24": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "No pinned text names least privilege plus human confirmation as the primary defence against indirect injection. Choosing it over a system-prompt rule is a design judgment."
+  },
+  "27": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "IASR Section 3.3 (Risk identification and assessment) confirms benchmark contamination exists ('trained on or exposed to test data beforehand (benchmark contamination)'), but not that it is the most probable explanation. Judgment."
+  },
+  "44": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "AI Act Recital 76, NIST and EDPB Opinion 28/2024 all list membership inference but never define it or separate it from model inversion. The mitigation half of the key is unsourced."
+  },
+  "45": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "NIST Section 2.9 supports 'hostile instructions carried via retrieved data', but no text says the open-edit property is what separates this risk from copyright exposure."
+  },
+  "47": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "IASR describes DP as calibrated noise limiting what is learned about an individual, and GDPR Recital 26 rules out pseudonymisation. Neither text says DP alone is 'formally provable', nor compares it with k-anonymity or cell suppression."
+  },
+  "48": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Federated learning is described in no pinned text."
+  },
+  "50": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "Flag (key not wrong): No error in the key. Its source is unclear: NIST SP 1270 Section 3.2.2 (already used for governance 1080) states impossibility only for 'certain mathematical fairness constraints', and its example is calibration vs class balance, not demographic parity vs equalised odds. The rationale's claim about base rates is correct, but no pinned text states it."
+  },
+  "51": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "The IASR glossary says a model card covers purpose and usage guidelines, and NIST SP 1270 names repurposing after deployment as a gap, but no pinned text says a model card is the artefact that most directly prevents misuse. Kept unverified."
+  },
+  "54": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "The IASR glossary defines 'Human in the loop' as humans who 'oversee and sign off', and AI Act Art 14(4) lists oversight powers. Neither ranks approval gates above monitoring, quotas or logging."
+  },
+  "55": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "AI Act Art 12 requires logging but does not specify per-request traces of prompt, retrieved context and tool calls, or rank them above dashboards."
+  },
+  "70": {
+   "status": "unverifiable",
+   "initial": "unsourced",
+   "verified": false,
+   "note": "The key (refresh cadence with contractual pinning) is a procurement judgment. Option (b) is clearly wrong under the AI Act's deployer duties, but that does not settle (d)."
+  }
+ }
+}
