@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { makeRng } from './rng'
-import { buildExam, evaluateExam, EXAM } from './exam'
+import { buildExam, evaluateExam, EXAM, unseenAvailable, unseenIn } from './exam'
 import {
   createSession,
   answerCurrent,
@@ -9,12 +9,50 @@ import {
   type SessionState,
 } from './session'
 import type { ExamGroup } from './types'
+import { emptyProgress, recordAnswer } from './progress'
+import { questionsForGroup } from './questions'
 
 const GROUP_OF: Record<string, ExamGroup> = {
   'AI Engineering & Operations': 'engineering',
   'AI Act & Governance': 'governance',
   'EU Digital Policy & Strategy': 'policy',
 }
+
+describe('buildExam: unseen questions first (Pavol, 2026-11-04)', () => {
+  it('draws only unseen questions while each group has enough', () => {
+    let p = emptyProgress()
+    // answer half of every group
+    for (const g of ['engineering', 'governance', 'policy'] as ExamGroup[]) {
+      const qs = questionsForGroup(g)
+      qs.slice(0, Math.floor(qs.length / 2)).forEach((q, i) => (p = recordAnswer(p, q.id, true, i)))
+    }
+    const exam = buildExam(makeRng(11), p)
+    expect(exam).toHaveLength(30)
+    expect(exam.every((q) => !p.stats[q.id])).toBe(true)
+  })
+
+  it('tops a group up from answered questions when its unseen run out, keeping 10 per group', () => {
+    let p = emptyProgress()
+    const eng = questionsForGroup('engineering')
+    eng.slice(0, eng.length - 4).forEach((q, i) => (p = recordAnswer(p, q.id, true, i)))
+    const exam = buildExam(makeRng(12), p)
+    const engInExam = exam.filter((q) => GROUP_OF[q.cat] === 'engineering')
+    expect(engInExam).toHaveLength(10)
+    const unseenEng = eng.slice(eng.length - 4).map((q) => q.id)
+    expect(unseenEng.every((id) => engInExam.some((q) => q.id === id))).toBe(true)
+    expect(new Set(exam.map((q) => q.id)).size).toBe(30)
+  })
+
+  it('counts how many of the drawn questions are new', () => {
+    let p = emptyProgress()
+    const eng = questionsForGroup('engineering')
+    eng.slice(0, eng.length - 4).forEach((q, i) => (p = recordAnswer(p, q.id, true, i)))
+    expect(unseenIn(buildExam(makeRng(13), p), p)).toBe(24)
+    expect(unseenIn(buildExam(makeRng(13)), emptyProgress())).toBe(30)
+    expect(unseenAvailable(p)).toBe(24)
+    expect(unseenAvailable(emptyProgress())).toBe(30)
+  })
+})
 
 describe('buildExam', () => {
   it('produces 30 questions in the official composition', () => {

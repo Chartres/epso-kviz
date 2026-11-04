@@ -5,6 +5,7 @@ import { buildPractice } from '@/domain/selection'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { readinessProps } from '@/domain/readiness'
+import { unseenAvailable } from '@/domain/exam'
 import type { CategoryName } from '@/domain/types'
 import { QUESTION_FIRST_MODES, type QuestionFirstMode } from '@/domain/settings'
 
@@ -47,6 +48,7 @@ export function PracticeScreen() {
   }
 
   const rng = () => makeRng(timeSeed())
+  const examNew = useMemo(() => unseenAvailable(state.progress), [state.progress])
 
   return (
     <div className="mx-auto w-full max-w-xl px-4 pt-2">
@@ -58,7 +60,7 @@ export function PracticeScreen() {
       <button
         type="button"
         onClick={() => {
-          track('start_exam', readinessProps(state.progress))
+          track('start_exam', { ...readinessProps(state.progress), unseen: examNew })
           dispatch({ type: 'startExam', rng: rng(), now: Date.now() })
         }}
         className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
@@ -69,6 +71,11 @@ export function PracticeScreen() {
           </span>
           <span className="mt-0.5 block text-sm text-steel-400">
             {META.exam.totalQuestions} questions, {META.exam.timeLimitMinutes} minutes — like the real exam.
+          </span>
+          <span data-testid="exam-new" className="mt-0.5 block font-mono text-xs text-steel-500">
+            {examNew === META.exam.totalQuestions
+              ? 'All new to you: unseen questions first.'
+              : `${examNew} of ${META.exam.totalQuestions} new to you; the rest you have answered before.`}
           </span>
         </span>
         <span aria-hidden className="font-display text-brass-400">

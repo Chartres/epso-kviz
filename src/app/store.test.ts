@@ -195,4 +195,11 @@ describe('app store', () => {
       expect(s.session!.index).toBe(2)
     })
   })
+
+  it('an exam draws unseen questions first', () => {
+    let p = emptyProgress()
+    for (const q of byCategory('AI Act & Governance').slice(0, 40)) p = recordAnswer(p, q.id, true, 1)
+    const s = reducer(start({ progress: p }), { type: 'startExam', rng: makeRng(3), now: 0 })
+    expect(s.session!.questions.every((q) => !p.stats[q.id])).toBe(true)
+  })
 })
