@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath } from 'node:url'
+import { NAVIGATE_FALLBACK_DENYLIST } from './src/seo/routes.ts'
 
 // Custom domain root by default; VITE_BASE=/epso-kviz/ serves from chartres.github.io/epso-kviz/.
 const base = process.env.VITE_BASE || '/'
@@ -43,7 +44,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         navigateFallback: '/index.html',
         // The prerendered pages (scripts/prerender.ts) are real documents, not app routes.
-        navigateFallbackDenylist: [/^\/(ai-act|questions|guide)(\/|$)/, /^\/llms\.txt$/, /^\/sitemap\.xml$/],
+        navigateFallbackDenylist: NAVIGATE_FALLBACK_DENYLIST,
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {

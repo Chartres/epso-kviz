@@ -17,6 +17,20 @@ test('an AI Act article page is readable without JavaScript', async ({ page }) =
   await page.screenshot({ path: 'e2e/shots/seo-article-phone.png', fullPage: false })
 })
 
+// Persona: a candidate searching "GDPR EPSO AI practice questions" on a phone lands on the
+// act page, reads the passage and a worked question, and finds the way into the trainer.
+test('an EU act page beyond the AI Act is readable without JavaScript at 390 px', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/acts/')
+  await page.getByRole('link', { name: 'GDPR', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'GDPR' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'The text' })).toBeVisible()
+  await expect(page.getByText(/^Answer: [A-D]$/).first()).toBeVisible()
+  await expect(page.getByRole('link', { name: /Practise with spaced repetition/ })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+  await page.screenshot({ path: 'e2e/shots/seo-act-phone.png', fullPage: false })
+})
+
 test('the guide answers the common questions with FAQ structured data', async ({ page }) => {
   await page.goto('/guide/ad-430-26-field-1/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('AD/430/26')
@@ -30,6 +44,7 @@ test('sitemap and llms.txt list the static pages; home carries WebApplication JS
   const sitemap = await (await request.get('/sitemap.xml')).text()
   expect(sitemap).toContain('/ai-act/article-99/')
   expect(sitemap).toContain('/guide/ad-430-26-field-1/')
+  expect(sitemap).toContain('/acts/gdpr/')
   const llms = await (await request.get('/llms.txt')).text()
   expect(llms).toMatch(/verified/)
   await page.goto('/')

@@ -5,7 +5,8 @@ import { beaconScript, type BeaconConfig } from './beacon.ts'
 /**
  * Static pages prerendered at build time (scripts/prerender.ts), so search engines and AI
  * assistants, which mostly don't run JavaScript, can read and cite the verified material:
- * AI Act article pages, one page of questions per category, and a guide to the test.
+ * AI Act article pages, a page per other EU act, one page of questions per category, and a
+ * guide to the test.
  * Pure functions with type-only imports, so the plain-Node build script can run them.
  */
 
@@ -162,6 +163,68 @@ function articlePages(input: SiteInput): Page[] {
   return pages
 }
 
+/** An act gets its own page once this many verified questions cite it (no thin pages). */
+export const ACT_PAGE_MIN = 2
+const OWN_PAGES = new Set(['ai-act', 'ai-omnibus']) // covered article by article under /ai-act/
+
+/** One page per other EU act (and other pinned text) that verified questions cite: /acts/<doc>/. */
+function actPages(input: SiteInput): Page[] {
+  const byDoc = new Map<string, { qs: Question[]; passages: Citation[] }>()
+  for (const q of input.questions) {
+    if (!q.verified) continue
+    for (const c of q.sources ?? []) {
+      if (OWN_PAGES.has(c.doc) || !input.sources[c.doc]) continue
+      const entry = byDoc.get(c.doc) ?? { qs: [], passages: [] }
+      if (!entry.passages.some((p) => p.quote === c.quote)) entry.passages.push(c)
+      if (!entry.qs.includes(q)) entry.qs.push(q)
+      byDoc.set(c.doc, entry)
+    }
+  }
+  const docs = [...byDoc.keys()]
+    .filter((d) => byDoc.get(d)!.qs.length >= ACT_PAGE_MIN)
+    .sort((a, b) => byDoc.get(b)!.qs.length - byDoc.get(a)!.qs.length || natural(a, b))
+
+  const pages: Page[] = docs.map((doc) => {
+    const { qs, passages } = byDoc.get(doc)!
+    const src = input.sources[doc]
+    const path = `/acts/${doc}/`
+    const title = `${src.short}: EPSO AD/430/26 practice questions with the official text`
+    const sorted = [...passages].sort((a, b) => natural(a.ref, b.ref))
+    return {
+      path,
+      title,
+      lastmod: newest(qs),
+      description: `${plural(qs.length, 'verified practice question')} on the ${src.short} for the EPSO AD/430/26 AI field test, with the passage that settles each answer quoted and linked to the source.`,
+      body:
+        `<p class="crumb"><a href="/acts/">EU acts and texts</a></p><h1>${esc(src.short)}</h1>` +
+        `<p>${esc(src.title)}. ${plural(qs.length, 'practice question')} for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) test turn on this text. Every answer below was checked against it, and the passage that settles it is quoted under the explanation. <a href="${esc(src.url)}" rel="noopener">Read the source</a>.</p>` +
+        `<h2>The text</h2>` +
+        sorted.map((c) => passageHtml(c, input)).join('') +
+        `<h2>Practice questions</h2>` +
+        qs.map((q, i) => questionHtml(q, i + 1, input)).join('') +
+        cta,
+      jsonLd: [quizLd(title, qs, path, input)],
+    }
+  })
+
+  const all = [...new Set(docs.flatMap((d) => byDoc.get(d)!.qs))]
+  pages.unshift({
+    lastmod: newest(all),
+    path: '/acts/',
+    title: 'EU acts and AI texts beyond the AI Act: verified practice questions for EPSO AD/430/26',
+    description: `Practice questions on ${docs.length} texts besides the AI Act (GDPR, DSA, Data Act, NIS2, the GPAI Code of Practice and more), each answer checked against the text itself, for the EPSO AI field test.`,
+    body:
+      `<h1>EU acts and texts, beyond the AI Act</h1><p>The Field 1 test reaches past the AI Act into the wider EU digital acquis, the Union's AI policy and the guidance and reports around them. ${plural(all.length, 'verified question')} on ${docs.length} texts, each page quoting the passages that settle the answers. The AI Act itself is <a href="/ai-act/">article by article</a>.</p><ul class="toc">` +
+      docs
+        .map((d) => `<li><a href="/acts/${d}/">${esc(input.sources[d].short)}</a> — ${esc(input.sources[d].title)} · ${plural(byDoc.get(d)!.qs.length, 'question')}</li>`)
+        .join('') +
+      `</ul>` +
+      cta,
+    jsonLd: [],
+  })
+  return pages
+}
+
 function categoryPages(input: SiteInput): Page[] {
   return input.meta.categories.map((c) => {
     const all = input.questions.filter((q) => q.cat === c.name)
@@ -238,7 +301,7 @@ function guidePage(input: SiteInput): Page {
       `</tbody></table>` +
       `<h2>Questions candidates ask</h2>` +
       faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('') +
-      `<h2>Practice material</h2><ul class="toc"><li><a href="/ai-act/">The AI Act, article by article</a></li>${input.meta.categories.map((c) => `<li><a href="/questions/${c.id}/">${esc(c.name)}</a></li>`).join('')}</ul>` +
+      `<h2>Practice material</h2><ul class="toc"><li><a href="/ai-act/">The AI Act, article by article</a></li><li><a href="/acts/">EU acts and texts beyond the AI Act</a></li>${input.meta.categories.map((c) => `<li><a href="/questions/${c.id}/">${esc(c.name)}</a></li>`).join('')}</ul>` +
       cta,
     jsonLd: [
       {
@@ -251,7 +314,7 @@ function guidePage(input: SiteInput): Page {
 }
 
 export function buildSite(input: SiteInput): Page[] {
-  return [guidePage(input), ...categoryPages(input), ...articlePages(input)]
+  return [guidePage(input), ...categoryPages(input), ...articlePages(input), ...actPages(input)]
 }
 
 const CSS = `:root{color-scheme:dark}body{margin:0;background:#0d0f13;color:#d6dae1;font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -274,7 +337,7 @@ export function renderPage(p: Page, input: SiteInput): string {
 <link rel="canonical" href="${url}"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.description)}"><meta property="og:url" content="${url}">
 <style>${CSS}</style>${ld}</head>
-<body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
+<body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a><a href="/acts/">Other EU texts</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
 <main>${p.body}</main>
 <footer><p>Unofficial study aid, not affiliated with EPSO or the European Commission. Questions and explanations: CC BY-NC-SA 4.0. Quoted passages: © European Union, reused under Commission Decision 2011/833/EU, and other sources as credited.</p></footer>
 ${input.beacon ? `<script>${beaconScript(input.beacon)}</script>\n` : ''}</body></html>
