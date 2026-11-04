@@ -194,7 +194,7 @@ function actPages(input: SiteInput): Page[] {
       path,
       title,
       lastmod: newest(qs),
-      description: `${plural(qs.length, 'verified practice question')} for the EPSO AI field test that turn on ${src.title}, with the passage that settles each answer quoted and linked to the source.`,
+      description: `${plural(qs.length, 'verified practice question')} on the ${src.short} for the EPSO AD/430/26 AI field test, with the passage that settles each answer quoted and linked to the source.`,
       body:
         `<p class="crumb"><a href="/acts/">EU acts and texts</a></p><h1>${esc(src.short)}</h1>` +
         `<p>${esc(src.title)}. ${plural(qs.length, 'practice question')} for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) test turn on this text. Every answer below was checked against it, and the passage that settles it is quoted under the explanation. <a href="${esc(src.url)}" rel="noopener">Read the source</a>.</p>` +
@@ -211,10 +211,10 @@ function actPages(input: SiteInput): Page[] {
   pages.unshift({
     lastmod: newest(all),
     path: '/acts/',
-    title: 'EU digital acts beyond the AI Act: verified practice questions for EPSO AD/430/26',
-    description: `Practice questions on ${docs.length} EU acts and policy texts besides the AI Act (GDPR, DSA, Data Act, NIS2 and more), each answer checked against the official text, for the EPSO AI field test.`,
+    title: 'EU acts and AI texts beyond the AI Act: verified practice questions for EPSO AD/430/26',
+    description: `Practice questions on ${docs.length} texts besides the AI Act (GDPR, DSA, Data Act, NIS2, the GPAI Code of Practice and more), each answer checked against the text itself, for the EPSO AI field test.`,
     body:
-      `<h1>EU acts and texts, beyond the AI Act</h1><p>The Field 1 test reaches past the AI Act into the wider EU digital acquis and the Union's AI policy. ${plural(all.length, 'verified question')} on ${docs.length} texts, each page quoting the passages that settle the answers. The AI Act itself is <a href="/ai-act/">article by article</a>.</p><ul class="toc">` +
+      `<h1>EU acts and texts, beyond the AI Act</h1><p>The Field 1 test reaches past the AI Act into the wider EU digital acquis, the Union's AI policy and the guidance and reports around them. ${plural(all.length, 'verified question')} on ${docs.length} texts, each page quoting the passages that settle the answers. The AI Act itself is <a href="/ai-act/">article by article</a>.</p><ul class="toc">` +
       docs
         .map((d) => `<li><a href="/acts/${d}/">${esc(input.sources[d].short)}</a> — ${esc(input.sources[d].title)} · ${plural(byDoc.get(d)!.qs.length, 'question')}</li>`)
         .join('') +
@@ -337,7 +337,7 @@ export function renderPage(p: Page, input: SiteInput): string {
 <link rel="canonical" href="${url}"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.description)}"><meta property="og:url" content="${url}">
 <style>${CSS}</style>${ld}</head>
-<body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a><a href="/acts/">Other EU acts</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
+<body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a><a href="/acts/">Other EU texts</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
 <main>${p.body}</main>
 <footer><p>Unofficial study aid, not affiliated with EPSO or the European Commission. Questions and explanations: CC BY-NC-SA 4.0. Quoted passages: © European Union, reused under Commission Decision 2011/833/EU, and other sources as credited.</p></footer>
 ${input.beacon ? `<script>${beaconScript(input.beacon)}</script>\n` : ''}</body></html>

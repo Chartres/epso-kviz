@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { ALL_QUESTIONS, META } from '@/domain/questions'
 import { SOURCES } from '@/domain/citations'
+import { NAVIGATE_FALLBACK_DENYLIST } from './routes'
 import { buildSite, renderPage, sitemapXml, llmsTxt, articleOf, esc, type SiteInput } from './pages'
 
 const input: SiteInput = {
@@ -73,6 +74,15 @@ describe('prerendered site', () => {
     expect(docs.length).toBeGreaterThan(0)
     expect(new Set(docs)).toEqual(new Set(['dsa']))
     for (const q of ALL_QUESTIONS.filter((x) => !x.verified)) expect(dsa.body).not.toContain(esc(q.q))
+  })
+
+  it('keeps every prerendered page out of the service worker\'s app-shell fallback', () => {
+    for (const p of site) expect(NAVIGATE_FALLBACK_DENYLIST.some((r) => r.test(p.path)), p.path).toBe(true)
+    expect(NAVIGATE_FALLBACK_DENYLIST.some((r) => r.test('/'))).toBe(false)
+  })
+
+  it('keeps descriptions short enough for a search result', () => {
+    for (const p of site.filter((x) => x.path.startsWith('/acts/'))) expect(p.description.length, p.path).toBeLessThanOrEqual(200)
   })
 
   it('states the paper composition from meta, not a hard-coded number', () => {
