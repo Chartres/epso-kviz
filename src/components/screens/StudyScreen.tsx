@@ -38,10 +38,10 @@ export function StudyScreen() {
         <h2 className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-steel-400">
           Contents
         </h2>
-        <ol className="space-y-1">
+        <ol>
           {LESSONS.map((l) => (
             <li key={l.id}>
-              <a href={`#${l.id}`} className="text-sm text-steel-300 hover:text-brass-400">
+              <a href={`#${l.id}`} className="flex min-h-11 items-center py-1 text-sm text-steel-300 hover:text-brass-400">
                 {l.title}
               </a>
             </li>

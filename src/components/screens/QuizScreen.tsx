@@ -50,7 +50,7 @@ export function QuizScreen() {
         <button
           type="button"
           onClick={() => dispatch({ type: 'goMenu' })}
-          className="text-sm text-steel-400 hover:text-brass-400"
+          className="-ml-2 min-h-11 px-2 text-sm text-steel-400 hover:text-brass-400"
         >
           ← End
         </button>
