@@ -23,6 +23,8 @@ checked against the official text, and the question shows the verbatim passage f
 the Digital Omnibus on AI or another EU act that settles it. CI checks every quote against pinned
 copies in `data/sources/` (41 public texts). The other 12 are logged in `data/verification/`
 with the reason they are not verified: a judgment no text decides, or a source we can't pin.
+Engineering questions are mostly practice judgments; 2 of the 80 are verified against public
+texts (red-teaming, indirect prompt injection), and the 2026-11-04 pass logs why the rest are not.
 
 ## Highlights
 

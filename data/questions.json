@@ -74,7 +74,20 @@
   "c": "reviewing a sample of production conversations for answer accuracy",
   "d": "load testing the endpoint at three times the expected peak concurrency for an hour",
   "correct": "a",
-  "explain": "Red-teaming is adversarial by design: someone actively tries to make the system misbehave, including jailbreaks, misuse framings and injection. Golden-set scoring is the tempting near-miss, but it measures expected behaviour on known inputs rather than searching for unknown failure modes."
+  "explain": "Red-teaming is adversarial testing: a team searches for inputs that make the system misbehave, such as harmful, policy-violating or data-leaking outputs. Golden-set scoring is the tempting near-miss, but it replays fixed, known inputs and measures expected behaviour instead of searching for new ones that break the system.",
+  "sources": [
+   {
+    "doc": "ai-act",
+    "ref": "Annex XI, Section 2, point 2",
+    "quote": "Where applicable, a detailed description of the measures put in place for the purpose of conducting internal and/or external adversarial testing (e.g. red teaming), model adaptations, including alignment and fine-tuning."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Glossary, 'Red-teaming'",
+    "quote": "Red-teaming: A systematic process in which dedicated individuals or teams search for vulnerabilities, limitations, or potential for misuse through various methods. Often, the red team searches for inputs that induce undesirable behaviour in a model or system to identify safety gaps."
+   }
+  ],
+  "verified": "2026-11-04"
  },
  {
   "id": 9,
@@ -239,7 +252,25 @@
   "c": "indirect prompt injection — retrieved content is untrusted input, never instruction",
   "d": "data poisoning — an attacker has corrupted the corpus the model was trained on",
   "correct": "c",
-  "explain": "The hostile text arrives through content the system retrieved, not from the user, which is what makes it indirect and why filtering the user's input does not help. Jailbreaking is the tempting label but describes an adversarial user turn, and no training data was touched here."
+  "explain": "The hostile text was planted in content the service retrieves, not typed by a user, so this is indirect prompt injection: retrieved content is untrusted input, never instruction. Jailbreaking is the tempting label, but it means prompts a user submits to bypass guardrails, and data poisoning compromises a training dataset, which was not touched here.",
+  "sources": [
+   {
+    "doc": "nist-genai-profile",
+    "ref": "Section 2.9 (Information Security)",
+    "quote": "Indirect prompt injection attacks occur when adversaries remotely (i.e., without a direct interface) exploit LLM-integrated applications by injecting prompts into data likely to be retrieved."
+   },
+   {
+    "doc": "nist-genai-profile",
+    "ref": "Section 2.9 (Information Security)",
+    "quote": "Another cybersecurity risk to GAI is data poisoning, in which an adversary compromises a training dataset used by a model to manipulate its outputs or operation."
+   },
+   {
+    "doc": "iasr-2025",
+    "ref": "Glossary, 'Jailbreaking'",
+    "quote": "Jailbreaking: Generating and submitting prompts designed to bypass guardrails and make an AI system produce harmful content, such as instructions for building weapons."
+   }
+  ],
+  "verified": "2026-11-04"
  },
  {
   "id": 24,

@@ -229,13 +229,17 @@ function categoryPages(input: SiteInput): Page[] {
   return input.meta.categories.map((c) => {
     const all = input.questions.filter((q) => q.cat === c.name)
     const verified = all.filter((q) => q.verified)
-    // Categories without verified questions yet show a fixed sample, labelled as such.
-    const shown = verified.length ? verified : all.slice(0, 20)
+    // A category with few verified questions tops the page up with a fixed sample, labelled.
+    const SAMPLE = 20
+    const fill = verified.length >= SAMPLE ? [] : all.filter((q) => !q.verified).slice(0, SAMPLE - verified.length)
+    const shown = [...verified, ...fill]
     const path = `/questions/${c.id}/`
     const title = `${c.name}: ${shown.length} practice questions for EPSO AD/430/26 Field 1 (AI)`
-    const intro = verified.length
-      ? `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against the official text, and the passage that settles it is quoted. The others are in the trainer, marked as not yet verified.`
-      : `A sample of ${shown.length} of the ${all.length} questions in this category. They rest on standard ML engineering practice and are not yet cited to pinned sources.`
+    const intro = !verified.length
+      ? `A sample of ${shown.length} of the ${all.length} questions in this category. They rest on standard ML engineering practice and are not yet cited to pinned sources.`
+      : fill.length
+        ? `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against a pinned text, and the passage that settles it is quoted. They come first; the other ${fill.length} shown here rest on standard practice and are not yet cited.`
+        : `${verified.length} of the ${all.length} questions in this category are verified: the answer was checked against the official text, and the passage that settles it is quoted. The others are in the trainer, marked as not yet verified.`
     const comp = input.meta.exam.composition
     const paper = comp.every((p) => p.count === comp[0].count)
       ? `the ${input.meta.exam.totalQuestions}-question paper draws ${comp[0].count} from each`
@@ -354,6 +358,14 @@ ${rows.map(([u, d]) => `  <url><loc>${input.base}${u}</loc><lastmod>${d}</lastmo
 `
 }
 
+function citedLine(input: SiteInput): string {
+  const eng = input.questions.filter((q) => q.cat === 'AI Engineering & Operations')
+  const v = eng.filter((q) => q.verified).length
+  return v
+    ? `${v} of the ${eng.length} AI-engineering questions are cited to public texts; the others rely on standard practice and are marked as not yet verified.`
+    : 'AI-engineering questions are not yet cited.'
+}
+
 export function llmsTxt(pages: Page[], input: SiteInput): string {
   const e = input.meta.exam
   const verified = input.questions.filter((q) => q.verified).length
@@ -363,7 +375,7 @@ export function llmsTxt(pages: Page[], input: SiteInput): string {
     `> Free, unofficial practice trainer for the EPSO/AD/430/26 competition, Field 1 (Artificial Intelligence): the field-related MCQ (${e.totalQuestions} questions, ${e.timeLimitMinutes} minutes, pass ${e.passThreshold}/${e.totalQuestions}, the only ranking test). Not affiliated with EPSO or the European Commission.`,
     '',
     `- ${input.questions.length} questions across the three Annex II categories: ${input.meta.categories.map((c) => `${c.name} (${c.count})`).join(', ')}.`,
-    `- ${verified} of ${input.questions.length} are verified: the answer was checked against the official text (AI Act 2024/1689 as amended by the Digital Omnibus 2026/1744, and other EU texts), and the passage is quoted. AI-engineering questions are not yet cited.`,
+    `- ${verified} of ${input.questions.length} are verified: the answer was checked against the official text (AI Act 2024/1689 as amended by the Digital Omnibus 2026/1744, and other EU texts), and the passage is quoted. ${citedLine(input)}`,
     `- Features: daily 12-question lessons with spaced repetition, practice by category, a timed 30-question mock in the official composition, a likely-score range from first attempts only, and a commonplace book of collected passages.`,
     `- Free, no account needed, works offline. Source code: https://github.com/Chartres/epso-kviz`,
     '',
