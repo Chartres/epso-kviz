@@ -89,7 +89,7 @@ describe('prerendered site', () => {
     const eng = page('/questions/engineering/')!
     const v = ALL_QUESTIONS.filter((q) => q.cat === 'AI Engineering & Operations' && q.verified)
     expect(v.length).toBeGreaterThan(0)
-    expect(eng.body).toContain(`the ${v.length} that a public text does settle are verified and come first`)
+    expect(eng.body).toContain(`The ${v.length} that a public text does settle are verified and come first, with their passages quoted.`)
     expect(eng.body.match(/class="q"/g)).toHaveLength(20)
     const first = eng.body.indexOf(esc(v[0].q))
     const firstUnverified = eng.body.indexOf(esc(ALL_QUESTIONS.find((q) => q.cat === 'AI Engineering & Operations' && !q.verified)!.q))
@@ -104,6 +104,7 @@ describe('prerendered site', () => {
     expect(eng.body).toMatch(/no public text decides/i)
     expect(eng.body).not.toContain('not yet cited')
     expect(llmsTxt(site, input)).toMatch(/practice judgments/)
+    expect(eng.description).toContain('practice judgments')
     expect(page('/questions/governance/')!.body).not.toContain('practice judgments')
   })
 

@@ -238,10 +238,10 @@ function categoryPages(input: SiteInput): Page[] {
     // Engineering (Pavol, 2026-11-04, option A): mostly practice judgments, said plainly.
     const judgment =
       c.group === 'engineering'
-        ? ` Most questions here are practice judgments: which control, metric or design fits the case. No public text decides them, so they carry a rationale but no quoted source${verified.length ? `; the ${verified.length} that a public text does settle are verified and come first, with the passage quoted` : ''}.`
+        ? `Most questions here are practice judgments: which control, metric or design fits the case. No public text decides them, so they carry a rationale but no quoted source.${verified.length ? ` ${verified.length === 1 ? 'The one question that a public text does settle is verified and comes first' : `The ${verified.length} that a public text does settle are verified and come first`}, with their passages quoted.` : ''}`
         : ''
     const intro = judgment
-      ? `${shown.length} of the ${all.length} questions in this category.${judgment}`
+      ? `A sample of ${shown.length} of the ${all.length} questions in this category. ${judgment}`
       : !verified.length
         ? `A sample of ${shown.length} of the ${all.length} questions in this category, not yet cited to pinned sources.`
         : fill.length
@@ -255,7 +255,7 @@ function categoryPages(input: SiteInput): Page[] {
       path,
       title,
       lastmod: newest(shown),
-      description: `${c.name} practice questions for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) field-related test, with answers and explanations${!verified.length ? '' : fill.length ? `; ${verified.length} checked against public texts` : ' checked against the official texts'}.`,
+      description: `${c.name} practice questions for the EPSO/AD/430/26 Field 1 (Artificial Intelligence) field-related test, with answers and explanations${judgment ? '; mostly practice judgments, with the few that a public text settles cited' : !verified.length ? '' : fill.length ? `; ${verified.length} checked against public texts` : ' checked against the official texts'}.`,
       body: `<h1>${esc(c.name)}</h1><p>One of the three Annex II categories of the EPSO/AD/430/26 Field 1 test; ${paper}. ${intro}</p>${shown.map((q, i) => questionHtml(q, i + 1, input)).join('')}${cta}`,
       jsonLd: [quizLd(title, shown, path, input)],
     }
