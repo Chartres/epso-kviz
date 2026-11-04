@@ -1,0 +1,111 @@
+{
+ "product": "epso-kviz",
+ "date": "2026-11-04",
+ "headline": "Four changes are live. Mock exams draw unseen questions first and say how many are new. 17 crawlable pages cover the EU acts and texts beyond the AI Act. The first 2 engineering questions are verified against public texts. A 390 px pass brought every control on the primary screens to 44 px, with an e2e guard. IndexNow accepted all 70 sitemap URLs. One control the guard couldn't see (the sign-in button, which renders only when Supabase is configured) is fixed in the hand-back PR.",
+ "remains": "When a candidate's own AI assistant can explain the AI Act in general terms, what remains here is: 141 answers checked word for word in CI against pinned official texts, including the Digital Omnibus 2026/1744, which postdates most models' training; the paper's real shape (30 questions in 40 minutes, 10 per Annex II category, mocks from unseen questions, the ranking rule from the notice); and the method (retrieval before reading, first-try calibration, spaced review of mistakes).",
+ "shipped": [
+  {
+   "title": "Exam simulation: unseen questions first",
+   "pr": "https://github.com/Chartres/epso-kviz/pull/23",
+   "merged": "2026-11-04",
+   "live_checked": "Bundle index-DZJyeQI2.js. Live in Chromium at 390 px, with Supabase blocked and 72 of 78 governance questions seeded as answered. The Practice tab reads '26 of 30 new to you; the rest you have answered before.' Walking all 30 exam stems found exactly 4 repeats. scrollWidth was 390."
+  },
+  {
+   "title": "Crawlable pages for the EU acts beyond the AI Act",
+   "pr": "https://github.com/Chartres/epso-kviz/pull/24",
+   "merged": "2026-11-04",
+   "live_checked": "The first Pages deploy timed out on GitHub's side ('updating_pages'; build and tests passed). One re-run, plus the deploy from #25, brought it up. Live at 390 px: /acts/ lists 17 texts, and /acts/gdpr/ opens with its h1 and no horizontal scroll. With the service worker installed and controlling, /acts/dsa/ still loads as a document. IndexNow: HTTP 200 for 70 URLs at 2026-11-04T21:00:04Z."
+  },
+  {
+   "title": "Verify two engineering questions against pinned texts",
+   "pr": "https://github.com/Chartres/epso-kviz/pull/25",
+   "merged": "2026-11-04",
+   "live_checked": "Live llms.txt reads '2 of the 80 AI-engineering questions are cited to public texts'. /questions/engineering/ leads with the verified two. In the app at 390 px, Q23 shows its three passages (NIST Generative AI Profile §2.9 twice, IASR glossary 'Jailbreaking') and 'Checked against the official text on 2026-11-04'."
+  },
+  {
+   "title": "Phone pass at 390 px: tap targets and the question header",
+   "pr": "https://github.com/Chartres/epso-kviz/pull/26",
+   "merged": "2026-11-04",
+   "live_checked": "Bundle index-CVt1OYID.js. Live audit in Chromium at 390 px with Supabase blocked, across home, the lesson (form B, options, feedback with citations), home with an unfinished round, the Practice, Progress and Guide tabs, and the exam. No horizontal scroll anywhere, and every control is at least 44 px except one: the 'Sign in' button, 32 x 32. It renders only when Supabase is configured, so local e2e never saw it. Fixed to 44 px in the hand-back PR."
+  },
+  {
+   "title": "Sign-in button at 44 px, plus this hand-back",
+   "pr": "see this file's PR",
+   "merged": null,
+   "live_checked": null
+  }
+ ],
+ "decisions": [
+  {
+   "question": "How to fill a group of the exam whose unseen questions run out",
+   "default_taken": "Random from the answered questions in that group, so it is still 10 per group",
+   "why": "The mock measures and doesn't drill, so weighting toward weak spots would bias the score."
+  },
+  {
+   "question": "Where the unseen count shows",
+   "default_taken": "On the exam card on the Practice tab, and as start_exam.unseen",
+   "why": "The candidate sees it before starting, and the likely-score check can filter to mocks that were really new."
+  },
+  {
+   "question": "Which texts get an /acts/ page",
+   "default_taken": "Every pinned text that at least 2 verified questions cite (17 today). The AI Act and the Omnibus keep their /ai-act/ article pages",
+   "why": "No single-question thin pages. ACT_PAGE_MIN is one constant."
+  },
+  {
+   "question": "What to call texts that aren't acts (IASR, the GPAI Code, the EDPB opinion, the JRC)",
+   "default_taken": "'EU acts and texts', with the header link 'Other EU texts'",
+   "why": "From the review: 'EU acts' overstated what some of the pages are."
+  },
+  {
+   "question": "Service-worker fallback for static pages",
+   "default_taken": "The prefixes live in one module (src/seo/routes.ts), and a test checks every prerendered page is covered",
+   "why": "The hand-kept list missed /acts/; the review caught it before merge."
+  },
+  {
+   "question": "Engineering verification bar",
+   "default_taken": "The same bar as governance and policy: the passage alone must settle the key against the strongest distractor, confirmed by a quotes-only reviewer. 2 of 80 passed, and Q51 (model card) was dropped",
+   "why": "Engineering questions are mostly practice judgments. Forcing citations onto them would break the 'sources dressed up' refusal in SIGNATURE.md."
+  },
+  {
+   "question": "Engineering category page once some questions are verified",
+   "default_taken": "The verified questions first, topped up to 20 with the labelled sample",
+   "why": "Otherwise the page would have shrunk from 20 questions to 2."
+  },
+  {
+   "question": "Tap-target rule",
+   "default_taken": "44 px for every control on the primary screens. Links in running text are exempt only when marked data-inline",
+   "why": "An explicit marker can't silently hide a stand-alone link, which the first version of the guard did."
+  },
+  {
+   "question": "Option order on resume (follow-up to 2026-11-02)",
+   "default_taken": "No change. The 2 Nov hand-back said options are fixed A–D; in fact merge.mjs serves a fixed shuffle per question id. That order is the same on every build, so a resumed round still shows the same options",
+   "why": "A correction to the record; behaviour was right."
+  }
+ ],
+ "proposals": [
+  {
+   "title": "Engineering verification: where to stop",
+   "question": "Should the engineering category stay mostly unverified, labelled as practice judgment, or should we pin more open texts to verify further?",
+   "options": [
+    "A: stop at 2 and say on the engineering page that these are practice judgments",
+    "B: pin more openly licensed engineering texts (for example Google's 'Rules of ML', CC BY 4.0) and run another pass",
+    "C: leave as is"
+   ],
+   "recommendation": "A. The exam tests judgment here, and a citation that only touches the topic would look like evidence without being any.",
+   "cost": "A: one sentence on the page. B: about a day per 10 to 15 questions, with no guarantee that many pass the bar."
+  }
+ ],
+ "next": [
+  "Update the flywheel portfolio record and launch log (IndexNow 2026-11-04T21:00:04Z, 70 URLs) with #23 to #26; the flywheel repo isn't reachable from this session.",
+  "PR #19 (private bank) and the r/EUCareers listing are untouched, as asked.",
+  "The results screen and the Progress tab aren't in the tap-target guard yet; add them if they change."
+ ],
+ "screenshots": [
+  "e2e/shots/exam-unseen-390.png",
+  "e2e/shots/seo-act-phone.png",
+  "docs/review/shots/2026-11-04-question-header-before-390.png",
+  "docs/review/shots/2026-11-04-question-header-390.png",
+  "e2e/shots/unfinished-home-390.png",
+  "e2e/shots/unfinished-resumed-390.png"
+ ]
+}
