@@ -112,6 +112,7 @@ export function recordLessonComplete(
 ): ProgressData {
   const s = p.streak ?? emptyStreak()
   if (s.lastDate === today) return p // already counted today
+  if (s.lastDate > today) return p // future-dated device / clock skew — treat as today already counted
   const current = isNextDay(s.lastDate, today) ? s.current + 1 : 1
   return {
     ...p,
