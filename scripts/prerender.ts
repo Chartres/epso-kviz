@@ -14,10 +14,11 @@ const read = (p: string) => readFileSync(join(root, p), 'utf8')
 
 /** YYYY-MM-DD of the last git commit that touched the data directory. Falls back to today. */
 function dataLastMod(): string {
+  const today = new Date().toISOString().slice(0, 10)
   try {
-    return execSync('git log -1 --format=%cs -- data/', { cwd: root }).toString().trim() || new Date().toISOString().slice(0, 10)
+    return execSync('git log -1 --format=%cs -- data/', { cwd: root }).toString().trim() || today
   } catch {
-    return new Date().toISOString().slice(0, 10)
+    return today
   }
 }
 
