@@ -94,8 +94,7 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (!Array.isArray(r.ids) || !r.ids.every((x) => Number.isInteger(x))) return null
   if (!Array.isArray(r.answers)) return null
   // Deduplicate ids so the restored round's total matches the displayed count.
-  const uniqueIds: number[] = [...new Set(r.ids as number[])]
-  const ids = new Set(uniqueIds)
+  const ids = new Set(r.ids as number[])
   // Deduplicate answers (keep the first per id) so answeredCount never exceeds len(ids).
   const seenAnswers = new Set<number>()
   const answers = (r.answers as unknown[]).filter(
@@ -109,7 +108,7 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
     },
   )
   if (answers.length === 0) return null
-  const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: uniqueIds, answers }
+  const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: [...ids], answers }
   const f = r.filter as { categories?: unknown; search?: unknown } | undefined
   if (snap.mode === 'practice' && f && Array.isArray(f.categories)) {
     snap.filter = {
