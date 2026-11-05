@@ -13,7 +13,7 @@ import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress } from '@/auth/sync'
-import { mergeProgress } from '@/domain/progress'
+import { emptyProgress, mergeProgress } from '@/domain/progress'
 import { track } from '@/analytics'
 
 interface AppContextValue {
@@ -33,6 +33,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // True while the sign-in cloud sync is in flight; the debounced push skips to
   // avoid upsetting the cloud row with unmerged local progress (finding #1).
   const syncingRef = useRef(false)
+  // Tracks the previous user id to detect sign-out (non-null → null transition).
+  const prevUserIdRef = useRef<string | undefined>(undefined)
 
   // Hydrate persisted progress once on mount.
   useEffect(() => {
@@ -54,6 +56,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveRound(state.unfinished)
   }, [state.unfinished])
+
+  // On sign-out: clear in-memory progress so the next user starts clean.
+  useEffect(() => {
+    const prevId = prevUserIdRef.current
+    prevUserIdRef.current = user?.id
+    if (prevId !== undefined && user === null) {
+      dispatch({ type: 'hydrate', progress: emptyProgress() })
+      dispatch({ type: 'discardRound' })
+    }
+  }, [user?.id])
 
   // On sign-in: reconcile local progress with the cloud and adopt the merge.
   useEffect(() => {
