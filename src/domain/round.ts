@@ -14,7 +14,7 @@
  * are unchanged.
  */
 import type { CategoryName, Choice } from './types'
-import { getQuestion } from './questions'
+import { getQuestion, CATEGORY_NAMES } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
 
 export type ResumableMode = 'lesson' | 'practice' | 'review' | 'bookmarks'
@@ -112,7 +112,9 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   const f = r.filter as { categories?: unknown; search?: unknown } | undefined
   if (snap.mode === 'practice' && f && Array.isArray(f.categories)) {
     snap.filter = {
-      categories: f.categories.filter((c): c is CategoryName => typeof c === 'string'),
+      categories: f.categories.filter(
+        (c): c is CategoryName => typeof c === 'string' && (CATEGORY_NAMES as string[]).includes(c),
+      ),
       search: typeof f.search === 'string' ? f.search : '',
     }
   }
