@@ -14,7 +14,10 @@ export function HomeScreen() {
   const { state, dispatch } = useApp()
   const sum = useMemo(() => summary(state.progress, ALL_QUESTIONS), [state.progress])
   const reviewCount = useMemo(
-    () => needsReviewIds(state.progress).length,
+    () => {
+      const bankIds = new Set(ALL_QUESTIONS.map((q) => q.id))
+      return needsReviewIds(state.progress).filter((id) => bankIds.has(id)).length
+    },
     [state.progress],
   )
   const today = todayStr()

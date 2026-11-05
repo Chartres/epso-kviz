@@ -2,6 +2,7 @@ import { useApp } from '@/app/AppContext'
 import { track } from '@/analytics'
 import { makeRng, timeSeed } from '@/domain/rng'
 import { needsReviewIds } from '@/domain/progress'
+import { ALL_QUESTIONS } from '@/domain/questions'
 import type { Lang } from '@/domain/reasoning/numerical'
 import type { ResumableMode } from '@/domain/round'
 import { defaultLang } from '@/components/screens/NumericalScreen'
@@ -51,7 +52,8 @@ export function UnfinishedRound() {
     if (!snap) return
     dispatch({ type: 'discardRound' })
     // Nothing to build a new review or bookmarks round from: just clear the card.
-    if (snap.mode === 'review' && needsReviewIds(state.progress).length === 0) return
+    const bankIds = new Set(ALL_QUESTIONS.map((q) => q.id))
+    if (snap.mode === 'review' && needsReviewIds(state.progress).filter((id) => bankIds.has(id)).length === 0) return
     if (snap.mode === 'bookmarks' && state.progress.bookmarks.length === 0) return
     const rng = makeRng(timeSeed())
     track(START_EVENT[snap.mode], { question_first: state.settings.questionFirst })
