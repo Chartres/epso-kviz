@@ -31,7 +31,11 @@ export function loadProgress(): ProgressData {
       ...(sanitizeCommonplace(parsed.commonplace).length
         ? { commonplace: sanitizeCommonplace(parsed.commonplace) }
         : {}),
-      streak: parsed.streak ?? emptyStreak(),
+      streak: {
+        current: typeof parsed.streak?.current === 'number' ? parsed.streak.current : 0,
+        best: typeof parsed.streak?.best === 'number' ? parsed.streak.best : 0,
+        lastDate: typeof parsed.streak?.lastDate === 'string' ? parsed.streak.lastDate : '',
+      },
       updatedAt: parsed.updatedAt ?? 0,
     }
   } catch {
