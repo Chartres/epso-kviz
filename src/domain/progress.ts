@@ -81,14 +81,28 @@ export function emptyProgress(): ProgressData {
   }
 }
 
-/** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
-function isNextDay(prev: string, today: string): boolean {
-  if (!prev) return false
+const DAY_MS = 86_400_000
+
+/** Milliseconds from `prev` to `today` (both YYYY-MM-DD). */
+function msBetween(prev: string, today: string): number {
   const [py, pm, pd] = prev.split('-').map(Number)
   const [ty, tm, td] = today.split('-').map(Number)
-  const a = Date.UTC(py, pm - 1, pd)
-  const b = Date.UTC(ty, tm - 1, td)
-  return b - a === 86_400_000
+  return Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd)
+}
+
+/** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
+function isNextDay(prev: string, today: string): boolean {
+  return !!prev && msBetween(prev, today) === DAY_MS
+}
+
+/**
+ * The streak count to display: `current` if today or yesterday was the last lesson,
+ * otherwise 0 (the streak has been broken and the stored count is stale until the
+ * next lesson resets it to 1 via recordLessonComplete).
+ */
+export function activeStreak(streak: Streak, today: string): number {
+  if (!streak.lastDate || streak.current === 0) return 0
+  return msBetween(streak.lastDate, today) <= DAY_MS ? streak.current : 0
 }
 
 /** Record that the learner completed a lesson on `today` (YYYY-MM-DD). */
@@ -98,6 +112,7 @@ export function recordLessonComplete(
 ): ProgressData {
   const s = p.streak ?? emptyStreak()
   if (s.lastDate === today) return p // already counted today
+  if (s.lastDate > today) return p // future-dated device / clock skew — treat as today already counted
   const current = isNextDay(s.lastDate, today) ? s.current + 1 : 1
   return {
     ...p,
@@ -265,12 +280,16 @@ export function mergeProgress(
   const sa = a.streak ?? emptyStreak()
   const sb = b.streak ?? emptyStreak()
   const latest = sb.lastDate >= sa.lastDate ? sb : sa
+  // When both sides have the same lastDate, take the higher current so a local
+  // 5-day streak merged with a remote first lesson on the same day stays at 5.
+  const current =
+    sa.lastDate === sb.lastDate ? Math.max(sa.current, sb.current) : latest.current
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: { ...latest, best: Math.max(sa.best, sb.best) },
+    streak: { ...latest, current, best: Math.max(sa.best, sb.best) },
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }

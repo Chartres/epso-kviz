@@ -14,7 +14,7 @@
  * are unchanged.
  */
 import type { CategoryName, Choice } from './types'
-import { getQuestion } from './questions'
+import { getQuestion, CATEGORY_NAMES } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
 
 export type ResumableMode = 'lesson' | 'practice' | 'review' | 'bookmarks'
@@ -93,20 +93,28 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (r.v !== 1 || !isResumable(r.mode as string)) return null
   if (!Array.isArray(r.ids) || !r.ids.every((x) => Number.isInteger(x))) return null
   if (!Array.isArray(r.answers)) return null
+  // Deduplicate ids so the restored round's total matches the displayed count.
   const ids = new Set(r.ids as number[])
+  // Deduplicate answers (keep the first per id) so answeredCount never exceeds len(ids).
+  const seenAnswers = new Set<number>()
   const answers = (r.answers as unknown[]).filter(
-    (a): a is { id: number; choice: Choice } =>
-      !!a &&
-      typeof a === 'object' &&
-      ids.has((a as { id: number }).id) &&
-      CHOICES.includes((a as { choice: Choice }).choice),
+    (a): a is { id: number; choice: Choice } => {
+      if (!a || typeof a !== 'object') return false
+      const id = (a as { id: number }).id
+      if (!ids.has(id) || !CHOICES.includes((a as { choice: Choice }).choice)) return false
+      if (seenAnswers.has(id)) return false
+      seenAnswers.add(id)
+      return true
+    },
   )
   if (answers.length === 0) return null
-  const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: r.ids as number[], answers }
+  const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: [...ids], answers }
   const f = r.filter as { categories?: unknown; search?: unknown } | undefined
   if (snap.mode === 'practice' && f && Array.isArray(f.categories)) {
     snap.filter = {
-      categories: f.categories.filter((c): c is CategoryName => typeof c === 'string'),
+      categories: f.categories.filter(
+        (c): c is CategoryName => typeof c === 'string' && (CATEGORY_NAMES as string[]).includes(c),
+      ),
       search: typeof f.search === 'string' ? f.search : '',
     }
   }

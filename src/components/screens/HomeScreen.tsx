@@ -2,10 +2,11 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds } from '@/domain/progress'
+import { summary, needsReviewIds, activeStreak } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
+import { todayStr } from '@/lib/date'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { UnfinishedRound } from '@/components/UnfinishedRound'
 
@@ -13,10 +14,14 @@ export function HomeScreen() {
   const { state, dispatch } = useApp()
   const sum = useMemo(() => summary(state.progress, ALL_QUESTIONS), [state.progress])
   const reviewCount = useMemo(
-    () => needsReviewIds(state.progress).length,
+    () => {
+      const bankIds = new Set(ALL_QUESTIONS.map((q) => q.id))
+      return needsReviewIds(state.progress).filter((id) => bankIds.has(id)).length
+    },
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  const today = todayStr()
+  const streak = activeStreak(state.progress.streak, today)
   const rng = () => makeRng(timeSeed())
 
   return (

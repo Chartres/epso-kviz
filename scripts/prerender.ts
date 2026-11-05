@@ -3,6 +3,7 @@
 // service worker's precache revision always matches the file that ships.)
 // Runs on plain Node (type stripping), so it imports only relative .ts files.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { execSync } from 'node:child_process'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { buildSite, renderPage, sitemapXml, llmsTxt, type SiteInput } from '../src/seo/pages.ts'
@@ -10,6 +11,16 @@ import { buildSite, renderPage, sitemapXml, llmsTxt, type SiteInput } from '../s
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
 const read = (p: string) => readFileSync(join(root, p), 'utf8')
+
+/** YYYY-MM-DD of the last git commit that touched the data directory. Falls back to today. */
+function dataLastMod(): string {
+  const today = new Date().toISOString().slice(0, 10)
+  try {
+    return execSync('git log -1 --format=%cs -- data/', { cwd: root }).toString().trim() || today
+  } catch {
+    return today
+  }
+}
 
 const base = (process.env.SITE_URL || 'https://epsokviz.dravec.org').replace(/\/$/, '')
 const viteBase = process.env.VITE_BASE || '/'
@@ -44,7 +55,7 @@ const input: SiteInput = {
   meta: JSON.parse(read('data/meta.json')),
   sources: JSON.parse(read('data/sources/registry.json')).docs,
   base,
-  date: new Date().toISOString().slice(0, 10),
+  date: dataLastMod(),
   articleTitles,
   // Same env as the app bundle; absent locally and in e2e, so those pages carry no script.
   beacon:
