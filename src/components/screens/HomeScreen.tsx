@@ -6,6 +6,7 @@ import { summary, needsReviewIds, activeStreak } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
+import { todayStr } from '@/lib/date'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { UnfinishedRound } from '@/components/UnfinishedRound'
 
@@ -16,7 +17,7 @@ export function HomeScreen() {
     () => needsReviewIds(state.progress).length,
     [state.progress],
   )
-  const today = new Date().toISOString().slice(0, 10)
+  const today = todayStr()
   const streak = activeStreak(state.progress.streak, today)
   const rng = () => makeRng(timeSeed())
 
