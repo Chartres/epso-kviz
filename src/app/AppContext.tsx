@@ -33,6 +33,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // True while the sign-in cloud sync is in flight; the debounced push skips to
   // avoid upsetting the cloud row with unmerged local progress (finding #1).
   const syncingRef = useRef(false)
+  // Set when the sign-in fetch failed; the next debounced push is skipped to
+  // avoid overwriting the cloud row with an unmerged local snapshot.
+  const syncFetchFailedRef = useRef(false)
   // Tracks the previous user id to detect sign-out (non-null → null transition).
   const prevUserIdRef = useRef<string | undefined>(undefined)
 
@@ -72,7 +75,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (!user) return
     let cancelled = false
     syncingRef.current = true
-    syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
+    syncFetchFailedRef.current = false
+    // Wrap fetch to detect network failure without changing syncProgress's signature.
+    const trackingStore = {
+      ...supabaseStore,
+      fetch: async (id: string) => {
+        try {
+          return await supabaseStore.fetch(id)
+        } catch (e) {
+          syncFetchFailedRef.current = true
+          throw e
+        }
+      },
+    }
+    syncProgress(trackingStore, user.id, loadProgress()).then((merged) => {
       syncingRef.current = false
       if (!cancelled) {
         // Re-merge with the latest local snapshot: answers recorded while the
@@ -96,6 +112,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
+      if (syncFetchFailedRef.current) {
+        syncFetchFailedRef.current = false
+        return
+      }
       if (!syncingRef.current) {
         supabaseStore.save(user.id, state.progress).catch(() => {})
       }
