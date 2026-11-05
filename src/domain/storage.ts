@@ -1,10 +1,5 @@
 import { sanitizeCommonplace } from './commonplace'
-import {
-  emptyProgress,
-  emptyStreak,
-  PROGRESS_VERSION,
-  type ProgressData,
-} from './progress'
+import { emptyProgress, PROGRESS_VERSION, type ProgressData } from './progress'
 
 export const STORAGE_KEY = 'epso-kviz:progress:v1'
 
