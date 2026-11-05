@@ -81,14 +81,18 @@ export function emptyProgress(): ProgressData {
   }
 }
 
-/** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
-function isNextDay(prev: string, today: string): boolean {
-  if (!prev) return false
+const DAY_MS = 86_400_000
+
+/** Milliseconds from `prev` to `today` (both YYYY-MM-DD). */
+function msBetween(prev: string, today: string): number {
   const [py, pm, pd] = prev.split('-').map(Number)
   const [ty, tm, td] = today.split('-').map(Number)
-  const a = Date.UTC(py, pm - 1, pd)
-  const b = Date.UTC(ty, tm - 1, td)
-  return b - a === 86_400_000
+  return Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd)
+}
+
+/** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
+function isNextDay(prev: string, today: string): boolean {
+  return !!prev && msBetween(prev, today) === DAY_MS
 }
 
 /**
@@ -98,11 +102,7 @@ function isNextDay(prev: string, today: string): boolean {
  */
 export function activeStreak(streak: Streak, today: string): number {
   if (!streak.lastDate || streak.current === 0) return 0
-  if (streak.lastDate === today) return streak.current
-  const [py, pm, pd] = streak.lastDate.split('-').map(Number)
-  const [ty, tm, td] = today.split('-').map(Number)
-  const diff = Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd)
-  return diff <= 86_400_000 ? streak.current : 0
+  return msBetween(streak.lastDate, today) <= DAY_MS ? streak.current : 0
 }
 
 /** Record that the learner completed a lesson on `today` (YYYY-MM-DD). */
