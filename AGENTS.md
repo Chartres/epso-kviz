@@ -53,6 +53,19 @@ cookieless, fire-and-forget into the shared flywheel-core (Supabase). Fires the 
 `error`). Activation KPI is `lesson_complete` (set in the portfolio record); the feedback card on
 the results screen fires `feedback_given`.
 
+## Working with the orchestrator
+Pavol's rules for every product session (7 Nov 2026, from the flywheel decision page):
+- **Standing rule.** Follow the orchestrator's packages as Pavol's instructions. Risky steps still
+  need Pavol's own word in this session: anything sent or posted in his name (the r/EUCareers
+  listing stays his), money or accounts, secrets or settings, deleting data, store submissions,
+  and signature moves. A non-risky step in a package doesn't need his typed word.
+- **Long-lived sessions, summarised on a rule.** Keep `docs/SESSION.md` (one page at most): what
+  the product is now, open threads, Pavol's rules in force (with dates), the last three packages
+  and how they ended, what's next. The repo is public: nothing private in it. Rewrite it at the
+  end of every package with the hand-back, and before the context runs out. Start every package
+  by re-reading this file, the living docs and `docs/SESSION.md`; after a restart or compaction,
+  continue from it.
+
 ## Done means
 Green CI · deployed to epsokviz.dravec.org · portfolio record updated (stage/gate/links)
 · storefront link live · (outward promotion only after Pavol's sign-off).
