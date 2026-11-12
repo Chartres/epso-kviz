@@ -250,6 +250,21 @@ function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionS
   return out
 }
 
+/**
+ * Merge two streak records. The side with the later lastDate wins, but when the
+ * two dates are consecutive (the later one is the day after the earlier one) the
+ * earlier streak is extended: a device that synced late and recorded current=1 for
+ * its day should not erase a 7-day streak from the other device.
+ */
+function mergeStreak(sa: Streak, sb: Streak): Streak {
+  const best = Math.max(sa.best, sb.best)
+  const [earlier, later] = sa.lastDate <= sb.lastDate ? [sa, sb] : [sb, sa]
+  const current = isNextDay(earlier.lastDate, later.lastDate)
+    ? Math.max(later.current, earlier.current + 1)
+    : later.current
+  return { current, best: Math.max(best, current), lastDate: later.lastDate }
+}
+
 /** Merge two progress snapshots: last-write-wins per question, union bookmarks. */
 export function mergeProgress(
   a: ProgressData,
@@ -264,13 +279,12 @@ export function mergeProgress(
   }
   const sa = a.streak ?? emptyStreak()
   const sb = b.streak ?? emptyStreak()
-  const latest = sb.lastDate >= sa.lastDate ? sb : sa
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: { ...latest, best: Math.max(sa.best, sb.best) },
+    streak: mergeStreak(sa, sb),
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }
