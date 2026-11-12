@@ -94,12 +94,20 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (!Array.isArray(r.ids) || !r.ids.every((x) => Number.isInteger(x))) return null
   if (!Array.isArray(r.answers)) return null
   const ids = new Set(r.ids as number[])
+  const seenAnswerIds = new Set<number>()
   const answers = (r.answers as unknown[]).filter(
-    (a): a is { id: number; choice: Choice } =>
-      !!a &&
-      typeof a === 'object' &&
-      ids.has((a as { id: number }).id) &&
-      CHOICES.includes((a as { choice: Choice }).choice),
+    (a): a is { id: number; choice: Choice } => {
+      if (
+        !a ||
+        typeof a !== 'object' ||
+        !ids.has((a as { id: number }).id) ||
+        !CHOICES.includes((a as { choice: Choice }).choice)
+      ) return false
+      const id = (a as { id: number }).id
+      if (seenAnswerIds.has(id)) return false // deduplicate
+      seenAnswerIds.add(id)
+      return true
+    },
   )
   if (answers.length === 0) return null
   const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: r.ids as number[], answers }
