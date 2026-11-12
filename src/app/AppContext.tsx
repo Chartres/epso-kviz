@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useRef,
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
@@ -29,6 +30,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }))
   const { user } = useAuth()
 
+  // Always-current ref so the sign-in sync effect captures the latest progress,
+  // not the snapshot from when the user object first appeared.
+  const progressRef = useRef(state.progress)
+  useEffect(() => {
+    progressRef.current = state.progress
+  }, [state.progress])
+
   // Hydrate persisted progress once on mount.
   useEffect(() => {
     dispatch({ type: 'hydrate', progress: loadProgress() })
@@ -54,7 +62,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
+    syncProgress(supabaseStore, user.id, progressRef.current).then((merged) => {
       if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
     })
     return () => {
