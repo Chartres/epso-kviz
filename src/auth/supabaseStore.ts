@@ -1,5 +1,6 @@
 import { supabase } from './supabase'
-import { PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
+import { emptyStreak, PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
+import { sanitizeCommonplace } from '@/domain/commonplace'
 import type { RemoteProgressStore } from './sync'
 
 /**
@@ -19,9 +20,18 @@ export const supabaseStore: RemoteProgressStore = {
       .eq('app', APP)
       .maybeSingle()
     if (error) throw error
-    const stored = data?.data as ProgressData | undefined
+    const stored = data?.data as Partial<ProgressData> | undefined
     if (!stored || stored.version !== PROGRESS_VERSION) return null
-    return stored
+    // Normalise shape: older rows may be missing fields added in later versions.
+    const cp = sanitizeCommonplace(stored.commonplace)
+    return {
+      version: PROGRESS_VERSION,
+      stats: stored.stats ?? {},
+      bookmarks: Array.isArray(stored.bookmarks) ? stored.bookmarks : [],
+      streak: stored.streak ?? emptyStreak(),
+      updatedAt: stored.updatedAt ?? 0,
+      ...(cp.length ? { commonplace: cp } : {}),
+    }
   },
 
   async save(userId: string, data: ProgressData): Promise<void> {
