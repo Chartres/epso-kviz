@@ -83,10 +83,6 @@ export function restoreRound(snap: RoundSnapshot): SessionState | null {
   return { questions: qs, index: firstOpen === -1 ? qs.length - 1 : firstOpen, records, chosen }
 }
 
-export function answeredCount(snap: RoundSnapshot): number {
-  return snap.answers.length
-}
-
 /** Accept only a well-formed snapshot (storage is user-writable and may be from an old build). */
 export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (!raw || typeof raw !== 'object') return null
