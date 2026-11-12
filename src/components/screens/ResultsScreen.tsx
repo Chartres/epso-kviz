@@ -14,6 +14,16 @@ import { completionEvent } from '@/domain/round'
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
   const { session, examResult, mode } = state
+
+  useEffect(() => {
+    // Completion events count only a finished round (Pavol's rule, 2026-11-01).
+    if (!session) return
+    const name = completionEvent(mode, session, examResult)
+    if (name) track(name, { mode, score: score(session), total: session.questions.length, passed: examResult?.passed })
+    // fire once per results view
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (!session) return null
 
   const total = session.questions.length
@@ -21,14 +31,6 @@ export function ResultsScreen() {
   const wrong = wrongAnswers(session)
   const isExam = mode === 'exam'
   const isLesson = mode === 'lesson'
-
-  useEffect(() => {
-    // Completion events count only a finished round (Pavol's rule, 2026-11-01).
-    const name = completionEvent(mode, session, examResult)
-    if (name) track(name, { mode, score: correct, total, passed: examResult?.passed })
-    // fire once per results view
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10">
