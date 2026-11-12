@@ -16,7 +16,17 @@ export function HomeScreen() {
     () => needsReviewIds(state.progress).length,
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  // Show 0 when the streak is stale: lastDate is neither today nor yesterday.
+  const streakData = state.progress.streak
+  const today = new Date().toISOString().slice(0, 10)
+  const streakAlive = (() => {
+    if (!streakData.lastDate) return false
+    if (streakData.lastDate === today) return true
+    const [py, pm, pd] = streakData.lastDate.split('-').map(Number)
+    const [ty, tm, td] = today.split('-').map(Number)
+    return Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd) === 86_400_000
+  })()
+  const streak = streakAlive ? streakData.current : 0
   const rng = () => makeRng(timeSeed())
 
   return (
