@@ -8,7 +8,8 @@ import {
 
 export const STORAGE_KEY = 'epso-kviz:progress:v1'
 
-function storage(): Storage | null {
+/** localStorage, or null where it is missing or throws (SSR, some private modes). */
+export function storage(): Storage | null {
   try {
     return typeof localStorage !== 'undefined' ? localStorage : null
   } catch {

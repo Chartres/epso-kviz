@@ -16,6 +16,7 @@
 import type { CategoryName, Choice } from './types'
 import { getQuestion } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
+import { storage } from './storage'
 
 export type ResumableMode = 'lesson' | 'practice' | 'review' | 'bookmarks'
 export const RESUMABLE_MODES: ResumableMode[] = ['lesson', 'practice', 'review', 'bookmarks']
@@ -119,14 +120,6 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
     }
   }
   return snap
-}
-
-function storage(): Storage | null {
-  try {
-    return typeof localStorage !== 'undefined' ? localStorage : null
-  } catch {
-    return null
-  }
 }
 
 export function loadRound(): RoundSnapshot | null {

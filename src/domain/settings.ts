@@ -9,6 +9,8 @@
  *  - c:    the options appear after a short hold
  * It never applies to the exam simulation, which has to match the real format.
  */
+import { storage } from './storage'
+
 export type QuestionFirstMode = 'none' | 'a' | 'b' | 'c'
 
 export const QUESTION_FIRST_MODES: QuestionFirstMode[] = ['none', 'a', 'b', 'c']
@@ -33,14 +35,6 @@ export function sanitizeSettings(raw: unknown): Settings {
     if (QUESTION_FIRST_MODES.includes(q as QuestionFirstMode)) s.questionFirst = q as QuestionFirstMode
   }
   return s
-}
-
-function storage(): Storage | null {
-  try {
-    return typeof localStorage !== 'undefined' ? localStorage : null
-  } catch {
-    return null
-  }
 }
 
 export function loadSettings(): Settings {
