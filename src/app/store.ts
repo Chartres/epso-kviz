@@ -86,11 +86,11 @@ export type Action =
   | { type: 'goMenu' }
   | { type: 'navigate'; view: TabView | 'verbal' | 'numerical' | 'abstract' }
 
-function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
+function begin(state: AppState, mode: Mode, session: SessionState): AppState {
   return {
     ...state,
     mode,
-    session: questions,
+    session,
     examResult: null,
     view: mode === 'exam' ? 'exam' : 'quiz',
   }
