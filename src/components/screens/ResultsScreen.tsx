@@ -14,6 +14,16 @@ import { completionEvent } from '@/domain/round'
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
   const { session, examResult, mode } = state
+
+  useEffect(() => {
+    // Completion events count only a finished round (Pavol's rule, 2026-11-01).
+    if (!session) return
+    const name = completionEvent(mode, session, examResult)
+    if (name) track(name, { mode, score: score(session), total: session.questions.length, passed: examResult?.passed })
+    // fire once per results view
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (!session) return null
 
   const total = session.questions.length
@@ -21,14 +31,10 @@ export function ResultsScreen() {
   const wrong = wrongAnswers(session)
   const isExam = mode === 'exam'
   const isLesson = mode === 'lesson'
-
-  useEffect(() => {
-    // Completion events count only a finished round (Pavol's rule, 2026-11-01).
-    const name = completionEvent(mode, session, examResult)
-    if (name) track(name, { mode, score: correct, total, passed: examResult?.passed })
-    // fire once per results view
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // For timed-out exams the timer can fire before all questions are answered;
+  // unanswered questions count against the score but were absent from wrong[].
+  const answeredIds = new Set(session.records.map((r) => r.id))
+  const missed = isExam ? session.questions.filter((q) => !answeredIds.has(q.id)) : []
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-10">
@@ -114,6 +120,30 @@ export function ResultsScreen() {
                 </li>
               )
             })}
+          </ul>
+        </section>
+      )}
+
+      {missed.length > 0 && (
+        <section className="mt-8">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-steel-500">
+            Unanswered ({missed.length})
+          </h2>
+          <ul className="space-y-3">
+            {missed.map((q) => (
+              <li
+                key={q.id}
+                className="rounded-card border border-steel-700 bg-steel-900/50 p-4"
+              >
+                <p className="mb-2 text-sm text-steel-200">{q.q}</p>
+                <p className="text-sm text-verdigris-400">
+                  <span className="font-semibold uppercase">{q.correct})</span>{' '}
+                  {q[q.correct]}
+                </p>
+                <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
+                <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
+              </li>
+            ))}
           </ul>
         </section>
       )}

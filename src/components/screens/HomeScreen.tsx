@@ -2,12 +2,13 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds } from '@/domain/progress'
+import { summary, needsReviewIds, isNextDay } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { UnfinishedRound } from '@/components/UnfinishedRound'
+import { todayStr } from '@/lib/date'
 
 export function HomeScreen() {
   const { state, dispatch } = useApp()
@@ -16,7 +17,13 @@ export function HomeScreen() {
     () => needsReviewIds(state.progress).length,
     [state.progress],
   )
-  const streak = state.progress.streak.current
+  // Show 0 when the streak is stale: lastDate is neither today nor yesterday.
+  const streakData = state.progress.streak
+  const today = todayStr()
+  const streakAlive =
+    !!streakData.lastDate &&
+    (streakData.lastDate === today || isNextDay(streakData.lastDate, today))
+  const streak = streakAlive ? streakData.current : 0
   const rng = () => makeRng(timeSeed())
 
   return (

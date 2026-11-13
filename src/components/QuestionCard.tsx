@@ -122,10 +122,11 @@ export function QuestionCard({
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
       if (e.metaKey || e.ctrlKey || e.altKey) return
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key
+      // A focused button or link (End, Bookmark, Next) keeps its own Enter and Space.
+      const onControl = e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement
       if (!optionsVisible) {
-        // Form A: Enter or Space shows the options. B and C have their own control. A focused
-        // button or link (End, Bookmark) keeps its own Enter.
-        if (e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement) return
+        // Form A: Enter or Space shows the options. B and C have their own control.
+        if (onControl) return
         if (questionFirst === 'a' && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
           show()
@@ -136,6 +137,7 @@ export function QuestionCard({
         e.preventDefault()
         onAnswer(KEY_TO_CHOICE[key])
       } else if (answered && (e.key === 'Enter' || e.key === ' ')) {
+        if (onControl) return
         e.preventDefault()
         onNext()
       }

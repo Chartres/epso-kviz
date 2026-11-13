@@ -1,4 +1,4 @@
-import { mergeCommonplace } from './commonplace'
+import { mergeCommonplace, sanitizeCommonplace } from './commonplace'
 import type { CategoryName, Question } from './types'
 
 /** Consecutive correct answers required to consider a question "mastered". */
@@ -71,6 +71,63 @@ export function emptyStreak(): Streak {
   return { current: 0, best: 0, lastDate: '' }
 }
 
+/** Return a valid Streak from untrusted input (localStorage, cloud), falling back to emptyStreak. */
+export function sanitizeStreak(raw: unknown): Streak {
+  if (!raw || typeof raw !== 'object') return emptyStreak()
+  const r = raw as Record<string, unknown>
+  // NaN >= 0 is false, so this rejects NaN and negatives in one check.
+  const current = typeof r.current === 'number' && r.current >= 0 ? r.current : 0
+  const best = typeof r.best === 'number' && r.best >= 0 ? r.best : 0
+  const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
+  return { current, best, lastDate }
+}
+
+function sanitizeStat(raw: unknown): QuestionStat | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Record<string, unknown>
+  if (
+    typeof r.seen !== 'number' ||
+    typeof r.correct !== 'number' ||
+    typeof r.streak !== 'number' ||
+    typeof r.lastSeen !== 'number' ||
+    typeof r.lastCorrect !== 'boolean'
+  ) return null
+  const stat: QuestionStat = {
+    seen: r.seen,
+    correct: r.correct,
+    streak: r.streak,
+    lastSeen: r.lastSeen,
+    lastCorrect: r.lastCorrect,
+  }
+  if (typeof r.first === 'boolean') stat.first = r.first
+  if (typeof r.firstSeen === 'number') stat.firstSeen = r.firstSeen
+  return stat
+}
+
+/**
+ * Return valid ProgressData from untrusted input (localStorage, cloud), or null when it is
+ * missing or another version. Older records may lack fields added later.
+ */
+export function sanitizeProgress(raw: unknown): ProgressData | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Partial<ProgressData>
+  if (r.version !== PROGRESS_VERSION) return null
+  const rawStats = r.stats && typeof r.stats === 'object' && !Array.isArray(r.stats) ? r.stats : {}
+  const stats: Record<number, QuestionStat> = {}
+  for (const [key, val] of Object.entries(rawStats)) {
+    const s = sanitizeStat(val)
+    if (s) stats[Number(key)] = s
+  }
+  return {
+    version: PROGRESS_VERSION,
+    stats,
+    bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks : [],
+    ...withCommonplace(sanitizeCommonplace(r.commonplace)),
+    streak: sanitizeStreak(r.streak),
+    updatedAt: r.updatedAt ?? 0,
+  }
+}
+
 export function emptyProgress(): ProgressData {
   return {
     version: PROGRESS_VERSION,
@@ -82,7 +139,7 @@ export function emptyProgress(): ProgressData {
 }
 
 /** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
-function isNextDay(prev: string, today: string): boolean {
+export function isNextDay(prev: string, today: string): boolean {
   if (!prev) return false
   const [py, pm, pd] = prev.split('-').map(Number)
   const [ty, tm, td] = today.split('-').map(Number)
@@ -187,7 +244,7 @@ export function needsReviewIds(p: ProgressData): number[] {
  * least-recently-seen. This is the lightweight spaced-repetition signal —
  * drill the weak spots (Montessori "isolation of difficulty").
  */
-export function dueForReview(p: ProgressData, _now: number): number[] {
+export function dueForReview(p: ProgressData): number[] {
   return needsReviewIds(p).sort((a, b) => {
     const sa = statFor(p, a)
     const sb = statFor(p, b)
@@ -250,6 +307,24 @@ function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionS
   return out
 }
 
+/**
+ * Merge two streak records. The side with the later lastDate wins, but when the
+ * two dates are consecutive (the later one is the day after the earlier one) the
+ * earlier streak is extended: a device that synced late and recorded current=1 for
+ * its day should not erase a 7-day streak from the other device.
+ */
+function mergeStreak(sa: Streak, sb: Streak): Streak {
+  const best = Math.max(sa.best, sb.best)
+  const [earlier, later] = sa.lastDate <= sb.lastDate ? [sa, sb] : [sb, sa]
+  const sameDay = earlier.lastDate === later.lastDate
+  const current = sameDay
+    ? Math.max(earlier.current, later.current)
+    : isNextDay(earlier.lastDate, later.lastDate)
+      ? Math.max(later.current, earlier.current + 1)
+      : later.current
+  return { current, best: Math.max(best, current), lastDate: later.lastDate }
+}
+
 /** Merge two progress snapshots: last-write-wins per question, union bookmarks. */
 export function mergeProgress(
   a: ProgressData,
@@ -264,13 +339,12 @@ export function mergeProgress(
   }
   const sa = a.streak ?? emptyStreak()
   const sb = b.streak ?? emptyStreak()
-  const latest = sb.lastDate >= sa.lastDate ? sb : sa
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: { ...latest, best: Math.max(sa.best, sb.best) },
+    streak: mergeStreak(sa, sb),
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }

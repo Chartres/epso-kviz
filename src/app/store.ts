@@ -84,16 +84,13 @@ export type Action =
   | { type: 'toggleBookmark'; id: number }
   | { type: 'setCommonplace'; citation: Citation; id: number; on: boolean; now: number }
   | { type: 'goMenu' }
-  | { type: 'navigate'; view: TabView }
-  | { type: 'openVerbal' }
-  | { type: 'openNumerical' }
-  | { type: 'openAbstract' }
+  | { type: 'navigate'; view: TabView | 'verbal' | 'numerical' | 'abstract' }
 
-function begin(state: AppState, mode: Mode, questions: SessionState): AppState {
+function begin(state: AppState, mode: Mode, session: SessionState): AppState {
   return {
     ...state,
     mode,
-    session: questions,
+    session,
     examResult: null,
     view: mode === 'exam' ? 'exam' : 'quiz',
   }
@@ -204,6 +201,7 @@ function step(state: AppState, action: Action): AppState {
           session,
           view: 'results',
           examResult: state.mode === 'exam' ? evaluateExam(session) : null,
+          examEndsAt: null,
           progress:
             state.mode === 'lesson' && action.today
               ? recordLessonComplete(state.progress, action.today)
@@ -244,15 +242,6 @@ function step(state: AppState, action: Action): AppState {
 
     case 'navigate':
       return { ...state, view: action.view }
-
-    case 'openVerbal':
-      return { ...state, view: 'verbal' }
-
-    case 'openNumerical':
-      return { ...state, view: 'numerical' }
-
-    case 'openAbstract':
-      return { ...state, view: 'abstract' }
 
     default:
       return state

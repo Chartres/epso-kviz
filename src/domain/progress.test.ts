@@ -100,7 +100,7 @@ describe('review selection (spaced repetition)', () => {
     p = recordAnswer(p, 1, true, 100) // correct, recent
     p = recordAnswer(p, 2, false, 50) // wrong, older
     p = recordAnswer(p, 3, false, 90) // wrong, newer
-    const ids = dueForReview(p, 200)
+    const ids = dueForReview(p)
     // both wrong come before the merely-unmastered correct one;
     // among wrong, the older (id 2) comes first
     expect(ids.slice(0, 2)).toEqual([2, 3])
@@ -159,6 +159,44 @@ describe('daily streak', () => {
     let p = recordLessonComplete(emptyProgress(), '2026-06-30')
     p = recordLessonComplete(p, '2026-07-01')
     expect(p.streak.current).toBe(2)
+  })
+})
+
+describe('mergeProgress streak merging', () => {
+  it('extends the earlier streak when the later lastDate is consecutive', () => {
+    const a = recordLessonComplete(emptyProgress(), '2026-06-06')
+    const extended = recordLessonComplete(recordLessonComplete(a, '2026-06-07'), '2026-06-08') // streak=3
+    // Device B was offline and starts fresh streak on Jun 09
+    const b = { ...emptyProgress(), streak: { current: 1, best: 1, lastDate: '2026-06-09' } }
+    const merged = mergeProgress(extended, b)
+    // B's lastDate is day-after extended's lastDate: should extend to 4, not reset to 1
+    expect(merged.streak.current).toBe(4)
+    expect(merged.streak.best).toBe(4)
+    expect(merged.streak.lastDate).toBe('2026-06-09')
+  })
+
+  it('keeps the max current when both sides share the same lastDate', () => {
+    const a = { ...emptyProgress(), streak: { current: 7, best: 7, lastDate: '2026-06-10' } }
+    const b = { ...emptyProgress(), streak: { current: 1, best: 1, lastDate: '2026-06-10' } }
+    const merged = mergeProgress(a, b)
+    expect(merged.streak.current).toBe(7)
+    expect(merged.streak.best).toBe(7)
+    expect(merged.streak.lastDate).toBe('2026-06-10')
+  })
+
+  it('takes the later lastDate streak when the dates are not consecutive', () => {
+    const a = { ...emptyProgress(), streak: { current: 7, best: 7, lastDate: '2026-06-01' } }
+    const b = { ...emptyProgress(), streak: { current: 2, best: 2, lastDate: '2026-06-10' } }
+    const merged = mergeProgress(a, b)
+    expect(merged.streak.current).toBe(2) // gap of 9 days, no extension
+    expect(merged.streak.best).toBe(7)    // best from a is preserved
+    expect(merged.streak.lastDate).toBe('2026-06-10')
+  })
+
+  it('preserves best across both sides', () => {
+    const a = { ...emptyProgress(), streak: { current: 1, best: 10, lastDate: '2026-06-01' } }
+    const b = { ...emptyProgress(), streak: { current: 5, best: 5, lastDate: '2026-06-15' } }
+    expect(mergeProgress(a, b).streak.best).toBe(10)
   })
 })
 

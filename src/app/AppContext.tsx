@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useRef,
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
@@ -24,14 +25,24 @@ const AppContext = createContext<AppContextValue | null>(null)
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
     ...initialState(),
+    progress: loadProgress(),
     settings: loadSettings(),
     unfinished: loadRound(),
   }))
   const { user } = useAuth()
 
-  // Hydrate persisted progress once on mount.
+  // Always-current ref so the sign-in sync effect captures the latest progress,
+  // not the snapshot from when the user object first appeared.
+  const progressRef = useRef(state.progress)
   useEffect(() => {
-    dispatch({ type: 'hydrate', progress: loadProgress() })
+    progressRef.current = state.progress
+  }, [state.progress])
+
+  // Prevents debounced save from overwriting cloud with unmerged local data.
+  const syncInFlightRef = useRef(false)
+
+  // Track app open once on mount.
+  useEffect(() => {
     track('app_open')
   }, [])
 
@@ -54,18 +65,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    syncProgress(supabaseStore, user.id, loadProgress()).then((merged) => {
-      if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
-    })
+    syncInFlightRef.current = true
+    syncProgress(supabaseStore, user.id, progressRef.current)
+      .then((merged) => {
+        if (!cancelled) {
+          dispatch({ type: 'hydrate', progress: merged })
+          // A debounced save may have been skipped while sync was in flight;
+          // write the merged result immediately so the cloud row is up to date.
+          supabaseStore.save(user.id, merged).catch(() => {})
+        }
+      })
+      .catch(() => {})
+      .then(() => {
+        if (!cancelled) syncInFlightRef.current = false
+      })
     return () => {
       cancelled = true
+      syncInFlightRef.current = false
     }
   }, [user?.id])
 
   // While signed in, push progress changes to the cloud (debounced).
+  // Guard: skip if sync is still in flight to avoid overwriting the merge.
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
+      if (syncInFlightRef.current) return
       supabaseStore.save(user.id, state.progress).catch(() => {})
     }, 1500)
     return () => clearTimeout(t)
