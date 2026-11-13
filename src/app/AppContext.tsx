@@ -25,6 +25,7 @@ const AppContext = createContext<AppContextValue | null>(null)
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
     ...initialState(),
+    progress: loadProgress(),
     settings: loadSettings(),
     unfinished: loadRound(),
   }))
@@ -37,9 +38,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     progressRef.current = state.progress
   }, [state.progress])
 
-  // Hydrate persisted progress once on mount.
+  // Track app open once on mount.
   useEffect(() => {
-    dispatch({ type: 'hydrate', progress: loadProgress() })
     track('app_open')
   }, [])
 
