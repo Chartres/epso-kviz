@@ -19,6 +19,10 @@ export function ExamTimer({ endsAt, onExpire, label = 'Time remaining' }: ExamTi
   const fired = useRef(false)
 
   useEffect(() => {
+    fired.current = false
+  }, [endsAt])
+
+  useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(id)
   }, [])
