@@ -1,4 +1,4 @@
-import { mergeCommonplace } from './commonplace'
+import { mergeCommonplace, sanitizeCommonplace } from './commonplace'
 import type { CategoryName, Question } from './types'
 
 /** Consecutive correct answers required to consider a question "mastered". */
@@ -79,6 +79,24 @@ export function sanitizeStreak(raw: unknown): Streak {
   const best = typeof r.best === 'number' ? r.best : 0
   const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
   return { current, best, lastDate }
+}
+
+/**
+ * Return valid ProgressData from untrusted input (localStorage, cloud), or null when it is
+ * missing or another version. Older records may lack fields added later.
+ */
+export function sanitizeProgress(raw: unknown): ProgressData | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Partial<ProgressData>
+  if (r.version !== PROGRESS_VERSION) return null
+  return {
+    version: PROGRESS_VERSION,
+    stats: r.stats && typeof r.stats === 'object' && !Array.isArray(r.stats) ? r.stats : {},
+    bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks : [],
+    ...withCommonplace(sanitizeCommonplace(r.commonplace)),
+    streak: sanitizeStreak(r.streak),
+    updatedAt: r.updatedAt ?? 0,
+  }
 }
 
 export function emptyProgress(): ProgressData {

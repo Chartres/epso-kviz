@@ -1,10 +1,4 @@
-import { sanitizeCommonplace } from './commonplace'
-import {
-  emptyProgress,
-  sanitizeStreak,
-  PROGRESS_VERSION,
-  type ProgressData,
-} from './progress'
+import { emptyProgress, sanitizeProgress, type ProgressData } from './progress'
 
 export const STORAGE_KEY = 'epso-kviz:progress:v1'
 
@@ -23,21 +17,7 @@ export function loadProgress(): ProgressData {
   try {
     const raw = s.getItem(STORAGE_KEY)
     if (!raw) return emptyProgress()
-    const parsed = JSON.parse(raw) as Partial<ProgressData>
-    if (parsed.version !== PROGRESS_VERSION) return emptyProgress()
-    return {
-      version: PROGRESS_VERSION,
-      stats:
-        parsed.stats && typeof parsed.stats === 'object' && !Array.isArray(parsed.stats)
-          ? parsed.stats
-          : {},
-      bookmarks: Array.isArray(parsed.bookmarks) ? parsed.bookmarks : [],
-      ...(sanitizeCommonplace(parsed.commonplace).length
-        ? { commonplace: sanitizeCommonplace(parsed.commonplace) }
-        : {}),
-      streak: sanitizeStreak(parsed.streak),
-      updatedAt: parsed.updatedAt ?? 0,
-    }
+    return sanitizeProgress(JSON.parse(raw)) ?? emptyProgress()
   } catch {
     return emptyProgress()
   }
