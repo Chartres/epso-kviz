@@ -45,15 +45,15 @@ export function buildPractice(opts: FilterOptions, rng: Rng, progress?: Progress
   if (unseen.length === 0) return shuffle(pool, rng)
   const inPool = new Map(pool.map((q) => [q.id, q]))
   const cap = Math.floor((unseen.length * PRACTICE_REVIEW_FRACTION) / (1 - PRACTICE_REVIEW_FRACTION))
-  const review = dueForReview(progress, 0)
+  const review = dueForReview(progress)
     .map((id) => inPool.get(id))
     .filter((q): q is Question => q !== undefined)
     .slice(0, cap)
   return shuffle([...unseen, ...review], rng)
 }
 
-export function reviewQuestions(p: ProgressData, now = 0): Question[] {
-  return dueForReview(p, now)
+export function reviewQuestions(p: ProgressData): Question[] {
+  return dueForReview(p)
     .map((id) => getQuestion(id))
     .filter((q): q is Question => q !== undefined)
 }
