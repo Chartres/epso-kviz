@@ -259,9 +259,12 @@ function withEarliestFirst(winner: QuestionStat, other: QuestionStat): QuestionS
 function mergeStreak(sa: Streak, sb: Streak): Streak {
   const best = Math.max(sa.best, sb.best)
   const [earlier, later] = sa.lastDate <= sb.lastDate ? [sa, sb] : [sb, sa]
-  const current = isNextDay(earlier.lastDate, later.lastDate)
-    ? Math.max(later.current, earlier.current + 1)
-    : later.current
+  const sameDay = earlier.lastDate === later.lastDate
+  const current = sameDay
+    ? Math.max(earlier.current, later.current)
+    : isNextDay(earlier.lastDate, later.lastDate)
+      ? Math.max(later.current, earlier.current + 1)
+      : later.current
   return { current, best: Math.max(best, current), lastDate: later.lastDate }
 }
 

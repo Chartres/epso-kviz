@@ -175,6 +175,15 @@ describe('mergeProgress streak merging', () => {
     expect(merged.streak.lastDate).toBe('2026-06-09')
   })
 
+  it('keeps the max current when both sides share the same lastDate', () => {
+    const a = { ...emptyProgress(), streak: { current: 7, best: 7, lastDate: '2026-06-10' } }
+    const b = { ...emptyProgress(), streak: { current: 1, best: 1, lastDate: '2026-06-10' } }
+    const merged = mergeProgress(a, b)
+    expect(merged.streak.current).toBe(7)
+    expect(merged.streak.best).toBe(7)
+    expect(merged.streak.lastDate).toBe('2026-06-10')
+  })
+
   it('takes the later lastDate streak when the dates are not consecutive', () => {
     const a = { ...emptyProgress(), streak: { current: 7, best: 7, lastDate: '2026-06-01' } }
     const b = { ...emptyProgress(), streak: { current: 2, best: 2, lastDate: '2026-06-10' } }
