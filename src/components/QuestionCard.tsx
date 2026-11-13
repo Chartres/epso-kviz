@@ -136,6 +136,7 @@ export function QuestionCard({
         e.preventDefault()
         onAnswer(KEY_TO_CHOICE[key])
       } else if (answered && (e.key === 'Enter' || e.key === ' ')) {
+        if (e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement) return
         e.preventDefault()
         onNext()
       }
