@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ExamTimerProps {
   endsAt: number
@@ -16,6 +16,7 @@ function format(ms: number): string {
 
 export function ExamTimer({ endsAt, onExpire, label = 'Time remaining' }: ExamTimerProps) {
   const [now, setNow] = useState(() => Date.now())
+  const fired = useRef(false)
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000)
@@ -24,7 +25,10 @@ export function ExamTimer({ endsAt, onExpire, label = 'Time remaining' }: ExamTi
 
   const remaining = endsAt - now
   useEffect(() => {
-    if (remaining <= 0) onExpire()
+    if (remaining <= 0 && !fired.current) {
+      fired.current = true
+      onExpire()
+    }
   }, [remaining, onExpire])
 
   const urgent = remaining <= 5 * 60 * 1000
