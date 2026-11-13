@@ -8,6 +8,7 @@ import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { UnfinishedRound } from '@/components/UnfinishedRound'
+import { todayStr } from '@/lib/date'
 
 export function HomeScreen() {
   const { state, dispatch } = useApp()
@@ -18,7 +19,7 @@ export function HomeScreen() {
   )
   // Show 0 when the streak is stale: lastDate is neither today nor yesterday.
   const streakData = state.progress.streak
-  const today = new Date().toISOString().slice(0, 10)
+  const today = todayStr()
   const streakAlive = (() => {
     if (!streakData.lastDate) return false
     if (streakData.lastDate === today) return true
