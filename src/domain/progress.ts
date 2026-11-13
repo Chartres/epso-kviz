@@ -75,10 +75,33 @@ export function emptyStreak(): Streak {
 export function sanitizeStreak(raw: unknown): Streak {
   if (!raw || typeof raw !== 'object') return emptyStreak()
   const r = raw as Record<string, unknown>
-  const current = typeof r.current === 'number' ? r.current : 0
-  const best = typeof r.best === 'number' ? r.best : 0
+  // NaN >= 0 is false, so this rejects NaN and negatives in one check.
+  const current = typeof r.current === 'number' && r.current >= 0 ? r.current : 0
+  const best = typeof r.best === 'number' && r.best >= 0 ? r.best : 0
   const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
   return { current, best, lastDate }
+}
+
+function sanitizeStat(raw: unknown): QuestionStat | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Record<string, unknown>
+  if (
+    typeof r.seen !== 'number' ||
+    typeof r.correct !== 'number' ||
+    typeof r.streak !== 'number' ||
+    typeof r.lastSeen !== 'number' ||
+    typeof r.lastCorrect !== 'boolean'
+  ) return null
+  const stat: QuestionStat = {
+    seen: r.seen,
+    correct: r.correct,
+    streak: r.streak,
+    lastSeen: r.lastSeen,
+    lastCorrect: r.lastCorrect,
+  }
+  if (typeof r.first === 'boolean') stat.first = r.first
+  if (typeof r.firstSeen === 'number') stat.firstSeen = r.firstSeen
+  return stat
 }
 
 /**
@@ -89,9 +112,15 @@ export function sanitizeProgress(raw: unknown): ProgressData | null {
   if (!raw || typeof raw !== 'object') return null
   const r = raw as Partial<ProgressData>
   if (r.version !== PROGRESS_VERSION) return null
+  const rawStats = r.stats && typeof r.stats === 'object' && !Array.isArray(r.stats) ? r.stats : {}
+  const stats: Record<number, QuestionStat> = {}
+  for (const [key, val] of Object.entries(rawStats)) {
+    const s = sanitizeStat(val)
+    if (s) stats[Number(key)] = s
+  }
   return {
     version: PROGRESS_VERSION,
-    stats: r.stats && typeof r.stats === 'object' && !Array.isArray(r.stats) ? r.stats : {},
+    stats,
     bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks : [],
     ...withCommonplace(sanitizeCommonplace(r.commonplace)),
     streak: sanitizeStreak(r.streak),
