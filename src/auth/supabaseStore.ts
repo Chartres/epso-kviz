@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { emptyStreak, PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
+import { sanitizeStreak, PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
 import { sanitizeCommonplace } from '@/domain/commonplace'
 import type { RemoteProgressStore } from './sync'
 
@@ -28,7 +28,7 @@ export const supabaseStore: RemoteProgressStore = {
       version: PROGRESS_VERSION,
       stats: stored.stats ?? {},
       bookmarks: Array.isArray(stored.bookmarks) ? stored.bookmarks : [],
-      streak: stored.streak ?? emptyStreak(),
+      streak: sanitizeStreak(stored.streak),
       updatedAt: stored.updatedAt ?? 0,
       ...(cp.length ? { commonplace: cp } : {}),
     }

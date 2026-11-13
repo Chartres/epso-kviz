@@ -71,6 +71,16 @@ export function emptyStreak(): Streak {
   return { current: 0, best: 0, lastDate: '' }
 }
 
+/** Return a valid Streak from untrusted input (localStorage, cloud), falling back to emptyStreak. */
+export function sanitizeStreak(raw: unknown): Streak {
+  if (!raw || typeof raw !== 'object') return emptyStreak()
+  const r = raw as Record<string, unknown>
+  const current = typeof r.current === 'number' ? r.current : 0
+  const best = typeof r.best === 'number' ? r.best : 0
+  const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
+  return { current, best, lastDate }
+}
+
 export function emptyProgress(): ProgressData {
   return {
     version: PROGRESS_VERSION,
