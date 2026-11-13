@@ -4,7 +4,7 @@ import type { Lang } from '@/domain/reasoning/numerical'
 import { ANSWERS, VERBAL, buildVerbalTest, passageOf, scoreVerbal, type Answer, type VerbalItem } from '@/domain/reasoning/verbal'
 import { ExamTimer } from '@/components/ExamTimer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
-import { LANG_ORDER, defaultLang } from './NumericalScreen'
+import { ReasoningStart, defaultLang, type ReasoningResult } from './ReasoningStart'
 
 const UI: Record<Lang, Record<string, string>> = {
   cs: {
@@ -84,12 +84,6 @@ const UI: Record<Lang, Record<string, string>> = {
   },
 }
 
-export interface VerbalResult {
-  lang: Lang
-  score: number
-  total: number
-}
-
 /** The passage, set as a quotation with its act, recital and CELEX number underneath. */
 function PassageText({ item, lang }: { item: VerbalItem; lang: Lang }) {
   const p = passageOf(item)
@@ -117,7 +111,7 @@ export function VerbalScreen({
 }: {
   seed?: number
   onExit: () => void
-  onFinish?: (r: VerbalResult) => void
+  onFinish?: (r: ReasoningResult) => void
 }) {
   const [lang, setLang] = useState<Lang>(defaultLang)
   const [phase, setPhase] = useState<'start' | 'test' | 'done'>('start')
@@ -141,50 +135,22 @@ export function VerbalScreen({
 
   if (phase === 'start') {
     return (
-      <div className="mx-auto w-full max-w-2xl px-4 py-6">
-        <button type="button" onClick={onExit} className="min-h-11 text-sm text-steel-400 hover:text-brass-400">
-          {t.back}
-        </button>
-        <h1 lang={lang} className="mt-2 font-display text-2xl font-bold uppercase tracking-tight text-steel-50">
-          {t.title}
-        </h1>
-        <p lang={lang} className="mt-2 text-sm leading-relaxed text-steel-300">
-          {t.intro}
-        </p>
-        <fieldset className="mt-5">
-          <legend lang={lang} className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
-            {t.langLegend}
-          </legend>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {LANG_ORDER.map((l) => (
-              <label
-                key={l}
-                className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-card border px-4 ${
-                  lang === l ? 'border-brass-500 bg-brass-500/15 text-brass-300' : 'border-steel-700 text-steel-300'
-                }`}
-              >
-                <input type="radio" name="lang" value={l} checked={lang === l} onChange={() => setLang(l)} className="sr-only" />
-                {UI[l].name}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <button
-          type="button"
-          onClick={() => {
-            setAnswers([])
-            setIndex(0)
-            setEndsAt(Date.now() + VERBAL.minutes * 60_000)
-            setPhase('test')
-          }}
-          className="glow-brass mt-6 w-full rounded-card bg-brass-500 px-5 py-3 font-display font-semibold uppercase tracking-wide text-steel-950 hover:bg-brass-400"
-        >
-          {t.start}
-        </button>
+      <ReasoningStart
+        ui={UI}
+        lang={lang}
+        onLang={setLang}
+        onExit={onExit}
+        onStart={() => {
+          setAnswers([])
+          setIndex(0)
+          setEndsAt(Date.now() + VERBAL.minutes * 60_000)
+          setPhase('test')
+        }}
+      >
         <p lang={lang} className="mt-4 text-xs text-steel-500">
           {t.credit}
         </p>
-      </div>
+      </ReasoningStart>
     )
   }
 

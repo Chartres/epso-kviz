@@ -4,7 +4,7 @@ import { makeRng, timeSeed } from '@/domain/rng'
 import { needsReviewIds } from '@/domain/progress'
 import type { Lang } from '@/domain/reasoning/numerical'
 import type { ResumableMode } from '@/domain/round'
-import { defaultLang } from '@/components/screens/NumericalScreen'
+import { defaultLang } from '@/components/screens/ReasoningStart'
 
 /**
  * The card for a round left early, in the visitor's language like the reasoning tests
