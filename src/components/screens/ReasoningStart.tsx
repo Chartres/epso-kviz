@@ -72,3 +72,21 @@ export function ReasoningStart({
     </div>
   )
 }
+
+/** The "new test" and "back" buttons under every reasoning test's results. */
+export function ReasoningEnd({ t, onAgain, onExit }: { t: Record<string, string>; onAgain: () => void; onExit: () => void }) {
+  return (
+    <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <button
+        type="button"
+        onClick={onAgain}
+        className="min-h-11 rounded-card bg-brass-500 px-5 py-2.5 font-display font-semibold uppercase tracking-wide text-steel-950"
+      >
+        {t.again}
+      </button>
+      <button type="button" onClick={onExit} className="min-h-11 rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200">
+        {t.back}
+      </button>
+    </div>
+  )
+}

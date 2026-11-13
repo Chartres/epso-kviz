@@ -4,7 +4,7 @@ import type { Lang } from '@/domain/reasoning/numerical'
 import { ANSWERS, VERBAL, buildVerbalTest, passageOf, scoreVerbal, type Answer, type VerbalItem } from '@/domain/reasoning/verbal'
 import { ExamTimer } from '@/components/ExamTimer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
-import { ReasoningStart, defaultLang, type ReasoningResult } from './ReasoningStart'
+import { ReasoningEnd, ReasoningStart, defaultLang, type ReasoningResult } from './ReasoningStart'
 
 const UI: Record<Lang, Record<string, string>> = {
   cs: {
@@ -244,21 +244,14 @@ export function VerbalScreen({
         })}
       </ol>
       <p className="mt-4 text-xs text-steel-500">{t.credit}</p>
-      <div className="mt-6 flex flex-wrap justify-center gap-3">
-        <button
-          type="button"
-          onClick={() => {
-            setRound((r) => r + 1)
-            setPhase('start')
-          }}
-          className="min-h-11 rounded-card bg-brass-500 px-5 py-2.5 font-display font-semibold uppercase tracking-wide text-steel-950"
-        >
-          {t.again}
-        </button>
-        <button type="button" onClick={onExit} className="min-h-11 rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200">
-          {t.back}
-        </button>
-      </div>
+      <ReasoningEnd
+        t={t}
+        onExit={onExit}
+        onAgain={() => {
+          setRound((r) => r + 1)
+          setPhase('start')
+        }}
+      />
     </div>
   )
 }
