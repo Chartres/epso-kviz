@@ -27,8 +27,11 @@ export function loadProgress(): ProgressData {
     if (parsed.version !== PROGRESS_VERSION) return emptyProgress()
     return {
       version: PROGRESS_VERSION,
-      stats: parsed.stats ?? {},
-      bookmarks: parsed.bookmarks ?? [],
+      stats:
+        parsed.stats && typeof parsed.stats === 'object' && !Array.isArray(parsed.stats)
+          ? parsed.stats
+          : {},
+      bookmarks: Array.isArray(parsed.bookmarks) ? parsed.bookmarks : [],
       ...(sanitizeCommonplace(parsed.commonplace).length
         ? { commonplace: sanitizeCommonplace(parsed.commonplace) }
         : {}),

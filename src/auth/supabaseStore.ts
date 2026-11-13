@@ -26,7 +26,10 @@ export const supabaseStore: RemoteProgressStore = {
     const cp = sanitizeCommonplace(stored.commonplace)
     return {
       version: PROGRESS_VERSION,
-      stats: stored.stats ?? {},
+      stats:
+        stored.stats && typeof stored.stats === 'object' && !Array.isArray(stored.stats)
+          ? stored.stats
+          : {},
       bookmarks: Array.isArray(stored.bookmarks) ? stored.bookmarks : [],
       streak: sanitizeStreak(stored.streak),
       updatedAt: stored.updatedAt ?? 0,

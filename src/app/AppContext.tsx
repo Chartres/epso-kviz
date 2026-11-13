@@ -38,6 +38,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     progressRef.current = state.progress
   }, [state.progress])
 
+  // Prevents debounced save from overwriting cloud with unmerged local data.
+  const syncInFlightRef = useRef(false)
+
   // Track app open once on mount.
   useEffect(() => {
     track('app_open')
@@ -62,18 +65,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    syncProgress(supabaseStore, user.id, progressRef.current).then((merged) => {
-      if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
-    })
+    syncInFlightRef.current = true
+    syncProgress(supabaseStore, user.id, progressRef.current)
+      .then((merged) => {
+        if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
+      })
+      .catch(() => {})
+      .then(() => {
+        if (!cancelled) syncInFlightRef.current = false
+      })
     return () => {
       cancelled = true
+      syncInFlightRef.current = false
     }
   }, [user?.id])
 
   // While signed in, push progress changes to the cloud (debounced).
+  // Guard: skip if sync is still in flight to avoid overwriting the merge.
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
+      if (syncInFlightRef.current) return
       supabaseStore.save(user.id, state.progress).catch(() => {})
     }, 1500)
     return () => clearTimeout(t)
