@@ -68,7 +68,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     syncInFlightRef.current = true
     syncProgress(supabaseStore, user.id, progressRef.current)
       .then((merged) => {
-        if (!cancelled) dispatch({ type: 'hydrate', progress: merged })
+        if (!cancelled) {
+          dispatch({ type: 'hydrate', progress: merged })
+          // A debounced save may have been skipped while sync was in flight;
+          // write the merged result immediately so the cloud row is up to date.
+          supabaseStore.save(user.id, merged).catch(() => {})
+        }
       })
       .catch(() => {})
       .then(() => {
