@@ -94,14 +94,9 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   const seenAnswerIds = new Set<number>()
   const answers = (r.answers as unknown[]).filter(
     (a): a is { id: number; choice: Choice } => {
-      if (
-        !a ||
-        typeof a !== 'object' ||
-        !ids.has((a as { id: number }).id) ||
-        !CHOICES.includes((a as { choice: Choice }).choice)
-      ) return false
-      const id = (a as { id: number }).id
-      if (seenAnswerIds.has(id)) return false // deduplicate
+      if (!a || typeof a !== 'object') return false
+      const { id, choice } = a as { id: number; choice: Choice }
+      if (!ids.has(id) || !CHOICES.includes(choice) || seenAnswerIds.has(id)) return false
       seenAnswerIds.add(id)
       return true
     },
