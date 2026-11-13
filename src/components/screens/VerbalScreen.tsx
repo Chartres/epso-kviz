@@ -2,9 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { makeRng, timeSeed } from '@/domain/rng'
 import type { Lang } from '@/domain/reasoning/numerical'
 import { ANSWERS, VERBAL, buildVerbalTest, passageOf, scoreVerbal, type Answer, type VerbalItem } from '@/domain/reasoning/verbal'
-import { ExamTimer } from '@/components/ExamTimer'
-import { ProgressBar } from '@/components/ui/ProgressBar'
-import { ReasoningEnd, ReasoningStart, defaultLang, type ReasoningResult } from './ReasoningStart'
+import { ReasoningEnd, ReasoningHeader, ReasoningStart, defaultLang, type ReasoningResult } from './ReasoningStart'
 
 const UI: Record<Lang, Record<string, string>> = {
   cs: {
@@ -159,15 +157,7 @@ export function VerbalScreen({
     const last = index === items.length - 1
     return (
       <div className="mx-auto w-full max-w-2xl px-4 py-6" lang={lang}>
-        <header className="mb-4 flex items-center justify-between gap-3">
-          <span className="font-mono text-sm tabular-nums text-steel-400">
-            {t.question} {index + 1} {t.of} {items.length}
-          </span>
-          <ExamTimer endsAt={endsAt} onExpire={finish} label={t.timer} />
-        </header>
-        <div className="mb-5">
-          <ProgressBar value={index} max={items.length} />
-        </div>
+        <ReasoningHeader t={t} index={index} total={items.length} endsAt={endsAt} onExpire={finish} />
         <PassageText item={item} lang={lang} />
         <fieldset className="mt-5">
           <legend className="text-lg font-medium leading-snug text-steel-50">{item.statement[lang]}</legend>

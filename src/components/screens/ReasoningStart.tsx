@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Lang } from '@/domain/reasoning/numerical'
+import { ExamTimer } from '@/components/ExamTimer'
+import { ProgressBar } from '@/components/ui/ProgressBar'
 
 export const LANG_ORDER: Lang[] = ['cs', 'sk', 'en']
 
@@ -88,5 +90,34 @@ export function ReasoningEnd({ t, onAgain, onExit }: { t: Record<string, string>
         {t.back}
       </button>
     </div>
+  )
+}
+
+/** Question counter, countdown and progress bar above every reasoning test question. */
+export function ReasoningHeader({
+  t,
+  index,
+  total,
+  endsAt,
+  onExpire,
+}: {
+  t: Record<string, string>
+  index: number
+  total: number
+  endsAt: number
+  onExpire: () => void
+}) {
+  return (
+    <>
+      <header className="mb-4 flex items-center justify-between gap-3">
+        <span className="font-mono text-sm tabular-nums text-steel-400">
+          {t.question} {index + 1} {t.of} {total}
+        </span>
+        <ExamTimer endsAt={endsAt} onExpire={onExpire} label={t.timer} />
+      </header>
+      <div className="mb-5">
+        <ProgressBar value={index} max={total} />
+      </div>
+    </>
   )
 }
