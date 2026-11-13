@@ -82,7 +82,7 @@ export function emptyProgress(): ProgressData {
 }
 
 /** True if `today` (YYYY-MM-DD) is exactly the day after `prev`. */
-function isNextDay(prev: string, today: string): boolean {
+export function isNextDay(prev: string, today: string): boolean {
   if (!prev) return false
   const [py, pm, pd] = prev.split('-').map(Number)
   const [ty, tm, td] = today.split('-').map(Number)

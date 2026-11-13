@@ -2,7 +2,7 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds } from '@/domain/progress'
+import { summary, needsReviewIds, isNextDay } from '@/domain/progress'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
@@ -20,13 +20,9 @@ export function HomeScreen() {
   // Show 0 when the streak is stale: lastDate is neither today nor yesterday.
   const streakData = state.progress.streak
   const today = todayStr()
-  const streakAlive = (() => {
-    if (!streakData.lastDate) return false
-    if (streakData.lastDate === today) return true
-    const [py, pm, pd] = streakData.lastDate.split('-').map(Number)
-    const [ty, tm, td] = today.split('-').map(Number)
-    return Date.UTC(ty, tm - 1, td) - Date.UTC(py, pm - 1, pd) === 86_400_000
-  })()
+  const streakAlive =
+    !!streakData.lastDate &&
+    (streakData.lastDate === today || isNextDay(streakData.lastDate, today))
   const streak = streakAlive ? streakData.current : 0
   const rng = () => makeRng(timeSeed())
 
