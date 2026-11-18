@@ -152,16 +152,24 @@ export function ResultsScreen() {
         {isLesson && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_lesson', { question_first: state.settings.questionFirst })
+              dispatch({ type: 'startLesson', rng: makeRng(timeSeed()) })
+            }}
             className="glow-brass rounded-card bg-brass-500 px-5 py-2.5 font-display font-semibold uppercase tracking-wide text-steel-950 hover:bg-brass-400"
           >
             Next lesson
           </button>
         )}
-        {wrong.length > 0 && (
+        {(wrong.length > 0 || missed.length > 0) && (
           <button
             type="button"
-            onClick={() => dispatch({ type: 'startReview', rng: makeRng(timeSeed()) })}
+            onClick={() => {
+              track('start_review', { question_first: state.settings.questionFirst })
+              // This round's mistakes (and exam questions left unanswered), not the global queue.
+              const ids = [...wrong.map((r) => r.id), ...missed.map((q) => q.id)]
+              dispatch({ type: 'startReview', rng: makeRng(timeSeed()), ids })
+            }}
             className="rounded-card border border-steel-600 px-5 py-2.5 font-semibold text-steel-200 hover:border-steel-400"
           >
             Review mistakes

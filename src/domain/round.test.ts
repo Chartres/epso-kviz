@@ -85,6 +85,17 @@ describe('storage', () => {
     expect(loadRound()).toBeNull()
   })
 
+  it('drops practice categories no longer in the bank', () => {
+    const snap = sanitizeRound({
+      v: 1,
+      mode: 'practice',
+      ids: [twelve[0].id],
+      answers: [{ id: twelve[0].id, choice: 'a' }],
+      filter: { categories: ['AI Act & Governance', 'Renamed Category'], search: '' },
+    })
+    expect(snap?.filter?.categories).toEqual(['AI Act & Governance'])
+  })
+
   it('rejects malformed snapshots', () => {
     expect(sanitizeRound(null)).toBeNull()
     expect(sanitizeRound({ v: 1, mode: 'exam', ids: [1], answers: [{ id: 1, choice: 'a' }] })).toBeNull()

@@ -202,4 +202,13 @@ describe('app store', () => {
     const s = reducer(start({ progress: p }), { type: 'startExam', rng: makeRng(3), now: 0 })
     expect(s.session!.questions.every((q) => !p.stats[q.id])).toBe(true)
   })
+
+  it('startReview with ids reviews those questions, not the global queue', () => {
+    let p = emptyProgress()
+    for (const q of byCategory('AI Act & Governance').slice(0, 5)) p = recordAnswer(p, q.id, false, 1)
+    const ids = byCategory('EU Digital Policy & Strategy').slice(0, 2).map((q) => q.id)
+    const s = reducer(start({ progress: p }), { type: 'startReview', rng: makeRng(1), ids })
+    expect(s.mode).toBe('review')
+    expect(s.session!.questions.map((q) => q.id)).toEqual(ids)
+  })
 })

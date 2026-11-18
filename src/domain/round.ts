@@ -14,7 +14,7 @@
  * are unchanged.
  */
 import type { CategoryName, Choice } from './types'
-import { getQuestion } from './questions'
+import { CATEGORY_NAMES, getQuestion } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
 import { storage } from './storage'
 
@@ -106,7 +106,7 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   const f = r.filter as { categories?: unknown; search?: unknown } | undefined
   if (snap.mode === 'practice' && f && Array.isArray(f.categories)) {
     snap.filter = {
-      categories: f.categories.filter((c): c is CategoryName => typeof c === 'string'),
+      categories: f.categories.filter((c): c is CategoryName => CATEGORY_NAMES.includes(c as CategoryName)),
       search: typeof f.search === 'string' ? f.search : '',
     }
   }
