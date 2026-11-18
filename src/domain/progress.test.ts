@@ -141,6 +141,13 @@ describe('daily streak', () => {
     expect(p.streak.best).toBe(2)
   })
 
+  it('keeps a streak dated ahead of this device (clock skew) instead of resetting it', () => {
+    let p = recordLessonComplete(emptyProgress(), '2026-06-06')
+    p = recordLessonComplete(p, '2026-06-07')
+    const skewed = recordLessonComplete(p, '2026-06-05')
+    expect(skewed.streak).toEqual({ current: 2, best: 2, lastDate: '2026-06-07' })
+  })
+
   it('does not double-count a second lesson on the same day', () => {
     let p = recordLessonComplete(emptyProgress(), '2026-06-06')
     p = recordLessonComplete(p, '2026-06-06')

@@ -2,7 +2,8 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, needsReviewIds, isNextDay } from '@/domain/progress'
+import { summary, isNextDay } from '@/domain/progress'
+import { reviewQuestions } from '@/domain/selection'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
@@ -14,7 +15,8 @@ export function HomeScreen() {
   const { state, dispatch } = useApp()
   const sum = useMemo(() => summary(state.progress, ALL_QUESTIONS), [state.progress])
   const reviewCount = useMemo(
-    () => needsReviewIds(state.progress).length,
+    // Same list startReview serves, so ids no longer in the bank don't count.
+    () => reviewQuestions(state.progress).length,
     [state.progress],
   )
   // Show 0 when the streak is stale: lastDate is neither today nor yesterday.

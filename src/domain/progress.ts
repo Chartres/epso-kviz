@@ -155,6 +155,7 @@ export function recordLessonComplete(
 ): ProgressData {
   const s = p.streak ?? emptyStreak()
   if (s.lastDate === today) return p // already counted today
+  if (s.lastDate > today) return p // dated ahead (another device's clock or time zone): keep it
   const current = isNextDay(s.lastDate, today) ? s.current + 1 : 1
   return {
     ...p,

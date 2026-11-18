@@ -12,7 +12,8 @@ import { loadSettings, saveSettings } from '@/domain/settings'
 import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
-import { syncProgress } from '@/auth/sync'
+import { syncProgress, type RemoteProgressStore } from '@/auth/sync'
+import { emptyProgress } from '@/domain/progress'
 import { track } from '@/analytics'
 
 interface AppContextValue {
@@ -61,24 +62,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
     saveRound(state.unfinished)
   }, [state.unfinished])
 
+  // On sign-out (a user, then none): clear this device's progress and unfinished round so the
+  // next account to sign in here does not inherit them. The cloud row keeps the user's progress.
+  const prevUserIdRef = useRef<string | null>(null)
+  useEffect(() => {
+    const prev = prevUserIdRef.current
+    prevUserIdRef.current = user?.id ?? null
+    if (prev && !user) {
+      dispatch({ type: 'hydrate', progress: emptyProgress() })
+      dispatch({ type: 'discardRound' })
+    }
+  }, [user?.id])
+
   // On sign-in: reconcile local progress with the cloud and adopt the merge.
   useEffect(() => {
     if (!user) return
     let cancelled = false
+    let fetchFailed = false
     syncInFlightRef.current = true
-    syncProgress(supabaseStore, user.id, progressRef.current)
+    const store: RemoteProgressStore = {
+      save: supabaseStore.save,
+      fetch: (id) =>
+        supabaseStore.fetch(id).catch((e) => {
+          fetchFailed = true
+          throw e
+        }),
+    }
+    syncProgress(store, user.id, progressRef.current)
       .then((merged) => {
-        if (!cancelled) {
-          dispatch({ type: 'hydrate', progress: merged })
-          // A debounced save may have been skipped while sync was in flight;
-          // write the merged result immediately so the cloud row is up to date.
-          supabaseStore.save(user.id, merged).catch(() => {})
-        }
+        // Cloud unreadable: keep local as it is and push nothing this session (syncInFlightRef
+        // stays set), so a fresh or stale device can't overwrite the cloud row. A reload retries.
+        if (cancelled || fetchFailed) return
+        dispatch({ type: 'hydrate', progress: merged })
+        // A debounced save may have been skipped while sync was in flight;
+        // write the merged result immediately so the cloud row is up to date.
+        supabaseStore.save(user.id, merged).catch(() => {})
+        syncInFlightRef.current = false
       })
       .catch(() => {})
-      .then(() => {
-        if (!cancelled) syncInFlightRef.current = false
-      })
     return () => {
       cancelled = true
       syncInFlightRef.current = false
