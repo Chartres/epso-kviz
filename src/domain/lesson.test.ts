@@ -15,6 +15,15 @@ describe('buildLesson', () => {
     expect(buildLesson(emptyProgress(), makeRng(1))).toHaveLength(LESSON_SIZE)
   })
 
+  it('still returns LESSON_SIZE questions on a nearly-mastered bank', () => {
+    // Master the first 220 questions so only ~11 unseen remain.
+    let p = emptyProgress()
+    for (let id = 1; id <= 220; id++) {
+      for (let i = 0; i < MASTERY_STREAK; i++) p = recordAnswer(p, id, true, i)
+    }
+    expect(buildLesson(p, makeRng(99))).toHaveLength(LESSON_SIZE)
+  })
+
   it('has no duplicate questions', () => {
     const lesson = buildLesson(emptyProgress(), makeRng(2))
     expect(new Set(lesson.map((q) => q.id)).size).toBe(LESSON_SIZE)

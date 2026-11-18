@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { PROGRESS_VERSION, type ProgressData } from '@/domain/progress'
+import { sanitizeProgress, type ProgressData } from '@/domain/progress'
 import type { RemoteProgressStore } from './sync'
 
 /**
@@ -19,9 +19,7 @@ export const supabaseStore: RemoteProgressStore = {
       .eq('app', APP)
       .maybeSingle()
     if (error) throw error
-    const stored = data?.data as ProgressData | undefined
-    if (!stored || stored.version !== PROGRESS_VERSION) return null
-    return stored
+    return sanitizeProgress(data?.data)
   },
 
   async save(userId: string, data: ProgressData): Promise<void> {

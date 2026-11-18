@@ -58,4 +58,21 @@ describe('syncProgress', () => {
     expect(merged).toEqual(local)
     expect(store.save).not.toHaveBeenCalled()
   })
+
+  it('returns merged result even when save fails', async () => {
+    let remote = emptyProgress()
+    remote = recordAnswer(remote, 1, false, 200)
+
+    let local = emptyProgress()
+    local = recordAnswer(local, 2, true, 100)
+
+    const store: RemoteProgressStore = {
+      fetch: vi.fn(async () => remote),
+      save: vi.fn(async () => { throw new Error('write failed') }),
+    }
+    const merged = await syncProgress(store, 'u', local)
+    // merged result returned despite save failure
+    expect(merged.stats[1]?.seen).toBe(1)
+    expect(merged.stats[2]?.seen).toBe(1)
+  })
 })

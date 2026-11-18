@@ -23,6 +23,25 @@ const QUESTION_FIRST_HELP: Record<QuestionFirstMode, string> = {
   c: 'The options appear after a few seconds. Use them to think first.',
 }
 
+const REASONING_TESTS = [
+  {
+    view: 'verbal',
+    title: 'Verbal reasoning',
+    blurb: 'In Czech, Slovak or English · 20 questions, 35 minutes, like the real test.',
+  },
+  {
+    view: 'numerical',
+    title: 'Numerical reasoning',
+    blurb: 'In Czech, Slovak or English · 10 questions, 20 minutes, like the real test.',
+  },
+  {
+    view: 'abstract',
+    title: 'Abstract reasoning',
+    blurb:
+      'Instructions in Czech, Slovak or English · 10 questions, 10 minutes, like the real test.',
+  },
+] as const
+
 export function PracticeScreen() {
   const { state, dispatch } = useApp()
   const bookmarkCount = state.progress.bookmarks.length
@@ -84,66 +103,27 @@ export function PracticeScreen() {
       </button>
 
       {/* Reasoning tests: eliminatory, sat in the candidate's language 1 */}
-      <button
-        type="button"
-        onClick={() => {
-          track('key_action', { action: 'verbal_start' })
-          dispatch({ type: 'openVerbal' })
-        }}
-        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
-      >
-        <span>
-          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
-            Verbal reasoning
+      {REASONING_TESTS.map((t) => (
+        <button
+          key={t.view}
+          type="button"
+          onClick={() => {
+            track('key_action', { action: `${t.view}_start` })
+            dispatch({ type: 'navigate', view: t.view })
+          }}
+          className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
+        >
+          <span>
+            <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
+              {t.title}
+            </span>
+            <span className="mt-0.5 block text-sm text-steel-400">{t.blurb}</span>
           </span>
-          <span className="mt-0.5 block text-sm text-steel-400">
-            In Czech, Slovak or English · 20 questions, 35 minutes, like the real test.
+          <span aria-hidden className="font-display text-brass-400">
+            →
           </span>
-        </span>
-        <span aria-hidden className="font-display text-brass-400">
-          →
-        </span>
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          track('key_action', { action: 'numerical_start' })
-          dispatch({ type: 'openNumerical' })
-        }}
-        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
-      >
-        <span>
-          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
-            Numerical reasoning
-          </span>
-          <span className="mt-0.5 block text-sm text-steel-400">
-            In Czech, Slovak or English · 10 questions, 20 minutes, like the real test.
-          </span>
-        </span>
-        <span aria-hidden className="font-display text-brass-400">
-          →
-        </span>
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          track('key_action', { action: 'abstract_start' })
-          dispatch({ type: 'openAbstract' })
-        }}
-        className="mb-5 flex w-full items-center justify-between gap-3 rounded-card border border-steel-700 bg-steel-800/40 p-4 text-left transition-colors hover:border-steel-500"
-      >
-        <span>
-          <span className="block font-display text-lg font-semibold uppercase tracking-wide text-steel-50">
-            Abstract reasoning
-          </span>
-          <span className="mt-0.5 block text-sm text-steel-400">
-            Instructions in Czech, Slovak or English · 10 questions, 10 minutes, like the real test.
-          </span>
-        </span>
-        <span aria-hidden className="font-display text-brass-400">
-          →
-        </span>
-      </button>
+        </button>
+      ))}
 
       {/* MODE 2 — practice by topic */}
       <section className="rounded-card border border-steel-700 bg-steel-800/40 p-4">

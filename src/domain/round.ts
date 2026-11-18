@@ -16,6 +16,7 @@
 import type { CategoryName, Choice } from './types'
 import { getQuestion } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
+import { storage } from './storage'
 
 export type ResumableMode = 'lesson' | 'practice' | 'review' | 'bookmarks'
 export const RESUMABLE_MODES: ResumableMode[] = ['lesson', 'practice', 'review', 'bookmarks']
@@ -82,10 +83,6 @@ export function restoreRound(snap: RoundSnapshot): SessionState | null {
   return { questions: qs, index: firstOpen === -1 ? qs.length - 1 : firstOpen, records, chosen }
 }
 
-export function answeredCount(snap: RoundSnapshot): number {
-  return snap.answers.length
-}
-
 /** Accept only a well-formed snapshot (storage is user-writable and may be from an old build). */
 export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (!raw || typeof raw !== 'object') return null
@@ -94,12 +91,15 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
   if (!Array.isArray(r.ids) || !r.ids.every((x) => Number.isInteger(x))) return null
   if (!Array.isArray(r.answers)) return null
   const ids = new Set(r.ids as number[])
+  const seenAnswerIds = new Set<number>()
   const answers = (r.answers as unknown[]).filter(
-    (a): a is { id: number; choice: Choice } =>
-      !!a &&
-      typeof a === 'object' &&
-      ids.has((a as { id: number }).id) &&
-      CHOICES.includes((a as { choice: Choice }).choice),
+    (a): a is { id: number; choice: Choice } => {
+      if (!a || typeof a !== 'object') return false
+      const { id, choice } = a as { id: number; choice: Choice }
+      if (!ids.has(id) || !CHOICES.includes(choice) || seenAnswerIds.has(id)) return false
+      seenAnswerIds.add(id)
+      return true
+    },
   )
   if (answers.length === 0) return null
   const snap: RoundSnapshot = { v: 1, mode: r.mode as ResumableMode, ids: r.ids as number[], answers }
@@ -111,14 +111,6 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
     }
   }
   return snap
-}
-
-function storage(): Storage | null {
-  try {
-    return typeof localStorage !== 'undefined' ? localStorage : null
-  } catch {
-    return null
-  }
 }
 
 export function loadRound(): RoundSnapshot | null {

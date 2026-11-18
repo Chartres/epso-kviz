@@ -34,7 +34,7 @@ export function buildLesson(
   // 1) Review: due weak-spots, capped.
   const reviewCap = Math.floor(size * REVIEW_FRACTION)
   const review: Question[] = []
-  for (const id of dueForReview(progress, 0)) {
+  for (const id of dueForReview(progress)) {
     if (review.length >= reviewCap) break
     const q = getQuestion(id)
     if (q && take(q)) review.push(q)
@@ -59,7 +59,8 @@ export function buildLesson(
     }
   }
 
-  // 3) Top up to size: any remaining unseen, then seen-but-unmastered.
+  // 3) Top up to size: unseen, then seen-but-unmastered, then mastered as last resort
+  //    (fully-mastered bank still delivers a full lesson rather than 0 questions).
   if (review.length + fresh.length < size) {
     const all = EXAM.composition.flatMap((p) =>
       questionsForGroup(p.group as ExamGroup),
@@ -68,7 +69,10 @@ export function buildLesson(
     const unmastered = all.filter(
       (q) => !used.has(q.id) && !isMastered(statFor(progress, q.id)),
     )
-    for (const q of [...shuffle(unseen, rng), ...shuffle(unmastered, rng)]) {
+    const mastered = all.filter(
+      (q) => !used.has(q.id) && isMastered(statFor(progress, q.id)),
+    )
+    for (const q of [...shuffle(unseen, rng), ...shuffle(unmastered, rng), ...shuffle(mastered, rng)]) {
       if (review.length + fresh.length >= size) break
       if (take(q)) fresh.push(q)
     }
