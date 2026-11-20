@@ -17,6 +17,7 @@ import {
   recordLessonComplete,
   MASTERY_STREAK,
   sanitizeProgress,
+  sanitizeStreak,
 } from './progress'
 
 function q(id: number, cat: Question['cat'] = 'AI Engineering & Operations'): Question {
@@ -276,5 +277,16 @@ describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
     const p = sanitizeProgress({ version: 1, stats: { 7: stat, abc: stat, '1.5': stat }, bookmarks: [] })!
     expect(Object.keys(p.stats)).toEqual(['7'])
     expect(answeredCount(p)).toBe(1)
+  })
+
+  it('drops a streak dated more than a day ahead (a device clock set wrong)', () => {
+    const now = Date.UTC(2026, 10, 21, 12)
+    const ahead = sanitizeStreak({ current: 5, best: 9, lastDate: '2027-11-21' }, now)
+    expect(ahead).toEqual({ current: 0, best: 9, lastDate: '' })
+    expect(recordLessonComplete({ ...emptyProgress(), streak: ahead }, '2026-11-21').streak.current).toBe(1)
+    // A time zone ahead of UTC is a day ahead at most: kept.
+    expect(sanitizeStreak({ current: 5, best: 9, lastDate: '2026-11-22' }, now).lastDate).toBe('2026-11-22')
+    const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [], streak: { current: 3, best: 3, lastDate: '2999-01-01' } })!
+    expect(p.streak.lastDate).toBe('')
   })
 })

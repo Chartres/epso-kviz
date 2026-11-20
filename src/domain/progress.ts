@@ -72,13 +72,17 @@ export function emptyStreak(): Streak {
 }
 
 /** Return a valid Streak from untrusted input (localStorage, cloud), falling back to emptyStreak. */
-export function sanitizeStreak(raw: unknown): Streak {
+export function sanitizeStreak(raw: unknown, now: number = Date.now()): Streak {
   if (!raw || typeof raw !== 'object') return emptyStreak()
   const r = raw as Record<string, unknown>
   // NaN >= 0 is false, so this rejects NaN and negatives in one check.
   const current = typeof r.current === 'number' && r.current >= 0 ? r.current : 0
   const best = typeof r.best === 'number' && r.best >= 0 ? r.best : 0
   const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
+  // A local date is at most one day ahead of UTC. Later than that is a device clock set wrong:
+  // kept, it would win every merge and block recordLessonComplete on every device until then.
+  const latest = new Date(now + 86_400_000).toISOString().slice(0, 10)
+  if (lastDate > latest) return { current: 0, best, lastDate: '' }
   return { current, best, lastDate }
 }
 
