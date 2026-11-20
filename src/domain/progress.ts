@@ -152,6 +152,11 @@ export function isNextDay(prev: string, today: string): boolean {
   return b - a === 86_400_000
 }
 
+/** The streak to show on `today`: 0 when it is stale (lastDate neither today nor yesterday). */
+export function liveStreak(s: Streak, today: string): number {
+  return s.lastDate === today || isNextDay(s.lastDate, today) ? s.current : 0
+}
+
 /** Record that the learner completed a lesson on `today` (YYYY-MM-DD). */
 export function recordLessonComplete(
   p: ProgressData,

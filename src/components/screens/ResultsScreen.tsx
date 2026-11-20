@@ -10,6 +10,8 @@ import { SourceNote } from '@/components/SourceNote'
 import { collectProps } from '@/app/collect'
 import { ReadinessCard } from '@/components/ReadinessCard'
 import { completionEvent } from '@/domain/round'
+import { liveStreak } from '@/domain/progress'
+import { todayStr } from '@/lib/date'
 
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
@@ -31,6 +33,7 @@ export function ResultsScreen() {
   const wrong = wrongAnswers(session)
   const isExam = mode === 'exam'
   const isLesson = mode === 'lesson'
+  const streak = liveStreak(state.progress.streak, todayStr()) // same number home shows
   // For timed-out exams the timer can fire before all questions are answered;
   // unanswered questions count against the score but were absent from wrong[].
   const answeredIds = new Set(session.records.map((r) => r.id))
@@ -46,10 +49,10 @@ export function ResultsScreen() {
             </div>
             <div className="mt-2 inline-flex items-center gap-2 rounded-card border border-brass-500/60 bg-brass-500/10 px-4 py-1.5">
               <span className="font-mono text-lg font-semibold tabular-nums text-brass-300">
-                {state.progress.streak.current}
+                {streak}
               </span>
               <span className="font-mono text-xs uppercase tracking-[0.15em] text-steel-400">
-                {state.progress.streak.current === 1 ? 'day' : 'days'} streak
+                {streak === 1 ? 'day' : 'days'} streak
               </span>
             </div>
           </div>

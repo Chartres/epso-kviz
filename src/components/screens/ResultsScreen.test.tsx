@@ -54,4 +54,12 @@ describe('ResultsScreen actions', () => {
       expect.objectContaining({ type: 'startReview', ids: [wrongId] }),
     )
   })
+
+  it('the streak badge shows what home shows when the lesson could not extend the streak', () => {
+    const { state } = finishedLesson()
+    // Dated ahead (another device's clock): recordLessonComplete keeps it, home shows 0.
+    app.state = { ...state, progress: { ...state.progress, streak: { current: 4, best: 4, lastDate: '2999-01-01' } } }
+    render(<ResultsScreen />)
+    expect(screen.getByText(/days? streak/).previousElementSibling?.textContent).toBe('0')
+  })
 })
