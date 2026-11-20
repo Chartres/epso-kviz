@@ -260,4 +260,11 @@ describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
       expect(recordAnswer(p, 1, true, 10).updatedAt).toBe(10)
     }
   })
+
+  it('drops stats whose key is not a question id', () => {
+    const stat = { seen: 1, correct: 1, streak: 1, lastSeen: 5, lastCorrect: true }
+    const p = sanitizeProgress({ version: 1, stats: { 7: stat, abc: stat, '1.5': stat }, bookmarks: [] })!
+    expect(Object.keys(p.stats)).toEqual(['7'])
+    expect(answeredCount(p)).toBe(1)
+  })
 })

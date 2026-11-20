@@ -116,7 +116,7 @@ export function sanitizeProgress(raw: unknown): ProgressData | null {
   const stats: Record<number, QuestionStat> = {}
   for (const [key, val] of Object.entries(rawStats)) {
     const s = sanitizeStat(val)
-    if (s) stats[Number(key)] = s
+    if (s && Number.isInteger(Number(key))) stats[Number(key)] = s
   }
   return {
     version: PROGRESS_VERSION,
