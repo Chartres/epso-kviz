@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { META } from '@/domain/questions'
-import { buildPractice } from '@/domain/selection'
+import { bookmarkedQuestions, buildPractice } from '@/domain/selection'
 import { timeSeed, makeRng } from '@/domain/rng'
 import { track } from '@/analytics'
 import { readinessProps } from '@/domain/readiness'
@@ -44,7 +44,8 @@ const REASONING_TESTS = [
 
 export function PracticeScreen() {
   const { state, dispatch } = useApp()
-  const bookmarkCount = state.progress.bookmarks.length
+  // Same list startBookmarks serves, so ids no longer in the bank don't count.
+  const bookmarkCount = bookmarkedQuestions(state.progress).length
   const selectedCount = state.selectedCategories.size
 
   // Live count of what "Start practicing" will serve: categories ∩ search, answered ones
