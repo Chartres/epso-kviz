@@ -16,6 +16,7 @@ import {
   mergeProgress,
   recordLessonComplete,
   MASTERY_STREAK,
+  sanitizeProgress,
 } from './progress'
 
 function q(id: number, cat: Question['cat'] = 'AI Engineering & Operations'): Question {
@@ -243,5 +244,12 @@ describe('mergeProgress (offline ↔ cloud sync)', () => {
     let p = emptyProgress()
     p = recordAnswer(p, 1, true, 100)
     expect(mergeProgress(p, p)).toEqual(p)
+  })
+})
+
+describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
+  it('keeps only integer bookmark ids', () => {
+    const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [3, '4', null, 1.5, { id: 5 }, 7] })
+    expect(p!.bookmarks).toEqual([3, 7])
   })
 })
