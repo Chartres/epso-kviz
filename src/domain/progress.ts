@@ -124,7 +124,7 @@ export function sanitizeProgress(raw: unknown): ProgressData | null {
     bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks.filter((b) => Number.isInteger(b)) : [],
     ...withCommonplace(sanitizeCommonplace(r.commonplace)),
     streak: sanitizeStreak(r.streak),
-    updatedAt: r.updatedAt ?? 0,
+    updatedAt: Number.isFinite(r.updatedAt) ? r.updatedAt! : 0,
   }
 }
 

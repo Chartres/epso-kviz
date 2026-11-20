@@ -252,4 +252,12 @@ describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
     const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [3, '4', null, 1.5, { id: 5 }, 7] })
     expect(p!.bookmarks).toEqual([3, 7])
   })
+
+  it('falls back to 0 for an updatedAt that is not a finite number', () => {
+    for (const updatedAt of ['5', NaN, null, Infinity]) {
+      const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [], updatedAt })!
+      expect(p.updatedAt).toBe(0)
+      expect(recordAnswer(p, 1, true, 10).updatedAt).toBe(10)
+    }
+  })
 })
