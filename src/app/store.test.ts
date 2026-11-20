@@ -68,6 +68,13 @@ describe('app store', () => {
     expect(s.examResult?.passed).toBe(false)
   })
 
+  it('finishExam outside an exam (a stale timer) changes nothing', () => {
+    let s = start()
+    s = reducer(s, { type: 'setCategories', categories: new Set(['EU Digital Policy & Strategy']) })
+    s = reducer(s, { type: 'startPractice', rng: makeRng(1) })
+    expect(reducer(s, { type: 'finishExam' })).toBe(s)
+  })
+
   it('starts a review session from the weak-spots queue', () => {
     let p = emptyProgress()
     p = recordAnswer(p, 1, false, 10)

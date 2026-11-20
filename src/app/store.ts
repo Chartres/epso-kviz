@@ -214,7 +214,7 @@ function step(state: AppState, action: Action): AppState {
     }
 
     case 'finishExam': {
-      if (!state.session) return state
+      if (!state.session || state.mode !== 'exam') return state
       return {
         ...state,
         view: 'results',
