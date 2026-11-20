@@ -50,6 +50,8 @@ export interface AppState {
   settings: Settings
   /** A lesson or practice round left early, waiting on home (domain/round.ts). */
   unfinished: RoundSnapshot | null
+  /** The review session reviews one round's mistakes, not the global queue. */
+  reviewMistakes: boolean
 }
 
 export function initialState(): AppState {
@@ -64,6 +66,7 @@ export function initialState(): AppState {
     search: '',
     settings: defaultSettings(),
     unfinished: null,
+    reviewMistakes: false,
   }
 }
 
@@ -106,10 +109,12 @@ function begin(state: AppState, mode: Mode, session: SessionState): AppState {
 function trackUnfinished(prev: AppState, next: AppState): AppState {
   if (next.session === prev.session || !next.session || next.mode === 'exam') return next
   if (next.session.records.length === 0) return next
-  const unfinished = snapshotRound(next.mode, next.session, {
-    categories: next.selectedCategories,
-    search: next.search,
-  })
+  const unfinished = snapshotRound(
+    next.mode,
+    next.session,
+    { categories: next.selectedCategories, search: next.search },
+    next.reviewMistakes,
+  )
   return unfinished === next.unfinished ? next : { ...next, unfinished }
 }
 
@@ -152,7 +157,7 @@ function step(state: AppState, action: Action): AppState {
       const qs = action.ids
         ? action.ids.map((id) => getQuestion(id)).filter((q): q is Question => q !== undefined)
         : reviewQuestions(state.progress)
-      return begin(state, 'review', createSession(qs))
+      return { ...begin(state, 'review', createSession(qs)), reviewMistakes: !!action.ids }
     }
 
     case 'startBookmarks':
@@ -172,7 +177,7 @@ function step(state: AppState, action: Action): AppState {
       const snap = state.unfinished
       const session = snap ? restoreRound(snap) : null
       if (!snap || !session) return { ...state, unfinished: null }
-      const resumed = begin(state, snap.mode, session)
+      const resumed = { ...begin(state, snap.mode, session), reviewMistakes: !!snap.mistakes }
       return snap.filter
         ? { ...resumed, selectedCategories: new Set(snap.filter.categories), search: snap.filter.search }
         : resumed

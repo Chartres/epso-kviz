@@ -75,6 +75,21 @@ describe('app store', () => {
     expect(reducer(s, { type: 'finishExam' })).toBe(s)
   })
 
+  it("an unfinished review of one round's mistakes remembers that kind", () => {
+    const ids = byCategory('EU Digital Policy & Strategy').slice(0, 3).map((q) => q.id)
+    let s = reducer(start(), { type: 'startReview', rng: makeRng(1), ids })
+    s = reducer(s, { type: 'answer', choice: currentQuestion(s.session!)!.correct, now: 1 })
+    expect(s.unfinished).toMatchObject({ mode: 'review', ids, mistakes: true })
+    s = reducer(s, { type: 'goMenu' })
+    s = reducer(s, { type: 'resumeRound' })
+    s = reducer(s, { type: 'answer', choice: currentQuestion(s.session!)!.correct, now: 2 })
+    expect(s.unfinished?.mistakes).toBe(true)
+    // The global queue's review is not marked.
+    let g = reducer(start({ progress: recordAnswer(emptyProgress(), ids[0], false, 1) }), { type: 'startReview', rng: makeRng(1) })
+    g = reducer(g, { type: 'answer', choice: 'a', now: 3 })
+    expect(g.unfinished?.mistakes).toBeUndefined()
+  })
+
   it('starts a review session from the weak-spots queue', () => {
     let p = emptyProgress()
     p = recordAnswer(p, 1, false, 10)

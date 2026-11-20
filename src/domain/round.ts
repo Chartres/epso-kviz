@@ -34,6 +34,8 @@ export interface RoundSnapshot {
   answers: { id: number; choice: Choice }[]
   /** Practice only: the filter the round was built from, so "New round" rebuilds the same kind. */
   filter?: { categories: CategoryName[]; search: string }
+  /** Review only: the round reviews one round's mistakes (`ids`), not the global queue. */
+  mistakes?: true
 }
 
 export const ROUND_KEY = 'epso-kviz:round:v1'
@@ -47,6 +49,7 @@ export function snapshotRound(
   mode: string | null,
   session: SessionState | null,
   filter?: { categories: Iterable<CategoryName>; search: string },
+  mistakes = false,
 ): RoundSnapshot | null {
   if (!session || !isResumable(mode) || isFinished(session) || session.records.length === 0) return null
   const snap: RoundSnapshot = {
@@ -58,6 +61,7 @@ export function snapshotRound(
   if (mode === 'practice' && filter) {
     snap.filter = { categories: [...filter.categories], search: filter.search }
   }
+  if (mode === 'review' && mistakes) snap.mistakes = true
   return snap
 }
 
@@ -110,6 +114,7 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
       search: typeof f.search === 'string' ? f.search : '',
     }
   }
+  if (snap.mode === 'review' && r.mistakes === true) snap.mistakes = true
   return snap
 }
 

@@ -30,4 +30,16 @@ describe('UnfinishedRound "New round"', () => {
     fireEvent.click(screen.getByRole('button', { name: 'New round' }))
     expect(types()).toEqual(['discardRound'])
   })
+
+  it("rebuilds a review of one round's mistakes from those questions, not the global queue", () => {
+    const snap: RoundSnapshot = {
+      v: 1, mode: 'review', ids: [q1.id, q2.id], answers: [{ id: q1.id, choice: 'a' }], mistakes: true,
+    }
+    app.state = { ...initialState(), unfinished: snap, progress: emptyProgress() }
+    render(<UnfinishedRound />)
+    fireEvent.click(screen.getByRole('button', { name: 'New round' }))
+    expect(app.dispatch).toHaveBeenLastCalledWith(
+      expect.objectContaining({ type: 'startReview', ids: [q1.id, q2.id] }),
+    )
+  })
 })

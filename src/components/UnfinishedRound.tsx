@@ -51,7 +51,7 @@ export function UnfinishedRound() {
     if (!snap) return
     dispatch({ type: 'discardRound' })
     // Nothing to build a new review or bookmarks round from: just clear the card.
-    if (snap.mode === 'review' && reviewQuestions(state.progress).length === 0) return
+    if (snap.mode === 'review' && !snap.mistakes && reviewQuestions(state.progress).length === 0) return
     if (snap.mode === 'bookmarks' && bookmarkedQuestions(state.progress).length === 0) return
     const rng = makeRng(timeSeed())
     track(START_EVENT[snap.mode], { question_first: state.settings.questionFirst })
@@ -65,7 +65,8 @@ export function UnfinishedRound() {
         }
         return dispatch({ type: 'startPractice', rng })
       case 'review':
-        return dispatch({ type: 'startReview', rng })
+        // One round's mistakes come back as the same questions; otherwise the global queue.
+        return dispatch({ type: 'startReview', rng, ...(snap.mistakes ? { ids: snap.ids } : {}) })
       case 'bookmarks':
         return dispatch({ type: 'startBookmarks', rng })
     }
