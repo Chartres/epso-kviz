@@ -85,4 +85,16 @@ describe('AppProvider auth effects', () => {
     expect(seen!.progress.stats[qid]?.seen).toBe(1)
     expect(seen!.progress.stats[ALL_QUESTIONS[2].id]?.seen).toBe(1)
   })
+
+  it('a sign-in with nothing changed since sends the merged row once', async () => {
+    store.fetch.mockResolvedValue(recordAnswer(emptyProgress(), ALL_QUESTIONS[2].id, true, 200))
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    await act(async () => {
+      vi.advanceTimersByTime(3000)
+    })
+    expect(store.save).toHaveBeenCalledTimes(1)
+    expect(store.save).toHaveBeenCalledWith('u1', seen!.progress)
+  })
 })

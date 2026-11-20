@@ -13,7 +13,7 @@ import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
 import { syncProgress, type RemoteProgressStore } from '@/auth/sync'
-import { emptyProgress } from '@/domain/progress'
+import { emptyProgress, type ProgressData } from '@/domain/progress'
 import { track } from '@/analytics'
 
 interface AppContextValue {
@@ -41,6 +41,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Prevents debounced save from overwriting cloud with unmerged local data.
   const syncInFlightRef = useRef(false)
+  // The progress object last written to the cloud, so the same row isn't sent twice.
+  const lastSavedRef = useRef<ProgressData | null>(null)
 
   // Track app open once on mount.
   useEffect(() => {
@@ -81,7 +83,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     let fetchFailed = false
     syncInFlightRef.current = true
     const store: RemoteProgressStore = {
-      save: supabaseStore.save,
+      save: (id, data) =>
+        supabaseStore.save(id, data).then(() => {
+          lastSavedRef.current = data
+        }),
       fetch: (id) =>
         supabaseStore.fetch(id).catch((e) => {
           fetchFailed = true
@@ -94,10 +99,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // Cloud unreadable: keep local as it is and push nothing this session (syncInFlightRef
         // stays set), so a fresh or stale device can't overwrite the cloud row. A reload retries.
         if (cancelled || fetchFailed) return
+        // syncProgress has written `merged`; anything changed since goes out with the debounce.
         dispatch({ type: 'syncMerged', base, progress: merged })
-        // A debounced save may have been skipped while sync was in flight;
-        // write the merged result immediately so the cloud row is up to date.
-        supabaseStore.save(user.id, merged).catch(() => {})
         syncInFlightRef.current = false
       })
       .catch(() => {})
@@ -112,8 +115,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
-      if (syncInFlightRef.current) return
-      supabaseStore.save(user.id, state.progress).catch(() => {})
+      if (syncInFlightRef.current || state.progress === lastSavedRef.current) return
+      const data = state.progress
+      supabaseStore.save(user.id, data).then(() => {
+        lastSavedRef.current = data
+      }, () => {})
     }, 1500)
     return () => clearTimeout(t)
   }, [state.progress, user?.id])
