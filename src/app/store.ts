@@ -16,6 +16,7 @@ import {
 import { buildExam, evaluateExam, EXAM, type ExamResult } from '@/domain/exam'
 import {
   emptyProgress,
+  mergeProgress,
   recordAnswer,
   recordLessonComplete,
   toggleBookmark,
@@ -72,6 +73,8 @@ export function initialState(): AppState {
 
 export type Action =
   | { type: 'hydrate'; progress: ProgressData }
+  /** The sign-in merge of `base` (progress when the fetch began) with the cloud. */
+  | { type: 'syncMerged'; base: ProgressData; progress: ProgressData }
   | { type: 'setCategories'; categories: Set<CategoryName> }
   | { type: 'setSearch'; search: string }
   | { type: 'setQuestionFirst'; mode: QuestionFirstMode }
@@ -126,6 +129,14 @@ function step(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'hydrate':
       return { ...state, progress: action.progress }
+
+    case 'syncMerged':
+      // Progress changed while the fetch was in flight: merge it in rather than drop it.
+      return {
+        ...state,
+        progress:
+          state.progress === action.base ? action.progress : mergeProgress(state.progress, action.progress),
+      }
 
     case 'setCategories':
       return { ...state, selectedCategories: action.categories }

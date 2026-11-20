@@ -88,12 +88,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
           throw e
         }),
     }
-    syncProgress(store, user.id, progressRef.current)
+    const base = progressRef.current
+    syncProgress(store, user.id, base)
       .then((merged) => {
         // Cloud unreadable: keep local as it is and push nothing this session (syncInFlightRef
         // stays set), so a fresh or stale device can't overwrite the cloud row. A reload retries.
         if (cancelled || fetchFailed) return
-        dispatch({ type: 'hydrate', progress: merged })
+        dispatch({ type: 'syncMerged', base, progress: merged })
         // A debounced save may have been skipped while sync was in flight;
         // write the merged result immediately so the cloud row is up to date.
         supabaseStore.save(user.id, merged).catch(() => {})

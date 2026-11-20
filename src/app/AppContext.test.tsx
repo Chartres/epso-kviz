@@ -17,9 +17,11 @@ vi.mock('@/analytics', () => ({ track: vi.fn(), identify: vi.fn() }))
 
 const qid = ALL_QUESTIONS[0].id
 let seen: { progress: ProgressData; unfinished: unknown } | null = null
+let send: ReturnType<typeof useApp>['dispatch'] = () => {}
 function Probe() {
-  const { state } = useApp()
+  const { state, dispatch } = useApp()
   seen = { progress: state.progress, unfinished: state.unfinished }
+  send = dispatch
   return null
 }
 const tree = () => (
@@ -68,5 +70,19 @@ describe('AppProvider auth effects', () => {
     })
     expect(store.save).not.toHaveBeenCalled()
     expect(seen!.progress.stats[qid]?.seen).toBe(1) // local kept
+  })
+
+  it('progress changed while the sign-in fetch is in flight survives the merge', async () => {
+    let resolve!: (p: ProgressData) => void
+    store.fetch.mockReturnValue(new Promise((r) => (resolve = r)))
+    const other = ALL_QUESTIONS[1].id
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: other }))
+    await act(async () => resolve(recordAnswer(emptyProgress(), ALL_QUESTIONS[2].id, true, 200)))
+    expect(seen!.progress.bookmarks).toContain(other)
+    expect(seen!.progress.stats[qid]?.seen).toBe(1)
+    expect(seen!.progress.stats[ALL_QUESTIONS[2].id]?.seen).toBe(1)
   })
 })
