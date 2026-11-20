@@ -275,7 +275,10 @@ export function summary(
   allQuestions: Question[],
 ): ProgressSummary {
   const byCategory: Partial<Record<CategoryName, CategorySummary>> = {}
+  // Stats of questions no longer in the bank don't count anywhere in the summary.
+  const inBank: ProgressData = { ...p, stats: {} }
   for (const q of allQuestions) {
+    if (p.stats[q.id]) inBank.stats[q.id] = p.stats[q.id]
     const c = (byCategory[q.cat] ??= { total: 0, seen: 0, mastered: 0 })
     c.total++
     const s = p.stats[q.id]
@@ -286,9 +289,9 @@ export function summary(
   }
   return {
     total: allQuestions.length,
-    answered: answeredCount(p),
-    mastered: masteredCount(p),
-    accuracy: accuracy(p),
+    answered: answeredCount(inBank),
+    mastered: masteredCount(inBank),
+    accuracy: accuracy(inBank),
     byCategory,
   }
 }

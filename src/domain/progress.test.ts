@@ -129,6 +129,16 @@ describe('summary', () => {
   })
 })
 
+describe('summary of a bank that lost questions', () => {
+  it('counts only questions still in the bank', () => {
+    let p = emptyProgress()
+    for (let i = 0; i < MASTERY_STREAK; i++) p = recordAnswer(p, 99, true, i) // 99 left the bank
+    p = recordAnswer(p, 1, false, 50)
+    const sum = summary(p, [q(1), q(2)])
+    expect(sum).toMatchObject({ total: 2, answered: 1, mastered: 0, accuracy: 0 })
+  })
+})
+
 describe('daily streak', () => {
   it('starts a streak on the first completed lesson', () => {
     const p = recordLessonComplete(emptyProgress(), '2026-06-06')
