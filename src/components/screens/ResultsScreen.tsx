@@ -12,6 +12,7 @@ import { ReadinessCard } from '@/components/ReadinessCard'
 import { completionEvent } from '@/domain/round'
 import { liveStreak } from '@/domain/progress'
 import { todayStr } from '@/lib/date'
+import type { Question } from '@/domain/types'
 
 export function ResultsScreen() {
   const { state, dispatch } = useApp()
@@ -107,21 +108,7 @@ export function ResultsScreen() {
           <ul className="space-y-3">
             {wrong.map((r) => {
               const q = getQuestion(r.id)
-              if (!q) return null
-              return (
-                <li
-                  key={r.id}
-                  className="rounded-card border border-steel-700 bg-steel-900/50 p-4"
-                >
-                  <p className="mb-2 text-sm text-steel-200">{q.q}</p>
-                  <p className="text-sm text-verdigris-400">
-                    <span className="font-semibold uppercase">{q.correct})</span>{' '}
-                    {q[q.correct]}
-                  </p>
-                  <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
-                  <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
-                </li>
-              )
+              return q ? <AnswerItem key={r.id} question={q} /> : null
             })}
           </ul>
         </section>
@@ -134,18 +121,7 @@ export function ResultsScreen() {
           </h2>
           <ul className="space-y-3">
             {missed.map((q) => (
-              <li
-                key={q.id}
-                className="rounded-card border border-steel-700 bg-steel-900/50 p-4"
-              >
-                <p className="mb-2 text-sm text-steel-200">{q.q}</p>
-                <p className="text-sm text-verdigris-400">
-                  <span className="font-semibold uppercase">{q.correct})</span>{' '}
-                  {q[q.correct]}
-                </p>
-                <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
-                <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
-              </li>
+              <AnswerItem key={q.id} question={q} />
             ))}
           </ul>
         </section>
@@ -189,5 +165,21 @@ export function ResultsScreen() {
 
       <FeedbackCard context={mode ?? 'results'} />
     </div>
+  )
+}
+
+/** One question under "Wrong answers" or "Unanswered": the right answer, why, and its source. */
+function AnswerItem({ question: q }: { question: Question }) {
+  const { state, dispatch } = useApp()
+  return (
+    <li className="rounded-card border border-steel-700 bg-steel-900/50 p-4">
+      <p className="mb-2 text-sm text-steel-200">{q.q}</p>
+      <p className="text-sm text-verdigris-400">
+        <span className="font-semibold uppercase">{q.correct})</span>{' '}
+        {q[q.correct]}
+      </p>
+      <p className="mt-2 text-sm text-steel-400">{q.explain}</p>
+      <SourceNote question={q} {...collectProps(q, state.progress, dispatch)} />
+    </li>
   )
 }
