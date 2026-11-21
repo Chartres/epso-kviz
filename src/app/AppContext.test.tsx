@@ -148,6 +148,20 @@ describe('AppProvider auth effects', () => {
     expect(store.save.mock.calls[0][1].stats).toEqual({})
   })
 
+  it('switching from one account to another without a sign-out in between does not carry progress over', async () => {
+    auth.user = { id: 'uA' }
+    const { rerender } = render(tree())
+    await flush()
+    store.save.mockClear()
+    auth.user = { id: 'uB' }
+    rerender(tree())
+    await flush()
+    expect(seen!.progress.stats).toEqual({})
+    expect(seen!.unfinished).toBeNull()
+    expect(store.save).toHaveBeenCalledWith('uB', expect.objectContaining({ stats: {} }))
+    expect(store.save.mock.calls.every(([, d]) => !d.stats[qid])).toBe(true)
+  })
+
   it('the same account signing in again on this device keeps its local progress', async () => {
     auth.user = { id: 'uA' }
     render(tree()).unmount()
