@@ -98,16 +98,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [user?.id])
 
+  // Write to the cloud and record it in lastSavedRef.
+  function saveRemote(userId: string, data: ProgressData): Promise<void> {
+    return supabaseStore.save(userId, data).then(() => {
+      lastSavedRef.current = data
+    })
+  }
+
   // Reconcile local progress with the cloud and adopt the merge.
   function startSync(userId: string) {
     const gen = syncGenRef.current
     syncStateRef.current = 'pending'
     let fetchFailed = false
     const store: RemoteProgressStore = {
-      save: (id, data) =>
-        supabaseStore.save(id, data).then(() => {
-          lastSavedRef.current = data
-        }),
+      save: saveRemote,
       fetch: (id) =>
         supabaseStore.fetch(id).catch((e) => {
           fetchFailed = true
@@ -156,10 +160,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const t = setTimeout(() => {
       if (syncStateRef.current === 'failed') return startSync(user.id)
       if (syncStateRef.current !== 'ok' || state.progress === lastSavedRef.current) return
-      const data = state.progress
-      supabaseStore.save(user.id, data).then(() => {
-        lastSavedRef.current = data
-      }, () => {})
+      saveRemote(user.id, state.progress).catch(() => {})
     }, 1500)
     return () => clearTimeout(t)
   }, [state.progress, user?.id])
