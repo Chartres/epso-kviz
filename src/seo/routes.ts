@@ -4,8 +4,14 @@
  */
 export const STATIC_PAGE_PREFIXES = ['ai-act', 'acts', 'questions', 'guide'] as const
 
-export const NAVIGATE_FALLBACK_DENYLIST: RegExp[] = [
-  new RegExp(`^/(${STATIC_PAGE_PREFIXES.join('|')})(/|$)`),
-  /^\/llms\.txt$/,
-  /^\/sitemap\.xml$/,
-]
+/** `base` is Vite's base ('/' or e.g. '/epso-kviz/'); Workbox tests the full pathname. */
+export function navigateFallbackDenylist(base = '/'): RegExp[] {
+  const b = base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return [
+    new RegExp(`^${b}(${STATIC_PAGE_PREFIXES.join('|')})(/|$)`),
+    new RegExp(`^${b}llms\\.txt$`),
+    new RegExp(`^${b}sitemap\\.xml$`),
+  ]
+}
+
+export const NAVIGATE_FALLBACK_DENYLIST: RegExp[] = navigateFallbackDenylist()
