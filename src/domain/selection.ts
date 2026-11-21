@@ -1,5 +1,5 @@
 import type { CategoryName, Question } from './types'
-import { ALL_QUESTIONS, getQuestion } from './questions'
+import { ALL_QUESTIONS, questionsByIds } from './questions'
 import { shuffle, type Rng } from './rng'
 import { dueForReview, statFor, type ProgressData } from './progress'
 
@@ -53,13 +53,9 @@ export function buildPractice(opts: FilterOptions, rng: Rng, progress?: Progress
 }
 
 export function reviewQuestions(p: ProgressData): Question[] {
-  return dueForReview(p)
-    .map((id) => getQuestion(id))
-    .filter((q): q is Question => q !== undefined)
+  return questionsByIds(dueForReview(p))
 }
 
 export function bookmarkedQuestions(p: ProgressData): Question[] {
-  return p.bookmarks
-    .map((id) => getQuestion(id))
-    .filter((q): q is Question => q !== undefined)
+  return questionsByIds(p.bookmarks)
 }

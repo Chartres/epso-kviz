@@ -1,4 +1,4 @@
-import type { CategoryName, Choice, Citation, Question } from '@/domain/types'
+import type { CategoryName, Choice, Citation } from '@/domain/types'
 import type { Rng } from '@/domain/rng'
 import {
   createSession,
@@ -25,7 +25,7 @@ import {
 import { buildLesson } from '@/domain/lesson'
 import { setCollected } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
-import { getQuestion } from '@/domain/questions'
+import { questionsByIds } from '@/domain/questions'
 import { defaultSettings, type QuestionFirstMode, type Settings } from '@/domain/settings'
 import { restoreRound, snapshotRound, type RoundSnapshot } from '@/domain/round'
 
@@ -165,9 +165,7 @@ function step(state: AppState, action: Action): AppState {
 
     case 'startReview': {
       // ids: one round's mistakes (results screen); otherwise the global review queue.
-      const qs = action.ids
-        ? action.ids.map((id) => getQuestion(id)).filter((q): q is Question => q !== undefined)
-        : reviewQuestions(state.progress)
+      const qs = action.ids ? questionsByIds(action.ids) : reviewQuestions(state.progress)
       return { ...begin(state, 'review', createSession(qs)), reviewMistakes: !!action.ids }
     }
 

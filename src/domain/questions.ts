@@ -16,6 +16,11 @@ export function getQuestion(id: number): Question | undefined {
   return BY_ID.get(id)
 }
 
+/** The questions for these ids, in order, skipping any no longer in the bank. */
+export function questionsByIds(ids: number[]): Question[] {
+  return ids.map((id) => BY_ID.get(id)).filter((q): q is Question => q !== undefined)
+}
+
 export function byCategory(cat: CategoryName): Question[] {
   return ALL_QUESTIONS.filter((q) => q.cat === cat)
 }
