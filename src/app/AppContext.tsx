@@ -39,8 +39,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     progressRef.current = state.progress
   }, [state.progress])
 
-  // Prevents debounced save from overwriting cloud with unmerged local data.
-  const syncInFlightRef = useRef(false)
+  // Sign-in sync state. The debounced save waits for 'ok' so it can't overwrite the cloud with
+  // unmerged local data; 'failed' (cloud unreadable) makes the next change retry the sync.
+  const syncStateRef = useRef<'idle' | 'pending' | 'ok' | 'failed'>('idle')
+  // Bumped when the user changes, so a sync for the previous user is ignored when it lands.
+  const syncGenRef = useRef(0)
   // The progress object last written to the cloud, so the same row isn't sent twice.
   const lastSavedRef = useRef<ProgressData | null>(null)
 
@@ -76,12 +79,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [user?.id])
 
-  // On sign-in: reconcile local progress with the cloud and adopt the merge.
-  useEffect(() => {
-    if (!user) return
-    let cancelled = false
+  // Reconcile local progress with the cloud and adopt the merge.
+  function startSync(userId: string) {
+    const gen = syncGenRef.current
+    syncStateRef.current = 'pending'
     let fetchFailed = false
-    syncInFlightRef.current = true
     const store: RemoteProgressStore = {
       save: (id, data) =>
         supabaseStore.save(id, data).then(() => {
@@ -94,28 +96,38 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }),
     }
     const base = progressRef.current
-    syncProgress(store, user.id, base)
+    syncProgress(store, userId, base)
       .then((merged) => {
-        // Cloud unreadable: keep local as it is and push nothing this session (syncInFlightRef
-        // stays set), so a fresh or stale device can't overwrite the cloud row. A reload retries.
-        if (cancelled || fetchFailed) return
+        if (gen !== syncGenRef.current) return
+        // Cloud unreadable: keep local as it is and push nothing, so a fresh or stale device
+        // can't overwrite the cloud row. The next progress change retries the sync.
+        if (fetchFailed) {
+          syncStateRef.current = 'failed'
+          return
+        }
         // syncProgress has written `merged`; anything changed since goes out with the debounce.
         dispatch({ type: 'syncMerged', base, progress: merged })
-        syncInFlightRef.current = false
+        syncStateRef.current = 'ok'
       })
       .catch(() => {})
+  }
+
+  // On sign-in: sync once.
+  useEffect(() => {
+    if (!user) return
+    startSync(user.id)
     return () => {
-      cancelled = true
-      syncInFlightRef.current = false
+      syncGenRef.current++
+      syncStateRef.current = 'idle'
     }
   }, [user?.id])
 
-  // While signed in, push progress changes to the cloud (debounced).
-  // Guard: skip if sync is still in flight to avoid overwriting the merge.
+  // While signed in, push progress changes to the cloud (debounced), once the sign-in sync is done.
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
-      if (syncInFlightRef.current || state.progress === lastSavedRef.current) return
+      if (syncStateRef.current === 'failed') return startSync(user.id)
+      if (syncStateRef.current !== 'ok' || state.progress === lastSavedRef.current) return
       const data = state.progress
       supabaseStore.save(user.id, data).then(() => {
         lastSavedRef.current = data

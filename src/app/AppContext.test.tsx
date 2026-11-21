@@ -97,4 +97,20 @@ describe('AppProvider auth effects', () => {
     expect(store.save).toHaveBeenCalledTimes(1)
     expect(store.save).toHaveBeenCalledWith('u1', seen!.progress)
   })
+
+  it('after a failed sign-in fetch, the next progress change retries the sync and pushes', async () => {
+    store.fetch.mockRejectedValueOnce(new Error('offline')).mockResolvedValue(null)
+    const other = ALL_QUESTIONS[1].id
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: other }))
+    await act(async () => {
+      vi.advanceTimersByTime(1500)
+    })
+    await flush()
+    expect(store.fetch).toHaveBeenCalledTimes(2)
+    expect(store.save).toHaveBeenCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
+    expect(store.save.mock.calls.at(-1)![1].stats[qid]?.seen).toBe(1)
+  })
 })
