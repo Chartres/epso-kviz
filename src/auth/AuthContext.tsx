@@ -21,10 +21,13 @@ interface AuthContextValue {
   user: AuthUser | null
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>
-  signOut: () => Promise<void>
+  signOut: () => Promise<{ ok: boolean; error?: string }>
   /** Awaited by signOut while the session still exists (requests after it go out as anon). */
   beforeSignOut: { current: (() => Promise<void>) | null }
 }
+
+/** How long signOut waits for the before-sign-out flush. */
+const SIGN_OUT_FLUSH_MS = 5000
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
@@ -69,9 +72,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return error ? { ok: false, error: error.message } : { ok: true }
     },
     async signOut() {
-      if (!supabase) return
-      await beforeSignOut.current?.().catch(() => {})
-      await supabase.auth.signOut()
+      if (!supabase) return { ok: false, error: 'Sign-in is not configured.' }
+      // Bounded: a hung flush must not leave sign-out pending forever.
+      const flush = beforeSignOut.current?.().catch(() => {})
+      await Promise.race([flush, new Promise((r) => setTimeout(r, SIGN_OUT_FLUSH_MS))])
+      const { error } = await supabase.auth.signOut()
+      return error ? { ok: false, error: error.message } : { ok: true }
     },
   }
 

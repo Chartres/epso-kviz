@@ -2,7 +2,10 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, act } from '@testing-library/react'
 import { AuthProvider, useAuth } from './AuthContext'
 
-const { calls } = vi.hoisted(() => ({ calls: [] as string[] }))
+const { calls, signOutResult } = vi.hoisted(() => ({
+  calls: [] as string[],
+  signOutResult: { error: null as { message: string } | null },
+}))
 vi.mock('./supabase', () => ({
   isAuthConfigured: true,
   supabase: {
@@ -11,6 +14,7 @@ vi.mock('./supabase', () => ({
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } }),
       signOut: async () => {
         calls.push('signOut')
+        return { error: signOutResult.error }
       },
     },
   },
@@ -51,5 +55,50 @@ describe('signOut', () => {
     }
     await act(() => auth.signOut())
     expect(calls).toEqual(['flush', 'signOut'])
+  })
+
+  it('a hung before-sign-out flush does not block sign-out past a few seconds', async () => {
+    vi.useFakeTimers()
+    try {
+      let auth!: ReturnType<typeof useAuth>
+      function Grab() {
+        auth = useAuth()
+        return null
+      }
+      render(
+        <AuthProvider>
+          <Grab />
+        </AuthProvider>,
+      )
+      calls.length = 0
+      auth.beforeSignOut.current = () => new Promise<void>(() => {}) // a fetch that never settles
+      const done = auth.signOut()
+      await vi.advanceTimersByTimeAsync(10_000)
+      await done
+      expect(calls).toEqual(['signOut'])
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('reports the error when the session could not be ended (offline, 5xx)', async () => {
+    let auth!: ReturnType<typeof useAuth>
+    function Grab() {
+      auth = useAuth()
+      return null
+    }
+    render(
+      <AuthProvider>
+        <Grab />
+      </AuthProvider>,
+    )
+    auth.beforeSignOut.current = null
+    signOutResult.error = { message: 'Failed to fetch' }
+    try {
+      expect(await auth.signOut()).toEqual({ ok: false, error: 'Failed to fetch' })
+    } finally {
+      signOutResult.error = null
+    }
+    expect(await auth.signOut()).toEqual({ ok: true })
   })
 })
