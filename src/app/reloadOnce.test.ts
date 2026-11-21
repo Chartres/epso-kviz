@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { reloadOnce } from './reloadOnce'
 
 const KEY = 'chunk-reload'
@@ -31,5 +31,28 @@ describe('reloadOnce', () => {
     const reload = vi.fn()
     expect(await reloadOnce(fail, KEY, fallback, reload)).toBe(fallback)
     expect(reload).not.toHaveBeenCalled()
+  })
+
+  describe('with site storage blocked (sessionStorage access throws)', () => {
+    const original = Object.getOwnPropertyDescriptor(window, 'sessionStorage')!
+    beforeEach(() =>
+      Object.defineProperty(window, 'sessionStorage', {
+        configurable: true,
+        get() {
+          throw new DOMException('blocked', 'SecurityError')
+        },
+      }),
+    )
+    afterEach(() => Object.defineProperty(window, 'sessionStorage', original))
+
+    it('a load still resolves to the module', async () => {
+      expect(await reloadOnce(() => Promise.resolve(mod), KEY, fallback, vi.fn())).toBe(mod)
+    })
+
+    it('a stale chunk resolves to the fallback without reloading (no flag to stop a reload loop)', async () => {
+      const reload = vi.fn()
+      expect(await reloadOnce(fail, KEY, fallback, reload)).toBe(fallback)
+      expect(reload).not.toHaveBeenCalled()
+    })
   })
 })

@@ -12,12 +12,20 @@ export function reloadOnce<T>(
 ): Promise<T> {
   return load().then(
     (m) => {
-      sessionStorage.removeItem(key)
+      try {
+        sessionStorage.removeItem(key)
+      } catch {
+        // storage blocked — nothing to clear
+      }
       return m
     },
     () => {
-      if (sessionStorage.getItem(key)) return fallback
-      sessionStorage.setItem(key, '1')
+      try {
+        if (sessionStorage.getItem(key)) return fallback
+        sessionStorage.setItem(key, '1')
+      } catch {
+        return fallback // storage blocked: no flag to stop a reload loop, so don't reload
+      }
       reload()
       return new Promise<never>(() => {})
     },
