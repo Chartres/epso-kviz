@@ -16,7 +16,7 @@
 import type { CategoryName, Choice } from './types'
 import { CATEGORY_NAMES, getQuestion } from './questions'
 import { isFinished, type AnswerRecord, type SessionState } from './session'
-import { storage } from './storage'
+import { readJson, writeJson } from './storage'
 
 export type ResumableMode = 'lesson' | 'practice' | 'review' | 'bookmarks'
 export const RESUMABLE_MODES: ResumableMode[] = ['lesson', 'practice', 'review', 'bookmarks']
@@ -119,25 +119,12 @@ export function sanitizeRound(raw: unknown): RoundSnapshot | null {
 }
 
 export function loadRound(): RoundSnapshot | null {
-  const s = storage()
-  if (!s) return null
-  try {
-    const raw = s.getItem(ROUND_KEY)
-    return raw ? sanitizeRound(JSON.parse(raw)) : null
-  } catch {
-    return null
-  }
+  return readJson(ROUND_KEY, sanitizeRound)
 }
 
+/** Null clears it; if storage fails, the round lasts for this visit only. */
 export function saveRound(snap: RoundSnapshot | null): void {
-  const s = storage()
-  if (!s) return
-  try {
-    if (snap) s.setItem(ROUND_KEY, JSON.stringify(snap))
-    else s.removeItem(ROUND_KEY)
-  } catch {
-    // private mode / quota exceeded — the round lasts for this visit only
-  }
+  writeJson(ROUND_KEY, snap)
 }
 
 export type CompletionEvent = 'exam_finish' | 'lesson_complete' | 'session_finish'
