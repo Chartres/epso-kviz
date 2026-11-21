@@ -114,13 +114,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const gen = syncGenRef.current
     syncStateRef.current = 'pending'
     let fetchFailed = false
+    let fetched: ProgressData | null = null
     const store: RemoteProgressStore = {
       save: saveRemote,
       fetch: (id) =>
-        supabaseStore.fetch(id).catch((e) => {
-          fetchFailed = true
-          throw e
-        }),
+        supabaseStore.fetch(id).then(
+          (p) => (fetched = p),
+          (e) => {
+            fetchFailed = true
+            throw e
+          },
+        ),
     }
     const base = progressRef.current
     syncProgress(store, userId, base)
@@ -132,6 +136,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
           syncStateRef.current = 'failed'
           return
         }
+        // The cloud already held it (syncProgress skipped the upsert): it counts as saved.
+        if (merged === fetched) lastSavedRef.current = merged
         // syncProgress has written `merged`; anything changed since goes out with the debounce.
         dispatch({ type: 'syncMerged', base, progress: merged })
         syncStateRef.current = 'ok'

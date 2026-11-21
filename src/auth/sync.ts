@@ -8,7 +8,7 @@ export interface RemoteProgressStore {
 
 /**
  * Reconcile local and cloud progress: pull remote, merge (last-write-wins per
- * question, union bookmarks), push the merged result, and return it. On any
+ * question, union bookmarks), push the merged result (unless the cloud already holds it), and return it. On any
  * network failure we keep working locally — sync is best-effort, never blocking.
  */
 export async function syncProgress(
@@ -23,6 +23,9 @@ export async function syncProgress(
     return local
   }
   const merged = remote ? mergeProgress(local, remote) : local
+  // Cloud already holds this: return its row as is (callers can tell by identity) and send nothing.
+  // ponytail: JSON compare; a reordered bookmark list just costs the upsert it did before.
+  if (remote && JSON.stringify(merged) === JSON.stringify(remote)) return remote
   try {
     await store.save(userId, merged)
   } catch {

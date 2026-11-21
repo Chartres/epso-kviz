@@ -105,6 +105,18 @@ describe('AppProvider auth effects', () => {
     expect(store.save).toHaveBeenCalledWith('u1', seen!.progress)
   })
 
+  it('a page load with local and cloud already equal sends no upsert', async () => {
+    store.fetch.mockResolvedValue(loadProgress())
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    await act(async () => {
+      vi.advanceTimersByTime(3000)
+    })
+    expect(store.save).not.toHaveBeenCalled()
+    expect(seen!.progress.stats[qid]?.seen).toBe(1)
+  })
+
   it('after a failed sign-in fetch, the next progress change retries the sync and pushes', async () => {
     store.fetch.mockRejectedValueOnce(new Error('offline')).mockResolvedValue(null)
     const other = ALL_QUESTIONS[1].id

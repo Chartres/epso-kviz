@@ -75,4 +75,12 @@ describe('syncProgress', () => {
     expect(merged.stats[1]?.seen).toBe(1)
     expect(merged.stats[2]?.seen).toBe(1)
   })
+
+  it('sends no upsert when local and cloud already hold the same progress', async () => {
+    const local = recordAnswer(emptyProgress(), 1, true, 100)
+    const store = fakeStore(structuredClone(local))
+    const merged = await syncProgress(store, 'u', local)
+    expect(merged).toEqual(local)
+    expect(store.save).not.toHaveBeenCalled()
+  })
 })
