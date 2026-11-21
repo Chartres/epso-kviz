@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import type { Session } from '@supabase/supabase-js'
 import { supabase, isAuthConfigured } from './supabase'
 import { identify } from '../analytics'
 
@@ -34,17 +35,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!supabase) return
-    supabase.auth.getSession().then(({ data }) => {
-      const u = data.session?.user
-      setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
-      identify(u?.id ?? null) // cross-product identity on the shared platform
-      setLoading(false)
-    }).catch(() => setLoading(false)) // storage or network failure: carry on signed out
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    function applySession(session: Session | null) {
       const u = session?.user
       setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
-      identify(u?.id ?? null)
-    })
+      identify(u?.id ?? null) // cross-product identity on the shared platform
+    }
+    supabase.auth.getSession().then(({ data }) => {
+      applySession(data.session)
+      setLoading(false)
+    }).catch(() => setLoading(false)) // storage or network failure: carry on signed out
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => applySession(session))
     return () => sub.subscription.unsubscribe()
   }, [])
 
