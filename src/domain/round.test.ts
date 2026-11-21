@@ -96,6 +96,12 @@ describe('storage', () => {
     expect(snap?.filter?.categories).toEqual(['AI Act & Governance'])
   })
 
+  it("keeps the mark on a review of one round's mistakes", () => {
+    const raw = { v: 1, mode: 'review', ids: [twelve[0].id], answers: [{ id: twelve[0].id, choice: 'a' }] }
+    expect(sanitizeRound({ ...raw, mistakes: true })?.mistakes).toBe(true)
+    expect(sanitizeRound({ ...raw, mistakes: 'yes' })?.mistakes).toBeUndefined()
+  })
+
   it('rejects malformed snapshots', () => {
     expect(sanitizeRound(null)).toBeNull()
     expect(sanitizeRound({ v: 1, mode: 'exam', ids: [1], answers: [{ id: 1, choice: 'a' }] })).toBeNull()

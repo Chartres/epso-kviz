@@ -1,7 +1,7 @@
 import { useApp } from '@/app/AppContext'
 import { track } from '@/analytics'
 import { makeRng, timeSeed } from '@/domain/rng'
-import { reviewQuestions } from '@/domain/selection'
+import { bookmarkedQuestions, buildPractice, reviewQuestions } from '@/domain/selection'
 import type { Lang } from '@/domain/reasoning/numerical'
 import type { ResumableMode } from '@/domain/round'
 import { defaultLang } from '@/components/screens/ReasoningStart'
@@ -51,8 +51,13 @@ export function UnfinishedRound() {
     if (!snap) return
     dispatch({ type: 'discardRound' })
     // Nothing to build a new review or bookmarks round from: just clear the card.
-    if (snap.mode === 'review' && reviewQuestions(state.progress).length === 0) return
-    if (snap.mode === 'bookmarks' && state.progress.bookmarks.length === 0) return
+    if (snap.mode === 'review' && !snap.mistakes && reviewQuestions(state.progress).length === 0) return
+    if (snap.mode === 'bookmarks' && bookmarkedQuestions(state.progress).length === 0) return
+    if (snap.mode === 'practice') {
+      const f = snap.filter ?? { categories: state.selectedCategories, search: state.search }
+      const opts = { categories: new Set(f.categories), search: f.search }
+      if (buildPractice(opts, makeRng(0), state.progress).length === 0) return
+    }
     const rng = makeRng(timeSeed())
     track(START_EVENT[snap.mode], { question_first: state.settings.questionFirst })
     switch (snap.mode) {
@@ -65,7 +70,8 @@ export function UnfinishedRound() {
         }
         return dispatch({ type: 'startPractice', rng })
       case 'review':
-        return dispatch({ type: 'startReview', rng })
+        // One round's mistakes come back as the same questions; otherwise the global queue.
+        return dispatch({ type: 'startReview', rng, ...(snap.mistakes ? { ids: snap.ids } : {}) })
       case 'bookmarks':
         return dispatch({ type: 'startBookmarks', rng })
     }

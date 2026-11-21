@@ -7,13 +7,13 @@ import {
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
-import { loadProgress, saveProgress } from '@/domain/storage'
+import { loadProgress, saveProgress, readJson, writeJson } from '@/domain/storage'
 import { loadSettings, saveSettings } from '@/domain/settings'
 import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
-import { syncProgress, type RemoteProgressStore } from '@/auth/sync'
-import { emptyProgress } from '@/domain/progress'
+import { reconcileProgress, syncProgress } from '@/auth/sync'
+import { emptyProgress, type ProgressData } from '@/domain/progress'
 import { track } from '@/analytics'
 
 interface AppContextValue {
@@ -23,6 +23,10 @@ interface AppContextValue {
 
 const AppContext = createContext<AppContextValue | null>(null)
 
+/** The account this device's local progress belongs to; absent means never signed in (anon). */
+const OWNER_KEY = 'epso-kviz:owner:v1'
+const asId = (raw: unknown) => (typeof raw === 'string' ? raw : null)
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
     ...initialState(),
@@ -30,7 +34,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     settings: loadSettings(),
     unfinished: loadRound(),
   }))
-  const { user } = useAuth()
+  const { user, loading, beforeSignOut } = useAuth()
 
   // Always-current ref so the sign-in sync effect captures the latest progress,
   // not the snapshot from when the user object first appeared.
@@ -39,13 +43,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
     progressRef.current = state.progress
   }, [state.progress])
 
-  // Prevents debounced save from overwriting cloud with unmerged local data.
-  const syncInFlightRef = useRef(false)
+  // Sign-in sync state. The debounced save waits for 'ok' so it can't overwrite the cloud with
+  // unmerged local data; 'failed' (cloud unreadable) makes the next change retry the sync.
+  const syncStateRef = useRef<'idle' | 'pending' | 'ok' | 'failed'>('idle')
+  // Bumped when the user changes, so a sync for the previous user is ignored when it lands.
+  const syncGenRef = useRef(0)
+  // The progress object last written to the cloud, so the same row isn't sent twice.
+  const lastSavedRef = useRef<ProgressData | null>(null)
+  // Every cloud job (sign-in sync, debounced save, sign-out flush) runs on this one chain, so an
+  // older write can't land on top of a newer one.
+  const cloudRef = useRef<Promise<unknown>>(Promise.resolve())
+  function enqueue<T>(job: () => Promise<T>): Promise<T> {
+    const p = cloudRef.current.then(job)
+    cloudRef.current = p.catch(() => {})
+    return p
+  }
 
-  // Track app open once on mount.
+  // Track app open once per page load, after auth has resolved so a signed-in open carries
+  // flywheel_uid (AuthProvider calls identify() before loading turns false).
+  const openedRef = useRef(false)
   useEffect(() => {
+    if (loading || openedRef.current) return
+    openedRef.current = true
     track('app_open')
-  }, [])
+  }, [loading])
 
   // Persist progress locally whenever it changes (offline-first source of truth).
   useEffect(() => {
@@ -62,6 +83,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
     saveRound(state.unfinished)
   }, [state.unfinished])
 
+  // Before signOut removes the session: send what the pending debounced save would have,
+  // merged with the cloud (the sign-in sync may not have finished). Once the session is gone the
+  // requests go out as anon and RLS drops them.
+  useEffect(() => {
+    if (!user) return
+    const id = user.id
+    // Queued behind any sync or save in flight; AuthProvider bounds the whole wait.
+    beforeSignOut.current = () =>
+      enqueue(async () => {
+        if (progressRef.current !== lastSavedRef.current) await syncProgress({ ...supabaseStore, save: saveNow }, id, progressRef.current)
+      })
+    return () => {
+      beforeSignOut.current = null
+    }
+  }, [user?.id])
+
   // On sign-out (a user, then none): clear this device's progress and unfinished round so the
   // next account to sign in here does not inherit them. The cloud row keeps the user's progress.
   const prevUserIdRef = useRef<string | null>(null)
@@ -71,48 +108,67 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (prev && !user) {
       dispatch({ type: 'hydrate', progress: emptyProgress() })
       dispatch({ type: 'discardRound' })
+      writeJson(OWNER_KEY, null)
     }
   }, [user?.id])
 
-  // On sign-in: reconcile local progress with the cloud and adopt the merge.
-  useEffect(() => {
-    if (!user) return
-    let cancelled = false
-    let fetchFailed = false
-    syncInFlightRef.current = true
-    const store: RemoteProgressStore = {
-      save: supabaseStore.save,
-      fetch: (id) =>
-        supabaseStore.fetch(id).catch((e) => {
-          fetchFailed = true
-          throw e
-        }),
-    }
-    syncProgress(store, user.id, progressRef.current)
-      .then((merged) => {
-        // Cloud unreadable: keep local as it is and push nothing this session (syncInFlightRef
-        // stays set), so a fresh or stale device can't overwrite the cloud row. A reload retries.
-        if (cancelled || fetchFailed) return
-        dispatch({ type: 'hydrate', progress: merged })
-        // A debounced save may have been skipped while sync was in flight;
-        // write the merged result immediately so the cloud row is up to date.
-        supabaseStore.save(user.id, merged).catch(() => {})
-        syncInFlightRef.current = false
+  // Write to the cloud and record it in lastSavedRef. Call only from a job on the chain.
+  function saveNow(userId: string, data: ProgressData): Promise<void> {
+    return supabaseStore.save(userId, data).then(() => {
+      lastSavedRef.current = data
+    })
+  }
+
+  // Reconcile local progress with the cloud and adopt the merge.
+  function startSync(userId: string) {
+    const gen = syncGenRef.current
+    syncStateRef.current = 'pending'
+    const base = progressRef.current
+    enqueue(() => reconcileProgress({ ...supabaseStore, save: saveNow }, userId, base))
+      .then(({ progress: merged, status }) => {
+        if (gen !== syncGenRef.current) return
+        // Cloud unreadable: keep local as it is and push nothing, so a fresh or stale device
+        // can't overwrite the cloud row. The next progress change retries the sync.
+        if (status === 'offline') {
+          syncStateRef.current = 'failed'
+          return
+        }
+        // The cloud already held it (no upsert was sent): it counts as saved.
+        if (status === 'unchanged') lastSavedRef.current = merged
+        // reconcileProgress has written `merged`; anything changed since goes out with the debounce.
+        dispatch({ type: 'syncMerged', base, progress: merged })
+        syncStateRef.current = 'ok'
       })
       .catch(() => {})
+  }
+
+  // On sign-in: sync once. Local progress left by another account (its session ended while the
+  // app was closed) is dropped first; anon progress merges into the account.
+  useEffect(() => {
+    if (!user) return
+    const owner = readJson(OWNER_KEY, asId)
+    if (owner && owner !== user.id) {
+      const empty = emptyProgress()
+      progressRef.current = empty
+      dispatch({ type: 'hydrate', progress: empty })
+      dispatch({ type: 'discardRound' })
+    }
+    writeJson(OWNER_KEY, user.id)
+    startSync(user.id)
     return () => {
-      cancelled = true
-      syncInFlightRef.current = false
+      syncGenRef.current++
+      syncStateRef.current = 'idle'
     }
   }, [user?.id])
 
-  // While signed in, push progress changes to the cloud (debounced).
-  // Guard: skip if sync is still in flight to avoid overwriting the merge.
+  // While signed in, push progress changes to the cloud (debounced), once the sign-in sync is done.
   useEffect(() => {
     if (!user) return
     const t = setTimeout(() => {
-      if (syncInFlightRef.current) return
-      supabaseStore.save(user.id, state.progress).catch(() => {})
+      if (syncStateRef.current === 'failed') return startSync(user.id)
+      if (syncStateRef.current !== 'ok' || state.progress === lastSavedRef.current) return
+      const data = state.progress
+      enqueue(() => saveNow(user.id, data)).catch(() => {})
     }, 1500)
     return () => clearTimeout(t)
   }, [state.progress, user?.id])

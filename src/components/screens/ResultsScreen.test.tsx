@@ -54,4 +54,54 @@ describe('ResultsScreen actions', () => {
       expect.objectContaining({ type: 'startReview', ids: [wrongId] }),
     )
   })
+
+  it('the streak badge shows what home shows when the lesson could not extend the streak', () => {
+    const { state } = finishedLesson()
+    // Dated ahead (another device's clock): recordLessonComplete keeps it, home shows 0.
+    app.state = { ...state, progress: { ...state.progress, streak: { current: 4, best: 4, lastDate: '2999-01-01' } } }
+    render(<ResultsScreen />)
+    expect(screen.getByText(/days? streak/).previousElementSibling?.textContent).toBe('0')
+  })
+})
+
+describe('ResultsScreen completion events', () => {
+  const completions = () =>
+    track.mock.calls.filter(([n]) => ['lesson_complete', 'exam_finish', 'session_finish'].includes(n))
+
+  it('a finished lesson sends lesson_complete once, also across re-renders', () => {
+    app.state = finishedLesson().state
+    const { rerender } = render(<ResultsScreen />)
+    rerender(<ResultsScreen />)
+    expect(completions()).toEqual([['lesson_complete', expect.objectContaining({ mode: 'lesson' })]])
+  })
+
+  it('a finished practice round sends session_finish', () => {
+    let s = reducer(initialState(), { type: 'startPractice', rng: makeRng(3) })
+    while (s.view !== 'results') {
+      s = reducer(s, { type: 'answer', choice: 'a', now: 1 })
+      s = reducer(s, { type: 'next', today: '2026-11-18' })
+    }
+    app.state = s
+    render(<ResultsScreen />)
+    expect(completions()).toEqual([['session_finish', expect.objectContaining({ mode: 'practice' })]])
+  })
+
+  it('an exam finished early sends exam_finish with its pass flag', () => {
+    let s = reducer(initialState(), { type: 'startExam', rng: makeRng(5), now: 0 })
+    s = reducer(s, { type: 'answer', choice: 'a', now: 1 })
+    s = reducer(s, { type: 'finishExam' })
+    app.state = s
+    render(<ResultsScreen />)
+    expect(completions()).toEqual([
+      ['exam_finish', expect.objectContaining({ mode: 'exam', passed: s.examResult!.passed })],
+    ])
+  })
+
+  it('an unfinished round sends no completion event', () => {
+    let s = reducer(initialState(), { type: 'startLesson', rng: makeRng(7) })
+    s = reducer(s, { type: 'answer', choice: 'a', now: 1 })
+    app.state = { ...s, view: 'results' }
+    render(<ResultsScreen />)
+    expect(completions()).toEqual([])
+  })
 })

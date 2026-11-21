@@ -9,7 +9,7 @@
  *  - c:    the options appear after a short hold
  * It never applies to the exam simulation, which has to match the real format.
  */
-import { storage } from './storage'
+import { readJson, writeJson } from './storage'
 
 export type QuestionFirstMode = 'none' | 'a' | 'b' | 'c'
 
@@ -38,24 +38,12 @@ export function sanitizeSettings(raw: unknown): Settings {
 }
 
 export function loadSettings(): Settings {
-  const s = storage()
-  if (!s) return defaultSettings()
-  try {
-    const raw = s.getItem(SETTINGS_KEY)
-    return raw ? sanitizeSettings(JSON.parse(raw)) : defaultSettings()
-  } catch {
-    return defaultSettings()
-  }
+  return readJson(SETTINGS_KEY, sanitizeSettings) ?? defaultSettings()
 }
 
+/** Kept on this device only; if storage fails, the setting lasts for this visit. */
 export function saveSettings(settings: Settings): void {
-  const s = storage()
-  if (!s) return
-  try {
-    s.setItem(SETTINGS_KEY, JSON.stringify(settings))
-  } catch {
-    // private mode / quota exceeded — the setting lasts for this visit only
-  }
+  writeJson(SETTINGS_KEY, settings)
 }
 
 /** The form a session actually uses: never anything but 'none' in the exam simulation. */

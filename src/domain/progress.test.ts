@@ -16,6 +16,8 @@ import {
   mergeProgress,
   recordLessonComplete,
   MASTERY_STREAK,
+  sanitizeProgress,
+  sanitizeStreak,
 } from './progress'
 
 function q(id: number, cat: Question['cat'] = 'AI Engineering & Operations'): Question {
@@ -125,6 +127,16 @@ describe('summary', () => {
       seen: 1,
       mastered: 0,
     })
+  })
+})
+
+describe('summary of a bank that lost questions', () => {
+  it('counts only questions still in the bank', () => {
+    let p = emptyProgress()
+    for (let i = 0; i < MASTERY_STREAK; i++) p = recordAnswer(p, 99, true, i) // 99 left the bank
+    p = recordAnswer(p, 1, false, 50)
+    const sum = summary(p, [q(1), q(2)])
+    expect(sum).toMatchObject({ total: 2, answered: 1, mastered: 0, accuracy: 0 })
   })
 })
 
@@ -243,5 +255,44 @@ describe('mergeProgress (offline ↔ cloud sync)', () => {
     let p = emptyProgress()
     p = recordAnswer(p, 1, true, 100)
     expect(mergeProgress(p, p)).toEqual(p)
+  })
+})
+
+describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
+  it('keeps only integer bookmark ids', () => {
+    const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [3, '4', null, 1.5, { id: 5 }, 7] })
+    expect(p!.bookmarks).toEqual([3, 7])
+  })
+
+  it('falls back to 0 for an updatedAt that is not a finite number', () => {
+    for (const updatedAt of ['5', NaN, null, Infinity]) {
+      const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [], updatedAt })!
+      expect(p.updatedAt).toBe(0)
+      expect(recordAnswer(p, 1, true, 10).updatedAt).toBe(10)
+    }
+  })
+
+  it('drops stats whose key is not a question id', () => {
+    const stat = { seen: 1, correct: 1, streak: 1, lastSeen: 5, lastCorrect: true }
+    const p = sanitizeProgress({ version: 1, stats: { 7: stat, abc: stat, '1.5': stat }, bookmarks: [] })!
+    expect(Object.keys(p.stats)).toEqual(['7'])
+    expect(answeredCount(p)).toBe(1)
+  })
+
+  it('drops a streak dated far ahead (a device clock set wrong)', () => {
+    const now = Date.UTC(2026, 10, 21, 12)
+    const ahead = sanitizeStreak({ current: 5, best: 9, lastDate: '2027-11-21' }, now)
+    expect(ahead).toEqual({ current: 0, best: 9, lastDate: '' })
+    expect(recordLessonComplete({ ...emptyProgress(), streak: ahead }, '2026-11-21').streak.current).toBe(1)
+    // A time zone ahead of UTC is a day ahead at most: kept.
+    expect(sanitizeStreak({ current: 5, best: 9, lastDate: '2026-11-22' }, now).lastDate).toBe('2026-11-22')
+    const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [], streak: { current: 3, best: 3, lastDate: '2999-01-01' } })!
+    expect(p.streak.lastDate).toBe('')
+  })
+
+  it('keeps a valid streak read by a device whose clock is a few days behind', () => {
+    // Real date 2026-11-21, streak recorded today; this device thinks it is 2026-11-18.
+    const slow = Date.UTC(2026, 10, 18, 12)
+    expect(sanitizeStreak({ current: 5, best: 9, lastDate: '2026-11-21' }, slow)).toEqual({ current: 5, best: 9, lastDate: '2026-11-21' })
   })
 })

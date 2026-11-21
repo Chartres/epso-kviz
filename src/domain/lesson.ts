@@ -2,7 +2,7 @@ import type { ExamGroup, Question } from './types'
 import { questionsForGroup, getQuestion } from './questions'
 import { EXAM } from './exam'
 import { sample, shuffle, type Rng } from './rng'
-import { dueForReview, isMastered, statFor, type ProgressData } from './progress'
+import { dueForReview, isMastered, isUnseen, statFor, type ProgressData } from './progress'
 
 /** A daily lesson is short and always finishable — Duolingo-style. */
 export const LESSON_SIZE = 12
@@ -43,15 +43,10 @@ export function buildLesson(
   // 2) New material, distributed by exam composition.
   const newCount = size - review.length
   const fresh: Question[] = []
-  const unmasteredFresh = (q: Question) => {
-    const s = statFor(progress, q.id)
-    return s.seen === 0 // strictly unseen
-  }
-
   for (const part of EXAM.composition) {
     const want = Math.round((newCount * part.count) / EXAM.totalQuestions)
     const pool = questionsForGroup(part.group as ExamGroup).filter(
-      (q) => !used.has(q.id) && unmasteredFresh(q),
+      (q) => !used.has(q.id) && isUnseen(progress, q.id),
     )
     for (const q of sample(pool, want, rng)) {
       if (fresh.length >= newCount) break
@@ -65,7 +60,7 @@ export function buildLesson(
     const all = EXAM.composition.flatMap((p) =>
       questionsForGroup(p.group as ExamGroup),
     )
-    const unseen = all.filter((q) => !used.has(q.id) && statFor(progress, q.id).seen === 0)
+    const unseen = all.filter((q) => !used.has(q.id) && isUnseen(progress, q.id))
     const unmastered = all.filter(
       (q) => !used.has(q.id) && !isMastered(statFor(progress, q.id)),
     )

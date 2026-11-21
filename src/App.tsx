@@ -12,20 +12,31 @@ import { NumericalScreen } from '@/components/screens/NumericalScreen'
 import { AbstractScreen } from '@/components/screens/AbstractScreen'
 import { track } from '@/analytics'
 import { lazy, Suspense } from 'react'
+import { reloadOnce } from '@/app/reloadOnce'
 
-// Verbal passages are ~35 KB gzipped in three languages; load them only when opened. If the
-// chunk is gone (an old cached shell after a deploy), reload once to pick up the new build.
+// Verbal passages are ~35 KB gzipped in three languages; load them only when opened.
 const VerbalScreen = lazy(() =>
-  import('@/components/screens/VerbalScreen').then(
-    (m) => ({ default: m.VerbalScreen }),
-    (err) => {
-      if (sessionStorage.getItem('verbal-reload')) throw err
-      sessionStorage.setItem('verbal-reload', '1')
-      location.reload()
-      return new Promise<never>(() => {})
-    },
+  reloadOnce(
+    () => import('@/components/screens/VerbalScreen').then((m) => ({ default: m.VerbalScreen })),
+    'verbal-reload',
+    { default: VerbalUnavailable },
   ),
 )
+
+function VerbalUnavailable({ onExit }: { onExit: () => void }) {
+  return (
+    <div className="p-6 text-steel-200">
+      <p className="mb-4">The verbal test could not load. Check your connection and reload the page.</p>
+      <button
+        type="button"
+        onClick={onExit}
+        className="min-h-11 rounded-card border border-steel-600 px-4 py-2 font-semibold hover:border-steel-400"
+      >
+        Back
+      </button>
+    </div>
+  )
+}
 
 function CurrentView() {
   const { state, dispatch } = useApp()

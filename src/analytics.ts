@@ -36,14 +36,24 @@ const fw = createFlywheelClient({
   supabase: supabase as unknown as SupabaseLike | null,
 })
 
-/** Backward-compatible: existing call sites keep calling track(event, props). */
-export function track(event: string, props?: Record<string, unknown>): void {
-  fw.track(event, props)
+// The vendored client reads storage outside its own try (resolveIds); with site storage blocked
+// that throws SecurityError. Analytics must never throw into the app, so every entry point is guarded here.
+function safe<A extends unknown[]>(fn: (...args: A) => void): (...args: A) => void {
+  return (...args) => {
+    try {
+      fn(...args)
+    } catch {
+      // storage blocked or similar — drop the event
+    }
+  }
 }
+
+/** Backward-compatible: existing call sites keep calling track(event, props). */
+export const track = safe((event: string, props?: Record<string, unknown>) => fw.track(event, props))
 
 /** Tie subsequent events to the cross-product identity (call on auth change). */
 export const identify = fw.identify
 /** Sean Ellis PMF + free text → shared feedback table. */
-export const feedback = fw.feedback
+export const feedback = safe(fw.feedback)
 /** Fire-and-forget error signal → events table. */
-export const logError = fw.logError
+export const logError = safe(fw.logError)

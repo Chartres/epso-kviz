@@ -11,24 +11,34 @@ export function storage(): Storage | null {
   }
 }
 
-export function loadProgress(): ProgressData {
+/** The parsed, sanitized value under `key`, or null if missing, unreadable or rejected. */
+export function readJson<T>(key: string, sanitize: (raw: unknown) => T | null): T | null {
   const s = storage()
-  if (!s) return emptyProgress()
+  if (!s) return null
   try {
-    const raw = s.getItem(STORAGE_KEY)
-    if (!raw) return emptyProgress()
-    return sanitizeProgress(JSON.parse(raw)) ?? emptyProgress()
+    const raw = s.getItem(key)
+    return raw ? sanitize(JSON.parse(raw)) : null
   } catch {
-    return emptyProgress()
+    return null
   }
 }
 
-export function saveProgress(data: ProgressData): void {
+/** Store `value` as JSON under `key`; null removes it. */
+export function writeJson(key: string, value: unknown): void {
   const s = storage()
   if (!s) return
   try {
-    s.setItem(STORAGE_KEY, JSON.stringify(data))
+    if (value === null) s.removeItem(key)
+    else s.setItem(key, JSON.stringify(value))
   } catch {
     // private mode / quota exceeded — degrade gracefully to in-memory only
   }
+}
+
+export function loadProgress(): ProgressData {
+  return readJson(STORAGE_KEY, sanitizeProgress) ?? emptyProgress()
+}
+
+export function saveProgress(data: ProgressData): void {
+  writeJson(STORAGE_KEY, data)
 }
