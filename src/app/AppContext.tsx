@@ -12,7 +12,7 @@ import { loadSettings, saveSettings } from '@/domain/settings'
 import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
 import { supabaseStore } from '@/auth/supabaseStore'
-import { syncProgress, type RemoteProgressStore } from '@/auth/sync'
+import { reconcileProgress, syncProgress } from '@/auth/sync'
 import { emptyProgress, type ProgressData } from '@/domain/progress'
 import { track } from '@/analytics'
 
@@ -123,32 +123,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
   function startSync(userId: string) {
     const gen = syncGenRef.current
     syncStateRef.current = 'pending'
-    let fetchFailed = false
-    let fetched: ProgressData | null = null
-    const store: RemoteProgressStore = {
-      save: saveNow,
-      fetch: (id) =>
-        supabaseStore.fetch(id).then(
-          (p) => (fetched = p),
-          (e) => {
-            fetchFailed = true
-            throw e
-          },
-        ),
-    }
     const base = progressRef.current
-    enqueue(() => syncProgress(store, userId, base))
-      .then((merged) => {
+    enqueue(() => reconcileProgress({ ...supabaseStore, save: saveNow }, userId, base))
+      .then(({ progress: merged, status }) => {
         if (gen !== syncGenRef.current) return
         // Cloud unreadable: keep local as it is and push nothing, so a fresh or stale device
         // can't overwrite the cloud row. The next progress change retries the sync.
-        if (fetchFailed) {
+        if (status === 'offline') {
           syncStateRef.current = 'failed'
           return
         }
-        // The cloud already held it (syncProgress skipped the upsert): it counts as saved.
-        if (merged === fetched) lastSavedRef.current = merged
-        // syncProgress has written `merged`; anything changed since goes out with the debounce.
+        // The cloud already held it (no upsert was sent): it counts as saved.
+        if (status === 'unchanged') lastSavedRef.current = merged
+        // reconcileProgress has written `merged`; anything changed since goes out with the debounce.
         dispatch({ type: 'syncMerged', base, progress: merged })
         syncStateRef.current = 'ok'
       })

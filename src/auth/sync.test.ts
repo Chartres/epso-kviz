@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { syncProgress, type RemoteProgressStore } from './sync'
+import { reconcileProgress, syncProgress, type RemoteProgressStore } from './sync'
 import { emptyProgress, recordAnswer, toggleBookmark } from '@/domain/progress'
 
 function fakeStore(initial: ReturnType<typeof emptyProgress> | null): RemoteProgressStore & {
@@ -109,5 +109,20 @@ describe('syncProgress equality check', () => {
     const store = fakeStore(remote)
     await syncProgress(store, 'u', local)
     expect(store.save).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('reconcileProgress', () => {
+  it('reports offline, unchanged or merged', async () => {
+    const local = recordAnswer(emptyProgress(), 1, true, 100)
+    const down: RemoteProgressStore = { fetch: vi.fn(async () => { throw new Error('network') }), save: vi.fn() }
+    expect(await reconcileProgress(down, 'u', local)).toEqual({ progress: local, status: 'offline' })
+    const same = fakeStore(local)
+    const unchanged = await reconcileProgress(same, 'u', local)
+    expect(unchanged.status).toBe('unchanged')
+    expect(same.save).not.toHaveBeenCalled()
+    const empty = fakeStore(null)
+    expect((await reconcileProgress(empty, 'u', local)).status).toBe('merged')
+    expect(empty.save).toHaveBeenCalledWith('u', local)
   })
 })

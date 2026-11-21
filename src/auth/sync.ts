@@ -18,29 +18,41 @@ function canonical(p: ProgressData): string {
   )
 }
 
+/** How a sync ended: cloud unreadable (local returned as is), cloud already held it, or merged. */
+export type SyncStatus = 'offline' | 'unchanged' | 'merged'
+
 /**
  * Reconcile local and cloud progress: pull remote, merge (last-write-wins per
  * question, union bookmarks), push the merged result (unless the cloud already holds it), and return it. On any
  * network failure we keep working locally — sync is best-effort, never blocking.
  */
-export async function syncProgress(
+export async function reconcileProgress(
   store: RemoteProgressStore,
   userId: string,
   local: ProgressData,
-): Promise<ProgressData> {
+): Promise<{ progress: ProgressData; status: SyncStatus }> {
   let remote: ProgressData | null
   try {
     remote = await store.fetch(userId)
   } catch {
-    return local
+    return { progress: local, status: 'offline' }
   }
   const merged = remote ? mergeProgress(local, remote) : local
-  // Cloud already holds this: return its row as is (callers can tell by identity) and send nothing.
-  if (remote && canonical(merged) === canonical(remote)) return remote
+  // Cloud already holds this: return its row as is and send nothing.
+  if (remote && canonical(merged) === canonical(remote)) return { progress: remote, status: 'unchanged' }
   try {
     await store.save(userId, merged)
   } catch {
     // keep the merged view locally even if the upload failed
   }
-  return merged
+  return { progress: merged, status: 'merged' }
+}
+
+/** reconcileProgress, progress only. */
+export async function syncProgress(
+  store: RemoteProgressStore,
+  userId: string,
+  local: ProgressData,
+): Promise<ProgressData> {
+  return (await reconcileProgress(store, userId, local)).progress
 }
