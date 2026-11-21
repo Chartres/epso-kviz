@@ -67,12 +67,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     saveRound(state.unfinished)
   }, [state.unfinished])
 
-  // On sign-out (a user, then none): clear this device's progress and unfinished round so the
+  // On sign-out (a user, then none): flush unsaved changes, then clear this device's progress and unfinished round so the
   // next account to sign in here does not inherit them. The cloud row keeps the user's progress.
   const prevUserIdRef = useRef<string | null>(null)
   useEffect(() => {
     const prev = prevUserIdRef.current
     prevUserIdRef.current = user?.id ?? null
+    // The pending debounced save was just cancelled: send what it would have, merged with the
+    // cloud (the sign-in sync may not have finished), before this device forgets it.
+    if (prev && progressRef.current !== lastSavedRef.current) {
+      syncProgress(supabaseStore, prev, progressRef.current).catch(() => {})
+    }
     if (prev && !user) {
       dispatch({ type: 'hydrate', progress: emptyProgress() })
       dispatch({ type: 'discardRound' })

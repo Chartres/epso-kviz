@@ -113,4 +113,18 @@ describe('AppProvider auth effects', () => {
     expect(store.save).toHaveBeenCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
     expect(store.save.mock.calls.at(-1)![1].stats[qid]?.seen).toBe(1)
   })
+
+  it('sign-out within the save debounce still sends the last changes to the cloud', async () => {
+    const other = ALL_QUESTIONS[1].id
+    auth.user = { id: 'u1' }
+    const { rerender } = render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: other }))
+    auth.user = null
+    rerender(tree())
+    await flush()
+    await flush()
+    expect(store.save).toHaveBeenLastCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
+    expect(seen!.progress.bookmarks).toEqual([]) // local still cleared
+  })
 })
