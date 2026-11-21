@@ -50,6 +50,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const syncGenRef = useRef(0)
   // The progress object last written to the cloud, so the same row isn't sent twice.
   const lastSavedRef = useRef<ProgressData | null>(null)
+  // Every cloud job (sign-in sync, debounced save, sign-out flush) runs on this one chain, so an
+  // older write can't land on top of a newer one.
+  const cloudRef = useRef<Promise<unknown>>(Promise.resolve())
+  function enqueue<T>(job: () => Promise<T>): Promise<T> {
+    const p = cloudRef.current.then(job)
+    cloudRef.current = p.catch(() => {})
+    return p
+  }
 
   // Track app open once per page load, after auth has resolved so a signed-in open carries
   // flywheel_uid (AuthProvider calls identify() before loading turns false).
@@ -81,9 +89,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user) return
     const id = user.id
-    beforeSignOut.current = async () => {
-      if (progressRef.current !== lastSavedRef.current) await syncProgress(supabaseStore, id, progressRef.current)
-    }
+    // Queued behind any sync or save in flight; AuthProvider bounds the whole wait.
+    beforeSignOut.current = () =>
+      enqueue(async () => {
+        if (progressRef.current !== lastSavedRef.current) await syncProgress({ ...supabaseStore, save: saveNow }, id, progressRef.current)
+      })
     return () => {
       beforeSignOut.current = null
     }
@@ -102,8 +112,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [user?.id])
 
-  // Write to the cloud and record it in lastSavedRef.
-  function saveRemote(userId: string, data: ProgressData): Promise<void> {
+  // Write to the cloud and record it in lastSavedRef. Call only from a job on the chain.
+  function saveNow(userId: string, data: ProgressData): Promise<void> {
     return supabaseStore.save(userId, data).then(() => {
       lastSavedRef.current = data
     })
@@ -116,7 +126,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     let fetchFailed = false
     let fetched: ProgressData | null = null
     const store: RemoteProgressStore = {
-      save: saveRemote,
+      save: saveNow,
       fetch: (id) =>
         supabaseStore.fetch(id).then(
           (p) => (fetched = p),
@@ -127,7 +137,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ),
     }
     const base = progressRef.current
-    syncProgress(store, userId, base)
+    enqueue(() => syncProgress(store, userId, base))
       .then((merged) => {
         if (gen !== syncGenRef.current) return
         // Cloud unreadable: keep local as it is and push nothing, so a fresh or stale device
@@ -170,7 +180,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const t = setTimeout(() => {
       if (syncStateRef.current === 'failed') return startSync(user.id)
       if (syncStateRef.current !== 'ok' || state.progress === lastSavedRef.current) return
-      saveRemote(user.id, state.progress).catch(() => {})
+      const data = state.progress
+      enqueue(() => saveNow(user.id, data)).catch(() => {})
     }, 1500)
     return () => clearTimeout(t)
   }, [state.progress, user?.id])

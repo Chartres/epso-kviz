@@ -198,6 +198,48 @@ describe('AppProvider auth effects', () => {
   })
 })
 
+describe('AppProvider cloud write order', () => {
+  it('a sign-out during the sign-in fetch lands the flush after the sign-in save', async () => {
+    let release!: (p: ProgressData | null) => void
+    store.fetch.mockReturnValueOnce(new Promise((r) => (release = r)))
+    const other = ALL_QUESTIONS[1].id
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: other }))
+    const signOutFlush = auth.beforeSignOut.current!()
+    await flush()
+    await act(async () => release(null))
+    await act(() => signOutFlush)
+    expect(store.save).toHaveBeenLastCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
+  })
+
+  it('a sign-out during a debounced save sends the flush only after that save lands', async () => {
+    const landed: number[][] = []
+    let release!: () => void
+    store.save.mockImplementationOnce(
+      (_id: string, d: ProgressData) => new Promise<void>((r) => (release = () => (landed.push(d.bookmarks), r()))),
+    )
+    store.save.mockImplementation(async (_id: string, d: ProgressData) => void landed.push(d.bookmarks))
+    const [a, b] = [ALL_QUESTIONS[1].id, ALL_QUESTIONS[2].id]
+    store.fetch.mockResolvedValue(loadProgress()) // equal: the sign-in sync sends nothing
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: a }))
+    await act(async () => {
+      vi.advanceTimersByTime(1500)
+    })
+    act(() => send({ type: 'toggleBookmark', id: b }))
+    store.fetch.mockResolvedValue(null)
+    const signOutFlush = auth.beforeSignOut.current!()
+    await flush()
+    await act(async () => release())
+    await act(() => signOutFlush)
+    expect(landed.at(-1)).toEqual([a, b])
+  })
+})
+
 describe('AppProvider app_open', () => {
   const opens = () => vi.mocked(track).mock.calls.filter(([n]) => n === 'app_open').length
 
