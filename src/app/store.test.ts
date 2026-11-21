@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { reducer, initialState, type AppState } from './store'
 import { makeRng } from '@/domain/rng'
-import { emptyProgress, recordAnswer, statFor } from '@/domain/progress'
+import { emptyProgress, mergeProgress, recordAnswer, statFor, toggleBookmark } from '@/domain/progress'
 import { currentQuestion, score } from '@/domain/session'
 import { byCategory } from '@/domain/questions'
 
@@ -232,5 +232,15 @@ describe('app store', () => {
     const s = reducer(start({ progress: p }), { type: 'startReview', rng: makeRng(1), ids })
     expect(s.mode).toBe('review')
     expect(s.session!.questions.map((q) => q.id)).toEqual(ids)
+  })
+
+  it('a bookmark removed while the sign-in fetch is in flight stays removed after the merge', () => {
+    const base = toggleBookmark(emptyProgress(), 7)
+    let s = start({ progress: base })
+    s = reducer(s, { type: 'toggleBookmark', id: 7 }) // removed during the fetch
+    const cloud = toggleBookmark(emptyProgress(), 9)
+    const merged = mergeProgress(base, cloud) // what syncProgress returned: still holds 7
+    s = reducer(s, { type: 'syncMerged', base, progress: merged })
+    expect(s.progress.bookmarks).toEqual([9])
   })
 })

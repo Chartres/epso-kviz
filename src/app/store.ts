@@ -130,13 +130,17 @@ function step(state: AppState, action: Action): AppState {
     case 'hydrate':
       return { ...state, progress: action.progress }
 
-    case 'syncMerged':
-      // Progress changed while the fetch was in flight: merge it in rather than drop it.
+    case 'syncMerged': {
+      if (state.progress === action.base) return { ...state, progress: action.progress }
+      // Progress changed while the fetch was in flight: merge it in rather than drop it. Bookmarks
+      // have no tombstones, so one removed since `base` would come back from the union: drop it.
+      const merged = mergeProgress(state.progress, action.progress)
+      const removed = action.base.bookmarks.filter((b) => !state.progress.bookmarks.includes(b))
       return {
         ...state,
-        progress:
-          state.progress === action.base ? action.progress : mergeProgress(state.progress, action.progress),
+        progress: { ...merged, bookmarks: merged.bookmarks.filter((b) => !removed.includes(b)) },
       }
+    }
 
     case 'setCategories':
       return { ...state, selectedCategories: action.categories }
