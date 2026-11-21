@@ -42,4 +42,15 @@ describe('UnfinishedRound "New round"', () => {
       expect.objectContaining({ type: 'startReview', ids: [q1.id, q2.id] }),
     )
   })
+
+  it('only clears a practice round whose saved filter no longer matches any question', () => {
+    const snap: RoundSnapshot = {
+      v: 1, mode: 'practice', ids: [q1.id, q2.id], answers: [{ id: q1.id, choice: 'a' }],
+      filter: { categories: [], search: 'zzqx-no-such-question' },
+    }
+    app.state = { ...initialState(), unfinished: snap, progress: emptyProgress() }
+    render(<UnfinishedRound />)
+    fireEvent.click(screen.getByRole('button', { name: 'New round' }))
+    expect(types()).toEqual(['discardRound'])
+  })
 })

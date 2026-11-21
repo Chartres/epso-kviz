@@ -1,7 +1,7 @@
 import { useApp } from '@/app/AppContext'
 import { track } from '@/analytics'
 import { makeRng, timeSeed } from '@/domain/rng'
-import { bookmarkedQuestions, reviewQuestions } from '@/domain/selection'
+import { bookmarkedQuestions, buildPractice, reviewQuestions } from '@/domain/selection'
 import type { Lang } from '@/domain/reasoning/numerical'
 import type { ResumableMode } from '@/domain/round'
 import { defaultLang } from '@/components/screens/ReasoningStart'
@@ -53,6 +53,11 @@ export function UnfinishedRound() {
     // Nothing to build a new review or bookmarks round from: just clear the card.
     if (snap.mode === 'review' && !snap.mistakes && reviewQuestions(state.progress).length === 0) return
     if (snap.mode === 'bookmarks' && bookmarkedQuestions(state.progress).length === 0) return
+    if (snap.mode === 'practice') {
+      const f = snap.filter ?? { categories: state.selectedCategories, search: state.search }
+      const opts = { categories: new Set(f.categories), search: f.search }
+      if (buildPractice(opts, makeRng(0), state.progress).length === 0) return
+    }
     const rng = makeRng(timeSeed())
     track(START_EVENT[snap.mode], { question_first: state.settings.questionFirst })
     switch (snap.mode) {
