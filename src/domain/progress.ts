@@ -165,7 +165,7 @@ export function recordLessonComplete(
   p: ProgressData,
   today: string,
 ): ProgressData {
-  const s = p.streak ?? emptyStreak()
+  const s = p.streak
   if (s.lastDate === today) return p // already counted today
   if (s.lastDate > today) return p // dated ahead (another device's clock or time zone): keep it
   const current = isNextDay(s.lastDate, today) ? s.current + 1 : 1
@@ -358,14 +358,12 @@ export function mergeProgress(
     if (!existing || s.lastSeen >= existing.lastSeen) stats[id] = s
     if (existing) stats[id] = withEarliestFirst(stats[id], existing === stats[id] ? s : existing)
   }
-  const sa = a.streak ?? emptyStreak()
-  const sb = b.streak ?? emptyStreak()
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: mergeStreak(sa, sb),
+    streak: mergeStreak(a.streak, b.streak),
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }
