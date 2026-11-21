@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import { reducer, initialState, type AppState, type Action } from './store'
-import { loadProgress, saveProgress } from '@/domain/storage'
+import { loadProgress, saveProgress, readJson, writeJson } from '@/domain/storage'
 import { loadSettings, saveSettings } from '@/domain/settings'
 import { loadRound, saveRound } from '@/domain/round'
 import { useAuth } from '@/auth/AuthContext'
@@ -22,6 +22,10 @@ interface AppContextValue {
 }
 
 const AppContext = createContext<AppContextValue | null>(null)
+
+/** The account this device's local progress belongs to; absent means never signed in (anon). */
+const OWNER_KEY = 'epso-kviz:owner:v1'
+const asId = (raw: unknown) => (typeof raw === 'string' ? raw : null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, () => ({
@@ -90,6 +94,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (prev && !user) {
       dispatch({ type: 'hydrate', progress: emptyProgress() })
       dispatch({ type: 'discardRound' })
+      writeJson(OWNER_KEY, null)
     }
   }, [user?.id])
 
@@ -126,9 +131,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
       .catch(() => {})
   }
 
-  // On sign-in: sync once.
+  // On sign-in: sync once. Local progress left by another account (its session ended while the
+  // app was closed) is dropped first; anon progress merges into the account.
   useEffect(() => {
     if (!user) return
+    const owner = readJson(OWNER_KEY, asId)
+    if (owner && owner !== user.id) {
+      const empty = emptyProgress()
+      progressRef.current = empty
+      dispatch({ type: 'hydrate', progress: empty })
+      dispatch({ type: 'discardRound' })
+    }
+    writeJson(OWNER_KEY, user.id)
     startSync(user.id)
     return () => {
       syncGenRef.current++

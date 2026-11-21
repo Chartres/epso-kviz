@@ -133,6 +133,30 @@ describe('AppProvider auth effects', () => {
     expect(seen!.progress.bookmarks).toEqual([]) // local still cleared
   })
 
+  it("another account's local progress, left by a session that expired while closed, is not merged in", async () => {
+    auth.user = { id: 'uA' }
+    const first = render(tree())
+    await flush()
+    first.unmount() // app closed; A's session expires meanwhile
+    store.save.mockClear()
+    auth.user = { id: 'uB' }
+    render(tree())
+    await flush()
+    expect(seen!.progress.stats).toEqual({})
+    expect(seen!.unfinished).toBeNull()
+    expect(store.save).toHaveBeenCalledTimes(1)
+    expect(store.save.mock.calls[0][1].stats).toEqual({})
+  })
+
+  it('the same account signing in again on this device keeps its local progress', async () => {
+    auth.user = { id: 'uA' }
+    render(tree()).unmount()
+    await flush()
+    render(tree())
+    await flush()
+    expect(seen!.progress.stats[qid]?.seen).toBe(1)
+  })
+
   it('the sign-out flush is sent while still signed in, before the user goes null', async () => {
     const other = ALL_QUESTIONS[1].id
     auth.user = { id: 'u1' }
