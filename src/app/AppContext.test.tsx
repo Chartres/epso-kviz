@@ -6,15 +6,17 @@ import { loadProgress, saveProgress } from '@/domain/storage'
 import { ROUND_KEY } from '@/domain/round'
 import { ALL_QUESTIONS } from '@/domain/questions'
 import type { AuthUser } from '@/auth/AuthContext'
+import { track } from '@/analytics'
 
 const { auth, store } = vi.hoisted(() => ({
   auth: {
     user: null as AuthUser | null,
+    loading: false,
     beforeSignOut: { current: null as (() => Promise<void>) | null },
   },
   store: { fetch: vi.fn(), save: vi.fn() },
 }))
-vi.mock('@/auth/AuthContext', () => ({ useAuth: () => ({ user: auth.user, beforeSignOut: auth.beforeSignOut }) }))
+vi.mock('@/auth/AuthContext', () => ({ useAuth: () => ({ user: auth.user, loading: auth.loading, beforeSignOut: auth.beforeSignOut }) }))
 vi.mock('@/auth/supabaseStore', () => ({ supabaseStore: store }))
 vi.mock('@/analytics', () => ({ track: vi.fn(), identify: vi.fn() }))
 
@@ -39,6 +41,8 @@ beforeEach(() => {
   store.fetch.mockReset().mockResolvedValue(null)
   store.save.mockReset().mockResolvedValue(undefined)
   auth.user = null
+  auth.loading = false
+  vi.mocked(track).mockClear()
   saveProgress(recordAnswer(emptyProgress(), qid, false, 100))
   localStorage.setItem(
     ROUND_KEY,
@@ -179,5 +183,33 @@ describe('AppProvider auth effects', () => {
     act(() => send({ type: 'toggleBookmark', id: other }))
     await act(() => auth.beforeSignOut.current!())
     expect(store.save).toHaveBeenLastCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
+  })
+})
+
+describe('AppProvider app_open', () => {
+  const opens = () => vi.mocked(track).mock.calls.filter(([n]) => n === 'app_open').length
+
+  it('waits for auth to resolve, then fires once', async () => {
+    auth.loading = true
+    const { rerender } = render(tree())
+    await flush()
+    expect(opens()).toBe(0)
+
+    auth.loading = false
+    auth.user = { id: 'u1' }
+    rerender(tree())
+    await flush()
+    expect(opens()).toBe(1)
+
+    auth.user = null
+    rerender(tree())
+    await flush()
+    expect(opens()).toBe(1)
+  })
+
+  it('fires at once when auth is not loading (Supabase not configured)', async () => {
+    render(tree())
+    await flush()
+    expect(opens()).toBe(1)
   })
 })

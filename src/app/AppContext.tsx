@@ -34,7 +34,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     settings: loadSettings(),
     unfinished: loadRound(),
   }))
-  const { user, beforeSignOut } = useAuth()
+  const { user, loading, beforeSignOut } = useAuth()
 
   // Always-current ref so the sign-in sync effect captures the latest progress,
   // not the snapshot from when the user object first appeared.
@@ -51,10 +51,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // The progress object last written to the cloud, so the same row isn't sent twice.
   const lastSavedRef = useRef<ProgressData | null>(null)
 
-  // Track app open once on mount.
+  // Track app open once per page load, after auth has resolved so a signed-in open carries
+  // flywheel_uid (AuthProvider calls identify() before loading turns false).
+  const openedRef = useRef(false)
   useEffect(() => {
+    if (loading || openedRef.current) return
+    openedRef.current = true
     track('app_open')
-  }, [])
+  }, [loading])
 
   // Persist progress locally whenever it changes (offline-first source of truth).
   useEffect(() => {
