@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -20,6 +21,8 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>
   signOut: () => Promise<void>
+  /** Awaited by signOut while the session still exists (requests after it go out as anon). */
+  beforeSignOut: { current: (() => Promise<void>) | null }
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -27,6 +30,7 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(isAuthConfigured)
+  const beforeSignOut = useRef<(() => Promise<void>) | null>(null)
 
   useEffect(() => {
     if (!supabase) return
@@ -48,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     configured: isAuthConfigured,
     loading,
     user,
+    beforeSignOut,
     async signInWithGoogle() {
       if (!supabase) return
       await supabase.auth.signInWithOAuth({
@@ -65,6 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
     async signOut() {
       if (!supabase) return
+      await beforeSignOut.current?.().catch(() => {})
       await supabase.auth.signOut()
     },
   }

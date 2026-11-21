@@ -8,10 +8,13 @@ import { ALL_QUESTIONS } from '@/domain/questions'
 import type { AuthUser } from '@/auth/AuthContext'
 
 const { auth, store } = vi.hoisted(() => ({
-  auth: { user: null as AuthUser | null },
+  auth: {
+    user: null as AuthUser | null,
+    beforeSignOut: { current: null as (() => Promise<void>) | null },
+  },
   store: { fetch: vi.fn(), save: vi.fn() },
 }))
-vi.mock('@/auth/AuthContext', () => ({ useAuth: () => ({ user: auth.user }) }))
+vi.mock('@/auth/AuthContext', () => ({ useAuth: () => ({ user: auth.user, beforeSignOut: auth.beforeSignOut }) }))
 vi.mock('@/auth/supabaseStore', () => ({ supabaseStore: store }))
 vi.mock('@/analytics', () => ({ track: vi.fn(), identify: vi.fn() }))
 
@@ -120,11 +123,23 @@ describe('AppProvider auth effects', () => {
     const { rerender } = render(tree())
     await flush()
     act(() => send({ type: 'toggleBookmark', id: other }))
+    // AuthProvider.signOut runs this while the session still exists, then the user goes null.
+    await act(() => auth.beforeSignOut.current!())
     auth.user = null
     rerender(tree())
     await flush()
     await flush()
     expect(store.save).toHaveBeenLastCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
     expect(seen!.progress.bookmarks).toEqual([]) // local still cleared
+  })
+
+  it('the sign-out flush is sent while still signed in, before the user goes null', async () => {
+    const other = ALL_QUESTIONS[1].id
+    auth.user = { id: 'u1' }
+    render(tree())
+    await flush()
+    act(() => send({ type: 'toggleBookmark', id: other }))
+    await act(() => auth.beforeSignOut.current!())
+    expect(store.save).toHaveBeenLastCalledWith('u1', expect.objectContaining({ bookmarks: [other] }))
   })
 })

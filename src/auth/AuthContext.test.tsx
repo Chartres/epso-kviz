@@ -1,13 +1,17 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { AuthProvider, useAuth } from './AuthContext'
 
+const { calls } = vi.hoisted(() => ({ calls: [] as string[] }))
 vi.mock('./supabase', () => ({
   isAuthConfigured: true,
   supabase: {
     auth: {
       getSession: () => Promise.reject(new Error('storage blocked')),
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } }),
+      signOut: async () => {
+        calls.push('signOut')
+      },
     },
   },
 }))
@@ -26,5 +30,26 @@ describe('AuthProvider', () => {
       </AuthProvider>,
     )
     expect(await screen.findByText('signed-out')).toBeInTheDocument()
+  })
+})
+
+describe('signOut', () => {
+  it('runs the before-sign-out flush to completion before the session is removed', async () => {
+    let auth!: ReturnType<typeof useAuth>
+    function Grab() {
+      auth = useAuth()
+      return null
+    }
+    render(
+      <AuthProvider>
+        <Grab />
+      </AuthProvider>,
+    )
+    auth.beforeSignOut.current = async () => {
+      await Promise.resolve()
+      calls.push('flush')
+    }
+    await act(() => auth.signOut())
+    expect(calls).toEqual(['flush', 'signOut'])
   })
 })

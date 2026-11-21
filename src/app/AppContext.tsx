@@ -30,7 +30,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     settings: loadSettings(),
     unfinished: loadRound(),
   }))
-  const { user } = useAuth()
+  const { user, beforeSignOut } = useAuth()
 
   // Always-current ref so the sign-in sync effect captures the latest progress,
   // not the snapshot from when the user object first appeared.
@@ -67,17 +67,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
     saveRound(state.unfinished)
   }, [state.unfinished])
 
-  // On sign-out (a user, then none): flush unsaved changes, then clear this device's progress and unfinished round so the
+  // Before signOut removes the session: send what the pending debounced save would have,
+  // merged with the cloud (the sign-in sync may not have finished). Once the session is gone the
+  // requests go out as anon and RLS drops them.
+  useEffect(() => {
+    if (!user) return
+    const id = user.id
+    beforeSignOut.current = async () => {
+      if (progressRef.current !== lastSavedRef.current) await syncProgress(supabaseStore, id, progressRef.current)
+    }
+    return () => {
+      beforeSignOut.current = null
+    }
+  }, [user?.id])
+
+  // On sign-out (a user, then none): clear this device's progress and unfinished round so the
   // next account to sign in here does not inherit them. The cloud row keeps the user's progress.
   const prevUserIdRef = useRef<string | null>(null)
   useEffect(() => {
     const prev = prevUserIdRef.current
     prevUserIdRef.current = user?.id ?? null
-    // The pending debounced save was just cancelled: send what it would have, merged with the
-    // cloud (the sign-in sync may not have finished), before this device forgets it.
-    if (prev && progressRef.current !== lastSavedRef.current) {
-      syncProgress(supabaseStore, prev, progressRef.current).catch(() => {})
-    }
     if (prev && !user) {
       dispatch({ type: 'hydrate', progress: emptyProgress() })
       dispatch({ type: 'discardRound' })
