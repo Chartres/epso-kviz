@@ -84,3 +84,30 @@ describe('syncProgress', () => {
     expect(store.save).not.toHaveBeenCalled()
   })
 })
+
+describe('syncProgress equality check', () => {
+  it('sends no upsert when the cloud row differs only in jsonb key order and bookmark order', async () => {
+    const local = {
+      ...toggleBookmark(toggleBookmark(recordAnswer(emptyProgress(), 1, true, 100), 7), 9),
+      commonplace: [{ doc: 'ai-act', ref: 'Art 5', quote: 'q', q: 1, at: 50, on: true }],
+    }
+    // Postgres jsonb returns object keys reordered; bookmarks are a set (shuffled into rounds).
+    const remote = {
+      ...structuredClone(local),
+      bookmarks: [9, 7],
+      commonplace: [{ q: 1, at: 50, on: true, doc: 'ai-act', ref: 'Art 5', quote: 'q' }],
+    }
+    const store = fakeStore(remote)
+    expect(await syncProgress(store, 'u', local)).toBe(remote)
+    expect(store.save).not.toHaveBeenCalled()
+  })
+
+  it('still upserts when a passage differs', async () => {
+    const entry = { doc: 'ai-act', ref: 'Art 5', quote: 'q', q: 1, at: 50, on: true }
+    const local = { ...emptyProgress(), commonplace: [{ ...entry, on: false, at: 60 }] }
+    const remote = { ...emptyProgress(), commonplace: [{ q: 1, at: 50, on: true, doc: 'ai-act', ref: 'Art 5', quote: 'q' }] }
+    const store = fakeStore(remote)
+    await syncProgress(store, 'u', local)
+    expect(store.save).toHaveBeenCalledTimes(1)
+  })
+})
