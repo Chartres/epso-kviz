@@ -1,7 +1,7 @@
 import type { CategoryName, Question } from './types'
 import { ALL_QUESTIONS, questionsByIds } from './questions'
 import { shuffle, type Rng } from './rng'
-import { dueForReview, statFor, type ProgressData } from './progress'
+import { dueForReview, isUnseen, type ProgressData } from './progress'
 
 export function normalizeForSearch(text: string): string {
   return text
@@ -41,7 +41,7 @@ export const PRACTICE_REVIEW_FRACTION = 0.4
 export function buildPractice(opts: FilterOptions, rng: Rng, progress?: ProgressData): Question[] {
   const pool = filterQuestions(opts)
   if (!progress || opts.search?.trim()) return shuffle(pool, rng)
-  const unseen = pool.filter((q) => statFor(progress, q.id).seen === 0)
+  const unseen = pool.filter((q) => isUnseen(progress, q.id))
   if (unseen.length === 0) return shuffle(pool, rng)
   const inPool = new Map(pool.map((q) => [q.id, q]))
   const cap = Math.floor((unseen.length * PRACTICE_REVIEW_FRACTION) / (1 - PRACTICE_REVIEW_FRACTION))

@@ -184,6 +184,11 @@ export function statFor(p: ProgressData, id: number): QuestionStat {
   )
 }
 
+/** Never answered on this device or account. */
+export function isUnseen(p: ProgressData, id: number): boolean {
+  return statFor(p, id).seen === 0
+}
+
 export function recordAnswer(
   p: ProgressData,
   id: number,
