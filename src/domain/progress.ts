@@ -79,9 +79,12 @@ export function sanitizeStreak(raw: unknown, now: number = Date.now()): Streak {
   const current = typeof r.current === 'number' && r.current >= 0 ? r.current : 0
   const best = typeof r.best === 'number' && r.best >= 0 ? r.best : 0
   const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
-  // A local date is at most one day ahead of UTC. Later than that is a device clock set wrong:
-  // kept, it would win every merge and block recordLessonComplete on every device until then.
-  const latest = new Date(now + 86_400_000).toISOString().slice(0, 10)
+  // A local date is at most one day ahead of UTC, but the reading device's own clock may be a few
+  // days behind: allow a week of slack so a slow device doesn't wipe a valid streak. Later than
+  // that is a device clock set far wrong: kept, it would win every merge and block
+  // recordLessonComplete on every device until then. Within the slack a fast clock's date blocks
+  // it only until the real date catches up (at most a week).
+  const latest = new Date(now + 7 * 86_400_000).toISOString().slice(0, 10)
   if (lastDate > latest) return { current: 0, best, lastDate: '' }
   return { current, best, lastDate }
 }

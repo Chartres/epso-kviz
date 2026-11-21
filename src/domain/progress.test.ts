@@ -279,7 +279,7 @@ describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
     expect(answeredCount(p)).toBe(1)
   })
 
-  it('drops a streak dated more than a day ahead (a device clock set wrong)', () => {
+  it('drops a streak dated far ahead (a device clock set wrong)', () => {
     const now = Date.UTC(2026, 10, 21, 12)
     const ahead = sanitizeStreak({ current: 5, best: 9, lastDate: '2027-11-21' }, now)
     expect(ahead).toEqual({ current: 0, best: 9, lastDate: '' })
@@ -288,5 +288,11 @@ describe('sanitizeProgress (untrusted localStorage / cloud)', () => {
     expect(sanitizeStreak({ current: 5, best: 9, lastDate: '2026-11-22' }, now).lastDate).toBe('2026-11-22')
     const p = sanitizeProgress({ version: 1, stats: {}, bookmarks: [], streak: { current: 3, best: 3, lastDate: '2999-01-01' } })!
     expect(p.streak.lastDate).toBe('')
+  })
+
+  it('keeps a valid streak read by a device whose clock is a few days behind', () => {
+    // Real date 2026-11-21, streak recorded today; this device thinks it is 2026-11-18.
+    const slow = Date.UTC(2026, 10, 18, 12)
+    expect(sanitizeStreak({ current: 5, best: 9, lastDate: '2026-11-21' }, slow)).toEqual({ current: 5, best: 9, lastDate: '2026-11-21' })
   })
 })
