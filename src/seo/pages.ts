@@ -347,6 +347,7 @@ export function renderPage(p: Page, input: SiteInput): string {
 <title>${esc(p.title)}</title><meta name="description" content="${esc(p.description)}">
 <link rel="canonical" href="${url}"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.description)}"><meta property="og:url" content="${url}">
+<meta property="og:site_name" content="${APP}"><meta property="og:locale" content="en_US"><meta property="og:image" content="${input.base}/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${APP} — practice for the EPSO/AD/430/26 Field 1 MCQ"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="${input.base}/og.png">
 <style>${CSS}</style>${ld}</head>
 <body><header><strong><a href="/">${APP}</a></strong><a href="/guide/ad-430-26-field-1/">How the test works</a><a href="/ai-act/">AI Act articles</a><a href="/acts/">Other EU texts</a>${input.meta.categories.map((c) => `<a href="/questions/${c.id}/">${esc(c.name)}</a>`).join('')}</header>
 <main>${p.body}</main>

@@ -155,6 +155,17 @@ describe('prerendered site', () => {
     expect(html).toContain('application/ld+json')
   })
 
+  it('gives every prerendered page the link card: its own og:url/og:title, the home og:image', () => {
+    const p = page('/guide/ad-430-26-field-1/')!
+    const html = renderPage(p, input)
+    expect(html).toContain(`<meta property="og:url" content="https://epsokviz.dravec.org${p.path}">`)
+    expect(html).toContain(`<meta property="og:title" content="${esc(p.title)}">`)
+    expect(html).toContain('<meta property="og:image" content="https://epsokviz.dravec.org/og.png">')
+    expect(html).toContain('<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">')
+    expect(html).toContain('<meta name="twitter:card" content="summary_large_image">')
+    expect(html).toContain('<meta name="twitter:image" content="https://epsokviz.dravec.org/og.png">')
+  })
+
   it('carries the analytics beacon only when the build has the Supabase config, and marks cited links for it', () => {
     const p = page('/ai-act/article-99/')!
     expect(renderPage(p, input)).not.toContain('<script>')

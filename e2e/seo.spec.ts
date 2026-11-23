@@ -52,3 +52,38 @@ test('sitemap and llms.txt list the static pages; home carries WebApplication JS
   expect(ld.some((t) => JSON.parse(t)['@type'] === 'WebApplication')).toBe(true)
   await expect(page.getByRole('link', { name: /The AI Act, article by article/ })).toBeVisible()
 })
+
+// discoverability.md: the files crawlers fetch answer with their real content type, and the
+// head carries the link card (absolute og:image, summary_large_image) on home and on a
+// prerendered page.
+test('robots, sitemap, llms.txt, security.txt and the OG card are served as the kit says', async ({ request, page }) => {
+  const robots = await request.get('/robots.txt')
+  expect(robots.headers()['content-type']).toMatch(/^text\/plain/)
+  const robotsText = await robots.text()
+  expect(robotsText).toContain('Allow: /')
+  expect(robotsText).toContain('Sitemap: https://epsokviz.dravec.org/sitemap.xml')
+  const sitemap = await request.get('/sitemap.xml')
+  expect(sitemap.headers()['content-type']).toMatch(/xml/)
+  expect(await sitemap.text()).toContain('<loc>https://epsokviz.dravec.org/</loc>')
+  const llms = await request.get('/llms.txt')
+  expect(llms.headers()['content-type']).toMatch(/^text\/plain/)
+  expect(await llms.text()).toMatch(/^# /)
+  const security = await request.get('/.well-known/security.txt')
+  expect(security.ok()).toBe(true)
+  expect(await security.text()).toMatch(/^Contact: https:\/\/github\.com\/Chartres\/epso-kviz\/issues/m)
+  const og = await request.get('/og.png')
+  expect(og.headers()['content-type']).toBe('image/png')
+
+  for (const path of ['/', '/guide/ad-430-26-field-1/']) {
+    await page.goto(path)
+    const meta = (sel: string) => page.locator(`head meta[${sel}]`).getAttribute('content')
+    expect(await meta('property="og:image"')).toMatch(/^https:\/\/epsokviz\.dravec\.org\/og\.png$/)
+    expect(await meta('name="twitter:card"')).toBe('summary_large_image')
+    expect(await meta('property="og:url"')).toBe(`https://epsokviz.dravec.org${path}`)
+    expect(await page.locator('head link[rel="canonical"]').getAttribute('href')).toBe(`https://epsokviz.dravec.org${path}`)
+  }
+  await page.goto('/')
+  expect((await page.locator('head meta[property="og:title"]').getAttribute('content'))!.length).toBeLessThanOrEqual(45)
+  const ld = await page.locator('script[type="application/ld+json"]').allTextContents()
+  expect(ld.some((t) => JSON.parse(t)['@type'] === 'WebApplication')).toBe(true)
+})
