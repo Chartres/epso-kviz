@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { syncProgress, type RemoteProgressStore } from './sync'
+import { reconcileProgress, syncProgress, type RemoteProgressStore } from './sync'
 import { emptyProgress, recordAnswer, toggleBookmark } from '@/domain/progress'
 
 function fakeStore(initial: ReturnType<typeof emptyProgress> | null): RemoteProgressStore & {
@@ -74,5 +74,55 @@ describe('syncProgress', () => {
     // merged result returned despite save failure
     expect(merged.stats[1]?.seen).toBe(1)
     expect(merged.stats[2]?.seen).toBe(1)
+  })
+
+  it('sends no upsert when local and cloud already hold the same progress', async () => {
+    const local = recordAnswer(emptyProgress(), 1, true, 100)
+    const store = fakeStore(structuredClone(local))
+    const merged = await syncProgress(store, 'u', local)
+    expect(merged).toEqual(local)
+    expect(store.save).not.toHaveBeenCalled()
+  })
+})
+
+describe('syncProgress equality check', () => {
+  it('sends no upsert when the cloud row differs only in jsonb key order and bookmark order', async () => {
+    const local = {
+      ...toggleBookmark(toggleBookmark(recordAnswer(emptyProgress(), 1, true, 100), 7), 9),
+      commonplace: [{ doc: 'ai-act', ref: 'Art 5', quote: 'q', q: 1, at: 50, on: true }],
+    }
+    // Postgres jsonb returns object keys reordered; bookmarks are a set (shuffled into rounds).
+    const remote = {
+      ...structuredClone(local),
+      bookmarks: [9, 7],
+      commonplace: [{ q: 1, at: 50, on: true, doc: 'ai-act', ref: 'Art 5', quote: 'q' }],
+    }
+    const store = fakeStore(remote)
+    expect(await syncProgress(store, 'u', local)).toBe(remote)
+    expect(store.save).not.toHaveBeenCalled()
+  })
+
+  it('still upserts when a passage differs', async () => {
+    const entry = { doc: 'ai-act', ref: 'Art 5', quote: 'q', q: 1, at: 50, on: true }
+    const local = { ...emptyProgress(), commonplace: [{ ...entry, on: false, at: 60 }] }
+    const remote = { ...emptyProgress(), commonplace: [{ q: 1, at: 50, on: true, doc: 'ai-act', ref: 'Art 5', quote: 'q' }] }
+    const store = fakeStore(remote)
+    await syncProgress(store, 'u', local)
+    expect(store.save).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('reconcileProgress', () => {
+  it('reports offline, unchanged or merged', async () => {
+    const local = recordAnswer(emptyProgress(), 1, true, 100)
+    const down: RemoteProgressStore = { fetch: vi.fn(async () => { throw new Error('network') }), save: vi.fn() }
+    expect(await reconcileProgress(down, 'u', local)).toEqual({ progress: local, status: 'offline' })
+    const same = fakeStore(local)
+    const unchanged = await reconcileProgress(same, 'u', local)
+    expect(unchanged.status).toBe('unchanged')
+    expect(same.save).not.toHaveBeenCalled()
+    const empty = fakeStore(null)
+    expect((await reconcileProgress(empty, 'u', local)).status).toBe('merged')
+    expect(empty.save).toHaveBeenCalledWith('u', local)
   })
 })

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { ALL_QUESTIONS, META } from '@/domain/questions'
 import { SOURCES } from '@/domain/citations'
-import { NAVIGATE_FALLBACK_DENYLIST } from './routes'
+import { NAVIGATE_FALLBACK_DENYLIST, navigateFallbackDenylist } from './routes'
 import { buildSite, renderPage, sitemapXml, llmsTxt, articleOf, esc, type SiteInput } from './pages'
 
 const input: SiteInput = {
@@ -79,6 +79,12 @@ describe('prerendered site', () => {
   it('keeps every prerendered page out of the service worker\'s app-shell fallback', () => {
     for (const p of site) expect(NAVIGATE_FALLBACK_DENYLIST.some((r) => r.test(p.path)), p.path).toBe(true)
     expect(NAVIGATE_FALLBACK_DENYLIST.some((r) => r.test('/'))).toBe(false)
+  })
+
+  it('keeps the prerendered pages out of the fallback on a subpath build too', () => {
+    const deny = navigateFallbackDenylist('/epso-kviz/')
+    for (const p of site) expect(deny.some((r) => r.test(`/epso-kviz${p.path}`)), p.path).toBe(true)
+    expect(deny.some((r) => r.test('/epso-kviz/'))).toBe(false)
   })
 
   it('keeps descriptions short enough for a search result', () => {

@@ -39,6 +39,9 @@ for (const file of ['data/sources/ai-act.txt', 'data/sources/ai-omnibus.txt']) {
   })
 }
 
+const supabaseUrl = process.env.VITE_SUPABASE_URL
+const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_ANON_KEY
+
 const input: SiteInput = {
   questions: JSON.parse(read('data/questions.json')),
   meta: JSON.parse(read('data/meta.json')),
@@ -48,12 +51,8 @@ const input: SiteInput = {
   articleTitles,
   // Same env as the app bundle; absent locally and in e2e, so those pages carry no script.
   beacon:
-    process.env.VITE_SUPABASE_URL && (process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_ANON_KEY)
-      ? {
-          url: process.env.VITE_SUPABASE_URL.replace(/\/$/, ''),
-          key: (process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_ANON_KEY)!,
-          app: 'epso-kviz',
-        }
+    supabaseUrl && supabaseKey
+      ? { url: supabaseUrl.replace(/\/$/, ''), key: supabaseKey, app: 'epso-kviz' }
       : undefined,
 }
 

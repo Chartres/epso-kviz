@@ -32,7 +32,8 @@ export function sanitizeCommonplace(value: unknown): CommonplaceEntry[] {
 
 function find(p: ProgressData, c: Citation): CommonplaceEntry | undefined {
   const k = keyOf(c)
-  return sanitizeCommonplace(p.commonplace).find((e) => keyOf(e) === k)
+  // Already sanitized where it entered (sanitizeProgress) and built only by this module since.
+  return p.commonplace?.find((e) => keyOf(e) === k)
 }
 
 export function isCollected(p: ProgressData, c: Citation): boolean {

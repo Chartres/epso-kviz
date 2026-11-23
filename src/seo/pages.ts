@@ -102,21 +102,31 @@ function quizLd(name: string, qs: readonly Question[], path: string, input: Site
 
 const cta = `<p class="cta"><a href="/">Practise with spaced repetition, a 30-question timed mock and your likely-score range →</a></p>`
 
-function articlePages(input: SiteInput): Page[] {
-  const byArticle = new Map<string, { qs: Question[]; passages: Citation[] }>()
+/**
+ * Verified questions and their distinct passages (by quote), grouped by the page a citation
+ * belongs to; `keyOf` returns null for citations that belong to no page here.
+ */
+function groupCited(
+  input: SiteInput,
+  keyOf: (c: Citation) => string | null,
+): Map<string, { qs: Question[]; passages: Citation[] }> {
+  const groups = new Map<string, { qs: Question[]; passages: Citation[] }>()
   for (const q of input.questions) {
     if (!q.verified) continue
-    const seen = new Set<string>()
     for (const c of q.sources ?? []) {
-      const n = articleOf(c)
-      if (n === null) continue
-      const entry = byArticle.get(n) ?? { qs: [], passages: [] }
+      const key = keyOf(c)
+      if (key === null) continue
+      const entry = groups.get(key) ?? { qs: [], passages: [] }
       if (!entry.passages.some((p) => p.quote === c.quote)) entry.passages.push(c)
-      if (!seen.has(n)) entry.qs.push(q)
-      seen.add(n)
-      byArticle.set(n, entry)
+      if (!entry.qs.includes(q)) entry.qs.push(q)
+      groups.set(key, entry)
     }
   }
+  return groups
+}
+
+function articlePages(input: SiteInput): Page[] {
+  const byArticle = groupCited(input, articleOf)
   const nums = [...byArticle.keys()].sort(natural)
   const name = (n: string) => {
     const t = input.articleTitles?.[n]
@@ -169,17 +179,7 @@ const OWN_PAGES = new Set(['ai-act', 'ai-omnibus']) // covered article by articl
 
 /** One page per other EU act (and other pinned text) that verified questions cite: /acts/<doc>/. */
 function actPages(input: SiteInput): Page[] {
-  const byDoc = new Map<string, { qs: Question[]; passages: Citation[] }>()
-  for (const q of input.questions) {
-    if (!q.verified) continue
-    for (const c of q.sources ?? []) {
-      if (OWN_PAGES.has(c.doc) || !input.sources[c.doc]) continue
-      const entry = byDoc.get(c.doc) ?? { qs: [], passages: [] }
-      if (!entry.passages.some((p) => p.quote === c.quote)) entry.passages.push(c)
-      if (!entry.qs.includes(q)) entry.qs.push(q)
-      byDoc.set(c.doc, entry)
-    }
-  }
+  const byDoc = groupCited(input, (c) => (OWN_PAGES.has(c.doc) || !input.sources[c.doc] ? null : c.doc))
   const docs = [...byDoc.keys()]
     .filter((d) => byDoc.get(d)!.qs.length >= ACT_PAGE_MIN)
     .sort((a, b) => byDoc.get(b)!.qs.length - byDoc.get(a)!.qs.length || natural(a, b))

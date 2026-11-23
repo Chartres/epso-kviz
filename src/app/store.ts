@@ -1,4 +1,4 @@
-import type { CategoryName, Choice, Citation, Question } from '@/domain/types'
+import type { CategoryName, Choice, Citation } from '@/domain/types'
 import type { Rng } from '@/domain/rng'
 import {
   createSession,
@@ -16,6 +16,7 @@ import {
 import { buildExam, evaluateExam, EXAM, type ExamResult } from '@/domain/exam'
 import {
   emptyProgress,
+  mergeProgress,
   recordAnswer,
   recordLessonComplete,
   toggleBookmark,
@@ -24,7 +25,7 @@ import {
 import { buildLesson } from '@/domain/lesson'
 import { setCollected } from '@/domain/commonplace'
 import { shuffle } from '@/domain/rng'
-import { getQuestion } from '@/domain/questions'
+import { questionsByIds } from '@/domain/questions'
 import { defaultSettings, type QuestionFirstMode, type Settings } from '@/domain/settings'
 import { restoreRound, snapshotRound, type RoundSnapshot } from '@/domain/round'
 
@@ -50,6 +51,8 @@ export interface AppState {
   settings: Settings
   /** A lesson or practice round left early, waiting on home (domain/round.ts). */
   unfinished: RoundSnapshot | null
+  /** The review session reviews one round's mistakes, not the global queue. */
+  reviewMistakes: boolean
 }
 
 export function initialState(): AppState {
@@ -64,11 +67,14 @@ export function initialState(): AppState {
     search: '',
     settings: defaultSettings(),
     unfinished: null,
+    reviewMistakes: false,
   }
 }
 
 export type Action =
   | { type: 'hydrate'; progress: ProgressData }
+  /** The sign-in merge of `base` (progress when the fetch began) with the cloud. */
+  | { type: 'syncMerged'; base: ProgressData; progress: ProgressData }
   | { type: 'setCategories'; categories: Set<CategoryName> }
   | { type: 'setSearch'; search: string }
   | { type: 'setQuestionFirst'; mode: QuestionFirstMode }
@@ -106,10 +112,12 @@ function begin(state: AppState, mode: Mode, session: SessionState): AppState {
 function trackUnfinished(prev: AppState, next: AppState): AppState {
   if (next.session === prev.session || !next.session || next.mode === 'exam') return next
   if (next.session.records.length === 0) return next
-  const unfinished = snapshotRound(next.mode, next.session, {
-    categories: next.selectedCategories,
-    search: next.search,
-  })
+  const unfinished = snapshotRound(
+    next.mode,
+    next.session,
+    { categories: next.selectedCategories, search: next.search },
+    next.reviewMistakes,
+  )
   return unfinished === next.unfinished ? next : { ...next, unfinished }
 }
 
@@ -121,6 +129,18 @@ function step(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'hydrate':
       return { ...state, progress: action.progress }
+
+    case 'syncMerged': {
+      if (state.progress === action.base) return { ...state, progress: action.progress }
+      // Progress changed while the fetch was in flight: merge it in rather than drop it. Bookmarks
+      // have no tombstones, so one removed since `base` would come back from the union: drop it.
+      const merged = mergeProgress(state.progress, action.progress)
+      const removed = action.base.bookmarks.filter((b) => !state.progress.bookmarks.includes(b))
+      return {
+        ...state,
+        progress: { ...merged, bookmarks: merged.bookmarks.filter((b) => !removed.includes(b)) },
+      }
+    }
 
     case 'setCategories':
       return { ...state, selectedCategories: action.categories }
@@ -149,10 +169,8 @@ function step(state: AppState, action: Action): AppState {
 
     case 'startReview': {
       // ids: one round's mistakes (results screen); otherwise the global review queue.
-      const qs = action.ids
-        ? action.ids.map((id) => getQuestion(id)).filter((q): q is Question => q !== undefined)
-        : reviewQuestions(state.progress)
-      return begin(state, 'review', createSession(qs))
+      const qs = action.ids ? questionsByIds(action.ids) : reviewQuestions(state.progress)
+      return { ...begin(state, 'review', createSession(qs)), reviewMistakes: !!action.ids }
     }
 
     case 'startBookmarks':
@@ -172,7 +190,7 @@ function step(state: AppState, action: Action): AppState {
       const snap = state.unfinished
       const session = snap ? restoreRound(snap) : null
       if (!snap || !session) return { ...state, unfinished: null }
-      const resumed = begin(state, snap.mode, session)
+      const resumed = { ...begin(state, snap.mode, session), reviewMistakes: !!snap.mistakes }
       return snap.filter
         ? { ...resumed, selectedCategories: new Set(snap.filter.categories), search: snap.filter.search }
         : resumed
@@ -214,7 +232,7 @@ function step(state: AppState, action: Action): AppState {
     }
 
     case 'finishExam': {
-      if (!state.session) return state
+      if (!state.session || state.mode !== 'exam') return state
       return {
         ...state,
         view: 'results',

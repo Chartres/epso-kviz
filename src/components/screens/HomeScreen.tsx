@@ -2,7 +2,7 @@ import { AuthPanel } from '@/components/AuthPanel'
 import { useMemo } from 'react'
 import { useApp } from '@/app/AppContext'
 import { ALL_QUESTIONS } from '@/domain/questions'
-import { summary, isNextDay } from '@/domain/progress'
+import { summary, liveStreak } from '@/domain/progress'
 import { reviewQuestions } from '@/domain/selection'
 import { LESSON_SIZE } from '@/domain/lesson'
 import { timeSeed, makeRng } from '@/domain/rng'
@@ -19,13 +19,7 @@ export function HomeScreen() {
     () => reviewQuestions(state.progress).length,
     [state.progress],
   )
-  // Show 0 when the streak is stale: lastDate is neither today nor yesterday.
-  const streakData = state.progress.streak
-  const today = todayStr()
-  const streakAlive =
-    !!streakData.lastDate &&
-    (streakData.lastDate === today || isNextDay(streakData.lastDate, today))
-  const streak = streakAlive ? streakData.current : 0
+  const streak = liveStreak(state.progress.streak, todayStr())
   const rng = () => makeRng(timeSeed())
 
   return (

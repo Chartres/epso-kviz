@@ -19,7 +19,12 @@ export const supabaseStore: RemoteProgressStore = {
       .eq('app', APP)
       .maybeSingle()
     if (error) throw error
-    return sanitizeProgress(data?.data)
+    if (data?.data == null) return null // no row yet
+    // A row we can't read (a newer build's version, malformed) is not an empty cloud: throw so
+    // sync treats it as a failed fetch and pushes nothing over it.
+    const progress = sanitizeProgress(data.data)
+    if (!progress) throw new Error('unreadable progress row')
+    return progress
   },
 
   async save(userId: string, data: ProgressData): Promise<void> {

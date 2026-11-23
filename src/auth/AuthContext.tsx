@@ -2,9 +2,11 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
+import type { Session } from '@supabase/supabase-js'
 import { supabase, isAuthConfigured } from './supabase'
 import { identify } from '../analytics'
 
@@ -19,28 +21,33 @@ interface AuthContextValue {
   user: AuthUser | null
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>
-  signOut: () => Promise<void>
+  signOut: () => Promise<{ ok: boolean; error?: string }>
+  /** Awaited by signOut while the session still exists (requests after it go out as anon). */
+  beforeSignOut: { current: (() => Promise<void>) | null }
 }
+
+/** How long signOut waits for the before-sign-out flush. */
+const SIGN_OUT_FLUSH_MS = 5000
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(isAuthConfigured)
+  const beforeSignOut = useRef<(() => Promise<void>) | null>(null)
 
   useEffect(() => {
     if (!supabase) return
-    supabase.auth.getSession().then(({ data }) => {
-      const u = data.session?.user
-      setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
-      identify(u?.id ?? null) // cross-product identity on the shared platform
-      setLoading(false)
-    }).catch(() => setLoading(false)) // storage or network failure: carry on signed out
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    function applySession(session: Session | null) {
       const u = session?.user
       setUser(u ? { id: u.id, email: u.email ?? undefined } : null)
-      identify(u?.id ?? null)
-    })
+      identify(u?.id ?? null) // cross-product identity on the shared platform
+    }
+    supabase.auth.getSession().then(({ data }) => {
+      applySession(data.session)
+      setLoading(false)
+    }).catch(() => setLoading(false)) // storage or network failure: carry on signed out
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => applySession(session))
     return () => sub.subscription.unsubscribe()
   }, [])
 
@@ -48,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     configured: isAuthConfigured,
     loading,
     user,
+    beforeSignOut,
     async signInWithGoogle() {
       if (!supabase) return
       await supabase.auth.signInWithOAuth({
@@ -64,8 +72,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return error ? { ok: false, error: error.message } : { ok: true }
     },
     async signOut() {
-      if (!supabase) return
-      await supabase.auth.signOut()
+      if (!supabase) return { ok: false, error: 'Sign-in is not configured.' }
+      // Bounded: a hung flush must not leave sign-out pending forever.
+      const flush = beforeSignOut.current?.().catch(() => {})
+      await Promise.race([flush, new Promise((r) => setTimeout(r, SIGN_OUT_FLUSH_MS))])
+      const { error } = await supabase.auth.signOut()
+      return error ? { ok: false, error: error.message } : { ok: true }
     },
   }
 

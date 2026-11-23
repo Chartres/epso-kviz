@@ -2,11 +2,9 @@ import type { CategoryName, ExamConfig, Question } from './types'
 import { META, questionsForGroup } from './questions'
 import { sample, shuffle, type Rng } from './rng'
 import { score as sessionScore, type SessionState } from './session'
-import { statFor, type ProgressData } from './progress'
+import { isUnseen, type ProgressData } from './progress'
 
 export const EXAM: ExamConfig = META.exam
-
-const isUnseen = (p: ProgressData) => (q: Question) => statFor(p, q.id).seen === 0
 
 /**
  * Assemble a mock exam matching the EPSO/AD/430/26 field-related MCQ
@@ -25,8 +23,8 @@ export function buildExam(rng: Rng, progress?: ProgressData): Question[] {
       picked.push(...sample(pool, part.count, rng))
       continue
     }
-    const fresh = pool.filter(isUnseen(progress))
-    const seen = pool.filter((q) => !isUnseen(progress)(q))
+    const fresh = pool.filter((q) => isUnseen(progress, q.id))
+    const seen = pool.filter((q) => !isUnseen(progress, q.id))
     const first = sample(fresh, Math.min(part.count, fresh.length), rng)
     picked.push(...first, ...sample(seen, part.count - first.length, rng))
   }
@@ -35,7 +33,7 @@ export function buildExam(rng: Rng, progress?: ProgressData): Question[] {
 
 /** How many questions of a drawn exam were unseen when it was drawn. */
 export function unseenIn(exam: Question[], progress: ProgressData): number {
-  return exam.filter(isUnseen(progress)).length
+  return exam.filter((q) => isUnseen(progress, q.id)).length
 }
 
 export interface CategoryBreakdown {
@@ -78,7 +76,7 @@ export function evaluateExam(s: SessionState): ExamResult {
 export function unseenAvailable(progress: ProgressData): number {
   return EXAM.composition.reduce(
     (n, part) =>
-      n + Math.min(part.count, questionsForGroup(part.group).filter(isUnseen(progress)).length),
+      n + Math.min(part.count, questionsForGroup(part.group).filter((q) => isUnseen(progress, q.id)).length),
     0,
   )
 }

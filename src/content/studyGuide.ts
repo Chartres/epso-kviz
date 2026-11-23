@@ -9,16 +9,11 @@ export interface LessonSource {
   label: string
   url: string
 }
-export interface Figure {
-  img: string
-  caption: string
-}
 export interface Lesson {
   id: string
   title: string
   html: string
   source: LessonSource
-  figures?: Figure[]
 }
 
 const AI_ACT: LessonSource = {

@@ -72,13 +72,20 @@ export function emptyStreak(): Streak {
 }
 
 /** Return a valid Streak from untrusted input (localStorage, cloud), falling back to emptyStreak. */
-export function sanitizeStreak(raw: unknown): Streak {
+export function sanitizeStreak(raw: unknown, now: number = Date.now()): Streak {
   if (!raw || typeof raw !== 'object') return emptyStreak()
   const r = raw as Record<string, unknown>
   // NaN >= 0 is false, so this rejects NaN and negatives in one check.
   const current = typeof r.current === 'number' && r.current >= 0 ? r.current : 0
   const best = typeof r.best === 'number' && r.best >= 0 ? r.best : 0
   const lastDate = typeof r.lastDate === 'string' ? r.lastDate : ''
+  // A local date is at most one day ahead of UTC, but the reading device's own clock may be a few
+  // days behind: allow a week of slack so a slow device doesn't wipe a valid streak. Later than
+  // that is a device clock set far wrong: kept, it would win every merge and block
+  // recordLessonComplete on every device until then. Within the slack a fast clock's date blocks
+  // it only until the real date catches up (at most a week).
+  const latest = new Date(now + 7 * 86_400_000).toISOString().slice(0, 10)
+  if (lastDate > latest) return { current: 0, best, lastDate: '' }
   return { current, best, lastDate }
 }
 
@@ -116,15 +123,15 @@ export function sanitizeProgress(raw: unknown): ProgressData | null {
   const stats: Record<number, QuestionStat> = {}
   for (const [key, val] of Object.entries(rawStats)) {
     const s = sanitizeStat(val)
-    if (s) stats[Number(key)] = s
+    if (s && Number.isInteger(Number(key))) stats[Number(key)] = s
   }
   return {
     version: PROGRESS_VERSION,
     stats,
-    bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks : [],
+    bookmarks: Array.isArray(r.bookmarks) ? r.bookmarks.filter((b) => Number.isInteger(b)) : [],
     ...withCommonplace(sanitizeCommonplace(r.commonplace)),
     streak: sanitizeStreak(r.streak),
-    updatedAt: r.updatedAt ?? 0,
+    updatedAt: Number.isFinite(r.updatedAt) ? r.updatedAt! : 0,
   }
 }
 
@@ -148,12 +155,17 @@ export function isNextDay(prev: string, today: string): boolean {
   return b - a === 86_400_000
 }
 
+/** The streak to show on `today`: 0 when it is stale (lastDate neither today nor yesterday). */
+export function liveStreak(s: Streak, today: string): number {
+  return s.lastDate === today || isNextDay(s.lastDate, today) ? s.current : 0
+}
+
 /** Record that the learner completed a lesson on `today` (YYYY-MM-DD). */
 export function recordLessonComplete(
   p: ProgressData,
   today: string,
 ): ProgressData {
-  const s = p.streak ?? emptyStreak()
+  const s = p.streak
   if (s.lastDate === today) return p // already counted today
   if (s.lastDate > today) return p // dated ahead (another device's clock or time zone): keep it
   const current = isNextDay(s.lastDate, today) ? s.current + 1 : 1
@@ -173,6 +185,11 @@ export function statFor(p: ProgressData, id: number): QuestionStat {
       lastCorrect: false,
     }
   )
+}
+
+/** Never answered on this device or account. */
+export function isUnseen(p: ProgressData, id: number): boolean {
+  return statFor(p, id).seen === 0
 }
 
 export function recordAnswer(
@@ -275,7 +292,10 @@ export function summary(
   allQuestions: Question[],
 ): ProgressSummary {
   const byCategory: Partial<Record<CategoryName, CategorySummary>> = {}
+  // Stats of questions no longer in the bank don't count anywhere in the summary.
+  const inBank: ProgressData = { ...p, stats: {} }
   for (const q of allQuestions) {
+    if (p.stats[q.id]) inBank.stats[q.id] = p.stats[q.id]
     const c = (byCategory[q.cat] ??= { total: 0, seen: 0, mastered: 0 })
     c.total++
     const s = p.stats[q.id]
@@ -286,9 +306,9 @@ export function summary(
   }
   return {
     total: allQuestions.length,
-    answered: answeredCount(p),
-    mastered: masteredCount(p),
-    accuracy: accuracy(p),
+    answered: answeredCount(inBank),
+    mastered: masteredCount(inBank),
+    accuracy: accuracy(inBank),
     byCategory,
   }
 }
@@ -338,14 +358,12 @@ export function mergeProgress(
     if (!existing || s.lastSeen >= existing.lastSeen) stats[id] = s
     if (existing) stats[id] = withEarliestFirst(stats[id], existing === stats[id] ? s : existing)
   }
-  const sa = a.streak ?? emptyStreak()
-  const sb = b.streak ?? emptyStreak()
   return {
     version: PROGRESS_VERSION,
     stats,
     bookmarks: [...new Set([...a.bookmarks, ...b.bookmarks])],
     ...withCommonplace(mergeCommonplace(a.commonplace, b.commonplace)),
-    streak: mergeStreak(sa, sb),
+    streak: mergeStreak(a.streak, b.streak),
     updatedAt: Math.max(a.updatedAt, b.updatedAt),
   }
 }

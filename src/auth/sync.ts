@@ -6,27 +6,53 @@ export interface RemoteProgressStore {
   save(userId: string, data: ProgressData): Promise<void>
 }
 
+const byKey = ([a]: [string, unknown], [b]: [string, unknown]) => (a < b ? -1 : a > b ? 1 : 0)
+
+/**
+ * JSON with object keys sorted (jsonb returns them reordered, e.g. commonplace entries) and
+ * bookmarks sorted (a set: shuffled into rounds, looked up with includes). Other arrays keep order.
+ */
+function canonical(p: ProgressData): string {
+  return JSON.stringify({ ...p, bookmarks: [...p.bookmarks].sort((a, b) => a - b) }, (_k, v) =>
+    v && typeof v === 'object' && !Array.isArray(v) ? Object.fromEntries(Object.entries(v).sort(byKey)) : v,
+  )
+}
+
+/** How a sync ended: cloud unreadable (local returned as is), cloud already held it, or merged. */
+export type SyncStatus = 'offline' | 'unchanged' | 'merged'
+
 /**
  * Reconcile local and cloud progress: pull remote, merge (last-write-wins per
- * question, union bookmarks), push the merged result, and return it. On any
+ * question, union bookmarks), push the merged result (unless the cloud already holds it), and return it. On any
  * network failure we keep working locally — sync is best-effort, never blocking.
  */
-export async function syncProgress(
+export async function reconcileProgress(
   store: RemoteProgressStore,
   userId: string,
   local: ProgressData,
-): Promise<ProgressData> {
+): Promise<{ progress: ProgressData; status: SyncStatus }> {
   let remote: ProgressData | null
   try {
     remote = await store.fetch(userId)
   } catch {
-    return local
+    return { progress: local, status: 'offline' }
   }
   const merged = remote ? mergeProgress(local, remote) : local
+  // Cloud already holds this: return its row as is and send nothing.
+  if (remote && canonical(merged) === canonical(remote)) return { progress: remote, status: 'unchanged' }
   try {
     await store.save(userId, merged)
   } catch {
     // keep the merged view locally even if the upload failed
   }
-  return merged
+  return { progress: merged, status: 'merged' }
+}
+
+/** reconcileProgress, progress only. */
+export async function syncProgress(
+  store: RemoteProgressStore,
+  userId: string,
+  local: ProgressData,
+): Promise<ProgressData> {
+  return (await reconcileProgress(store, userId, local)).progress
 }

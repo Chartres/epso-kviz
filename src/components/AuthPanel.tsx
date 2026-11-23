@@ -67,11 +67,16 @@ export function AuthPanel() {
               <p className="mb-3 truncate text-sm text-steel-200">{user.email}</p>
               <button
                 type="button"
-                onClick={() => signOut()}
+                onClick={async () => {
+                  setError(null)
+                  const res = await signOut()
+                  if (!res.ok) setError(res.error ?? 'Something went wrong.')
+                }}
                 className="w-full rounded-card border border-steel-600 px-4 py-2 text-sm font-semibold text-steel-200 hover:border-steel-400"
               >
                 Sign out
               </button>
+              {error && <p className="mt-2 text-xs text-rust-400">{error}</p>}
             </>
           ) : (
             <>
